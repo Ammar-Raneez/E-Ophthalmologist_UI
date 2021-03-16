@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "846643577351",
+    "project_id": "diabetic-retinopathy-3584e",
+    "storage_bucket": "diabetic-retinopathy-3584e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:846643577351:android:aa6777129fed45e13f60a2",
+        "android_client_info": {
+          "package_name": "com.retinopathy.ui"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "846643577351-g1oet8k17jjtj1fiaktj3rjr162ruovt.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBM3ETEL7m0ncS6iTuD30KB5wh-KvWffB8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "846643577351-g1oet8k17jjtj1fiaktj3rjr162ruovt.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

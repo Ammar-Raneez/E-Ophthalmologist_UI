@@ -1,0 +1,197 @@
+import 'dart:ui';
+import 'dart:io';
+import 'package:dio/dio.dart';
+import 'package:flutter/rendering.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:flutter/material.dart';
+import 'package:ui/components/alert_widget.dart';
+import 'package:ui/components/rounded_button.dart';
+import 'package:ui/constants.dart';
+import 'package:modal_progress_hud/modal_progress_hud.dart';
+
+class DiagnosisScreen extends StatefulWidget {
+  static String id = "diagnosisScreen";
+
+  @override
+  _DiagnosisScreenState createState() => _DiagnosisScreenState();
+}
+
+class _DiagnosisScreenState extends State<DiagnosisScreen> {
+  File imageFile;
+  Dio dio = new Dio();
+  bool showSpinner = false;
+
+  createAlertDialog(
+      BuildContext context, String title, String message, int status) {
+    return showDialog(
+      context: context,
+      builder: (context) {
+        return AlertWidget(
+          title: title,
+          message: message,
+          status: status,
+        );
+      },
+    );
+  }
+
+  //  Open phone gallery
+  _openGallery() async {
+    var selectedPicture = await ImagePicker.pickImage(source: ImageSource.gallery);
+
+    setState(() {
+      imageFile = selectedPicture;
+    });
+  }
+
+  _detect() async {
+    if (imageFile == null) {
+      createAlertDialog(
+          context, "Error", "There is no image selected or captured!", 404);
+    } else {
+      setState(() {
+        showSpinner = true;
+      });
+      try {
+        String fileName = imageFile.path.split('/').last;
+
+        FormData formData = new FormData.fromMap({
+          "file":
+          await MultipartFile.fromFile(imageFile.path, filename: fileName),
+        });
+
+        //  Response object, formData is sent to the provided API
+        Response response = await dio.post(
+          "http://192.168.8.100/predict",
+          data: formData,
+        );
+        print(response);
+
+        setState(() {
+          showSpinner = false;
+        });
+
+        //  status alerts based on success
+        if (response != null) {
+          createAlertDialog(
+              context, "Diagnosis", response.toString(), 201);
+        } else {
+          createAlertDialog(
+              context, "Error", "Oops something went wrong!", 404);
+        }
+      } catch (e) {
+        createAlertDialog(context, "Error", e.message, 404);
+
+        setState(() {
+          showSpinner = false;
+        });
+      }
+    }
+  }
+
+  //  Open phone camera for on the spot photos
+  _openCamera() async {
+    var selectedPicture =
+    await ImagePicker.pickImage(source: ImageSource.camera);
+
+    setState(() {
+      imageFile = selectedPicture;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return SafeArea(
+      child: Scaffold(
+        body: ModalProgressHUD(
+          inAsyncCall: showSpinner,
+          child: Container(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                Expanded(
+                  flex: 6,
+                  child: Material(
+                    color: Colors.white,
+
+                    child: Padding(
+                      padding: const EdgeInsets.all(16.0),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: [
+                          contentText("DIABETIC RETINOPATHY", Colors.grey),
+                          contentText("Diagnosis", Colors.lightBlueAccent),
+                          Expanded(
+                            child: Padding(
+                              padding: const EdgeInsets.all(20.0),
+                              child: imageFile == null
+                                  ? Image.asset('images/uploadImageGrey1.png')
+                                  : Image.file(
+                                imageFile,
+                                width: 500,
+                                height: 500,
+                              ),
+                            ),
+                          ),
+
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              diagnosisRaisedButton(_openCamera, Icons.camera_alt_rounded),
+                              SizedBox(
+                                width: 20.0,
+                              ),
+                              diagnosisRaisedButton(_openGallery, Icons.photo),
+                            ],
+                          ),
+                          SizedBox(
+                            height: 20.0,
+                          ),
+                          RoundedButton(
+                            onPressed: () {
+                              _detect();
+                            },
+                            colour: Colors.lightBlueAccent,
+                            title: 'UPLOAD',
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Center contentText(String text, Color color) {
+    return Center(
+      child: Text(
+        text,
+        style: kTextStyle.copyWith(
+          color: color,
+          fontSize: 25,
+        ),
+      ),
+    );
+  }
+
+  RaisedButton diagnosisRaisedButton(Function onPress, IconData icon) {
+    return RaisedButton(
+      elevation: 3.0,
+      padding: EdgeInsets.symmetric(
+          horizontal: 25.0, vertical: 10.0),
+      color: Colors.grey,
+      onPressed: onPress,
+      child: Icon(
+        icon,
+        color: Colors.white,
+      ),
+    );
+  }
+}
