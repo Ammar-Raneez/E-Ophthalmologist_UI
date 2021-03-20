@@ -62,7 +62,7 @@ class _DiagnosisScreenState extends State<DiagnosisScreen> {
 
         //  Response object, formData is sent to the provided API
         Response response = await dio.post(
-          "http://192.168.8.100/predict",
+          "https://bisfyp.azurewebsites.net/api/classify",
           data: formData,
         );
         print(response);
