@@ -71,7 +71,7 @@ class _CurrentScreenState extends State<CurrentScreen> {
                 },
               )
             ],
-            backgroundColor: Color(0xff01CDFA),
+            backgroundColor: Colors.indigo,
           ),
           body: PageView(
             controller: _pageController,
@@ -89,9 +89,9 @@ class _CurrentScreenState extends State<CurrentScreen> {
           ),
           //  Bottom Nav bar - navigate between respective pages
           bottomNavigationBar: BottomNavigationBar(
-            selectedIconTheme: IconThemeData(color: Color(0xff01CDFA)),
+            selectedIconTheme: IconThemeData(color: Colors.indigo),
             unselectedIconTheme: IconThemeData(color: Colors.grey),
-            backgroundColor: Color(0xff01CDFA),
+            backgroundColor: Colors.indigo,
             currentIndex: currentIndex,
             showUnselectedLabels: false,
             showSelectedLabels: false,

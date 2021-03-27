@@ -283,7 +283,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                   "HDL": hdl,
                                   "gender": gender.toString(),
                                   "DM Type": dm.toString(),
-                                  "Smoker?": smoker.toString(),
+                                  "smoker": smoker.toString(),
                                   'timestamp': Timestamp.now(),
                                 });
 

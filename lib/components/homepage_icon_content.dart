@@ -14,7 +14,8 @@ class HomePageIconContent extends StatelessWidget {
       children: <Widget>[
         Icon(
           icon,
-          size: 60.0,
+          size: 50.0,
+          color: Colors.indigo,
         ),
         SizedBox(
           height: 15.0,
