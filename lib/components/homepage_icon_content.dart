@@ -3,9 +3,10 @@ import 'package:ui/constants.dart';
 
 class HomePageIconContent extends StatelessWidget {
   final String iconLabel;
+  final String iconValue;
   final IconData icon;
 
-  HomePageIconContent(this.iconLabel, this.icon);
+  HomePageIconContent(this.iconLabel, this.iconValue, this.icon);
 
   @override
   Widget build(BuildContext context) {
@@ -18,11 +19,18 @@ class HomePageIconContent extends StatelessWidget {
           color: Colors.indigo,
         ),
         SizedBox(
+          height: 10.0,
+        ),
+        Text(
+            iconLabel,
+            style: kHomePageLabelTextStyle
+        ),
+        SizedBox(
           height: 15.0,
         ),
         Text(
-          iconLabel,
-          style: kHomePageLabelTextStyle
+          iconValue,
+          style: kHomePageValueTextStyle
         ),
       ],
     );

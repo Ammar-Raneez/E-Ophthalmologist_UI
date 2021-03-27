@@ -13,7 +13,7 @@ class HomePageReusableCard extends StatelessWidget {
       child: Container(
         child: cardContent,
         margin: EdgeInsets.all(5.0),
-        height: 120,
+        height: 150,
         decoration: BoxDecoration(
           color: color,
           borderRadius: BorderRadius.circular(10.0),

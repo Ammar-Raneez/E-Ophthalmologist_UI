@@ -59,11 +59,11 @@ class _HomeScreenState extends State<HomeScreen> {
     });
   }
 
-  Expanded iconCard(IconData icon, String genderText) {
+  Expanded iconCard(IconData icon, String label, String value) {
     return Expanded(
       child: HomePageReusableCard(
-          color: kHomePageInactiveCardColor,
-          cardContent: HomePageIconContent(genderText, icon),
+          color: Colors.white,
+          cardContent: HomePageIconContent(label, value, icon),
       ),
     );
   }
@@ -103,104 +103,96 @@ class _HomeScreenState extends State<HomeScreen> {
               children: <Widget>[
                 Row(
                   children: <Widget>[
-                    gender == "Male" ? iconCard(FontAwesomeIcons.mars, gender.toString()) : iconCard(FontAwesomeIcons.venus, gender.toString()),
-                    dm == "Type I" ? iconCard(FontAwesomeIcons.eye, dm.toString()) : iconCard(FontAwesomeIcons.eye, dm.toString()),
-                    iconCard(FontAwesomeIcons.calendar, "Duration"),
-                    smoker == "No" ? iconCard(FontAwesomeIcons.smokingBan, smoker.toString()) : iconCard(FontAwesomeIcons.smoking, smoker.toString()),
+                    gender == "Male" ? iconCard(FontAwesomeIcons.mars, "GENDER", gender.toString()) : iconCard(FontAwesomeIcons.venus, "GENDER", gender.toString()),
+                    dm == "Type I" ? iconCard(FontAwesomeIcons.eye, "TYPE", dm.toString()) : iconCard(FontAwesomeIcons.eye, "TYPE", dm.toString()),
+                    iconCard(FontAwesomeIcons.calendar, "DURATION", "6 Years"),
+                    smoker == "No" ? iconCard(FontAwesomeIcons.smokingBan, "SMOKER?", smoker.toString()) : iconCard(FontAwesomeIcons.smoking, "SMOKER?", smoker.toString()),
                   ],
                 ),
                 HomePageReusableCard(
+                  color: Colors.white,
                   cardContent: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
                       Text(
                         'BMI',
-                        style: kHomePageLabelTextStyle,
+                        style: kHomePageMainLabelTextStyle,
                       ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          Text(
-                            bmi.toString(),
-                            style: kHomePageNumberTextStyle,
-                          ),
-                          Text(
-                            'cm',
-                            style: kHomePageLabelTextStyle,
-                          ),
-                        ],
+                      SizedBox(height: 25.0,),
+                      Text(
+                        'kg/m2',
+                        style: kHomePageUnitTextStyle,
+                      ),
+                      SizedBox(height: 5.0,),
+                      Text(
+                        bmi.toString(),
+                        style: kHomePageNumberTextStyle,
                       ),
                     ],
                   ),
                 ),
                 HomePageReusableCard(
+                  color: Colors.white,
                   cardContent: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
                       Text(
                         'A1C',
-                        style: kHomePageLabelTextStyle,
+                        style: kHomePageMainLabelTextStyle,
                       ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          Text(
-                            a1c.toString(),
-                            style: kHomePageNumberTextStyle,
-                          ),
-                          Text(
-                            'cm',
-                            style: kHomePageLabelTextStyle,
-                          ),
-                        ],
+                      SizedBox(height: 25.0,),
+                      Text(
+                        'mmol/mol',
+                        style: kHomePageUnitTextStyle,
+                      ),
+                      SizedBox(height: 5.0,),
+                      Text(
+                        a1c.toString(),
+                        style: kHomePageNumberTextStyle,
                       ),
                     ],
                   ),
                 ),
                 HomePageReusableCard(
+                  color: Colors.white,
                   cardContent: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
                       Text(
                         'LDL',
-                        style: kHomePageLabelTextStyle,
+                        style: kHomePageMainLabelTextStyle,
                       ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          Text(
-                            ldl.toString(),
-                            style: kHomePageNumberTextStyle,
-                          ),
-                          Text(
-                            'cm',
-                            style: kHomePageLabelTextStyle,
-                          ),
-                        ],
+                      SizedBox(height: 25.0,),
+                      Text(
+                        'mg/dL',
+                        style: kHomePageUnitTextStyle,
+                      ),
+                      SizedBox(height: 5.0,),
+                      Text(
+                        ldl.toString(),
+                        style: kHomePageNumberTextStyle,
                       ),
                     ],
                   ),
                 ),
                 HomePageReusableCard(
+                  color: Colors.white,
                   cardContent: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
                       Text(
                         'HDL',
-                        style: kHomePageLabelTextStyle,
+                        style: kHomePageMainLabelTextStyle,
                       ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          Text(
-                            hdl.toString(),
-                            style: kHomePageNumberTextStyle,
-                          ),
-                          Text(
-                            'cm',
-                            style: kHomePageLabelTextStyle,
-                          ),
-                        ],
+                      SizedBox(height: 25.0,),
+                      Text(
+                        'mg/dL',
+                        style: kHomePageUnitTextStyle,
+                      ),
+                      SizedBox(height: 5.0,),
+                      Text(
+                        hdl.toString(),
+                        style: kHomePageNumberTextStyle,
                       ),
                     ],
                   ),
