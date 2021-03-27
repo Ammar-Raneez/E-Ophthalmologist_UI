@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
-class HomeArticle extends StatelessWidget {
+class BlogArticle extends StatelessWidget {
   final String cardTitle;
   final Color cardColor;
   final String textColor;
 
-  HomeArticle(
+  BlogArticle(
       {@required this.cardTitle,
       @required this.cardColor,
       @required this.textColor});

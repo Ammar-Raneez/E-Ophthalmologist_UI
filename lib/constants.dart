@@ -71,6 +71,7 @@ const kTextStyle = TextStyle(
 // Registration & Edit Profile Usage
 enum Gender { Male, Female }
 enum DMType { Type1, Type2 }
+enum Smoker { Yes, No }
 
 Padding registrationInputLabel(String text) {
   return Padding(
@@ -104,3 +105,36 @@ Padding registrationTextField(
     ),
   );
 }
+
+
+
+//home page
+const kHomePageLabelTextStyle = TextStyle(
+  fontSize: 18.0,
+  color: Color(0xff8d8e98),
+);
+
+const kHomePageNumberTextStyle = TextStyle(
+    fontSize: 40.0,
+    fontWeight: FontWeight.w900
+);
+
+const kHomePageTitleTextStyle = TextStyle(
+    fontSize: 50.0,
+    fontWeight: FontWeight.bold
+);
+
+const kHomePageBMITextStyle = TextStyle(
+    fontSize: 100.0,
+    fontWeight: FontWeight.bold
+);
+
+const kHomePageBodyTextStyle = TextStyle(
+    fontSize: 18.0
+);
+
+const Color kHomePageCardColor = Color(0xffffffff);
+const Color kHomePageFooterColor = Color(0xffeb1555);
+const Color kHomePageActiveCardColor = Color(0xffffffff);
+const Color kHomePageInactiveCardColor = Color(0xffffffff);
+const double kHomePageFooterHeight = 50.0;

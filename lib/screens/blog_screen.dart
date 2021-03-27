@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:ui/components/homepage_article.dart';
+import 'package:ui/components/blogpage_article.dart';
 
 final _firestore = FirebaseFirestore.instance;
 
@@ -46,25 +46,25 @@ class _BlogScreenState extends State<BlogScreen> {
                     child: ListView(
                       children: [
                         Container(
-                            child: HomeArticle(
+                            child: BlogArticle(
                           cardTitle: 'Retinopathy Stages',
                           cardColor: Color(0xffeeeeee),
                           textColor: '0xFF757575',
                         )),
                         Container(
-                            child: HomeArticle(
+                            child: BlogArticle(
                           cardTitle: 'Diabetes Types',
                           cardColor: Colors.lightBlueAccent,
                           textColor: '0xFFFFFFFF',
                         )),
                         Container(
-                            child: HomeArticle(
+                            child: BlogArticle(
                           cardTitle: 'Guidelines',
                           cardColor: Color(0xffeeeeee),
                           textColor: '0xFF757575',
                         )),
                         Container(
-                            child: HomeArticle(
+                            child: BlogArticle(
                           cardTitle: 'Treatments',
                           cardColor: Colors.lightBlueAccent,
                           textColor: '0xFFFFFFFF',

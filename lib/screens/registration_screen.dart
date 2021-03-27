@@ -30,6 +30,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
   DateTime startDate = DateTime.now();
   String selectedDate = DateFormat("yyyy-MM-dd").format(DateTime.now());
   var gender;
+  var smoker;
   var dm;
 
   bool visibleFavouriteFood = false;
@@ -199,6 +200,22 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                     }
                   ),
 
+                  registrationInputLabel("Smoker?"),
+                  registrationRadioButton("Yes", Smoker.Yes, smoker,
+                          (value) {
+                        setState(() {
+                          smoker = value;
+                        });
+                      }
+                  ),
+                  registrationRadioButton("No", Smoker.No, smoker,
+                          (value) {
+                        setState(() {
+                          smoker = value;
+                        });
+                      }
+                  ),
+
                   Padding(
                     padding: const EdgeInsets.all(10.0),
                     child: TextField(
@@ -253,6 +270,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                           selectedDate == null ||
                           gender == null ||
                           dm == null ||
+                          smoker == null ||
                           username == "" ||
                           email == "" ||
                           password == "" ||
@@ -261,7 +279,8 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                           ldl == "" ||
                           hdl == "" ||
                           dm == "" ||
-                          gender == "") {
+                          gender == "" ||
+                          smoker == "") {
                         createAlertDialog(context, "Error",
                             "Please fill all the given fields to proceed", 404);
                       } else {
@@ -285,6 +304,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                             "HDL": hdl,
                             "gender": gender.toString(),
                             "DM Type": dm.toString(),
+                            "Smoker?": smoker.toString(),
                             'timestamp': Timestamp.now(),
                           });
 
