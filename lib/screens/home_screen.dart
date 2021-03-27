@@ -7,6 +7,7 @@ import 'package:ui/components/homepage_icon_content.dart';
 import 'package:ui/components/homepage_reusable_card.dart';
 import 'package:ui/constants.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:percent_indicator/percent_indicator.dart';
 
 final _firestore = FirebaseFirestore.instance;
 
@@ -101,6 +102,21 @@ class _HomeScreenState extends State<HomeScreen> {
             )
           : ListView(
               children: <Widget>[
+                SizedBox(height: 40.0,),
+                CircularPercentIndicator(
+                  radius: 300.0,
+                  lineWidth: 50.0,
+                  percent: 0.9,
+                  center: Text(
+                    "90%\nRisk",
+                    style: TextStyle(
+                      fontSize: 30.0, fontWeight: FontWeight.w700, color: Color(0xffdd0000),
+                    ),
+                  ),
+                  arcType: ArcType.HALF,
+                  progressColor: Color(0xffdd0000),
+                ),
+                SizedBox(height: 0.0,),
                 Row(
                   children: <Widget>[
                     gender == "Male" ? iconCard(FontAwesomeIcons.mars, "GENDER", gender.toString()) : iconCard(FontAwesomeIcons.venus, "GENDER", gender.toString()),
