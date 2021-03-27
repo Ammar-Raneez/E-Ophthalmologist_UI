@@ -102,7 +102,7 @@ class _HomeScreenState extends State<HomeScreen> {
             )
           : ListView(
               children: <Widget>[
-                SizedBox(height: 40.0,),
+                SizedBox(height: 70.0,),
                 CircularPercentIndicator(
                   radius: 300.0,
                   lineWidth: 50.0,
@@ -116,7 +116,6 @@ class _HomeScreenState extends State<HomeScreen> {
                   arcType: ArcType.HALF,
                   progressColor: Color(0xffdd0000),
                 ),
-                SizedBox(height: 0.0,),
                 Row(
                   children: <Widget>[
                     gender == "Male" ? iconCard(FontAwesomeIcons.mars, "GENDER", gender.toString()) : iconCard(FontAwesomeIcons.venus, "GENDER", gender.toString()),
