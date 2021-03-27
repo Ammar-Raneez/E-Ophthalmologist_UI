@@ -2,7 +2,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:ui/screens/diagnosis_screen.dart';
 import 'package:ui/screens/edit_profile.dart';
+import 'package:ui/screens/blog_screen.dart';
 import 'package:ui/screens/home_screen.dart';
+import 'package:ui/screens/report_screen.dart';
 
 class CurrentScreen extends StatefulWidget {
   static String id = "navigationBottom";
@@ -75,12 +77,13 @@ class _CurrentScreenState extends State<CurrentScreen> {
             children: [
               HomeScreen(),
               DiagnosisScreen(),
-              EditProfileScreen()
+              ReportScreen(),
+              BlogScreen()
             ],
           ),
           //  Bottom Nav bar - navigate between respective pages
           bottomNavigationBar: BottomNavigationBar(
-            selectedIconTheme: IconThemeData(color: Colors.white),
+            selectedIconTheme: IconThemeData(color: Color(0xff01CDFA)),
             unselectedIconTheme: IconThemeData(color: Colors.grey),
             backgroundColor: Color(0xff01CDFA),
             currentIndex: currentIndex,
@@ -107,14 +110,21 @@ class _CurrentScreenState extends State<CurrentScreen> {
                   Icons.add_a_photo,
                   size: 27,
                 ),
-                label: "Home"
+                label: "Diagnose"
+              ),
+              BottomNavigationBarItem(
+                  icon: Icon(
+                    Icons.attachment,
+                    size: 27,
+                  ),
+                  label: "Reports"
               ),
               BottomNavigationBarItem(
                 icon: Icon(
-                  Icons.person,
+                  Icons.add_alert,
                   size: 27,
                 ),
-                label: "Home"
+                label: "Blog"
               ),
             ],
           ),

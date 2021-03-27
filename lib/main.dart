@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:ui/screens/current_screen.dart';
 import 'package:ui/screens/diagnosis_screen.dart';
 import 'package:ui/screens/edit_profile.dart';
-import 'package:ui/screens/home_screen.dart';
+import 'package:ui/screens/blog_screen.dart';
 import 'package:ui/screens/login_screen.dart';
 import 'package:ui/screens/registration_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -22,7 +22,7 @@ class MyApp extends StatelessWidget {
 
       initialRoute: LoginScreen.id,
       routes: {
-        HomeScreen.id: (context) => HomeScreen(),
+        BlogScreen.id: (context) => BlogScreen(),
         LoginScreen.id: (context) => LoginScreen(),
         CurrentScreen.id: (context) => CurrentScreen(),
         RegistrationScreen.id: (context) => RegistrationScreen(),
