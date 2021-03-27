@@ -6,7 +6,7 @@ import 'package:ui/components/homepage_article.dart';
 final _firestore = FirebaseFirestore.instance;
 
 class BlogScreen extends StatefulWidget {
-  static String id = "homeScreen";
+  static String id = "blogScreen";
 
   @override
   _BlogScreenState createState() => _BlogScreenState();

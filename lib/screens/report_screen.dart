@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 
 class ReportScreen extends StatefulWidget {
+  static String id = "reportScreen";
+
   @override
   _ReportScreenState createState() => _ReportScreenState();
 }

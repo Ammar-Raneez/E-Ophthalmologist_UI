@@ -59,12 +59,18 @@ class _CurrentScreenState extends State<CurrentScreen> {
         child: Scaffold(
           appBar: AppBar(
             automaticallyImplyLeading: false,
-            title: Center(
-              child: Text(
-                "DR For Life",
-                style: TextStyle(fontSize: 20.0),
-              ),
+            title: Text(
+              "Retinopathy For Life",
+              style: TextStyle(fontSize: 20.0),
             ),
+            actions: [
+              IconButton(
+                icon: Icon(Icons.person),
+                onPressed: () {
+                  Navigator.pushNamed(context, EditProfileScreen.id);
+                },
+              )
+            ],
             backgroundColor: Color(0xff01CDFA),
           ),
           body: PageView(
