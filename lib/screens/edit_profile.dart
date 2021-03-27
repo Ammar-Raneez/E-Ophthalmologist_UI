@@ -33,6 +33,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
 
   var gender;
   var dm;
+  var smoker;
   var _bmiController;
   var _hdlController;
   var _a1cController;
@@ -226,6 +227,22 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                           });
                         }),
 
+                        registrationInputLabel("Smoker?"),
+                        registrationRadioButton("Yes", Smoker.Yes, smoker,
+                                (value) {
+                              setState(() {
+                                smoker = value;
+                              });
+                            }
+                        ),
+                        registrationRadioButton("No", Smoker.No, smoker,
+                                (value) {
+                              setState(() {
+                                smoker = value;
+                              });
+                            }
+                        ),
+
                         RoundedButton(
                           onPressed: () async {
                             if (username == null ||
@@ -236,13 +253,15 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                 selectedDate == null ||
                                 gender == null ||
                                 dm == null ||
+                                smoker == null ||
                                 username == "" ||
                                 bmi == "" ||
                                 a1c == "" ||
                                 ldl == "" ||
                                 hdl == "" ||
                                 dm == "" ||
-                                gender == "") {
+                                gender == "" ||
+                                smoker == "") {
                               createAlertDialog(
                                   context,
                                   "Error",
@@ -264,6 +283,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                   "HDL": hdl,
                                   "gender": gender.toString(),
                                   "DM Type": dm.toString(),
+                                  "Smoker?": smoker.toString(),
                                   'timestamp': Timestamp.now(),
                                 });
 
