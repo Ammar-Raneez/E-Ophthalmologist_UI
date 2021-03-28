@@ -28,6 +28,9 @@ class _HomeScreenState extends State<HomeScreen> {
   var dm;
   var smoker;
 
+  var eyeScansSnapshot;
+  var eyeScans = [];
+
   bool showSpinner = false;
 
   @override
@@ -41,7 +44,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
     setState(() {
       userDetails = document.data();
-      print(userDetails);
+      eyeScansSnapshot = document.reference.collection("eye-scans");
     });
 
     setState(() {
@@ -57,6 +60,12 @@ class _HomeScreenState extends State<HomeScreen> {
       gender = gender.toString() == "Gender.Male" ? "Male" : "Female";
       smoker = smoker.toString() == "Smoker.Yes" ? "Yes" : "No";
       dm = dm.toString() == "DMType.Type1" ? "Type I" : "Type II";
+
+      eyeScansSnapshot.get().then((value) => {
+        value.docs.forEach((element) {
+          eyeScans.add(element.data());
+        })
+      });
     });
   }
 
@@ -229,7 +238,11 @@ class _HomeScreenState extends State<HomeScreen> {
                       scrollDirection: Axis.horizontal,
                       itemCount: 15,
                       itemBuilder: (BuildContext context, int index) => Card(
-                        child: Center(child: Text('Dummy Card Text')),
+                        child: Column(
+                          children: [
+
+                          ],
+                        ),
                       ),
                     ),
                   ),
