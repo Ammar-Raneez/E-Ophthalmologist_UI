@@ -1,6 +1,9 @@
+import 'dart:convert';
 import 'dart:ui';
 import 'dart:io';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dio/dio.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/rendering.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:flutter/material.dart';
@@ -8,6 +11,8 @@ import 'package:ui/components/alert_widget.dart';
 import 'package:ui/components/rounded_button.dart';
 import 'package:ui/constants.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
+
+final _firestore = FirebaseFirestore.instance;
 
 class DiagnosisScreen extends StatefulWidget {
   static String id = "diagnosisScreen";
@@ -17,9 +22,34 @@ class DiagnosisScreen extends StatefulWidget {
 }
 
 class _DiagnosisScreenState extends State<DiagnosisScreen> {
+  User user = FirebaseAuth.instance.currentUser;
+
   File imageFile;
   Dio dio = new Dio();
   bool showSpinner = false;
+
+  var userDetails;
+  String email;
+  dynamic responseBody;
+
+  @override
+  void initState() {
+    super.initState();
+    getUserDetails();
+  }
+
+  getUserDetails() async {
+    var document = await _firestore.collection("users").doc(user.email).get();
+
+    setState(() {
+      userDetails = document.data();
+      print(userDetails);
+    });
+
+    setState(() {
+      email = userDetails['userEmail'];
+    });
+  }
 
   createAlertDialog(
       BuildContext context, String title, String message, int status) {
@@ -65,7 +95,15 @@ class _DiagnosisScreenState extends State<DiagnosisScreen> {
           "https://bisfyp.azurewebsites.net/api/classify",
           data: formData,
         );
-        print(response);
+
+        String result = response.data[0]['result'];
+        String imageUrl = response.data[0]['image_url'];
+
+        _firestore.collection("users").doc(email).collection("eye-scans").add({
+          'result': result,
+          'image_url': imageUrl,
+          'timestamp': Timestamp.now(),
+        });
 
         setState(() {
           showSpinner = false;
