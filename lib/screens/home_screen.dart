@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
@@ -233,37 +235,40 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                     ),
                   ),
-                  SizedBox(
-                    height: 150.0,
-                    child: ListView.builder(
-                      physics: ClampingScrollPhysics(),
-                      shrinkWrap: true,
-                      scrollDirection: Axis.horizontal,
-                      itemCount: 5,
-                      itemBuilder: (BuildContext context, int index) => Card(
-                        child: Container(
-                          decoration: BoxDecoration(
-                            image: DecorationImage(
-                              image: NetworkImage(eyeScans[0]['image_url']),
-                              fit: BoxFit.cover,
-                              alignment: Alignment.topCenter,
+                  Padding(
+                    padding: const EdgeInsets.only(bottom: 20.0),
+                    child: SizedBox(
+                      height: 150.0,
+                      child: ListView.builder(
+                        physics: ClampingScrollPhysics(),
+                        shrinkWrap: true,
+                        scrollDirection: Axis.horizontal,
+                        itemCount: 5,
+                        itemBuilder: (BuildContext context, int index) => Card(
+                          child: Container(
+                            decoration: BoxDecoration(
+                              image: DecorationImage(
+                                image: NetworkImage(eyeScans[0]['image_url']),
+                                fit: BoxFit.cover,
+                                alignment: Alignment.topCenter,
+                              ),
                             ),
-                          ),
-                          child: Padding(
-                            padding: const EdgeInsets.all(18.0),
-                            child: Center(
-                              child: Text(
-                                eyeScans[0]['result'],
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.w900
+                            child: Padding(
+                              padding: const EdgeInsets.all(18.0),
+                              child: Center(
+                                child: Text(
+                                  eyeScans[0]['result'].toString().toUpperCase(),
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.w900,
+                                  ),
                                 ),
                               ),
                             ),
                           ),
-                        ),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(100.0),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(100.0),
+                          ),
                         ),
                       ),
                     ),
