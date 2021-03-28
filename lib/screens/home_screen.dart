@@ -8,6 +8,7 @@ import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:ui/components/homepage_icon_content.dart';
 import 'package:ui/components/homepage_reusable_card.dart';
 import 'package:ui/constants.dart';
+import 'package:bordered_text/bordered_text.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 
@@ -30,7 +31,7 @@ class _HomeScreenState extends State<HomeScreen> {
   var dm;
   var smoker;
 
-  var eyeScansSnapshot;
+  bool haveScans = true;
   var eyeScans = [];
 
   bool showSpinner = false;
@@ -43,10 +44,17 @@ class _HomeScreenState extends State<HomeScreen> {
 
   getUserDetails() async {
     var document = await _firestore.collection("users").doc(user.email).get();
+    var tempScans = [];
+
+    await document.reference.collection("eye-scans").get().then((value) => {
+      value.docs.forEach((element) {
+        tempScans.add(element.data());
+      })
+    });
 
     setState(() {
       userDetails = document.data();
-      eyeScansSnapshot = document.reference.collection("eye-scans");
+      haveScans = tempScans.length != 0 ? true : false;
     });
 
     setState(() {
@@ -62,12 +70,7 @@ class _HomeScreenState extends State<HomeScreen> {
       gender = gender.toString() == "Gender.Male" ? "Male" : "Female";
       smoker = smoker.toString() == "Smoker.Yes" ? "Yes" : "No";
       dm = dm.toString() == "DMType.Type1" ? "Type I" : "Type II";
-
-      eyeScansSnapshot.get().then((value) => {
-        value.docs.forEach((element) {
-          eyeScans.add(element.data());
-        })
-      });
+      eyeScans = tempScans;
     });
   }
 
@@ -106,7 +109,7 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       body: ModalProgressHUD(
         inAsyncCall: showSpinner,
-        child: eyeScans == []
+        child: haveScans && eyeScans.length == 0
           ? Align(
               child: CircularProgressIndicator(),
               alignment: Alignment.center,
@@ -225,57 +228,66 @@ class _HomeScreenState extends State<HomeScreen> {
                       ],
                     ),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.only(top: 20.0, bottom: 10.0, left: 8.0),
-                    child: Align(
-                      alignment: Alignment.topLeft,
-                      child: Text(
-                        "Past Scans",
-                        style: kHomePageMainLabelTextStyle,
+                  eyeScans.length == 0 ?
+                    Container(width: 0, height: 0,)
+                  :
+                    Padding(
+                      padding: const EdgeInsets.only(top: 20.0, bottom: 10.0, left: 8.0),
+                      child: Align(
+                        alignment: Alignment.topLeft,
+                        child: Text(
+                          "Past Scans",
+                          style: kHomePageMainLabelTextStyle,
+                        ),
                       ),
                     ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(bottom: 20.0),
-                    child: SizedBox(
-                      height: 150.0,
-                      child: ListView.builder(
-                        physics: ClampingScrollPhysics(),
-                        shrinkWrap: true,
-                        scrollDirection: Axis.horizontal,
-                        itemCount: 5,
-                        itemBuilder: (BuildContext context, int index) => Card(
-                          child: Container(
-                            decoration: BoxDecoration(
-                              image: DecorationImage(
-                                image: NetworkImage(eyeScans[0]['image_url']),
-                                fit: BoxFit.cover,
-                                alignment: Alignment.topCenter,
+                  eyeScans.length == 0 ?
+                    Container(width: 0, height: 0,)
+                  :
+                    Padding(
+                      padding: const EdgeInsets.only(bottom: 20.0),
+                      child: SizedBox(
+                        height: 150.0,
+                        child: ListView.builder(
+                          physics: ClampingScrollPhysics(),
+                          shrinkWrap: true,
+                          scrollDirection: Axis.horizontal,
+                          itemCount: eyeScans.length,
+                          itemBuilder: (BuildContext context, int index) => Card(
+                            child: Container(
+                              width: 160,
+                              decoration: BoxDecoration(
+                                image: DecorationImage(
+                                  image: NetworkImage(
+                                    eyeScans[index]['image_url'],
+                                  ),
+                                  fit: BoxFit.cover,
+                                  alignment: Alignment.topCenter,
+                                ),
                               ),
-                            ),
-                            child: Padding(
-                              padding: const EdgeInsets.all(18.0),
-                              child: Center(
-                                child: Text(
-                                  eyeScans[0]['result'].toString().toUpperCase(),
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.w900,
+                              child: Padding(
+                                padding: const EdgeInsets.all(18.0),
+                                child: Center(
+                                  child: BorderedText(
+                                    strokeWidth: 2.0,
+                                    strokeColor: Colors.black,
+                                    child: Text(
+                                      eyeScans[index]['result'].toString().toUpperCase(),
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                      ),
+                                    ),
                                   ),
                                 ),
                               ),
                             ),
                           ),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(100.0),
-                          ),
                         ),
                       ),
                     ),
-                  ),
-              ],
+                ],
+              ),
             ),
-          ),
       ),
     );
   }
