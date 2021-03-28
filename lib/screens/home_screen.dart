@@ -104,7 +104,7 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       body: ModalProgressHUD(
         inAsyncCall: showSpinner,
-        child: bmi == ""
+        child: eyeScans == []
           ? Align(
               child: CircularProgressIndicator(),
               alignment: Alignment.center,
@@ -224,24 +224,46 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Text(
-                      "Past Scans",
-                      style: kHomePageUnitTextStyle,
+                    padding: const EdgeInsets.only(top: 20.0, bottom: 10.0, left: 8.0),
+                    child: Align(
+                      alignment: Alignment.topLeft,
+                      child: Text(
+                        "Past Scans",
+                        style: kHomePageMainLabelTextStyle,
+                      ),
                     ),
                   ),
                   SizedBox(
-                    height: 100.0,
+                    height: 150.0,
                     child: ListView.builder(
                       physics: ClampingScrollPhysics(),
                       shrinkWrap: true,
                       scrollDirection: Axis.horizontal,
-                      itemCount: 15,
+                      itemCount: 5,
                       itemBuilder: (BuildContext context, int index) => Card(
-                        child: Column(
-                          children: [
-
-                          ],
+                        child: Container(
+                          decoration: BoxDecoration(
+                            image: DecorationImage(
+                              image: NetworkImage(eyeScans[0]['image_url']),
+                              fit: BoxFit.cover,
+                              alignment: Alignment.topCenter,
+                            ),
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.all(18.0),
+                            child: Center(
+                              child: Text(
+                                eyeScans[0]['result'],
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.w900
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(100.0),
                         ),
                       ),
                     ),
