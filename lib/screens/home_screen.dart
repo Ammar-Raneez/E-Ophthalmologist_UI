@@ -100,119 +100,141 @@ class _HomeScreenState extends State<HomeScreen> {
               child: CircularProgressIndicator(),
               alignment: Alignment.center,
             )
-          : ListView(
-              children: <Widget>[
-                SizedBox(height: 70.0,),
-                CircularPercentIndicator(
-                  radius: 300.0,
-                  lineWidth: 50.0,
-                  percent: 0.9,
-                  center: Text(
-                    "90%\nRisk",
-                    style: TextStyle(
-                      fontSize: 30.0, fontWeight: FontWeight.w700, color: Color(0xffdd0000),
+          : SingleChildScrollView(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  SizedBox(height: 70.0,),
+                  CircularPercentIndicator(
+                    radius: 300.0,
+                    lineWidth: 50.0,
+                    percent: 0.9,
+                    center: Text(
+                      "90%\nRisk",
+                      style: TextStyle(
+                        fontSize: 30.0, fontWeight: FontWeight.w700, color: Color(0xffdd0000),
+                      ),
+                    ),
+                    arcType: ArcType.HALF,
+                    progressColor: Color(0xffdd0000),
+                  ),
+                  Row(
+                    children: <Widget>[
+                      gender == "Male" ? iconCard(FontAwesomeIcons.mars, "GENDER", gender.toString()) : iconCard(FontAwesomeIcons.venus, "GENDER", gender.toString()),
+                      iconCard(FontAwesomeIcons.eye, "TYPE", dm.toString()),
+                      iconCard(FontAwesomeIcons.calendar, "DURATION", "6 Years"),
+                      smoker == "No" ? iconCard(FontAwesomeIcons.smokingBan, "SMOKER?", smoker.toString()) : iconCard(FontAwesomeIcons.smoking, "SMOKER?", smoker.toString()),
+                    ],
+                  ),
+                  HomePageReusableCard(
+                    color: Colors.white,
+                    cardContent: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Text(
+                          'BMI',
+                          style: kHomePageMainLabelTextStyle,
+                        ),
+                        SizedBox(height: 25.0,),
+                        Text(
+                          'kg/m2',
+                          style: kHomePageUnitTextStyle,
+                        ),
+                        SizedBox(height: 5.0,),
+                        Text(
+                          bmi.toString(),
+                          style: kHomePageNumberTextStyle,
+                        ),
+                      ],
                     ),
                   ),
-                  arcType: ArcType.HALF,
-                  progressColor: Color(0xffdd0000),
-                ),
-                Row(
-                  children: <Widget>[
-                    gender == "Male" ? iconCard(FontAwesomeIcons.mars, "GENDER", gender.toString()) : iconCard(FontAwesomeIcons.venus, "GENDER", gender.toString()),
-                    dm == "Type I" ? iconCard(FontAwesomeIcons.eye, "TYPE", dm.toString()) : iconCard(FontAwesomeIcons.eye, "TYPE", dm.toString()),
-                    iconCard(FontAwesomeIcons.calendar, "DURATION", "6 Years"),
-                    smoker == "No" ? iconCard(FontAwesomeIcons.smokingBan, "SMOKER?", smoker.toString()) : iconCard(FontAwesomeIcons.smoking, "SMOKER?", smoker.toString()),
-                  ],
-                ),
-                HomePageReusableCard(
-                  color: Colors.white,
-                  cardContent: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      Text(
-                        'BMI',
-                        style: kHomePageMainLabelTextStyle,
-                      ),
-                      SizedBox(height: 25.0,),
-                      Text(
-                        'kg/m2',
-                        style: kHomePageUnitTextStyle,
-                      ),
-                      SizedBox(height: 5.0,),
-                      Text(
-                        bmi.toString(),
-                        style: kHomePageNumberTextStyle,
-                      ),
-                    ],
+                  HomePageReusableCard(
+                    color: Colors.white,
+                    cardContent: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Text(
+                          'A1C',
+                          style: kHomePageMainLabelTextStyle,
+                        ),
+                        SizedBox(height: 25.0,),
+                        Text(
+                          'mmol/mol',
+                          style: kHomePageUnitTextStyle,
+                        ),
+                        SizedBox(height: 5.0,),
+                        Text(
+                          a1c.toString(),
+                          style: kHomePageNumberTextStyle,
+                        ),
+                      ],
+                    ),
                   ),
-                ),
-                HomePageReusableCard(
-                  color: Colors.white,
-                  cardContent: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      Text(
-                        'A1C',
-                        style: kHomePageMainLabelTextStyle,
-                      ),
-                      SizedBox(height: 25.0,),
-                      Text(
-                        'mmol/mol',
-                        style: kHomePageUnitTextStyle,
-                      ),
-                      SizedBox(height: 5.0,),
-                      Text(
-                        a1c.toString(),
-                        style: kHomePageNumberTextStyle,
-                      ),
-                    ],
+                  HomePageReusableCard(
+                    color: Colors.white,
+                    cardContent: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Text(
+                          'LDL',
+                          style: kHomePageMainLabelTextStyle,
+                        ),
+                        SizedBox(height: 25.0,),
+                        Text(
+                          'mg/dL',
+                          style: kHomePageUnitTextStyle,
+                        ),
+                        SizedBox(height: 5.0,),
+                        Text(
+                          ldl.toString(),
+                          style: kHomePageNumberTextStyle,
+                        ),
+                      ],
+                    ),
                   ),
-                ),
-                HomePageReusableCard(
-                  color: Colors.white,
-                  cardContent: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      Text(
-                        'LDL',
-                        style: kHomePageMainLabelTextStyle,
-                      ),
-                      SizedBox(height: 25.0,),
-                      Text(
-                        'mg/dL',
-                        style: kHomePageUnitTextStyle,
-                      ),
-                      SizedBox(height: 5.0,),
-                      Text(
-                        ldl.toString(),
-                        style: kHomePageNumberTextStyle,
-                      ),
-                    ],
+                  HomePageReusableCard(
+                    color: Colors.white,
+                    cardContent: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Text(
+                          'HDL',
+                          style: kHomePageMainLabelTextStyle,
+                        ),
+                        SizedBox(height: 25.0,),
+                        Text(
+                          'mg/dL',
+                          style: kHomePageUnitTextStyle,
+                        ),
+                        SizedBox(height: 5.0,),
+                        Text(
+                          hdl.toString(),
+                          style: kHomePageNumberTextStyle,
+                        ),
+                      ],
+                    ),
                   ),
-                ),
-                HomePageReusableCard(
-                  color: Colors.white,
-                  cardContent: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      Text(
-                        'HDL',
-                        style: kHomePageMainLabelTextStyle,
-                      ),
-                      SizedBox(height: 25.0,),
-                      Text(
-                        'mg/dL',
-                        style: kHomePageUnitTextStyle,
-                      ),
-                      SizedBox(height: 5.0,),
-                      Text(
-                        hdl.toString(),
-                        style: kHomePageNumberTextStyle,
-                      ),
-                    ],
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text(
+                      "Past Scans",
+                      style: kHomePageUnitTextStyle,
+                    ),
                   ),
-                ),
+                  SizedBox(
+                    height: 100.0,
+                    child: ListView.builder(
+                      physics: ClampingScrollPhysics(),
+                      shrinkWrap: true,
+                      scrollDirection: Axis.horizontal,
+                      itemCount: 15,
+                      itemBuilder: (BuildContext context, int index) => Card(
+                        child: Center(child: Text('Dummy Card Text')),
+                      ),
+                    ),
+                  ),
               ],
+            ),
           ),
       ),
     );
