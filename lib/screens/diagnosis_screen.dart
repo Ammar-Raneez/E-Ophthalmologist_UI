@@ -11,6 +11,7 @@ import 'package:ui/components/alert_widget.dart';
 import 'package:ui/components/rounded_button.dart';
 import 'package:ui/constants.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
+import 'package:ui/screens/diagnosis_result_screen.dart';
 
 final _firestore = FirebaseFirestore.instance;
 
@@ -111,8 +112,10 @@ class _DiagnosisScreenState extends State<DiagnosisScreen> {
 
         //  status alerts based on success
         if (response != null) {
-          createAlertDialog(
-              context, "Diagnosis", response.toString(), 201);
+          var argsForResult = {'result': result, 'image_url': imageUrl};
+//          createAlertDialog(
+//              context, "Diagnosis", response.toString(), 201);
+          Navigator.pushNamed(context, DiagnosisResultScreen.id, arguments: argsForResult);
         } else {
           createAlertDialog(
               context, "Error", "Oops something went wrong!", 404);

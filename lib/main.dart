@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ui/screens/current_screen.dart';
+import 'package:ui/screens/diagnosis_result_screen.dart';
 import 'package:ui/screens/diagnosis_screen.dart';
 import 'package:ui/screens/edit_profile_screen.dart';
 import 'package:ui/screens/blog_screen.dart';
@@ -27,6 +28,7 @@ class MyApp extends StatelessWidget {
         CurrentScreen.id: (context) => CurrentScreen(),
         RegistrationScreen.id: (context) => RegistrationScreen(),
         DiagnosisScreen.id: (context) => DiagnosisScreen(),
+        DiagnosisResultScreen.id: (context) => DiagnosisResultScreen(),
         EditProfileScreen.id: (context) => EditProfileScreen(),
       },
     );
