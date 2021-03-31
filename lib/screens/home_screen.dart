@@ -15,6 +15,8 @@ import 'package:percent_indicator/percent_indicator.dart';
 final _firestore = FirebaseFirestore.instance;
 
 class HomeScreen extends StatefulWidget {
+  static String id = "homeScreen";
+
   @override
   _HomeScreenState createState() => _HomeScreenState();
 }
