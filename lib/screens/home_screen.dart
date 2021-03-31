@@ -11,6 +11,7 @@ import 'package:ui/constants.dart';
 import 'package:bordered_text/bordered_text.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:percent_indicator/percent_indicator.dart';
+import 'package:ui/screens/diagnosis_result_screen.dart';
 
 final _firestore = FirebaseFirestore.instance;
 
@@ -255,28 +256,34 @@ class _HomeScreenState extends State<HomeScreen> {
                           shrinkWrap: true,
                           scrollDirection: Axis.horizontal,
                           itemCount: eyeScans.length,
-                          itemBuilder: (BuildContext context, int index) => Card(
-                            child: Container(
-                              width: 160,
-                              decoration: BoxDecoration(
-                                image: DecorationImage(
-                                  image: NetworkImage(
-                                    eyeScans[index]['image_url'],
+                          itemBuilder: (BuildContext context, int index) => GestureDetector(
+                            onTap: () {
+                              var argsForResult = {'result': eyeScans[index]['result'], 'image_url': eyeScans[index]['image_url']};
+                              Navigator.pushNamed(context, DiagnosisResultScreen.id, arguments: argsForResult);
+                            },
+                            child: Card(
+                              child: Container(
+                                width: 160,
+                                decoration: BoxDecoration(
+                                  image: DecorationImage(
+                                    image: NetworkImage(
+                                      eyeScans[index]['image_url'],
+                                    ),
+                                    fit: BoxFit.cover,
+                                    alignment: Alignment.topCenter,
                                   ),
-                                  fit: BoxFit.cover,
-                                  alignment: Alignment.topCenter,
                                 ),
-                              ),
-                              child: Padding(
-                                padding: const EdgeInsets.all(18.0),
-                                child: Center(
-                                  child: BorderedText(
-                                    strokeWidth: 2.0,
-                                    strokeColor: Colors.black,
-                                    child: Text(
-                                      eyeScans[index]['result'].toString().toUpperCase(),
-                                      style: TextStyle(
-                                        color: Colors.white,
+                                child: Padding(
+                                  padding: const EdgeInsets.all(18.0),
+                                  child: Center(
+                                    child: BorderedText(
+                                      strokeWidth: 2.0,
+                                      strokeColor: Colors.black,
+                                      child: Text(
+                                        eyeScans[index]['result'].toString().toUpperCase(),
+                                        style: TextStyle(
+                                          color: Colors.white,
+                                        ),
                                       ),
                                     ),
                                   ),
