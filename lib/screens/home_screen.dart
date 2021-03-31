@@ -258,7 +258,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           itemCount: eyeScans.length,
                           itemBuilder: (BuildContext context, int index) => GestureDetector(
                             onTap: () {
-                              var argsForResult = {'result': eyeScans[index]['result'], 'image_url': eyeScans[index]['image_url']};
+                              var argsForResult = {'result': eyeScans[index]['result'], 'image_url': eyeScans[index]['image_url'], 'time': eyeScans[index]['timestamp']};
                               Navigator.pushNamed(context, DiagnosisResultScreen.id, arguments: argsForResult);
                             },
                             child: Card(

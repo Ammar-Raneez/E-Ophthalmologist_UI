@@ -32,6 +32,7 @@ class _DiagnosisScreenState extends State<DiagnosisScreen> {
   var userDetails;
   String email;
   dynamic responseBody;
+  var time;
 
   @override
   void initState() {
@@ -110,9 +111,12 @@ class _DiagnosisScreenState extends State<DiagnosisScreen> {
           showSpinner = false;
         });
 
+        // store time of this diagnosis
+        time = Timestamp.now();
+
         //  status alerts based on success
         if (response != null) {
-          var argsForResult = {'result': result, 'image_url': imageUrl};
+          var argsForResult = {'result': result, 'image_url': imageUrl, 'time': time};
 //          createAlertDialog(
 //              context, "Diagnosis", response.toString(), 201);
           Navigator.pushNamed(context, DiagnosisResultScreen.id, arguments: argsForResult);

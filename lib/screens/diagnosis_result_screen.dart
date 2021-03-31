@@ -43,6 +43,9 @@ class _DiagnosisResultScreenState extends State<DiagnosisResultScreen> {
     var screenSize = MediaQuery.of(context).size;
     var width = screenSize.width;
     final Map arguments = ModalRoute.of(context).settings.arguments as Map;
+    String datetime = DateTime.fromMillisecondsSinceEpoch(arguments['time'].seconds * 1000).day.toString() + "-" +
+        DateTime.fromMillisecondsSinceEpoch(arguments['time'].seconds * 1000).month.toString() + "-" +
+        DateTime.fromMillisecondsSinceEpoch(arguments['time'].seconds * 1000).year.toString();
 
     return Container(
       child: SafeArea(
@@ -57,11 +60,26 @@ class _DiagnosisResultScreenState extends State<DiagnosisResultScreen> {
                         CircularProgressIndicator(value: downloadProgress.progress),
                     imageUrl: arguments['image_url'],
                     width: width,
-                    height: 400,
+                    height: 350,
                   ),
                 ),
                 SizedBox(
                   height: 100,
+                ),
+                Align(
+                  alignment: Alignment.center,
+                  child: Text(
+                    "Scan on: $datetime",
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.w700,
+                      fontFamily: "Poppins-SemiBold",
+                      color: Colors.red
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  height: 50,
                 ),
                 Align(
                   alignment: Alignment.centerRight,
@@ -75,7 +93,7 @@ class _DiagnosisResultScreenState extends State<DiagnosisResultScreen> {
                   ),
                 ),
                 SizedBox(
-                  height: 100,
+                  height: 70,
                 ),
                 RoundedButton(
                   onPressed: () {
