@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:ui/screens/diagnosis_screen.dart';
-import 'package:ui/screens/edit_profile.dart';
+import 'package:ui/screens/edit_profile_screen.dart';
 import 'package:ui/screens/blog_screen.dart';
 import 'package:ui/screens/home_screen.dart';
 import 'package:ui/screens/report_screen.dart';

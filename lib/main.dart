@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:ui/screens/current_screen.dart';
 import 'package:ui/screens/diagnosis_screen.dart';
-import 'package:ui/screens/edit_profile.dart';
+import 'package:ui/screens/edit_profile_screen.dart';
 import 'package:ui/screens/blog_screen.dart';
 import 'package:ui/screens/login_screen.dart';
 import 'package:ui/screens/registration_screen.dart';
