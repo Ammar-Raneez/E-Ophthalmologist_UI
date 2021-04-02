@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:ui/components/report_page_report_appointment.dart';
+import 'package:ui/screens/add_report_screen.dart';
 
 class ReportScreen extends StatefulWidget {
   static String id = "reportScreen";
@@ -74,9 +75,7 @@ class _ReportScreenState extends State<ReportScreen> {
         ],
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {
-
-        },
+        onPressed: () => Navigator.pushNamed(context, AddReportScreen.id),
         child: Text(
           "+",
           style: TextStyle(

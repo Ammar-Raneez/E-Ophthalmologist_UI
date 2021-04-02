@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ui/screens/add_report_screen.dart';
 import 'package:ui/screens/current_screen.dart';
 import 'package:ui/screens/diagnosis_result_screen.dart';
 import 'package:ui/screens/diagnosis_screen.dart';
@@ -7,6 +8,7 @@ import 'package:ui/screens/blog_screen.dart';
 import 'package:ui/screens/login_screen.dart';
 import 'package:ui/screens/registration_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:ui/screens/report_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -28,6 +30,8 @@ class MyApp extends StatelessWidget {
         CurrentScreen.id: (context) => CurrentScreen(),
         RegistrationScreen.id: (context) => RegistrationScreen(),
         DiagnosisScreen.id: (context) => DiagnosisScreen(),
+        ReportScreen.id: (context) => ReportScreen(),
+        AddReportScreen.id: (context) => AddReportScreen(),
         DiagnosisResultScreen.id: (context) => DiagnosisResultScreen(),
         EditProfileScreen.id: (context) => EditProfileScreen(),
       },
