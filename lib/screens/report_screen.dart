@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:ui/components/report_page_report_appointment.dart';
 import 'package:ui/screens/add_report_screen.dart';
+import 'package:ui/screens/edit_profile_screen.dart';
+import 'package:ui/screens/edit_report_screen.dart';
 
 final _firestore = FirebaseFirestore.instance;
 
@@ -109,12 +111,24 @@ class _ReportScreenState extends State<ReportScreen> {
                     child: ListView.builder(
                       itemCount: reports.length,
                       itemBuilder: (BuildContext context, int index) =>
-                          ReportPageReportAppointment(
-                        doctor: reports[index]['doctor'],
-                        hospital: reports[index]['hospital'],
-                        date: reports[index]['date'],
-                        cardColor: Color(0xff01CDFA),
-                        textColor: '0xffffffff',
+                          GestureDetector(
+                        child: ReportPageReportAppointment(
+                          doctor: reports[index]['doctor'],
+                          hospital: reports[index]['hospital'],
+                          date: reports[index]['date'],
+                          cardColor: Color(0xff01CDFA),
+                          textColor: '0xffffffff',
+                        ),
+                        onTap: () {
+                          var argsForResult = {
+                            'result': reports[index]['doctor'],
+                            'image_url': reports[index]['hospital'],
+                            'time': reports[index]['date']
+                          };
+                          Navigator.pushNamed(
+                              context, EditReportScreen.id,
+                              arguments: argsForResult);
+                        },
                       ),
                     ),
                   ),

@@ -5,6 +5,7 @@ import 'package:ui/screens/diagnosis_result_screen.dart';
 import 'package:ui/screens/diagnosis_screen.dart';
 import 'package:ui/screens/edit_profile_screen.dart';
 import 'package:ui/screens/blog_screen.dart';
+import 'package:ui/screens/edit_report_screen.dart';
 import 'package:ui/screens/login_screen.dart';
 import 'package:ui/screens/registration_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -32,6 +33,7 @@ class MyApp extends StatelessWidget {
         DiagnosisScreen.id: (context) => DiagnosisScreen(),
         ReportScreen.id: (context) => ReportScreen(),
         AddReportScreen.id: (context) => AddReportScreen(),
+        EditReportScreen.id: (context) => EditReportScreen(),
         DiagnosisResultScreen.id: (context) => DiagnosisResultScreen(),
         EditProfileScreen.id: (context) => EditProfileScreen(),
       },

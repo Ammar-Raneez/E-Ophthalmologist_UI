@@ -149,7 +149,8 @@ class _AddReportScreenState extends State<AddReportScreen> {
                             .collection("users")
                             .doc(email)
                             .collection("past-reports")
-                            .add({
+                            .doc(new Timestamp.now().toString())
+                            .set({
                           'doctor': doctor,
                           'hospital': hospital,
                           'date': selectedDate
