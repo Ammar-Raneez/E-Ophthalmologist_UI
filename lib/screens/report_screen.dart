@@ -112,9 +112,9 @@ class _ReportScreenState extends State<ReportScreen> {
                           ReportPageReportAppointment(
                         doctor: reports[index]['doctor'],
                         hospital: reports[index]['hospital'],
+                        date: reports[index]['date'],
                         cardColor: Color(0xff01CDFA),
                         textColor: '0xffffffff',
-                        date: 'test',
                       ),
                     ),
                   ),
