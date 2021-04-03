@@ -178,7 +178,7 @@ class _EditReportScreenState extends State<EditReportScreen> {
                                     .collection("users")
                                     .doc(email)
                                     .collection("past-reports")
-                                    .doc(new Timestamp.now().toString())
+                                    .doc(arguments['currentReportId'])
                                     .set({
                                   'doctor': doctor,
                                   'hospital': hospital,
@@ -186,7 +186,7 @@ class _EditReportScreenState extends State<EditReportScreen> {
                                 });
 
                                 createAlertDialog(
-                                    context, "Success", "Report Added!", 200);
+                                    context, "Success", "Report Details have been edited successfully!", 200);
 
                                 setState(() {
                                   showSpinner = false;

@@ -21,6 +21,7 @@ class _ReportScreenState extends State<ReportScreen> {
 
   bool haveReports = true;
   var reports = [];
+  var docIds = [];
 
   bool showSpinner = false;
 
@@ -33,9 +34,11 @@ class _ReportScreenState extends State<ReportScreen> {
   getUserDetails() async {
     var document = await _firestore.collection("users").doc(user.email).get();
     var tempReports = [];
+    var tempIds = [];
 
     await document.reference.collection("past-reports").get().then((value) => {
           value.docs.forEach((element) {
+            tempIds.add(element.id);
             tempReports.add(element.data());
           })
         });
@@ -46,6 +49,7 @@ class _ReportScreenState extends State<ReportScreen> {
 
     setState(() {
       reports = tempReports;
+      docIds = tempIds;
     });
   }
 
@@ -122,7 +126,8 @@ class _ReportScreenState extends State<ReportScreen> {
                           var argsForResult = {
                             'doctor': reports[index]['doctor'],
                             'hospital': reports[index]['hospital'],
-                            'date': reports[index]['date']
+                            'date': reports[index]['date'],
+                            'currentReportId': docIds[index]
                           };
                           Navigator.pushNamed(
                               context, EditReportScreen.id,
