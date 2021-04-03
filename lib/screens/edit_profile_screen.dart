@@ -172,22 +172,19 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                             ),
                           ),
                         ),
-
                         registrationInputLabel("Gender"),
                         registrationRadioButton("Male", Gender.Male, gender,
-                                (value) {
-                              setState(() {
-                                gender = value;
-                              });
-                            }
-                        ),
+                            (value) {
+                          setState(() {
+                            gender = value;
+                          });
+                        }),
                         registrationRadioButton("Female", Gender.Female, gender,
-                                (value) {
-                              setState(() {
-                                gender = value;
-                              });
-                            }
-                        ),
+                            (value) {
+                          setState(() {
+                            gender = value;
+                          });
+                        }),
                         registrationInputLabel("BMI"),
                         registrationTextField(
                             _bmiController,
@@ -212,7 +209,6 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                             (value) => ldl = value,
                             "Enter LDL",
                             TextInputType.number),
-
                         registrationInputLabel("Diabetes Mellitus Type"),
                         registrationRadioButton("Type 1", DMType.Type1, dm,
                             (value) {
@@ -226,23 +222,19 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                             dm = value;
                           });
                         }),
-
                         registrationInputLabel("Smoker?"),
                         registrationRadioButton("Yes", Smoker.Yes, smoker,
-                                (value) {
-                              setState(() {
-                                smoker = value;
-                              });
-                            }
-                        ),
+                            (value) {
+                          setState(() {
+                            smoker = value;
+                          });
+                        }),
                         registrationRadioButton("No", Smoker.No, smoker,
-                                (value) {
-                              setState(() {
-                                smoker = value;
-                              });
-                            }
-                        ),
-
+                            (value) {
+                          setState(() {
+                            smoker = value;
+                          });
+                        }),
                         RoundedButton(
                           onPressed: () async {
                             if (username == null ||

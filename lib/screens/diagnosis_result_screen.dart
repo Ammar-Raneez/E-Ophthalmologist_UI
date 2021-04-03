@@ -43,70 +43,77 @@ class _DiagnosisResultScreenState extends State<DiagnosisResultScreen> {
     var screenSize = MediaQuery.of(context).size;
     var width = screenSize.width;
     final Map arguments = ModalRoute.of(context).settings.arguments as Map;
-    String datetime = DateTime.fromMillisecondsSinceEpoch(arguments['time'].seconds * 1000).day.toString() + "-" +
-        DateTime.fromMillisecondsSinceEpoch(arguments['time'].seconds * 1000).month.toString() + "-" +
-        DateTime.fromMillisecondsSinceEpoch(arguments['time'].seconds * 1000).year.toString();
+    String datetime = DateTime.fromMillisecondsSinceEpoch(
+                arguments['time'].seconds * 1000)
+            .day
+            .toString() +
+        "-" +
+        DateTime.fromMillisecondsSinceEpoch(arguments['time'].seconds * 1000)
+            .month
+            .toString() +
+        "-" +
+        DateTime.fromMillisecondsSinceEpoch(arguments['time'].seconds * 1000)
+            .year
+            .toString();
 
     return Container(
-      child: SafeArea(
-        child: Scaffold(
-          body: Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Column(
-              children: [
-                Center(
-                  child: CachedNetworkImage(
-                    progressIndicatorBuilder: (context, url, downloadProgress) =>
-                        CircularProgressIndicator(value: downloadProgress.progress),
-                    imageUrl: arguments['image_url'],
-                    width: width,
-                    height: 350,
-                  ),
+        child: SafeArea(
+      child: Scaffold(
+        body: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            children: [
+              Center(
+                child: CachedNetworkImage(
+                  progressIndicatorBuilder: (context, url, downloadProgress) =>
+                      CircularProgressIndicator(
+                          value: downloadProgress.progress),
+                  imageUrl: arguments['image_url'],
+                  width: width,
+                  height: 350,
                 ),
-                SizedBox(
-                  height: 100,
-                ),
-                Align(
-                  alignment: Alignment.center,
-                  child: Text(
-                    "Scan on: $datetime",
-                    style: TextStyle(
+              ),
+              SizedBox(
+                height: 100,
+              ),
+              Align(
+                alignment: Alignment.center,
+                child: Text(
+                  "Scan on: $datetime",
+                  style: TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.w700,
                       fontFamily: "Poppins-SemiBold",
-                      color: Colors.red
-                    ),
-                  ),
+                      color: Colors.red),
                 ),
-                SizedBox(
-                  height: 50,
-                ),
-                Align(
-                  alignment: Alignment.centerRight,
-                  child: Text(
-                    "A ${arguments['result']} condition has been detected in the above retinal fundus",
-                    style: TextStyle(
+              ),
+              SizedBox(
+                height: 50,
+              ),
+              Align(
+                alignment: Alignment.centerRight,
+                child: Text(
+                  "A ${arguments['result']} condition has been detected in the above retinal fundus",
+                  style: TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.w700,
-                      fontFamily: "Poppins-SemiBold"
-                    ),
-                  ),
+                      fontFamily: "Poppins-SemiBold"),
                 ),
-                SizedBox(
-                  height: 70,
-                ),
-                RoundedButton(
-                  onPressed: () {
-                    Navigator.pushNamed(context, HomeScreen.id);
-                  },
-                  colour: Color(0xff01CDFA),
-                  title: "Back to Home",
-                ),
-              ],
-            ),
+              ),
+              SizedBox(
+                height: 70,
+              ),
+              RoundedButton(
+                onPressed: () {
+                  Navigator.pushNamed(context, HomeScreen.id);
+                },
+                colour: Color(0xff01CDFA),
+                title: "Back to Home",
+              ),
+            ],
           ),
         ),
-      )
-    );
+      ),
+    ));
   }
 }

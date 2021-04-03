@@ -112,26 +112,23 @@ class _CurrentScreenState extends State<CurrentScreen> {
                 label: "Home",
               ),
               BottomNavigationBarItem(
-                icon: Icon(
-                  Icons.add_a_photo,
-                  size: 27,
-                ),
-                label: "Diagnose"
-              ),
+                  icon: Icon(
+                    Icons.add_a_photo,
+                    size: 27,
+                  ),
+                  label: "Diagnose"),
               BottomNavigationBarItem(
                   icon: Icon(
                     Icons.attachment,
                     size: 27,
                   ),
-                  label: "Reports"
-              ),
+                  label: "Reports"),
               BottomNavigationBarItem(
-                icon: Icon(
-                  Icons.add_alert,
-                  size: 27,
-                ),
-                label: "Blog"
-              ),
+                  icon: Icon(
+                    Icons.add_alert,
+                    size: 27,
+                  ),
+                  label: "Blog"),
             ],
           ),
         ),

@@ -126,7 +126,6 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                       ),
                     ],
                   ),
-
                   registrationTextField(
                       _usernameController,
                       (value) => username = value,
@@ -159,22 +158,18 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                       ),
                     ),
                   ),
-
                   registrationInputLabel("Gender"),
-                  registrationRadioButton("Male", Gender.Male, gender,
-                    (value) {
-                      setState(() {
-                        gender = value;
-                      });
-                    }
-                  ),
+                  registrationRadioButton("Male", Gender.Male, gender, (value) {
+                    setState(() {
+                      gender = value;
+                    });
+                  }),
                   registrationRadioButton("Female", Gender.Female, gender,
-                    (value) {
-                      setState(() {
-                        gender = value;
-                      });
-                    }
-                  ),
+                      (value) {
+                    setState(() {
+                      gender = value;
+                    });
+                  }),
                   registrationTextField(_bmiController, (value) => bmi = value,
                       "Enter BMI", TextInputType.number),
                   registrationTextField(_hdlController, (value) => hdl = value,
@@ -183,39 +178,28 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                       "Enter A1C", TextInputType.number),
                   registrationTextField(_ldlController, (value) => ldl = value,
                       "Enter LDL", TextInputType.number),
-
                   registrationInputLabel("Diabetes Mellitus Type"),
-                  registrationRadioButton("Type 1", DMType.Type1, dm,
-                    (value) {
-                      setState(() {
-                        dm = value;
-                      });
-                    }
-                  ),
-                  registrationRadioButton("Type 2", DMType.Type2, dm,
-                    (value) {
-                      setState(() {
-                        dm = value;
-                      });
-                    }
-                  ),
-
+                  registrationRadioButton("Type 1", DMType.Type1, dm, (value) {
+                    setState(() {
+                      dm = value;
+                    });
+                  }),
+                  registrationRadioButton("Type 2", DMType.Type2, dm, (value) {
+                    setState(() {
+                      dm = value;
+                    });
+                  }),
                   registrationInputLabel("Smoker?"),
-                  registrationRadioButton("Yes", Smoker.Yes, smoker,
-                          (value) {
-                        setState(() {
-                          smoker = value;
-                        });
-                      }
-                  ),
-                  registrationRadioButton("No", Smoker.No, smoker,
-                          (value) {
-                        setState(() {
-                          smoker = value;
-                        });
-                      }
-                  ),
-
+                  registrationRadioButton("Yes", Smoker.Yes, smoker, (value) {
+                    setState(() {
+                      smoker = value;
+                    });
+                  }),
+                  registrationRadioButton("No", Smoker.No, smoker, (value) {
+                    setState(() {
+                      smoker = value;
+                    });
+                  }),
                   Padding(
                     padding: const EdgeInsets.all(10.0),
                     child: TextField(
@@ -244,7 +228,6 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                       ),
                     ),
                   ),
-
                   GestureDetector(
                     onTap: () {
                       Navigator.pop(context);
@@ -256,7 +239,6 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                           fontSize: 12, color: Colors.white),
                     ),
                   ),
-
                   RoundedButton(
                     onPressed: () async {
                       //  Only allow registration if all details are filled

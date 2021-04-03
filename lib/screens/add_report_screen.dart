@@ -77,8 +77,13 @@ class _AddReportScreenState extends State<AddReportScreen> {
                     fontSize: 20,
                   ),
                 ),
-                registrationTextField(_hospitalController, (value) => hospital = value, "Hospital", TextInputType.text),
-                registrationTextField(_doctorController, (value) => doctor = value, "Doctor", TextInputType.text),
+                registrationTextField(
+                    _hospitalController,
+                    (value) => hospital = value,
+                    "Hospital",
+                    TextInputType.text),
+                registrationTextField(_doctorController,
+                    (value) => doctor = value, "Doctor", TextInputType.text),
 //                registrationTextField(controller, onChange, hintText, TextInputType.text),
 
                 SizedBox(
@@ -90,26 +95,26 @@ class _AddReportScreenState extends State<AddReportScreen> {
                         hospital == null ||
                         doctor == "" ||
                         hospital == "") {
-                      createAlertDialog(
-                        context,
-                        "Error",
-                        "Please fill all the given fields to proceed",
-                        404)
-                      ;
+                      createAlertDialog(context, "Error",
+                          "Please fill all the given fields to proceed", 404);
                     } else {
                       setState(() {
                         showSpinner = true;
                       });
 
                       try {
-                        await _firestore.collection("users").doc(email).collection("past-reports").add({
+                        await _firestore
+                            .collection("users")
+                            .doc(email)
+                            .collection("past-reports")
+                            .add({
                           'doctor': doctor,
                           'hospital': hospital,
 //                          'timestamp': Timestamp.now(),
                         });
 
-                        createAlertDialog(context, "Success",
-                            "Report Added!", 200);
+                        createAlertDialog(
+                            context, "Success", "Report Added!", 200);
 
                         setState(() {
                           showSpinner = false;
@@ -118,8 +123,7 @@ class _AddReportScreenState extends State<AddReportScreen> {
                         _hospitalController.clear();
                         _doctorController.clear();
                       } catch (e) {
-                        createAlertDialog(
-                            context, "Error", e.message, 404);
+                        createAlertDialog(context, "Error", e.message, 404);
                         setState(() {
                           showSpinner = false;
                         });

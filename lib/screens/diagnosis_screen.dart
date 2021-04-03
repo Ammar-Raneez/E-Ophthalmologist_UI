@@ -69,7 +69,8 @@ class _DiagnosisScreenState extends State<DiagnosisScreen> {
 
   //  Open phone gallery
   _openGallery() async {
-    var selectedPicture = await ImagePicker.pickImage(source: ImageSource.gallery);
+    var selectedPicture =
+        await ImagePicker.pickImage(source: ImageSource.gallery);
 
     setState(() {
       imageFile = selectedPicture;
@@ -89,7 +90,7 @@ class _DiagnosisScreenState extends State<DiagnosisScreen> {
 
         FormData formData = new FormData.fromMap({
           "file":
-          await MultipartFile.fromFile(imageFile.path, filename: fileName),
+              await MultipartFile.fromFile(imageFile.path, filename: fileName),
         });
 
         //  Response object, formData is sent to the provided API
@@ -116,10 +117,15 @@ class _DiagnosisScreenState extends State<DiagnosisScreen> {
 
         //  status alerts based on success
         if (response != null) {
-          var argsForResult = {'result': result, 'image_url': imageUrl, 'time': time};
+          var argsForResult = {
+            'result': result,
+            'image_url': imageUrl,
+            'time': time
+          };
 //          createAlertDialog(
 //              context, "Diagnosis", response.toString(), 201);
-          Navigator.pushNamed(context, DiagnosisResultScreen.id, arguments: argsForResult);
+          Navigator.pushNamed(context, DiagnosisResultScreen.id,
+              arguments: argsForResult);
         } else {
           createAlertDialog(
               context, "Error", "Oops something went wrong!", 404);
@@ -137,7 +143,7 @@ class _DiagnosisScreenState extends State<DiagnosisScreen> {
   //  Open phone camera for on the spot photos
   _openCamera() async {
     var selectedPicture =
-    await ImagePicker.pickImage(source: ImageSource.camera);
+        await ImagePicker.pickImage(source: ImageSource.camera);
 
     setState(() {
       imageFile = selectedPicture;
@@ -159,7 +165,6 @@ class _DiagnosisScreenState extends State<DiagnosisScreen> {
                   flex: 6,
                   child: Material(
                     color: Colors.white,
-
                     child: Padding(
                       padding: const EdgeInsets.all(16.0),
                       child: Column(
@@ -174,17 +179,17 @@ class _DiagnosisScreenState extends State<DiagnosisScreen> {
                               child: imageFile == null
                                   ? Image.asset('images/uploadImageGrey1.png')
                                   : Image.file(
-                                imageFile,
-                                width: 500,
-                                height: 500,
-                              ),
+                                      imageFile,
+                                      width: 500,
+                                      height: 500,
+                                    ),
                             ),
                           ),
-
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              diagnosisRaisedButton(_openCamera, Icons.camera_alt_rounded),
+                              diagnosisRaisedButton(
+                                  _openCamera, Icons.camera_alt_rounded),
                               SizedBox(
                                 width: 20.0,
                               ),
@@ -229,8 +234,7 @@ class _DiagnosisScreenState extends State<DiagnosisScreen> {
   RaisedButton diagnosisRaisedButton(Function onPress, IconData icon) {
     return RaisedButton(
       elevation: 3.0,
-      padding: EdgeInsets.symmetric(
-          horizontal: 25.0, vertical: 10.0),
+      padding: EdgeInsets.symmetric(horizontal: 25.0, vertical: 10.0),
       color: Colors.grey,
       onPressed: onPress,
       child: Icon(

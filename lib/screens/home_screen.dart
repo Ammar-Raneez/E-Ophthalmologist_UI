@@ -50,10 +50,10 @@ class _HomeScreenState extends State<HomeScreen> {
     var tempScans = [];
 
     await document.reference.collection("eye-scans").get().then((value) => {
-      value.docs.forEach((element) {
-        tempScans.add(element.data());
-      })
-    });
+          value.docs.forEach((element) {
+            tempScans.add(element.data());
+          })
+        });
 
     setState(() {
       userDetails = document.data();
@@ -80,8 +80,8 @@ class _HomeScreenState extends State<HomeScreen> {
   Expanded iconCard(IconData icon, String label, String value) {
     return Expanded(
       child: HomePageReusableCard(
-          color: Colors.white,
-          cardContent: HomePageIconContent(label, value, icon),
+        color: Colors.white,
+        cardContent: HomePageIconContent(label, value, icon),
       ),
     );
   }
@@ -113,176 +113,223 @@ class _HomeScreenState extends State<HomeScreen> {
       body: ModalProgressHUD(
         inAsyncCall: showSpinner,
         child: haveScans && eyeScans.length == 0
-          ? Align(
-              child: CircularProgressIndicator(),
-              alignment: Alignment.center,
-            )
-          : SingleChildScrollView(
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  SizedBox(height: 70.0,),
-                  CircularPercentIndicator(
-                    radius: 300.0,
-                    lineWidth: 50.0,
-                    percent: 0.9,
-                    center: Text(
-                      "90%\nRisk",
-                      style: TextStyle(
-                        fontSize: 30.0, fontWeight: FontWeight.w700, color: Color(0xffdd0000),
-                      ),
+            ? Align(
+                child: CircularProgressIndicator(),
+                alignment: Alignment.center,
+              )
+            : SingleChildScrollView(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    SizedBox(
+                      height: 70.0,
                     ),
-                    arcType: ArcType.HALF,
-                    progressColor: Color(0xffdd0000),
-                  ),
-                  Row(
-                    children: <Widget>[
-                      gender == "Male" ? iconCard(FontAwesomeIcons.mars, "GENDER", gender.toString()) : iconCard(FontAwesomeIcons.venus, "GENDER", gender.toString()),
-                      iconCard(FontAwesomeIcons.eye, "TYPE", dm.toString()),
-                      iconCard(FontAwesomeIcons.calendar, "DURATION", "6 Years"),
-                      smoker == "No" ? iconCard(FontAwesomeIcons.smokingBan, "SMOKER?", smoker.toString()) : iconCard(FontAwesomeIcons.smoking, "SMOKER?", smoker.toString()),
-                    ],
-                  ),
-                  HomePageReusableCard(
-                    color: Colors.white,
-                    cardContent: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        Text(
-                          'BMI',
-                          style: kHomePageMainLabelTextStyle,
-                        ),
-                        SizedBox(height: 25.0,),
-                        Text(
-                          'kg/m2',
-                          style: kHomePageUnitTextStyle,
-                        ),
-                        SizedBox(height: 5.0,),
-                        Text(
-                          bmi.toString(),
-                          style: kHomePageNumberTextStyle,
-                        ),
-                      ],
-                    ),
-                  ),
-                  HomePageReusableCard(
-                    color: Colors.white,
-                    cardContent: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        Text(
-                          'A1C',
-                          style: kHomePageMainLabelTextStyle,
-                        ),
-                        SizedBox(height: 25.0,),
-                        Text(
-                          'mmol/mol',
-                          style: kHomePageUnitTextStyle,
-                        ),
-                        SizedBox(height: 5.0,),
-                        Text(
-                          a1c.toString(),
-                          style: kHomePageNumberTextStyle,
-                        ),
-                      ],
-                    ),
-                  ),
-                  HomePageReusableCard(
-                    color: Colors.white,
-                    cardContent: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        Text(
-                          'LDL',
-                          style: kHomePageMainLabelTextStyle,
-                        ),
-                        SizedBox(height: 25.0,),
-                        Text(
-                          'mg/dL',
-                          style: kHomePageUnitTextStyle,
-                        ),
-                        SizedBox(height: 5.0,),
-                        Text(
-                          ldl.toString(),
-                          style: kHomePageNumberTextStyle,
-                        ),
-                      ],
-                    ),
-                  ),
-                  HomePageReusableCard(
-                    color: Colors.white,
-                    cardContent: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        Text(
-                          'HDL',
-                          style: kHomePageMainLabelTextStyle,
-                        ),
-                        SizedBox(height: 25.0,),
-                        Text(
-                          'mg/dL',
-                          style: kHomePageUnitTextStyle,
-                        ),
-                        SizedBox(height: 5.0,),
-                        Text(
-                          hdl.toString(),
-                          style: kHomePageNumberTextStyle,
-                        ),
-                      ],
-                    ),
-                  ),
-                  eyeScans.length == 0 ?
-                    Container(width: 0, height: 0,)
-                  :
-                    Padding(
-                      padding: const EdgeInsets.only(top: 20.0, bottom: 10.0, left: 8.0),
-                      child: Align(
-                        alignment: Alignment.topLeft,
-                        child: Text(
-                          "Past Scans",
-                          style: kHomePageMainLabelTextStyle,
+                    CircularPercentIndicator(
+                      radius: 300.0,
+                      lineWidth: 50.0,
+                      percent: 0.9,
+                      center: Text(
+                        "90%\nRisk",
+                        style: TextStyle(
+                          fontSize: 30.0,
+                          fontWeight: FontWeight.w700,
+                          color: Color(0xffdd0000),
                         ),
                       ),
+                      arcType: ArcType.HALF,
+                      progressColor: Color(0xffdd0000),
                     ),
-                  eyeScans.length == 0 ?
-                    Container(width: 0, height: 0,)
-                  :
-                    Padding(
-                      padding: const EdgeInsets.only(bottom: 20.0),
-                      child: SizedBox(
-                        height: 150.0,
-                        child: ListView.builder(
-                          physics: ClampingScrollPhysics(),
-                          shrinkWrap: true,
-                          scrollDirection: Axis.horizontal,
-                          itemCount: eyeScans.length,
-                          itemBuilder: (BuildContext context, int index) => GestureDetector(
-                            onTap: () {
-                              var argsForResult = {'result': eyeScans[index]['result'], 'image_url': eyeScans[index]['image_url'], 'time': eyeScans[index]['timestamp']};
-                              Navigator.pushNamed(context, DiagnosisResultScreen.id, arguments: argsForResult);
-                            },
-                            child: Card(
-                              child: Container(
-                                width: 160,
-                                decoration: BoxDecoration(
-                                  image: DecorationImage(
-                                    image: NetworkImage(
-                                      eyeScans[index]['image_url'],
-                                    ),
-                                    fit: BoxFit.cover,
-                                    alignment: Alignment.topCenter,
-                                  ),
-                                ),
-                                child: Padding(
-                                  padding: const EdgeInsets.all(18.0),
-                                  child: Center(
-                                    child: BorderedText(
-                                      strokeWidth: 2.0,
-                                      strokeColor: Colors.black,
-                                      child: Text(
-                                        eyeScans[index]['result'].toString().toUpperCase(),
-                                        style: TextStyle(
-                                          color: Colors.white,
+                    Row(
+                      children: <Widget>[
+                        gender == "Male"
+                            ? iconCard(FontAwesomeIcons.mars, "GENDER",
+                                gender.toString())
+                            : iconCard(FontAwesomeIcons.venus, "GENDER",
+                                gender.toString()),
+                        iconCard(FontAwesomeIcons.eye, "TYPE", dm.toString()),
+                        iconCard(
+                            FontAwesomeIcons.calendar, "DURATION", "6 Years"),
+                        smoker == "No"
+                            ? iconCard(FontAwesomeIcons.smokingBan, "SMOKER?",
+                                smoker.toString())
+                            : iconCard(FontAwesomeIcons.smoking, "SMOKER?",
+                                smoker.toString()),
+                      ],
+                    ),
+                    HomePageReusableCard(
+                      color: Colors.white,
+                      cardContent: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          Text(
+                            'BMI',
+                            style: kHomePageMainLabelTextStyle,
+                          ),
+                          SizedBox(
+                            height: 25.0,
+                          ),
+                          Text(
+                            'kg/m2',
+                            style: kHomePageUnitTextStyle,
+                          ),
+                          SizedBox(
+                            height: 5.0,
+                          ),
+                          Text(
+                            bmi.toString(),
+                            style: kHomePageNumberTextStyle,
+                          ),
+                        ],
+                      ),
+                    ),
+                    HomePageReusableCard(
+                      color: Colors.white,
+                      cardContent: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          Text(
+                            'A1C',
+                            style: kHomePageMainLabelTextStyle,
+                          ),
+                          SizedBox(
+                            height: 25.0,
+                          ),
+                          Text(
+                            'mmol/mol',
+                            style: kHomePageUnitTextStyle,
+                          ),
+                          SizedBox(
+                            height: 5.0,
+                          ),
+                          Text(
+                            a1c.toString(),
+                            style: kHomePageNumberTextStyle,
+                          ),
+                        ],
+                      ),
+                    ),
+                    HomePageReusableCard(
+                      color: Colors.white,
+                      cardContent: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          Text(
+                            'LDL',
+                            style: kHomePageMainLabelTextStyle,
+                          ),
+                          SizedBox(
+                            height: 25.0,
+                          ),
+                          Text(
+                            'mg/dL',
+                            style: kHomePageUnitTextStyle,
+                          ),
+                          SizedBox(
+                            height: 5.0,
+                          ),
+                          Text(
+                            ldl.toString(),
+                            style: kHomePageNumberTextStyle,
+                          ),
+                        ],
+                      ),
+                    ),
+                    HomePageReusableCard(
+                      color: Colors.white,
+                      cardContent: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          Text(
+                            'HDL',
+                            style: kHomePageMainLabelTextStyle,
+                          ),
+                          SizedBox(
+                            height: 25.0,
+                          ),
+                          Text(
+                            'mg/dL',
+                            style: kHomePageUnitTextStyle,
+                          ),
+                          SizedBox(
+                            height: 5.0,
+                          ),
+                          Text(
+                            hdl.toString(),
+                            style: kHomePageNumberTextStyle,
+                          ),
+                        ],
+                      ),
+                    ),
+                    eyeScans.length == 0
+                        ? Container(
+                            width: 0,
+                            height: 0,
+                          )
+                        : Padding(
+                            padding: const EdgeInsets.only(
+                                top: 20.0, bottom: 10.0, left: 8.0),
+                            child: Align(
+                              alignment: Alignment.topLeft,
+                              child: Text(
+                                "Past Scans",
+                                style: kHomePageMainLabelTextStyle,
+                              ),
+                            ),
+                          ),
+                    eyeScans.length == 0
+                        ? Container(
+                            width: 0,
+                            height: 0,
+                          )
+                        : Padding(
+                            padding: const EdgeInsets.only(bottom: 20.0),
+                            child: SizedBox(
+                              height: 150.0,
+                              child: ListView.builder(
+                                physics: ClampingScrollPhysics(),
+                                shrinkWrap: true,
+                                scrollDirection: Axis.horizontal,
+                                itemCount: eyeScans.length,
+                                itemBuilder:
+                                    (BuildContext context, int index) =>
+                                        GestureDetector(
+                                  onTap: () {
+                                    var argsForResult = {
+                                      'result': eyeScans[index]['result'],
+                                      'image_url': eyeScans[index]['image_url'],
+                                      'time': eyeScans[index]['timestamp']
+                                    };
+                                    Navigator.pushNamed(
+                                        context, DiagnosisResultScreen.id,
+                                        arguments: argsForResult);
+                                  },
+                                  child: Card(
+                                    child: Container(
+                                      width: 160,
+                                      decoration: BoxDecoration(
+                                        image: DecorationImage(
+                                          image: NetworkImage(
+                                            eyeScans[index]['image_url'],
+                                          ),
+                                          fit: BoxFit.cover,
+                                          alignment: Alignment.topCenter,
+                                        ),
+                                      ),
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(18.0),
+                                        child: Center(
+                                          child: BorderedText(
+                                            strokeWidth: 2.0,
+                                            strokeColor: Colors.black,
+                                            child: Text(
+                                              eyeScans[index]['result']
+                                                  .toString()
+                                                  .toUpperCase(),
+                                              style: TextStyle(
+                                                color: Colors.white,
+                                              ),
+                                            ),
+                                          ),
                                         ),
                                       ),
                                     ),
@@ -291,12 +338,9 @@ class _HomeScreenState extends State<HomeScreen> {
                               ),
                             ),
                           ),
-                        ),
-                      ),
-                    ),
-                ],
+                  ],
+                ),
               ),
-            ),
       ),
     );
   }

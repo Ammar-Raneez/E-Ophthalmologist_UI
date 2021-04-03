@@ -33,8 +33,8 @@ class _BlogScreenState extends State<BlogScreen> {
   Widget build(BuildContext context) {
     return SafeArea(
         child: Scaffold(
-          body: Container(
-            child: userDetails == null
+      body: Container(
+        child: userDetails == null
             ? Align(
                 child: CircularProgressIndicator(),
                 alignment: Alignment.center,
