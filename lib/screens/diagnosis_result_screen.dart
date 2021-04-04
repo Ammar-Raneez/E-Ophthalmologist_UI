@@ -112,7 +112,7 @@ class _DiagnosisResultScreenState extends State<DiagnosisResultScreen> {
                 ),
                 RoundedButton(
                   onPressed: () {
-                    Navigator.pushNamed(context, HomeScreen.id);
+                    Navigator.pop(context);
                   },
                   colour: Color(0xff01CDFA),
                   title: "Back to Home",
