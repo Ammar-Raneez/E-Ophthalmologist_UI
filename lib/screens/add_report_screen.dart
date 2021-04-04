@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
@@ -7,6 +9,7 @@ import 'package:intl/intl.dart';
 import 'package:ui/components/alert_widget.dart';
 import 'package:ui/components/rounded_button.dart';
 import 'package:ui/constants.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 
 final _firestore = FirebaseFirestore.instance;
 
@@ -30,10 +33,12 @@ class _AddReportScreenState extends State<AddReportScreen> {
 
   var userDetails;
   String email;
-  bool showSpinner;
+  bool showSpinner = false;
 
   var imageDocuments = [];
   var imageDocumentsPaths = [];
+
+  String reportID;
 
   @override
   void initState() {
@@ -69,7 +74,7 @@ class _AddReportScreenState extends State<AddReportScreen> {
   }
 
   //  Open phone gallery and store images into the arrays
-  _openGallery() async {
+  _openGalleryAndUpload() async {
     var selectedPicture =
     await ImagePicker.pickImage(source: ImageSource.gallery);
 
@@ -78,6 +83,20 @@ class _AddReportScreenState extends State<AddReportScreen> {
     setState(() {
       imageDocuments.add(selectedPicture);
       imageDocumentsPaths.add(fileName);
+      reportID = new Timestamp.now().toString();
+    });
+
+    setState(() {
+      showSpinner = true;
+    });
+
+
+    Reference ref = FirebaseStorage.instance.ref().child(email + " " + reportID + "/").child(fileName);
+    UploadTask task = ref.putFile(selectedPicture);
+//    TaskSnapshot snapshot = await task.
+
+    setState(() {
+      showSpinner = false;
     });
   }
 
@@ -184,7 +203,7 @@ class _AddReportScreenState extends State<AddReportScreen> {
                             .collection("users")
                             .doc(email)
                             .collection("past-reports")
-                            .doc(new Timestamp.now().toString())
+                            .doc(reportID)
                             .set({
                           'doctor': doctor,
                           'hospital': hospital,
@@ -216,7 +235,7 @@ class _AddReportScreenState extends State<AddReportScreen> {
           ),
         ),
         floatingActionButton: FloatingActionButton(
-          onPressed: () => _openGallery(),
+          onPressed: () => _openGalleryAndUpload(),
           child: Text(
             "+",
             style: TextStyle(fontSize: 40),
