@@ -127,6 +127,7 @@ class _ReportScreenState extends State<ReportScreen> {
                             'doctor': reports[index]['doctor'],
                             'hospital': reports[index]['hospital'],
                             'date': reports[index]['date'],
+                            'image_document_urls': reports[index]['image_document_urls'],
                             'currentReportId': docIds[index]
                           };
                           Navigator.pushNamed(

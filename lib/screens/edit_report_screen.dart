@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
@@ -33,8 +34,8 @@ class _EditReportScreenState extends State<EditReportScreen> {
   String email;
   bool showSpinner = false;
 
-  var imageDocuments = [];
-  var imageDocumentsPaths = [];
+//  var imageDocuments = [];
+  var imageDocumentsURLS = [];
 
   @override
   void initState() {
@@ -76,10 +77,9 @@ class _EditReportScreenState extends State<EditReportScreen> {
 
     String fileName = selectedPicture.path.split('/').last;
 
-    setState(() {
-      imageDocuments.add(selectedPicture);
-      imageDocumentsPaths.add(fileName);
-    });
+//    setState(() {
+//      imageDocuments.add(selectedPicture);
+//    });
   }
 
   //  DatePicker handler
@@ -109,7 +109,10 @@ class _EditReportScreenState extends State<EditReportScreen> {
       doctor = arguments['doctor'];
       hospital = arguments['hospital'];
       selectedDate = arguments['date'];
+      imageDocumentsURLS = arguments['image_document_urls'];
     });
+
+    print(imageDocumentsURLS);
 
     setState(() {
       _doctorController =
@@ -178,11 +181,23 @@ class _EditReportScreenState extends State<EditReportScreen> {
                           height: 20,
                         ),
                         Column(
-                          children: imageDocuments.length != 0
+                          children: imageDocumentsURLS.length != 0
                               ? List.generate(
-                                  imageDocuments.length,
-                                  (index) => Image.file(imageDocuments[index],
-                                      width: width, height: 300),
+                                  imageDocumentsURLS.length,
+                                  (index) => CachedNetworkImage(
+                                      progressIndicatorBuilder: (context, url,
+                                              downloadProgress) =>
+                                          SizedBox(
+                                            width: width/2,
+                                            height: 200,
+                                            child: Center(
+                                              child: CircularProgressIndicator(
+                                                  value: downloadProgress.progress),
+                                            ),
+                                          ),
+                                      imageUrl: imageDocumentsURLS[index],
+                                      width: width,
+                                      height: 300),
                                 )
                               : List.generate(
                                   1,
@@ -219,7 +234,8 @@ class _EditReportScreenState extends State<EditReportScreen> {
                                     .set({
                                   'doctor': doctor,
                                   'hospital': hospital,
-                                  'date': selectedDate
+                                  'date': selectedDate,
+                                  'image_document_urls': imageDocumentsURLS
                                 });
 
                                 createAlertDialog(
