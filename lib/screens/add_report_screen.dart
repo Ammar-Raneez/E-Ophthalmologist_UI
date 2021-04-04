@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:ui/components/alert_widget.dart';
 import 'package:ui/components/rounded_button.dart';
@@ -30,6 +31,9 @@ class _AddReportScreenState extends State<AddReportScreen> {
   var userDetails;
   String email;
   bool showSpinner;
+
+  var imageDocuments = [];
+  var imageDocumentsPaths = [];
 
   @override
   void initState() {
@@ -64,6 +68,19 @@ class _AddReportScreenState extends State<AddReportScreen> {
     });
   }
 
+  //  Open phone gallery and store images into the arrays
+  _openGallery() async {
+    var selectedPicture =
+    await ImagePicker.pickImage(source: ImageSource.gallery);
+
+    String fileName = selectedPicture.path.split('/').last;
+
+    setState(() {
+      imageDocuments.add(selectedPicture);
+      imageDocumentsPaths.add(fileName);
+    });
+  }
+
   //  DatePicker handler
   Future<Null> selectDate(BuildContext context) async {
     final DateTime picked = await showDatePicker(
@@ -83,6 +100,9 @@ class _AddReportScreenState extends State<AddReportScreen> {
 
   @override
   Widget build(BuildContext context) {
+    var screenSize = MediaQuery.of(context).size;
+    var width = screenSize.width;
+
     return SafeArea(
       child: Scaffold(
         body: Container(
@@ -128,6 +148,21 @@ class _AddReportScreenState extends State<AddReportScreen> {
                 ),
                 SizedBox(
                   height: 20,
+                ),
+                Column(
+                  children: imageDocuments.length != 0
+                      ? List.generate(
+                    imageDocuments.length,
+                        (index) => Image.file(imageDocuments[index],
+                        width: width, height: 300),
+                  )
+                      : List.generate(
+                    1,
+                        (index) => Container(
+                      width: 0,
+                      height: 0,
+                    ),
+                  ),
                 ),
                 RoundedButton(
                   onPressed: () async {
@@ -178,6 +213,13 @@ class _AddReportScreenState extends State<AddReportScreen> {
                 )
               ],
             ),
+          ),
+        ),
+        floatingActionButton: FloatingActionButton(
+          onPressed: () => _openGallery(),
+          child: Text(
+            "+",
+            style: TextStyle(fontSize: 40),
           ),
         ),
       ),
