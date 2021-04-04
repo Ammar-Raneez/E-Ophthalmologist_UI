@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
@@ -32,6 +33,7 @@ class _EditReportScreenState extends State<EditReportScreen> {
 
   var userDetails;
   String email;
+  String reportID;
   bool showSpinner = false;
 
 //  var imageDocuments = [];
@@ -71,15 +73,35 @@ class _EditReportScreenState extends State<EditReportScreen> {
   }
 
   //  Open phone gallery and store images into the arrays
-  _openGallery() async {
+  _openGalleryAndUpload() async {
     var selectedPicture =
-        await ImagePicker.pickImage(source: ImageSource.gallery);
+    await ImagePicker.pickImage(source: ImageSource.gallery);
 
     String fileName = selectedPicture.path.split('/').last;
 
-//    setState(() {
-//      imageDocuments.add(selectedPicture);
-//    });
+    setState(() {
+      showSpinner = true;
+    });
+
+
+    // save chosen image into firebase storage, in the report specific directory
+    Reference ref = FirebaseStorage.instance.ref().child(email + " " + reportID + "/").child(fileName);
+    UploadTask task = ref.putFile(selectedPicture);
+
+    String thisImageUrl = "";
+    task.whenComplete(() async {
+      thisImageUrl = await ref.getDownloadURL();
+      print(thisImageUrl);
+      setState(() {
+        imageDocumentsURLS.add(thisImageUrl);
+      });
+    }).catchError((onError) {
+      print(onError);
+    });
+
+    setState(() {
+      showSpinner = false;
+    });
   }
 
   //  DatePicker handler
@@ -110,6 +132,7 @@ class _EditReportScreenState extends State<EditReportScreen> {
       hospital = arguments['hospital'];
       selectedDate = arguments['date'];
       imageDocumentsURLS = arguments['image_document_urls'];
+      reportID = arguments['currentReportId'];
     });
 
     print(imageDocumentsURLS);
@@ -230,7 +253,7 @@ class _EditReportScreenState extends State<EditReportScreen> {
                                     .collection("users")
                                     .doc(email)
                                     .collection("past-reports")
-                                    .doc(arguments['currentReportId'])
+                                    .doc(reportID)
                                     .set({
                                   'doctor': doctor,
                                   'hospital': hospital,
@@ -268,7 +291,7 @@ class _EditReportScreenState extends State<EditReportScreen> {
                 ),
         ),
         floatingActionButton: FloatingActionButton(
-          onPressed: () => _openGallery(),
+          onPressed: () => _openGalleryAndUpload(),
           child: Text(
             "+",
             style: TextStyle(fontSize: 40),
