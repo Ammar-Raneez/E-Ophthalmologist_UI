@@ -36,9 +36,10 @@ class _AddReportScreenState extends State<AddReportScreen> {
   bool showSpinner = false;
 
   var imageDocuments = [];
-  var imageDocumentsPaths = [];
+  var imageDocumentsURLS = [];
 
-  String reportID;
+  // reportID - timestamp of creation
+  String reportID = new Timestamp.now().toString();
 
   @override
   void initState() {
@@ -82,8 +83,6 @@ class _AddReportScreenState extends State<AddReportScreen> {
 
     setState(() {
       imageDocuments.add(selectedPicture);
-      imageDocumentsPaths.add(fileName);
-      reportID = new Timestamp.now().toString();
     });
 
     setState(() {
@@ -91,9 +90,20 @@ class _AddReportScreenState extends State<AddReportScreen> {
     });
 
 
+    // save chosen image into firebase storage, in the report specific directory
     Reference ref = FirebaseStorage.instance.ref().child(email + " " + reportID + "/").child(fileName);
     UploadTask task = ref.putFile(selectedPicture);
-//    TaskSnapshot snapshot = await task.
+
+    String thisImageUrl = "";
+    task.whenComplete(() async {
+      thisImageUrl = await ref.getDownloadURL();
+      print(thisImageUrl);
+      setState(() {
+        imageDocumentsURLS.add(thisImageUrl);
+      });
+    }).catchError((onError) {
+      print(onError);
+    });
 
     setState(() {
       showSpinner = false;
@@ -207,7 +217,8 @@ class _AddReportScreenState extends State<AddReportScreen> {
                             .set({
                           'doctor': doctor,
                           'hospital': hospital,
-                          'date': selectedDate
+                          'date': selectedDate,
+                          'image_document_urls': imageDocumentsURLS
                         });
 
                         createAlertDialog(
