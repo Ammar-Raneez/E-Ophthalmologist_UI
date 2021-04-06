@@ -3,7 +3,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:ui/components/rounded_button.dart';
-import 'package:ui/screens/home_screen.dart';
 
 final _firestore = FirebaseFirestore.instance;
 
@@ -66,15 +65,14 @@ class _DiagnosisResultScreenState extends State<DiagnosisResultScreen> {
                 Center(
                   child: CachedNetworkImage(
                     progressIndicatorBuilder:
-                        (context, url, downloadProgress) =>
-                            SizedBox(
-                              width: width/2,
-                              height: 200,
-                              child: Center(
-                                child: CircularProgressIndicator(
-                                    value: downloadProgress.progress),
-                              ),
-                            ),
+                        (context, url, downloadProgress) => SizedBox(
+                          width: width / 2,
+                          height: 200,
+                          child: Center(
+                            child: CircularProgressIndicator(
+                                value: downloadProgress.progress),
+                      ),
+                    ),
                     imageUrl: arguments['image_url'],
                     width: width,
                     height: 350,

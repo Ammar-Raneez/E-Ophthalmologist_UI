@@ -75,7 +75,7 @@ class _AddReportScreenState extends State<AddReportScreen> {
   //  Open phone gallery and store images into the arrays
   _openGalleryAndUpload() async {
     var selectedPicture =
-    await ImagePicker.pickImage(source: ImageSource.gallery);
+        await ImagePicker.pickImage(source: ImageSource.gallery);
 
     String fileName = selectedPicture.path.split('/').last;
 
@@ -87,9 +87,11 @@ class _AddReportScreenState extends State<AddReportScreen> {
       showSpinner = true;
     });
 
-
     // save chosen image into firebase storage, in the report specific directory
-    Reference ref = FirebaseStorage.instance.ref().child(email + " " + reportID + "/").child(fileName);
+    Reference ref = FirebaseStorage.instance
+        .ref()
+        .child(email + " " + reportID + "/")
+        .child(fileName);
     UploadTask task = ref.putFile(selectedPicture);
 
     String thisImageUrl = "";
@@ -165,11 +167,11 @@ class _AddReportScreenState extends State<AddReportScreen> {
                     },
                     style: ButtonStyle(
                       shadowColor:
-                      MaterialStateProperty.all<Color>(Color(0xff01CDFA)),
+                          MaterialStateProperty.all<Color>(Color(0xff01CDFA)),
                       foregroundColor:
-                      MaterialStateProperty.all<Color>(Color(0xff01CDFA)),
+                          MaterialStateProperty.all<Color>(Color(0xff01CDFA)),
                       overlayColor:
-                      MaterialStateProperty.all<Color>(Color(0xff01CDFA)),
+                          MaterialStateProperty.all<Color>(Color(0xff01CDFA)),
                     ),
                   ),
                 ),
@@ -179,17 +181,17 @@ class _AddReportScreenState extends State<AddReportScreen> {
                 Column(
                   children: imageDocuments.length != 0
                       ? List.generate(
-                    imageDocuments.length,
-                        (index) => Image.file(imageDocuments[index],
-                        width: width, height: 300),
-                  )
+                          imageDocuments.length,
+                          (index) => Image.file(imageDocuments[index],
+                              width: width, height: 300),
+                        )
                       : List.generate(
-                    1,
-                        (index) => Container(
-                      width: 0,
-                      height: 0,
-                    ),
-                  ),
+                          1,
+                          (index) => Container(
+                            width: 0,
+                            height: 0,
+                          ),
+                        ),
                 ),
                 RoundedButton(
                   onPressed: () async {

@@ -32,53 +32,59 @@ class _BlogScreenState extends State<BlogScreen> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-        child: Scaffold(
-      body: Container(
-        child: userDetails == null
-            ? Align(
-                child: CircularProgressIndicator(),
-                alignment: Alignment.center,
-              )
-            : Column(
-                children: [
-                  Expanded(
+      child: Scaffold(
+        body: Container(
+          child: userDetails == null
+              ? Align(
+                  child: CircularProgressIndicator(),
+                  alignment: Alignment.center,
+                )
+              : Column(
+                  children: [
+                    Expanded(
                       child: Center(
-                    child: ListView(
-                      children: [
-                        Container(
-                            child: BlogArticle(
-                          cardTitle: 'Retinopathy Stages',
-                          cardColor: Color(0xffeeeeee),
-                          textColor: '0xFF757575',
-                        )),
-                        Container(
-                            child: BlogArticle(
-                          cardTitle: 'Diabetes Types',
-                          cardColor: Colors.lightBlueAccent,
-                          textColor: '0xFFFFFFFF',
-                        )),
-                        Container(
-                            child: BlogArticle(
-                          cardTitle: 'Guidelines',
-                          cardColor: Color(0xffeeeeee),
-                          textColor: '0xFF757575',
-                        )),
-                        Container(
-                            child: BlogArticle(
-                          cardTitle: 'Treatments',
-                          cardColor: Colors.lightBlueAccent,
-                          textColor: '0xFFFFFFFF',
-                        )),
-                      ],
+                        child: ListView(
+                          children: [
+                            Container(
+                              child: BlogArticle(
+                                cardTitle: 'Retinopathy Stages',
+                                cardColor: Color(0xffeeeeee),
+                                textColor: '0xFF757575',
+                              ),
+                            ),
+                            Container(
+                              child: BlogArticle(
+                                cardTitle: 'Diabetes Types',
+                                cardColor: Colors.lightBlueAccent,
+                                textColor: '0xFFFFFFFF',
+                              ),
+                            ),
+                            Container(
+                              child: BlogArticle(
+                                cardTitle: 'Guidelines',
+                                cardColor: Color(0xffeeeeee),
+                                textColor: '0xFF757575',
+                              ),
+                            ),
+                            Container(
+                              child: BlogArticle(
+                                cardTitle: 'Treatments',
+                                cardColor: Colors.lightBlueAccent,
+                                textColor: '0xFFFFFFFF',
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
                     ),
-                  )),
-                  SizedBox(
-                    height: 21,
-                  ),
-                ],
-              ),
+                    SizedBox(
+                      height: 21,
+                    ),
+                  ],
+                ),
+        ),
       ),
-    ));
+    );
   }
 
   Padding homeScreenTitles(String text, double fontSize, Color color) {

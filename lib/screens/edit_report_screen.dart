@@ -75,7 +75,7 @@ class _EditReportScreenState extends State<EditReportScreen> {
   //  Open phone gallery and store images into the arrays
   _openGalleryAndUpload() async {
     var selectedPicture =
-    await ImagePicker.pickImage(source: ImageSource.gallery);
+        await ImagePicker.pickImage(source: ImageSource.gallery);
 
     String fileName = selectedPicture.path.split('/').last;
 
@@ -83,9 +83,11 @@ class _EditReportScreenState extends State<EditReportScreen> {
       showSpinner = true;
     });
 
-
     // save chosen image into firebase storage, in the report specific directory
-    Reference ref = FirebaseStorage.instance.ref().child(email + " " + reportID + "/").child(fileName);
+    Reference ref = FirebaseStorage.instance
+        .ref()
+        .child(email + " " + reportID + "/")
+        .child(fileName);
     UploadTask task = ref.putFile(selectedPicture);
 
     String thisImageUrl = "";
@@ -211,11 +213,12 @@ class _EditReportScreenState extends State<EditReportScreen> {
                                       progressIndicatorBuilder: (context, url,
                                               downloadProgress) =>
                                           SizedBox(
-                                            width: width/2,
+                                            width: width / 2,
                                             height: 200,
                                             child: Center(
                                               child: CircularProgressIndicator(
-                                                  value: downloadProgress.progress),
+                                                  value: downloadProgress
+                                                      .progress),
                                             ),
                                           ),
                                       imageUrl: imageDocumentsURLS[index],
