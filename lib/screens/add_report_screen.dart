@@ -187,11 +187,15 @@ class _AddReportScreenState extends State<AddReportScreen> {
                         )
                       : List.generate(
                           1,
-                          (index) => Container(
-                            width: 0,
-                            height: 0,
+                          (index) => Image.asset(
+                            "images/uploadImageGrey1.png",
+                            width: width,
+                            height: 300,
                           ),
                         ),
+                ),
+                SizedBox(
+                  height: 50,
                 ),
                 RoundedButton(
                   onPressed: () async {
