@@ -95,7 +95,6 @@ class _EditAppointmentScreenState extends State<EditAppointmentScreen> {
       appointmentId = arguments['currentAppointmentId'];
     });
 
-
     setState(() {
       _doctorController =
           TextEditingController.fromValue(TextEditingValue(text: "$doctor"));
@@ -193,7 +192,8 @@ class _EditAppointmentScreenState extends State<EditAppointmentScreen> {
                         text: TextSpan(
                             text: "Hemas Hospital",
                             style: kTextStyle.copyWith(
-                              fontSize: 18, color: Colors.blueAccent,
+                              fontSize: 18,
+                              color: Colors.blueAccent,
                             ),
                             recognizer: TapGestureRecognizer()
                               ..onTap = () {
@@ -207,7 +207,8 @@ class _EditAppointmentScreenState extends State<EditAppointmentScreen> {
                         text: TextSpan(
                             text: "Ninewells Hospital",
                             style: kTextStyle.copyWith(
-                              fontSize: 18, color: Colors.blueAccent,
+                              fontSize: 18,
+                              color: Colors.blueAccent,
                             ),
                             recognizer: TapGestureRecognizer()
                               ..onTap = () {
@@ -221,7 +222,8 @@ class _EditAppointmentScreenState extends State<EditAppointmentScreen> {
                         text: TextSpan(
                             text: "Lanka Hospital",
                             style: kTextStyle.copyWith(
-                              fontSize: 18, color: Colors.blueAccent,
+                              fontSize: 18,
+                              color: Colors.blueAccent,
                             ),
                             recognizer: TapGestureRecognizer()
                               ..onTap = () {
@@ -246,14 +248,14 @@ class _EditAppointmentScreenState extends State<EditAppointmentScreen> {
                 ),
                 registrationTextField(
                     _hospitalController,
-                        (value) => hospital = value,
+                    (value) => hospital = value,
                     "Hospital",
                     TextInputType.text),
                 SizedBox(
                   height: 20,
                 ),
                 registrationTextField(_doctorController,
-                        (value) => doctor = value, "Doctor", TextInputType.text),
+                    (value) => doctor = value, "Doctor", TextInputType.text),
                 SizedBox(
                   height: 20,
                 ),
@@ -271,11 +273,11 @@ class _EditAppointmentScreenState extends State<EditAppointmentScreen> {
                     },
                     style: ButtonStyle(
                       shadowColor:
-                      MaterialStateProperty.all<Color>(Color(0xff01CDFA)),
+                          MaterialStateProperty.all<Color>(Color(0xff01CDFA)),
                       foregroundColor:
-                      MaterialStateProperty.all<Color>(Color(0xff01CDFA)),
+                          MaterialStateProperty.all<Color>(Color(0xff01CDFA)),
                       overlayColor:
-                      MaterialStateProperty.all<Color>(Color(0xff01CDFA)),
+                          MaterialStateProperty.all<Color>(Color(0xff01CDFA)),
                     ),
                   ),
                 ),
@@ -309,8 +311,8 @@ class _EditAppointmentScreenState extends State<EditAppointmentScreen> {
                           'date': selectedDate,
                         });
 
-                        createAlertDialog(
-                            context, "Success", "Appointment Confirmed!", 200);
+                        createAlertDialog(context, "Success",
+                            "Appointment has been edited successfully!", 200);
 
                         setState(() {
                           showSpinner = false;
