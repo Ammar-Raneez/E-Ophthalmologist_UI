@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
@@ -284,11 +285,10 @@ class _HomeScreenState extends State<HomeScreen> {
                         : Padding(
                             padding: const EdgeInsets.only(bottom: 20.0),
                             child: SizedBox(
-                              height: 150.0,
+                              height: 250.0,
                               child: ListView.builder(
                                 physics: ClampingScrollPhysics(),
                                 shrinkWrap: true,
-                                scrollDirection: Axis.horizontal,
                                 itemCount: eyeScans.length,
                                 itemBuilder:
                                     (BuildContext context, int index) =>
@@ -305,32 +305,83 @@ class _HomeScreenState extends State<HomeScreen> {
                                   },
                                   child: Card(
                                     child: Container(
-                                      width: 160,
-                                      decoration: BoxDecoration(
-                                        image: DecorationImage(
-                                          image: NetworkImage(
-                                            eyeScans[index]['image_url'],
+                                      height: 100,
+                                      child: Row(
+                                        children: [
+                                          CachedNetworkImage(
+                                            progressIndicatorBuilder: (context,
+                                                    url, downloadProgress) =>
+                                                SizedBox(
+//                                              width: width / 2,
+                                              height: 50,
+                                              child: Center(
+                                                child:
+                                                    CircularProgressIndicator(
+                                                        value: downloadProgress
+                                                            .progress),
+                                              ),
+                                            ),
+                                            imageUrl: eyeScans[index]
+                                                ['image_url'],
+                                            height: 100,
                                           ),
-                                          fit: BoxFit.cover,
-                                          alignment: Alignment.topCenter,
-                                        ),
-                                      ),
-                                      child: Padding(
-                                        padding: const EdgeInsets.all(18.0),
-                                        child: Center(
-                                          child: BorderedText(
-                                            strokeWidth: 2.0,
-                                            strokeColor: Colors.black,
-                                            child: Text(
-                                              eyeScans[index]['result']
-                                                  .toString()
-                                                  .toUpperCase(),
-                                              style: TextStyle(
-                                                color: Colors.white,
+                                          Container(
+                                            width: MediaQuery.of(context)
+                                                    .size
+                                                    .width /
+                                                1.8,
+                                            child: Align(
+                                              alignment: Alignment.center,
+                                              child: Column(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.center,
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.center,
+                                                children: [
+                                                  Text(
+                                                    "Date: " +
+                                                        DateTime.fromMillisecondsSinceEpoch(
+                                                                eyeScans[index][
+                                                                            'timestamp']
+                                                                        .seconds *
+                                                                    1000)
+                                                            .day
+                                                            .toString() +
+                                                        "-" +
+                                                        DateTime.fromMillisecondsSinceEpoch(
+                                                                eyeScans[index][
+                                                                            'timestamp']
+                                                                        .seconds *
+                                                                    1000)
+                                                            .month
+                                                            .toString() +
+                                                        "-" +
+                                                        DateTime.fromMillisecondsSinceEpoch(
+                                                                eyeScans[index][
+                                                                            'timestamp']
+                                                                        .seconds *
+                                                                    1000)
+                                                            .year
+                                                            .toString(),
+                                                    style: TextStyle(
+                                                        fontFamily: "Poppins-SemiBold"
+                                                    ),
+                                                  ),
+                                                  Text(
+                                                    "Condition: " +
+                                                        eyeScans[index]
+                                                                ['result']
+                                                            .toString()
+                                                            .toUpperCase(),
+                                                    style: TextStyle(
+                                                        fontFamily: "Poppins-SemiBold"
+                                                    ),
+                                                  ),
+                                                ],
                                               ),
                                             ),
                                           ),
-                                        ),
+                                        ],
                                       ),
                                     ),
                                   ),
@@ -345,3 +396,31 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 }
+
+//decoration: BoxDecoration(
+//image: DecorationImage(
+//image: NetworkImage(
+//eyeScans[index]['image_url'],
+//),
+//fit: BoxFit.cover,
+//alignment: Alignment.topCenter,
+//),
+//),
+
+//Padding(
+//padding: const EdgeInsets.all(18.0),
+//child: Center(
+//child: BorderedText(
+//strokeWidth: 2.0,
+//strokeColor: Colors.black,
+//child: Text(
+//eyeScans[index]['result']
+//.toString()
+//    .toUpperCase(),
+//style: TextStyle(
+//color: Colors.white,
+//),
+//),
+//),
+//),
+//)
