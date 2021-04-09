@@ -1,13 +1,13 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:ui/components/alert_widget.dart';
 import 'package:ui/components/rounded_button.dart';
 import 'package:ui/constants.dart';
-import 'package:firebase_storage/firebase_storage.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 final _firestore = FirebaseFirestore.instance;
 
@@ -33,11 +33,8 @@ class _AddAppointmentScreenState extends State<AddAppointmentScreen> {
   String email;
   bool showSpinner = false;
 
-  var imageDocuments = [];
-  var imageDocumentsURLS = [];
-
-  // reportID - timestamp of creation
-  String reportID = new Timestamp.now().toString();
+  // appointmentID - timestamp of creation
+  String appointmentID = new Timestamp.now().toString();
 
   @override
   void initState() {
@@ -72,44 +69,6 @@ class _AddAppointmentScreenState extends State<AddAppointmentScreen> {
     });
   }
 
-  //  Open phone gallery and store images into the arrays
-  _openGalleryAndUpload() async {
-    var selectedPicture =
-    await ImagePicker.pickImage(source: ImageSource.gallery);
-
-    String fileName = selectedPicture.path.split('/').last;
-
-    setState(() {
-      imageDocuments.add(selectedPicture);
-    });
-
-    setState(() {
-      showSpinner = true;
-    });
-
-    // save chosen image into firebase storage, in the report specific directory
-    Reference ref = FirebaseStorage.instance
-        .ref()
-        .child(email + " " + reportID + "/")
-        .child(fileName);
-    UploadTask task = ref.putFile(selectedPicture);
-
-    String thisImageUrl = "";
-    task.whenComplete(() async {
-      thisImageUrl = await ref.getDownloadURL();
-      print(thisImageUrl);
-      setState(() {
-        imageDocumentsURLS.add(thisImageUrl);
-      });
-    }).catchError((onError) {
-      print(onError);
-    });
-
-    setState(() {
-      showSpinner = false;
-    });
-  }
-
   //  DatePicker handler
   Future<Null> selectDate(BuildContext context) async {
     final DateTime picked = await showDatePicker(
@@ -134,25 +93,130 @@ class _AddAppointmentScreenState extends State<AddAppointmentScreen> {
 
     return SafeArea(
       child: Scaffold(
-        body: Container(
+        body: SingleChildScrollView(
           child: Padding(
             padding: const EdgeInsets.all(20.0),
-            child: ListView(
+            child: Column(
               children: [
                 Text(
-                  "Add Report",
+                  "Add Appointment",
                   textAlign: TextAlign.center,
                   style: kTextStyle.copyWith(
                     fontSize: 20,
                   ),
                 ),
+                SizedBox(
+                  height: 30,
+                ),
+                Text(
+                  "Make an Appointment",
+                  textAlign: TextAlign.center,
+                  style: kTextStyle.copyWith(
+                    fontSize: 16,
+                  ),
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+                SizedBox(
+                  height: 150,
+                  child: ListView(
+                    physics: ClampingScrollPhysics(),
+                    shrinkWrap: true,
+                    children: [
+                      RichText(
+                        text: TextSpan(
+                            text: "National Eye Hospital",
+                            style: kTextStyle.copyWith(
+                                fontSize: 18, color: Colors.blueAccent),
+                            recognizer: TapGestureRecognizer()
+                              ..onTap = () {
+                                launch(
+                                    "https://nationaleyehospital.health.gov.lk/");
+                              }),
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      RichText(
+                        text: TextSpan(
+                            text: "Radiant Eye Hospital",
+                            style: kTextStyle.copyWith(
+                                fontSize: 18, color: Colors.blueAccent),
+                            recognizer: TapGestureRecognizer()
+                              ..onTap = () {
+                                launch("https://radianteye.lk/");
+                              }),
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      RichText(
+                        text: TextSpan(
+                            text: "Nawaloka Hospital",
+                            style: kTextStyle.copyWith(
+                                fontSize: 18, color: Colors.blueAccent),
+                            recognizer: TapGestureRecognizer()
+                              ..onTap = () {
+                                launch("https://www.nawaloka.com/");
+                              }),
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      RichText(
+                        text: TextSpan(
+                            text: "Asiri Hospital",
+                            style: kTextStyle.copyWith(
+                                fontSize: 18, color: Colors.blueAccent),
+                            recognizer: TapGestureRecognizer()
+                              ..onTap = () {
+                                launch("https://asirihealth.com/");
+                              }),
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      RichText(
+                        text: TextSpan(
+                            text: "Hemas Hospital",
+                            style: kTextStyle.copyWith(
+                                fontSize: 18, color: Colors.blueAccent,
+                            ),
+                            recognizer: TapGestureRecognizer()
+                              ..onTap = () {
+                                launch("https://www.hemas.com/");
+                              }),
+                      ),
+                    ],
+                  ),
+                ),
+                SizedBox(
+                  height: 50,
+                ),
+                Text(
+                  "Register Details",
+                  textAlign: TextAlign.center,
+                  style: kTextStyle.copyWith(
+                    fontSize: 16,
+                  ),
+                ),
+                SizedBox(
+                  height: 20,
+                ),
                 registrationTextField(
                     _hospitalController,
-                        (value) => hospital = value,
+                    (value) => hospital = value,
                     "Hospital",
                     TextInputType.text),
+                SizedBox(
+                  height: 20,
+                ),
                 registrationTextField(_doctorController,
-                        (value) => doctor = value, "Doctor", TextInputType.text),
+                    (value) => doctor = value, "Doctor", TextInputType.text),
+                SizedBox(
+                  height: 20,
+                ),
                 Padding(
                   padding: const EdgeInsets.all(10.0),
                   child: OutlinedButton(
@@ -167,30 +231,11 @@ class _AddAppointmentScreenState extends State<AddAppointmentScreen> {
                     },
                     style: ButtonStyle(
                       shadowColor:
-                      MaterialStateProperty.all<Color>(Color(0xff01CDFA)),
+                          MaterialStateProperty.all<Color>(Color(0xff01CDFA)),
                       foregroundColor:
-                      MaterialStateProperty.all<Color>(Color(0xff01CDFA)),
+                          MaterialStateProperty.all<Color>(Color(0xff01CDFA)),
                       overlayColor:
-                      MaterialStateProperty.all<Color>(Color(0xff01CDFA)),
-                    ),
-                  ),
-                ),
-                SizedBox(
-                  height: 20,
-                ),
-                Column(
-                  children: imageDocuments.length != 0
-                      ? List.generate(
-                    imageDocuments.length,
-                        (index) => Image.file(imageDocuments[index],
-                        width: width, height: 300),
-                  )
-                      : List.generate(
-                    1,
-                        (index) => Image.asset(
-                      "images/uploadImageGrey1.png",
-                      width: width,
-                      height: 300,
+                          MaterialStateProperty.all<Color>(Color(0xff01CDFA)),
                     ),
                   ),
                 ),
@@ -216,13 +261,12 @@ class _AddAppointmentScreenState extends State<AddAppointmentScreen> {
                         await _firestore
                             .collection("users")
                             .doc(email)
-                            .collection("past-reports")
-                            .doc(reportID)
+                            .collection("appointments")
+                            .doc(appointmentID)
                             .set({
                           'doctor': doctor,
                           'hospital': hospital,
                           'date': selectedDate,
-                          'image_document_urls': imageDocumentsURLS
                         });
 
                         createAlertDialog(
@@ -242,18 +286,11 @@ class _AddAppointmentScreenState extends State<AddAppointmentScreen> {
                       }
                     }
                   },
-                  title: "CONFIRM",
+                  title: "CONFIRM APPOINTMENT",
                   colour: Color(0xff01CDFA),
                 )
               ],
             ),
-          ),
-        ),
-        floatingActionButton: FloatingActionButton(
-          onPressed: () => _openGalleryAndUpload(),
-          child: Text(
-            "+",
-            style: TextStyle(fontSize: 40),
           ),
         ),
       ),
