@@ -88,9 +88,6 @@ class _AddAppointmentScreenState extends State<AddAppointmentScreen> {
 
   @override
   Widget build(BuildContext context) {
-    var screenSize = MediaQuery.of(context).size;
-    var width = screenSize.width;
-
     return SafeArea(
       child: Scaffold(
         body: SingleChildScrollView(
