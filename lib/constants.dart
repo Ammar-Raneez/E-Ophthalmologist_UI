@@ -110,7 +110,7 @@ Padding registrationTextField(
 
 //home page
 const kHomePageLabelTextStyle = TextStyle(
-  fontSize: 16.0,
+  fontSize: 14.0,
   color: Color(0xff8d8e98),
   fontWeight: FontWeight.w400
 );
