@@ -104,6 +104,7 @@ class _DiagnosisResultScreenState extends State<DiagnosisResultScreen> {
                         fontSize: 20,
                         fontWeight: FontWeight.w700,
                         fontFamily: "Poppins-SemiBold"),
+                    textAlign: TextAlign.center,
                   ),
                 ),
                 SizedBox(
