@@ -7,7 +7,7 @@ import 'package:ui/components/rounded_button.dart';
 final _firestore = FirebaseFirestore.instance;
 
 class DiagnosisResultScreen extends StatefulWidget {
-  static String id = 'diagnosis_result_screen';
+  static String id = 'diagnosisResultScreen';
 
   @override
   _DiagnosisResultScreenState createState() => _DiagnosisResultScreenState();
