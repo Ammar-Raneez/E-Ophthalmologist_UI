@@ -292,12 +292,13 @@ class _ReportScreenState extends State<ReportScreen> {
                           child: Padding(
                             padding: const EdgeInsets.all(20.0),
                             child: Text(
-                              "There aren't any reports",
+                              "There aren't any reports \n Click + to Add",
                               style: TextStyle(
                                 fontSize: 20.0,
                                 color: Color(0xffff0000),
                                 fontFamily: 'Poppins-SemiBold',
                               ),
+                              textAlign: TextAlign.center,
                             ),
                           )
                         ),
