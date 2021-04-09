@@ -75,7 +75,7 @@ class _AddAppointmentScreenState extends State<AddAppointmentScreen> {
       context: context,
       initialDate: startDate,
       firstDate: DateTime(1900, 01, 01),
-      lastDate: DateTime.now(),
+      lastDate: DateTime(2900, 01, 01),
       helpText: "Date of Birth",
     );
     if (picked != startDate && picked != null) {
@@ -295,7 +295,7 @@ class _AddAppointmentScreenState extends State<AddAppointmentScreen> {
                         });
 
                         createAlertDialog(
-                            context, "Success", "Report Added!", 200);
+                            context, "Success", "Appointment Confirmed!", 200);
 
                         setState(() {
                           showSpinner = false;
