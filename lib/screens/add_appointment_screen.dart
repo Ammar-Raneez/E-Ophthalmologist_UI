@@ -185,6 +185,34 @@ class _AddAppointmentScreenState extends State<AddAppointmentScreen> {
                                 launch("https://www.hemas.com/");
                               }),
                       ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      RichText(
+                        text: TextSpan(
+                            text: "Ninewells Hospital",
+                            style: kTextStyle.copyWith(
+                              fontSize: 18, color: Colors.blueAccent,
+                            ),
+                            recognizer: TapGestureRecognizer()
+                              ..onTap = () {
+                                launch("https://ninewellshospital.lk/");
+                              }),
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      RichText(
+                        text: TextSpan(
+                            text: "Lanka Hospital",
+                            style: kTextStyle.copyWith(
+                              fontSize: 18, color: Colors.blueAccent,
+                            ),
+                            recognizer: TapGestureRecognizer()
+                              ..onTap = () {
+                                launch("https://www.lankahospitals.com/");
+                              }),
+                      ),
                     ],
                   ),
                 ),
