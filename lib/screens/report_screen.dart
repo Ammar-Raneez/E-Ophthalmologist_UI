@@ -24,7 +24,7 @@ class _ReportScreenState extends State<ReportScreen> {
 
   bool haveReports = true;
   var reports = [];
-  var docIds = [];
+  var reportIds = [];
 
   bool haveAppointment = true;
   var appointments = [];
@@ -68,14 +68,21 @@ class _ReportScreenState extends State<ReportScreen> {
 
     setState(() {
       reports = tempReports;
-      docIds = tempIds;
+      reportIds = tempIds;
       appointments = tempAppointments;
       appointmentIds = tempAppointmentIds;
     });
   }
 
-  createConfirmationAlert(BuildContext context, String title, String message,
-      int status, int index) async {
+  createConfirmationAlert(
+      BuildContext context,
+      String title,
+      String message,
+      int status,
+      int index,
+      String collection,
+      var whichDocs,
+      var whichIds) async {
     return showDialog(
       context: context,
       builder: (context) {
@@ -156,13 +163,13 @@ class _ReportScreenState extends State<ReportScreen> {
                         .get();
 
                     await document.reference
-                        .collection("past-reports")
-                        .doc(docIds[index])
+                        .collection(collection)
+                        .doc(whichIds[index])
                         .delete();
 
                     setState(() {
-                      docIds.removeAt(index);
-                      reports.removeAt(index);
+                      whichIds.removeAt(index);
+                      whichDocs.removeAt(index);
                     });
 
                     Navigator.pushNamed(
@@ -251,28 +258,37 @@ class _ReportScreenState extends State<ReportScreen> {
                             itemCount: appointments.length,
                             itemBuilder: (BuildContext context, int index) =>
                                 GestureDetector(
-                              child: ReportPageReportAppointment(
-                                doctor: appointments[index]['doctor'],
-                                hospital: appointments[index]['hospital'],
-                                date: appointments[index]['date'],
-                                cardColor: Color(0xffaa0000),
-                                textColor: '0xffffffff',
-                              ),
-                              onTap: () {
-                                var argsForResult = {
-                                  'doctor': appointments[index]['doctor'],
-                                  'hospital': appointments[index]['hospital'],
-                                  'date': appointments[index]['date'],
-                                  'currentAppointmentId': appointmentIds[index]
-                                };
-                                Navigator.pushNamed(
-                                    context, EditAppointmentScreen.id,
-                                    arguments: argsForResult);
-                              },
-//                              onLongPress: () async {
-//                                createConfirmationAlert(context, "Delete Report", "Are you sure you want to delete this report?", 200, index);
-//                              }
-                            ),
+                                    child: ReportPageReportAppointment(
+                                      doctor: appointments[index]['doctor'],
+                                      hospital: appointments[index]['hospital'],
+                                      date: appointments[index]['date'],
+                                      cardColor: Color(0xffaa0000),
+                                      textColor: '0xffffffff',
+                                    ),
+                                    onTap: () {
+                                      var argsForResult = {
+                                        'doctor': appointments[index]['doctor'],
+                                        'hospital': appointments[index]
+                                            ['hospital'],
+                                        'date': appointments[index]['date'],
+                                        'currentAppointmentId':
+                                            appointmentIds[index]
+                                      };
+                                      Navigator.pushNamed(
+                                          context, EditAppointmentScreen.id,
+                                          arguments: argsForResult);
+                                    },
+                                    onLongPress: () async {
+                                      createConfirmationAlert(
+                                          context,
+                                          "Delete Appointment",
+                                          "Are you sure you want to delete this appointment?",
+                                          200,
+                                          index,
+                                          "appointments",
+                                          appointments,
+                                          appointmentIds);
+                                    }),
                           ),
                         )
                       : Expanded(
@@ -350,7 +366,7 @@ class _ReportScreenState extends State<ReportScreen> {
                                         'date': reports[index]['date'],
                                         'image_document_urls': reports[index]
                                             ['image_document_urls'],
-                                        'currentReportId': docIds[index]
+                                        'currentReportId': reportIds[index]
                                       };
                                       Navigator.pushNamed(
                                           context, EditReportScreen.id,
@@ -362,7 +378,10 @@ class _ReportScreenState extends State<ReportScreen> {
                                           "Delete Report",
                                           "Are you sure you want to delete this report?",
                                           200,
-                                          index);
+                                          index,
+                                          "past-reports",
+                                          reports,
+                                          reportIds);
                                     }),
                           ),
                         )
