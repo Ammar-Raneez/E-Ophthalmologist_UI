@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:ui/components/report_page_report_appointment.dart';
 import 'package:ui/screens/add_report_screen.dart';
+import 'package:ui/screens/current_screen.dart';
 import 'package:ui/screens/edit_report_screen.dart';
 
 final _firestore = FirebaseFirestore.instance;
@@ -24,6 +25,7 @@ class _ReportScreenState extends State<ReportScreen> {
   var docIds = [];
 
   bool showSpinner = false;
+  bool delete = false;
 
   @override
   void initState() {
@@ -51,6 +53,149 @@ class _ReportScreenState extends State<ReportScreen> {
       reports = tempReports;
       docIds = tempIds;
     });
+  }
+
+  createConfirmationAlert(
+      BuildContext context, String title, String message, int status, int index) async {
+    return showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          shape: new RoundedRectangleBorder(
+            borderRadius: new BorderRadius.circular(
+              20.0,
+            ),
+          ),
+          title: Container(
+            decoration: BoxDecoration(
+              border: Border(
+                bottom: BorderSide(
+                  width: 1.0,
+                  color: Colors.grey,
+                ),
+              ),
+            ),
+            child: Column(
+              children: [
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Icon(
+                      Icons.notification_important,
+                      color: Colors.redAccent,
+                      size: 25,
+                    ),
+                    SizedBox(
+                      width: 5,
+                    ),
+                    Text(
+                      title,
+                      style: TextStyle(
+                        color: Colors.black54,
+                        fontFamily: 'Poppins-Regular',
+                        fontSize: 19,
+                        fontWeight: FontWeight.w900,
+                      ),
+                    ),
+                  ],
+                ),
+                SizedBox(
+                  height: 15,
+                )
+              ],
+            ),
+          ),
+          content: Text(
+            message,
+            style: TextStyle(
+              color: Colors.black54,
+            ),
+          ),
+          elevation: 2.0,
+          actions: [
+            Center(
+              child: Container(
+                margin: const EdgeInsets.only(
+                  right: 10.0,
+                  bottom: 5.0,
+                ),
+                child: MaterialButton(
+                  padding: EdgeInsets.symmetric(
+                    vertical: 10,
+                    horizontal: 30,
+                  ),
+                  color: Color(0xff01CDFA),
+                  shape: new RoundedRectangleBorder(
+                    borderRadius: new BorderRadius.circular(
+                      10.0,
+                    ),
+                  ),
+                  onPressed: () async {
+                    var document = await _firestore
+                        .collection("users")
+                        .doc(user.email)
+                        .get();
+
+                    await document.reference
+                        .collection("past-reports")
+                        .doc(docIds[index])
+                        .delete();
+
+                    setState(() {
+                      docIds.removeAt(index);
+                      reports.removeAt(index);
+                    });
+
+                    Navigator.pushNamed(
+                      context,
+                      CurrentScreen.id,
+                    );
+                  },
+                  child: Text(
+                    "Yes",
+                    style: TextStyle(
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
+              ),
+            ),
+            Center(
+              child: Container(
+                margin: const EdgeInsets.only(
+                  right: 10.0,
+                  bottom: 5.0,
+                ),
+                child: MaterialButton(
+                  padding: EdgeInsets.symmetric(
+                    vertical: 10,
+                    horizontal: 30,
+                  ),
+                  color: Color(0xff01CDFA),
+                  shape: new RoundedRectangleBorder(
+                    borderRadius: new BorderRadius.circular(
+                      10.0,
+                    ),
+                  ),
+                  onPressed: () {
+                    setState(() {
+                      delete = false;
+                    });
+                    Navigator.pop(context);
+                  },
+                  child: Text(
+                    "No",
+                    style: TextStyle(
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ],
+        );
+      },
+    );
   }
 
   @override
@@ -139,23 +284,7 @@ class _ReportScreenState extends State<ReportScreen> {
                                           arguments: argsForResult);
                                     },
                                     onLongPress: () async {
-                                      var document = await _firestore
-                                          .collection("users")
-                                          .doc(user.email)
-                                          .get();
-
-                                      document.reference
-                                          .collection("past-reports")
-                                          .doc(docIds[index])
-                                          .delete()
-                                          .then((value) => print(
-                                              "deleted report: " +
-                                                  reports[index]));
-
-                                      setState(() {
-                                        docIds.removeAt(index);
-                                        reports.removeAt(index);
-                                      });
+                                      createConfirmationAlert(context, "Delete Report", "Are you sure you want to delete this report?", 200, index);
                                     }),
                           ),
                         )
