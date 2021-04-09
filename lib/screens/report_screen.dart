@@ -25,6 +25,10 @@ class _ReportScreenState extends State<ReportScreen> {
   var reports = [];
   var docIds = [];
 
+  bool haveAppointment = true;
+  var appointments = [];
+  var appointmentIds = [];
+
   bool showSpinner = false;
   bool delete = false;
 
@@ -46,18 +50,31 @@ class _ReportScreenState extends State<ReportScreen> {
           })
         });
 
+    var tempAppointments = [];
+    var tempAppointmentIds = [];
+
+    await document.reference.collection("appointments").get().then((value) => {
+          value.docs.forEach((element) {
+            tempAppointmentIds.add(element.id);
+            tempAppointments.add(element.data());
+          })
+        });
+
     setState(() {
       haveReports = tempReports.length != 0 ? true : false;
+      haveAppointment = tempAppointments.length != 0 ? true : false;
     });
 
     setState(() {
       reports = tempReports;
       docIds = tempIds;
+      appointments = tempAppointments;
+      appointmentIds = tempAppointmentIds;
     });
   }
 
-  createConfirmationAlert(
-      BuildContext context, String title, String message, int status, int index) async {
+  createConfirmationAlert(BuildContext context, String title, String message,
+      int status, int index) async {
     return showDialog(
       context: context,
       builder: (context) {
@@ -212,13 +229,65 @@ class _ReportScreenState extends State<ReportScreen> {
             : Column(
                 children: [
                   Container(
-                    child: ReportPageReportAppointment(
-                        hospital: "hospital",
-                        doctor: "doctor",
-                        date: "date",
-                        cardColor: Colors.orange,
-                        textColor: "0xff000000"),
+                    child: Padding(
+                      padding: const EdgeInsets.all(16.0),
+                      child: Align(
+                        alignment: Alignment.topLeft,
+                        child: Text(
+                          "Appointments",
+                          style: TextStyle(
+                            color: Color(0xff8d8e98),
+                            fontSize: 20,
+                            fontFamily: 'Poppins-SemiBold',
+                          ),
+                        ),
+                      ),
+                    ),
                   ),
+                  haveAppointment
+                      ? Expanded(
+                          child: ListView.builder(
+                            itemCount: appointments.length,
+                            itemBuilder: (BuildContext context, int index) =>
+                                GestureDetector(
+                              child: ReportPageReportAppointment(
+                                doctor: appointments[index]['doctor'],
+                                hospital: appointments[index]['hospital'],
+                                date: appointments[index]['date'],
+                                cardColor: Color(0xffaa0000),
+                                textColor: '0xffffffff',
+                              ),
+//                              onTap: () {
+//                                var argsForResult = {
+//                                  'doctor': appointments[index]['doctor'],
+//                                  'hospital': appointments[index]['hospital'],
+//                                  'date': appointments[index]['date'],
+//                                };
+//                                Navigator.pushNamed(
+//                                    context, EditReportScreen.id,
+//                                    arguments: argsForResult);
+//                              },
+//                              onLongPress: () async {
+//                                createConfirmationAlert(context, "Delete Report", "Are you sure you want to delete this report?", 200, index);
+//                              }
+                            ),
+                          ),
+                        )
+                      : Expanded(
+                          child: Padding(
+                          padding: const EdgeInsets.all(20.0),
+                          child: Center(
+                            child: Text(
+                              "There aren't any Appointments \n Click Add Appointment to Add",
+                              style: TextStyle(
+                                fontSize: 20.0,
+                                color: Color(0xffff0000),
+                                fontFamily: 'Poppins-SemiBold',
+                              ),
+                              textAlign: TextAlign.center,
+                            ),
+                          ),
+                        )),
                   Container(
                     child: Padding(
                       padding: const EdgeInsets.only(right: 16.0, bottom: 8.0),
@@ -231,7 +300,8 @@ class _ReportScreenState extends State<ReportScreen> {
                               fontFamily: 'Poppins-SemiBold',
                             ),
                           ),
-                          onPressed: () => Navigator.pushNamed(context, AddAppointmentScreen.id),
+                          onPressed: () => Navigator.pushNamed(
+                              context, AddAppointmentScreen.id),
                           style: ElevatedButton.styleFrom(
                             primary: Colors.redAccent,
                             shape: RoundedRectangleBorder(
@@ -285,26 +355,30 @@ class _ReportScreenState extends State<ReportScreen> {
                                           arguments: argsForResult);
                                     },
                                     onLongPress: () async {
-                                      createConfirmationAlert(context, "Delete Report", "Are you sure you want to delete this report?", 200, index);
+                                      createConfirmationAlert(
+                                          context,
+                                          "Delete Report",
+                                          "Are you sure you want to delete this report?",
+                                          200,
+                                          index);
                                     }),
                           ),
                         )
                       : Expanded(
                           child: Padding(
-                            padding: const EdgeInsets.all(20.0),
-                            child: Center(
-                              child: Text(
-                                "There aren't any reports \n Click + to Add",
-                                style: TextStyle(
-                                  fontSize: 20.0,
-                                  color: Color(0xffff0000),
-                                  fontFamily: 'Poppins-SemiBold',
-                                ),
-                                textAlign: TextAlign.center,
+                          padding: const EdgeInsets.all(20.0),
+                          child: Center(
+                            child: Text(
+                              "There aren't any reports \n Click + to Add",
+                              style: TextStyle(
+                                fontSize: 20.0,
+                                color: Color(0xffff0000),
+                                fontFamily: 'Poppins-SemiBold',
                               ),
+                              textAlign: TextAlign.center,
                             ),
-                          )
-                        ),
+                          ),
+                        )),
                 ],
               ),
       ),
