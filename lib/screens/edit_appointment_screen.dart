@@ -31,10 +31,8 @@ class _EditAppointmentScreenState extends State<EditAppointmentScreen> {
 
   var userDetails;
   String email;
+  String appointmentId;
   bool showSpinner = false;
-
-  // appointmentID - timestamp of creation
-  String appointmentID = new Timestamp.now().toString();
 
   @override
   void initState() {
@@ -88,6 +86,23 @@ class _EditAppointmentScreenState extends State<EditAppointmentScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final Map arguments = ModalRoute.of(context).settings.arguments as Map;
+
+    setState(() {
+      doctor = arguments['doctor'];
+      hospital = arguments['hospital'];
+      selectedDate = arguments['date'];
+      appointmentId = arguments['currentAppointmentId'];
+    });
+
+
+    setState(() {
+      _doctorController =
+          TextEditingController.fromValue(TextEditingValue(text: "$doctor"));
+      _hospitalController =
+          TextEditingController.fromValue(TextEditingValue(text: "$hospital"));
+    });
+
     return SafeArea(
       child: Scaffold(
         body: SingleChildScrollView(
@@ -287,7 +302,7 @@ class _EditAppointmentScreenState extends State<EditAppointmentScreen> {
                             .collection("users")
                             .doc(email)
                             .collection("appointments")
-                            .doc(appointmentID)
+                            .doc(appointmentId)
                             .set({
                           'doctor': doctor,
                           'hospital': hospital,

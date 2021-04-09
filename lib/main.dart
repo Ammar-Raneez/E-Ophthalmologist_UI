@@ -4,6 +4,7 @@ import 'package:ui/screens/add_report_screen.dart';
 import 'package:ui/screens/current_screen.dart';
 import 'package:ui/screens/diagnosis_result_screen.dart';
 import 'package:ui/screens/diagnosis_screen.dart';
+import 'package:ui/screens/edit_appointment_screen.dart';
 import 'package:ui/screens/edit_profile_screen.dart';
 import 'package:ui/screens/blog_screen.dart';
 import 'package:ui/screens/edit_report_screen.dart';
@@ -38,6 +39,7 @@ class MyApp extends StatelessWidget {
         AddReportScreen.id: (context) => AddReportScreen(),
         EditReportScreen.id: (context) => EditReportScreen(),
         AddAppointmentScreen.id: (context) => AddAppointmentScreen(),
+        EditAppointmentScreen.id: (context) => EditAppointmentScreen(),
         DiagnosisResultScreen.id: (context) => DiagnosisResultScreen(),
         EditProfileScreen.id: (context) => EditProfileScreen(),
       },

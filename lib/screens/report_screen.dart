@@ -7,6 +7,7 @@ import 'package:ui/components/report_page_report_appointment.dart';
 import 'package:ui/screens/add_appointment_screen.dart';
 import 'package:ui/screens/add_report_screen.dart';
 import 'package:ui/screens/current_screen.dart';
+import 'package:ui/screens/edit_appointment_screen.dart';
 import 'package:ui/screens/edit_report_screen.dart';
 
 final _firestore = FirebaseFirestore.instance;
@@ -257,16 +258,17 @@ class _ReportScreenState extends State<ReportScreen> {
                                 cardColor: Color(0xffaa0000),
                                 textColor: '0xffffffff',
                               ),
-//                              onTap: () {
-//                                var argsForResult = {
-//                                  'doctor': appointments[index]['doctor'],
-//                                  'hospital': appointments[index]['hospital'],
-//                                  'date': appointments[index]['date'],
-//                                };
-//                                Navigator.pushNamed(
-//                                    context, EditReportScreen.id,
-//                                    arguments: argsForResult);
-//                              },
+                              onTap: () {
+                                var argsForResult = {
+                                  'doctor': appointments[index]['doctor'],
+                                  'hospital': appointments[index]['hospital'],
+                                  'date': appointments[index]['date'],
+                                  'currentAppointmentId': appointmentIds[index]
+                                };
+                                Navigator.pushNamed(
+                                    context, EditAppointmentScreen.id,
+                                    arguments: argsForResult);
+                              },
 //                              onLongPress: () async {
 //                                createConfirmationAlert(context, "Delete Report", "Are you sure you want to delete this report?", 200, index);
 //                              }
