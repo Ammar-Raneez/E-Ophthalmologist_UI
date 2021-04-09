@@ -41,6 +41,7 @@ class _DiagnosisResultScreenState extends State<DiagnosisResultScreen> {
   Widget build(BuildContext context) {
     var screenSize = MediaQuery.of(context).size;
     var width = screenSize.width;
+    var height = screenSize.height;
     final Map arguments = ModalRoute.of(context).settings.arguments as Map;
     String datetime = DateTime.fromMillisecondsSinceEpoch(
                 arguments['time'].seconds * 1000)
@@ -59,8 +60,8 @@ class _DiagnosisResultScreenState extends State<DiagnosisResultScreen> {
       child: SafeArea(
         child: Scaffold(
           body: Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Column(
+            padding: const EdgeInsets.all(8.0),
+            child: ListView(
               children: [
                 Center(
                   child: CachedNetworkImage(
@@ -75,11 +76,11 @@ class _DiagnosisResultScreenState extends State<DiagnosisResultScreen> {
                     ),
                     imageUrl: arguments['image_url'],
                     width: width,
-                    height: 350,
+                    height: height / 2,
                   ),
                 ),
                 SizedBox(
-                  height: 100,
+                  height: 0,
                 ),
                 Align(
                   alignment: Alignment.center,
@@ -106,14 +107,17 @@ class _DiagnosisResultScreenState extends State<DiagnosisResultScreen> {
                   ),
                 ),
                 SizedBox(
-                  height: 70,
+                  height: 50,
                 ),
-                RoundedButton(
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                  colour: Color(0xff01CDFA),
-                  title: "Back to Home",
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: RoundedButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    colour: Color(0xff01CDFA),
+                    title: "Back to Home",
+                  ),
                 ),
               ],
             ),
