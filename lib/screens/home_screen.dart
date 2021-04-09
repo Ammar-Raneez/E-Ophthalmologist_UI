@@ -363,7 +363,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                                             .year
                                                             .toString(),
                                                     style: TextStyle(
-                                                        fontFamily: "Poppins-SemiBold"
+                                                        fontFamily: "Poppins-SemiBold",
+                                                      color: Colors.black38
                                                     ),
                                                   ),
                                                   Text(
@@ -373,7 +374,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                                             .toString()
                                                             .toUpperCase(),
                                                     style: TextStyle(
-                                                        fontFamily: "Poppins-SemiBold"
+                                                        fontFamily: "Poppins-SemiBold",
+                                                      color: Colors.black38
                                                     ),
                                                   ),
                                                 ],
