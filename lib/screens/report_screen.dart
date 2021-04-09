@@ -97,47 +97,81 @@ class _ReportScreenState extends State<ReportScreen> {
                     ),
                   ),
                   Container(
-                      child: Padding(
-                    padding: const EdgeInsets.all(16.0),
-                    child: Align(
-                      alignment: Alignment.topLeft,
-                      child: Text(
-                        "Reports",
-                        style: TextStyle(
-                          color: Color(0xff8d8e98),
-                          fontSize: 20,
-                          fontFamily: 'Poppins-SemiBold',
+                    child: Padding(
+                      padding: const EdgeInsets.all(16.0),
+                      child: Align(
+                        alignment: Alignment.topLeft,
+                        child: Text(
+                          "Reports",
+                          style: TextStyle(
+                            color: Color(0xff8d8e98),
+                            fontSize: 20,
+                            fontFamily: 'Poppins-SemiBold',
+                          ),
                         ),
-                      ),
-                    ),
-                  )),
-                  Expanded(
-                    child: ListView.builder(
-                      itemCount: reports.length,
-                      itemBuilder: (BuildContext context, int index) =>
-                          GestureDetector(
-                        child: ReportPageReportAppointment(
-                          doctor: reports[index]['doctor'],
-                          hospital: reports[index]['hospital'],
-                          date: reports[index]['date'],
-                          cardColor: Color(0xff01CDFA),
-                          textColor: '0xffffffff',
-                        ),
-                        onTap: () {
-                          var argsForResult = {
-                            'doctor': reports[index]['doctor'],
-                            'hospital': reports[index]['hospital'],
-                            'date': reports[index]['date'],
-                            'image_document_urls': reports[index]
-                                ['image_document_urls'],
-                            'currentReportId': docIds[index]
-                          };
-                          Navigator.pushNamed(context, EditReportScreen.id,
-                              arguments: argsForResult);
-                        },
                       ),
                     ),
                   ),
+                  haveReports
+                      ? Expanded(
+                          child: ListView.builder(
+                            itemCount: reports.length,
+                            itemBuilder: (BuildContext context, int index) =>
+                                GestureDetector(
+                                    child: ReportPageReportAppointment(
+                                      doctor: reports[index]['doctor'],
+                                      hospital: reports[index]['hospital'],
+                                      date: reports[index]['date'],
+                                      cardColor: Color(0xff01CDFA),
+                                      textColor: '0xffffffff',
+                                    ),
+                                    onTap: () {
+                                      var argsForResult = {
+                                        'doctor': reports[index]['doctor'],
+                                        'hospital': reports[index]['hospital'],
+                                        'date': reports[index]['date'],
+                                        'image_document_urls': reports[index]
+                                            ['image_document_urls'],
+                                        'currentReportId': docIds[index]
+                                      };
+                                      Navigator.pushNamed(
+                                          context, EditReportScreen.id,
+                                          arguments: argsForResult);
+                                    },
+                                    onLongPress: () async {
+                                      var document = await _firestore
+                                          .collection("users")
+                                          .doc(user.email)
+                                          .get();
+
+                                      document.reference
+                                          .collection("past-reports")
+                                          .doc(docIds[index])
+                                          .delete()
+                                          .then((value) => print(
+                                              "deleted report: " +
+                                                  reports[index]));
+
+                                      setState(() {
+                                        docIds.removeAt(index);
+                                        reports.removeAt(index);
+                                      });
+                                    }),
+                          ),
+                        )
+                      : Expanded(
+                          child: Padding(
+                            padding: const EdgeInsets.all(20.0),
+                            child: Text(
+                              "There aren't any reports",
+                              style: TextStyle(
+                                fontSize: 20.0,
+                                color: Color(0xffff0000),
+                                fontFamily: 'Poppins-SemiBold',
+                              ),
+                            ),
+                          )
+                        ),
                 ],
               ),
       ),
