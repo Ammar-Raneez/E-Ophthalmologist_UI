@@ -12,7 +12,7 @@ import 'package:url_launcher/url_launcher.dart';
 final _firestore = FirebaseFirestore.instance;
 
 class AddAppointmentScreen extends StatefulWidget {
-  static String id = "addReportScreen";
+  static String id = "addAppointmentScreen";
 
   @override
   _AddAppointmentScreenState createState() => _AddAppointmentScreenState();
