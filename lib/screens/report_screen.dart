@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:ui/components/report_page_report_appointment.dart';
+import 'package:ui/screens/add_appointment_screen.dart';
 import 'package:ui/screens/add_report_screen.dart';
 import 'package:ui/screens/current_screen.dart';
 import 'package:ui/screens/edit_report_screen.dart';
@@ -230,7 +231,7 @@ class _ReportScreenState extends State<ReportScreen> {
                               fontFamily: 'Poppins-SemiBold',
                             ),
                           ),
-                          onPressed: () {},
+                          onPressed: () => Navigator.pushNamed(context, AddAppointmentScreen.id),
                           style: ElevatedButton.styleFrom(
                             primary: Colors.redAccent,
                             shape: RoundedRectangleBorder(
@@ -291,14 +292,16 @@ class _ReportScreenState extends State<ReportScreen> {
                       : Expanded(
                           child: Padding(
                             padding: const EdgeInsets.all(20.0),
-                            child: Text(
-                              "There aren't any reports \n Click + to Add",
-                              style: TextStyle(
-                                fontSize: 20.0,
-                                color: Color(0xffff0000),
-                                fontFamily: 'Poppins-SemiBold',
+                            child: Center(
+                              child: Text(
+                                "There aren't any reports \n Click + to Add",
+                                style: TextStyle(
+                                  fontSize: 20.0,
+                                  color: Color(0xffff0000),
+                                  fontFamily: 'Poppins-SemiBold',
+                                ),
+                                textAlign: TextAlign.center,
                               ),
-                              textAlign: TextAlign.center,
                             ),
                           )
                         ),

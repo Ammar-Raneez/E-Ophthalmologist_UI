@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ui/screens/add_appointment_screen.dart';
 import 'package:ui/screens/add_report_screen.dart';
 import 'package:ui/screens/current_screen.dart';
 import 'package:ui/screens/diagnosis_result_screen.dart';
@@ -36,6 +37,7 @@ class MyApp extends StatelessWidget {
         ReportScreen.id: (context) => ReportScreen(),
         AddReportScreen.id: (context) => AddReportScreen(),
         EditReportScreen.id: (context) => EditReportScreen(),
+        AddAppointmentScreen.id: (context) => AddAppointmentScreen(),
         DiagnosisResultScreen.id: (context) => DiagnosisResultScreen(),
         EditProfileScreen.id: (context) => EditProfileScreen(),
       },
