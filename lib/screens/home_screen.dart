@@ -9,7 +9,6 @@ import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:ui/components/homepage_icon_content.dart';
 import 'package:ui/components/homepage_reusable_card.dart';
 import 'package:ui/constants.dart';
-import 'package:bordered_text/bordered_text.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 import 'package:ui/screens/diagnosis_result_screen.dart';
