@@ -116,6 +116,7 @@ class _EditReportScreenState extends State<EditReportScreen> {
       helpText: "Date of Birth",
     );
     if (picked != startDate && picked != null) {
+      print(picked);
       setState(() {
         startDate = picked;
         selectedDate = DateFormat("yyyy-MM-dd").format(startDate);
@@ -233,6 +234,9 @@ class _EditReportScreenState extends State<EditReportScreen> {
                                     height: 300,
                                   ),
                                 ),
+                        ),
+                        SizedBox(
+                          height: 50,
                         ),
                         RoundedButton(
                           onPressed: () async {
