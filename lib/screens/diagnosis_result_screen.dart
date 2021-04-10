@@ -60,10 +60,28 @@ class _DiagnosisResultScreenState extends State<DiagnosisResultScreen> {
     return Container(
       child: SafeArea(
         child: Scaffold(
+          appBar: AppBar(
+            automaticallyImplyLeading: false,
+            title: Center(
+              child: Text(
+                "E-Ophthalmologist",
+                style: kTextStyle.copyWith(fontSize: 20.0, color: Colors.white),
+              ),
+            ),
+            backgroundColor: Colors.indigo,
+          ),
           body: Padding(
             padding: const EdgeInsets.all(8.0),
             child: ListView(
               children: [
+                SizedBox(
+                  height: 15,
+                ),
+                Text(
+                  "Diagnosis",
+                  style: kTextStyle.copyWith(fontSize: 30.0),
+                  textAlign: TextAlign.center,
+                ),
                 Center(
                   child: CachedNetworkImage(
                     progressIndicatorBuilder:
@@ -77,15 +95,19 @@ class _DiagnosisResultScreenState extends State<DiagnosisResultScreen> {
                     ),
                     imageUrl: arguments['image_url'],
                     width: width,
-                    height: height / 2,
+                    height: height / 2.2,
                   ),
                 ),
                 _commonLabelText(
-                    sentence: "Scan on: $datetime", textColor: Colors.black),
+                    sentence: "Scan on: $datetime", textColor: Colors.black, fontSize: 20.0),
                 _commonLabelText(
                     sentence:
                         "A ${arguments['result']} condition has been detected in the above retinal fundus",
-                    textColor: Colors.red),
+                    textColor: Colors.red, fontSize: 20.0),
+                _commonLabelText(
+                    sentence:
+                        "This is a dummy treatment message, user will get a treatment and necessary details about this type of diabetic retinopathy here",
+                    textColor: Colors.black54, fontSize: 15.0),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: RoundedButton(
@@ -105,14 +127,14 @@ class _DiagnosisResultScreenState extends State<DiagnosisResultScreen> {
   }
 
   Column _commonLabelText(
-      {@required String sentence, @required Color textColor}) {
+      {@required String sentence, @required Color textColor, @required fontSize}) {
     return Column(
       children: [
         Align(
           alignment: Alignment.center,
           child: Text(
             "$sentence",
-            style: kTextStyle.copyWith(color: textColor, fontSize: 20.0),
+            style: kTextStyle.copyWith(color: textColor, fontSize: fontSize),
             textAlign: TextAlign.center,
           ),
         ),

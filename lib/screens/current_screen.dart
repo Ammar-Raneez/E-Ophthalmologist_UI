@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:ui/constants.dart';
 import 'package:ui/screens/diagnosis_screen.dart';
 import 'package:ui/screens/edit_profile_screen.dart';
 import 'package:ui/screens/blog_screen.dart';
@@ -61,7 +62,7 @@ class _CurrentScreenState extends State<CurrentScreen> {
             automaticallyImplyLeading: false,
             title: Text(
               "E-Ophthalmologist",
-              style: TextStyle(fontSize: 20.0, fontFamily: "Poppins-SemiBold"),
+              style: kTextStyle.copyWith(fontSize: 20.0, color: Colors.white),
             ),
             actions: [
               IconButton(
