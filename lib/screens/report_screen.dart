@@ -44,7 +44,7 @@ class _ReportScreenState extends State<ReportScreen> {
     var tempReports = [];
     var tempIds = [];
 
-    await document.reference.collection("past-reports").get().then((value) => {
+    await document.reference.collection("past-reports").orderBy('date', descending: true).get().then((value) => {
           value.docs.forEach((element) {
             tempIds.add(element.id);
             tempReports.add(element.data());
@@ -54,7 +54,7 @@ class _ReportScreenState extends State<ReportScreen> {
     var tempAppointments = [];
     var tempAppointmentIds = [];
 
-    await document.reference.collection("appointments").get().then((value) => {
+    await document.reference.collection("appointments").orderBy('date').get().then((value) => {
           value.docs.forEach((element) {
             tempAppointmentIds.add(element.id);
             tempAppointments.add(element.data());
