@@ -3,6 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:ui/components/rounded_button.dart';
+import 'package:ui/constants.dart';
 
 final _firestore = FirebaseFirestore.instance;
 
@@ -79,37 +80,12 @@ class _DiagnosisResultScreenState extends State<DiagnosisResultScreen> {
                     height: height / 2,
                   ),
                 ),
-                SizedBox(
-                  height: 0,
-                ),
-                Align(
-                  alignment: Alignment.center,
-                  child: Text(
-                    "Scan on: $datetime",
-                    style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.w700,
-                        fontFamily: "Poppins-SemiBold",
-                        color: Colors.red),
-                  ),
-                ),
-                SizedBox(
-                  height: 50,
-                ),
-                Align(
-                  alignment: Alignment.centerRight,
-                  child: Text(
-                    "A ${arguments['result']} condition has been detected in the above retinal fundus",
-                    style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.w700,
-                        fontFamily: "Poppins-SemiBold"),
-                    textAlign: TextAlign.center,
-                  ),
-                ),
-                SizedBox(
-                  height: 50,
-                ),
+                _commonLabelText(
+                    sentence: "Scan on: $datetime", textColor: Colors.black),
+                _commonLabelText(
+                    sentence:
+                        "A ${arguments['result']} condition has been detected in the above retinal fundus",
+                    textColor: Colors.red),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: RoundedButton(
@@ -125,6 +101,25 @@ class _DiagnosisResultScreenState extends State<DiagnosisResultScreen> {
           ),
         ),
       ),
+    );
+  }
+
+  Column _commonLabelText(
+      {@required String sentence, @required Color textColor}) {
+    return Column(
+      children: [
+        Align(
+          alignment: Alignment.center,
+          child: Text(
+            "$sentence",
+            style: kTextStyle.copyWith(color: textColor, fontSize: 20.0),
+            textAlign: TextAlign.center,
+          ),
+        ),
+        SizedBox(
+          height: 50,
+        )
+      ],
     );
   }
 }
