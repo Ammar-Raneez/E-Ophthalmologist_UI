@@ -180,52 +180,55 @@ class _AddAppointmentScreenState extends State<AddAppointmentScreen> {
                 SizedBox(
                   height: 30,
                 ),
-                RoundedButton(
-                  onPressed: () async {
-                    if (doctor == null ||
-                        hospital == null ||
-                        selectedDate == null ||
-                        doctor == "" ||
-                        hospital == "" ||
-                        selectedDate == "") {
-                      createAlertDialog(context, "Error",
-                          "Please fill all the given fields to proceed", 404);
-                    } else {
-                      setState(() {
-                        showSpinner = true;
-                      });
-
-                      try {
-                        await _firestore
-                            .collection("users")
-                            .doc(email)
-                            .collection("appointments")
-                            .doc(appointmentID)
-                            .set({
-                          'doctor': doctor,
-                          'hospital': hospital,
-                          'date': selectedDate,
-                        });
-
-                        createAlertDialog(
-                            context, "Success", "Appointment Confirmed!", 200);
-
+                Container(
+                  width: MediaQuery.of(context).size.width,
+                  child: RoundedButton(
+                    onPressed: () async {
+                      if (doctor == null ||
+                          hospital == null ||
+                          selectedDate == null ||
+                          doctor == "" ||
+                          hospital == "" ||
+                          selectedDate == "") {
+                        createAlertDialog(context, "Error",
+                            "Please fill all the given fields to proceed", 404);
+                      } else {
                         setState(() {
-                          showSpinner = false;
+                          showSpinner = true;
                         });
 
-                        _hospitalController.clear();
-                        _doctorController.clear();
-                      } catch (e) {
-                        createAlertDialog(context, "Error", e.message, 404);
-                        setState(() {
-                          showSpinner = false;
-                        });
+                        try {
+                          await _firestore
+                              .collection("users")
+                              .doc(email)
+                              .collection("appointments")
+                              .doc(appointmentID)
+                              .set({
+                            'doctor': doctor,
+                            'hospital': hospital,
+                            'date': selectedDate,
+                          });
+
+                          createAlertDialog(context, "Success",
+                              "Appointment Confirmed!", 200);
+
+                          setState(() {
+                            showSpinner = false;
+                          });
+
+                          _hospitalController.clear();
+                          _doctorController.clear();
+                        } catch (e) {
+                          createAlertDialog(context, "Error", e.message, 404);
+                          setState(() {
+                            showSpinner = false;
+                          });
+                        }
                       }
-                    }
-                  },
-                  title: "CONFIRM APPOINTMENT",
-                  colour: Color(0xff01CDFA),
+                    },
+                    title: "CONFIRM APPOINTMENT",
+                    colour: Color(0xff01CDFA),
+                  ),
                 )
               ],
             ),
