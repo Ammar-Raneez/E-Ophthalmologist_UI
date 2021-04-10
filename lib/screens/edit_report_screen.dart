@@ -112,7 +112,7 @@ class _EditReportScreenState extends State<EditReportScreen> {
       initialDate: startDate,
       firstDate: DateTime(1900, 01, 01),
       lastDate: DateTime.now(),
-      helpText: "Date of Birth",
+      helpText: "Date",
     );
     if (picked != null) {
       setState(() {

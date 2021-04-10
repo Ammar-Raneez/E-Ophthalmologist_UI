@@ -76,7 +76,7 @@ class _AddAppointmentScreenState extends State<AddAppointmentScreen> {
       initialDate: startDate,
       firstDate: DateTime(1900, 01, 01),
       lastDate: DateTime(2900, 01, 01),
-      helpText: "Date of Birth",
+      helpText: "Date of Appointment",
     );
     if (picked != null) {
       setState(() {
