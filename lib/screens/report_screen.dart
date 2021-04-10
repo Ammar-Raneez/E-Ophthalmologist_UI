@@ -256,6 +256,7 @@ class _ReportScreenState extends State<ReportScreen> {
                       ? Expanded(
                           child: ListView.builder(
                             itemCount: appointments.length,
+                            scrollDirection: Axis.horizontal,
                             itemBuilder: (BuildContext context, int index) =>
                                 GestureDetector(
                                     child: ReportPageReportAppointment(

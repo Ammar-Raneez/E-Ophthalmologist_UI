@@ -26,6 +26,7 @@ class ReportPageReportAppointment extends StatelessWidget {
       ),
       child: Container(
         height: 200.0,
+        width: MediaQuery.of(buildContext).size.width/1.08,
         child: Align(
           alignment: Alignment.center,
           child: Center(
