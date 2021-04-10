@@ -7,6 +7,9 @@ const kLoginRegistrationBackgroundGradient = LinearGradient(
   colors: [Color(0xff01CDFA), Color(0xffcccccc)],
 );
 
+
+
+// Common Constants
 // This constant is for all the text fields decoration
 const kTextFieldDecoration = InputDecoration(
   fillColor: Colors.white,
