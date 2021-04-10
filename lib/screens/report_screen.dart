@@ -26,7 +26,7 @@ class _ReportScreenState extends State<ReportScreen> {
   var reports = [];
   var reportIds = [];
 
-  bool haveAppointment = true;
+  bool haveAppointments = true;
   var appointments = [];
   var appointmentIds = [];
 
@@ -63,7 +63,7 @@ class _ReportScreenState extends State<ReportScreen> {
 
     setState(() {
       haveReports = tempReports.length != 0 ? true : false;
-      haveAppointment = tempAppointments.length != 0 ? true : false;
+      haveAppointments = tempAppointments.length != 0 ? true : false;
     });
 
     setState(() {
@@ -252,7 +252,7 @@ class _ReportScreenState extends State<ReportScreen> {
                       ),
                     ),
                   ),
-                  haveAppointment
+                  haveAppointments
                       ? Expanded(
                           child: ListView.builder(
                             itemCount: appointments.length,
