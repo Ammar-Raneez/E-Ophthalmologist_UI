@@ -131,7 +131,7 @@ class _EditReportScreenState extends State<EditReportScreen> {
       doctor = arguments['doctor'];
       hospital = arguments['hospital'];
       imageDocumentsURLS = arguments['image_document_urls'];
-      reportID = arguments['currentReportId'];
+      reportID = arguments['currentDocId'];
     });
 
     setState(() {

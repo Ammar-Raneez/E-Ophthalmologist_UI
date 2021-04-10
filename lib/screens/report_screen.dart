@@ -379,7 +379,7 @@ class _ReportScreenState extends State<ReportScreen> {
                 'date': whichDocs[index]['date'],
                 'image_document_urls':
                     isReport ? whichDocs[index]['image_document_urls'] : "",
-                'currentReportId': whichDocsIds[index]
+                'currentDocId': whichDocsIds[index]
               };
               Navigator.pushNamed(context, navigate, arguments: argsForResult);
             },

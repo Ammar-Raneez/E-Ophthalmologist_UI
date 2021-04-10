@@ -34,6 +34,25 @@ class _EditAppointmentScreenState extends State<EditAppointmentScreen> {
   String appointmentId;
   bool showSpinner = false;
 
+  var hospitalNames = [
+    "National Eye Hospital",
+    "Radiant Eye Hospital",
+    "Nawaloka Hospital",
+    "Asiri Hospital",
+    "Hemas Hospital",
+    "Ninewells Hospital",
+    "Lanka Hospital"
+  ];
+  var hospitalLinks = [
+    "https://nationaleyehospital.health.gov.lk/",
+    "https://radianteye.lk/",
+    "https://www.nawaloka.com/",
+    "https://asirihealth.com/",
+    "https://www.hemas.com/",
+    "https://ninewellshospital.lk/",
+    "https://www.lankahospitals.com/"
+  ];
+
   @override
   void initState() {
     super.initState();
@@ -90,7 +109,7 @@ class _EditAppointmentScreenState extends State<EditAppointmentScreen> {
     setState(() {
       doctor = arguments['doctor'];
       hospital = arguments['hospital'];
-      appointmentId = arguments['currentAppointmentId'];
+      appointmentId = arguments['currentDocId'];
     });
 
     setState(() {
@@ -107,153 +126,31 @@ class _EditAppointmentScreenState extends State<EditAppointmentScreen> {
             padding: const EdgeInsets.all(20.0),
             child: Column(
               children: [
-                Text(
-                  "Add Appointment",
-                  textAlign: TextAlign.center,
-                  style: kTextStyle.copyWith(
-                    fontSize: 20,
-                  ),
-                ),
-                SizedBox(
-                  height: 30,
-                ),
-                Text(
-                  "Make an Appointment",
-                  textAlign: TextAlign.center,
-                  style: kTextStyle.copyWith(
-                    fontSize: 16,
-                  ),
-                ),
-                SizedBox(
-                  height: 20,
-                ),
+                _commonLabelText(title: "Edit Appointment", fontSize: 20.0),
+                _commonLabelText(title: "Make an Appointment", fontSize: 16.0),
                 SizedBox(
                   height: 150,
-                  child: ListView(
+                  child: ListView.builder(
                     physics: ClampingScrollPhysics(),
+                    itemCount: hospitalNames.length,
                     shrinkWrap: true,
-                    children: [
-                      RichText(
-                        text: TextSpan(
-                            text: "National Eye Hospital",
-                            style: kTextStyle.copyWith(
-                                fontSize: 18, color: Colors.blueAccent),
-                            recognizer: TapGestureRecognizer()
-                              ..onTap = () {
-                                launch(
-                                    "https://nationaleyehospital.health.gov.lk/");
-                              }),
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      RichText(
-                        text: TextSpan(
-                            text: "Radiant Eye Hospital",
-                            style: kTextStyle.copyWith(
-                                fontSize: 18, color: Colors.blueAccent),
-                            recognizer: TapGestureRecognizer()
-                              ..onTap = () {
-                                launch("https://radianteye.lk/");
-                              }),
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      RichText(
-                        text: TextSpan(
-                            text: "Nawaloka Hospital",
-                            style: kTextStyle.copyWith(
-                                fontSize: 18, color: Colors.blueAccent),
-                            recognizer: TapGestureRecognizer()
-                              ..onTap = () {
-                                launch("https://www.nawaloka.com/");
-                              }),
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      RichText(
-                        text: TextSpan(
-                            text: "Asiri Hospital",
-                            style: kTextStyle.copyWith(
-                                fontSize: 18, color: Colors.blueAccent),
-                            recognizer: TapGestureRecognizer()
-                              ..onTap = () {
-                                launch("https://asirihealth.com/");
-                              }),
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      RichText(
-                        text: TextSpan(
-                            text: "Hemas Hospital",
-                            style: kTextStyle.copyWith(
-                              fontSize: 18,
-                              color: Colors.blueAccent,
-                            ),
-                            recognizer: TapGestureRecognizer()
-                              ..onTap = () {
-                                launch("https://www.hemas.com/");
-                              }),
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      RichText(
-                        text: TextSpan(
-                            text: "Ninewells Hospital",
-                            style: kTextStyle.copyWith(
-                              fontSize: 18,
-                              color: Colors.blueAccent,
-                            ),
-                            recognizer: TapGestureRecognizer()
-                              ..onTap = () {
-                                launch("https://ninewellshospital.lk/");
-                              }),
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      RichText(
-                        text: TextSpan(
-                            text: "Lanka Hospital",
-                            style: kTextStyle.copyWith(
-                              fontSize: 18,
-                              color: Colors.blueAccent,
-                            ),
-                            recognizer: TapGestureRecognizer()
-                              ..onTap = () {
-                                launch("https://www.lankahospitals.com/");
-                              }),
-                      ),
-                    ],
+                    itemBuilder: (BuildContext context, int index) =>
+                        buildHospitalLink(
+                            hospital: hospitalNames[index],
+                            url: hospitalLinks[index]),
                   ),
                 ),
                 SizedBox(
                   height: 50,
                 ),
-                Text(
-                  "Register Details",
-                  textAlign: TextAlign.center,
-                  style: kTextStyle.copyWith(
-                    fontSize: 16,
-                  ),
-                ),
+                _commonLabelText(title: "Register Details", fontSize: 16.0),
+                kTextField(_hospitalController, (value) => hospital = value,
+                    "Hospital", TextInputType.text),
                 SizedBox(
                   height: 20,
                 ),
-                kTextField(
-                    _hospitalController,
-                    (value) => hospital = value,
-                    "Hospital",
-                    TextInputType.text),
-                SizedBox(
-                  height: 20,
-                ),
-                kTextField(_doctorController,
-                    (value) => doctor = value, "Doctor", TextInputType.text),
+                kTextField(_doctorController, (value) => doctor = value,
+                    "Doctor", TextInputType.text),
                 SizedBox(
                   height: 20,
                 ),
@@ -337,6 +234,23 @@ class _EditAppointmentScreenState extends State<EditAppointmentScreen> {
           ),
         ),
       ),
+    );
+  }
+
+  Column _commonLabelText({@required title, @required fontSize}) {
+    return Column(
+      children: [
+        Text(
+          title,
+          textAlign: TextAlign.center,
+          style: kTextStyle.copyWith(
+            fontSize: fontSize,
+          ),
+        ),
+        SizedBox(
+          height: 20,
+        )
+      ],
     );
   }
 }
