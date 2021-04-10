@@ -332,7 +332,7 @@ class _ReportScreenState extends State<ReportScreen> {
         child: Align(
           alignment: Alignment.topLeft,
           child: Text(
-            "Appointments",
+            title,
             style: kTextStyle.copyWith(
               color: Color(0xff8d8e98),
               fontSize: 20,
