@@ -66,8 +66,6 @@ const kTextStyle = TextStyle(
   fontFamily: 'Poppins-Regular',
 );
 
-
-
 // Registration & Edit Profile Usage
 enum Gender { Male, Female }
 enum DMType { Type1, Type2 }
@@ -106,35 +104,22 @@ Padding registrationTextField(
   );
 }
 
-
-
 //home page
 const kHomePageLabelTextStyle = TextStyle(
-  fontSize: 14.0,
-  color: Color(0xff8d8e98),
-  fontWeight: FontWeight.w400
-);
+    fontSize: 14.0, color: Color(0xff8d8e98), fontWeight: FontWeight.w400);
 
 const kHomePageMainLabelTextStyle = TextStyle(
-    fontSize: 25.0,
-    color: Colors.indigo,
-    fontWeight: FontWeight.w900
-);
+    fontSize: 25.0, color: Colors.indigo, fontWeight: FontWeight.w900);
 
 const kHomePageValueTextStyle = TextStyle(
-  fontSize: 18.0,
-  color: Colors.black87,
-  fontWeight: FontWeight.bold
-);
+    fontSize: 18.0, color: Colors.black87, fontWeight: FontWeight.bold);
 
 const kHomePageUnitTextStyle = TextStyle(
   fontSize: 15.0,
   color: Color(0xff8d8e98),
 );
 
-const kHomePageNumberTextStyle = TextStyle(
-    fontSize: 30.0,
-    fontWeight: FontWeight.w900
-);
+const kHomePageNumberTextStyle =
+    TextStyle(fontSize: 30.0, fontWeight: FontWeight.w900);
 
 const Color kHomePageCardColor = Color(0xffffffff);
