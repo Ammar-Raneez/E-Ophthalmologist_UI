@@ -155,23 +155,14 @@ class _EditReportScreenState extends State<EditReportScreen> {
                     padding: const EdgeInsets.all(20.0),
                     child: ListView(
                       children: [
-                        Text(
-                          "Edit Report",
-                          textAlign: TextAlign.center,
-                          style: kTextStyle.copyWith(
-                            fontSize: 20,
-                          ),
-                        ),
+                        _commonLabelText(title: "Edit Report", fontSize: 20.0),
                         kTextField(
                             _hospitalController,
                             (value) => hospital = value,
                             "Hospital",
                             TextInputType.text),
-                        kTextField(
-                            _doctorController,
-                            (value) => doctor = value,
-                            "Doctor",
-                            TextInputType.text),
+                        kTextField(_doctorController, (value) => doctor = value,
+                            "Doctor", TextInputType.text),
                         Padding(
                           padding: const EdgeInsets.all(10.0),
                           child: OutlinedButton(
@@ -300,6 +291,23 @@ class _EditReportScreenState extends State<EditReportScreen> {
           ),
         ),
       ),
+    );
+  }
+
+  Column _commonLabelText({@required title, @required fontSize}) {
+    return Column(
+      children: [
+        Text(
+          title,
+          textAlign: TextAlign.center,
+          style: kTextStyle.copyWith(
+            fontSize: fontSize,
+          ),
+        ),
+        SizedBox(
+          height: 20,
+        )
+      ],
     );
   }
 }
