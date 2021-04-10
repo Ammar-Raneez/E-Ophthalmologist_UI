@@ -133,6 +133,16 @@ class _AddReportScreenState extends State<AddReportScreen> {
 
     return SafeArea(
       child: Scaffold(
+        appBar: AppBar(
+          automaticallyImplyLeading: false,
+          title: Center(
+            child: Text(
+              "E-Ophthalmologist",
+              style: kTextStyle.copyWith(fontSize: 20.0, color: Colors.white),
+            ),
+          ),
+          backgroundColor: Colors.indigo,
+        ),
         body: Container(
           child: Padding(
             padding: const EdgeInsets.all(20.0),
@@ -169,7 +179,7 @@ class _AddReportScreenState extends State<AddReportScreen> {
                   ),
                 ),
                 SizedBox(
-                  height: 20,
+                  height: 30,
                 ),
                 Column(
                   children: imageDocuments.length != 0
@@ -188,7 +198,7 @@ class _AddReportScreenState extends State<AddReportScreen> {
                         ),
                 ),
                 SizedBox(
-                  height: 50,
+                  height: 30,
                 ),
                 RoundedButton(
                   onPressed: () async {

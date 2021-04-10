@@ -106,6 +106,16 @@ class _AddAppointmentScreenState extends State<AddAppointmentScreen> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+        appBar: AppBar(
+          automaticallyImplyLeading: false,
+          title: Center(
+            child: Text(
+              "E-Ophthalmologist",
+              style: kTextStyle.copyWith(fontSize: 20.0, color: Colors.white),
+            ),
+          ),
+          backgroundColor: Colors.indigo,
+        ),
         body: SingleChildScrollView(
           child: Padding(
             padding: const EdgeInsets.all(20.0),
@@ -137,7 +147,7 @@ class _AddAppointmentScreenState extends State<AddAppointmentScreen> {
                 kTextField(_doctorController, (value) => doctor = value,
                     "Doctor", TextInputType.text),
                 SizedBox(
-                  height: 20,
+                  height: 30,
                 ),
                 Padding(
                   padding: const EdgeInsets.all(10.0),
@@ -165,7 +175,7 @@ class _AddAppointmentScreenState extends State<AddAppointmentScreen> {
                   ),
                 ),
                 SizedBox(
-                  height: 50,
+                  height: 30,
                 ),
                 RoundedButton(
                   onPressed: () async {
