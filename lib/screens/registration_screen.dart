@@ -126,12 +126,12 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                       ),
                     ],
                   ),
-                  registrationTextField(
+                  kTextField(
                       _usernameController,
                       (value) => username = value,
                       "Enter Username",
                       TextInputType.text),
-                  registrationTextField(
+                  kTextField(
                       _emailAddressController,
                       (value) => email = value,
                       "Enter Email Address",
@@ -173,13 +173,13 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                       gender = value;
                     });
                   }),
-                  registrationTextField(_bmiController, (value) => bmi = value,
+                  kTextField(_bmiController, (value) => bmi = value,
                       "Enter BMI", TextInputType.number),
-                  registrationTextField(_hdlController, (value) => hdl = value,
+                  kTextField(_hdlController, (value) => hdl = value,
                       "Enter HDL", TextInputType.number),
-                  registrationTextField(_a1cController, (value) => a1c = value,
+                  kTextField(_a1cController, (value) => a1c = value,
                       "Enter A1C", TextInputType.number),
-                  registrationTextField(_ldlController, (value) => ldl = value,
+                  kTextField(_ldlController, (value) => ldl = value,
                       "Enter LDL", TextInputType.number),
                   registrationInputLabel("Diabetes Mellitus Type"),
                   registrationRadioButton("Type 1", DMType.Type1, dm, (value) {

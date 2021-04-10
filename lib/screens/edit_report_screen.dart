@@ -162,12 +162,12 @@ class _EditReportScreenState extends State<EditReportScreen> {
                             fontSize: 20,
                           ),
                         ),
-                        registrationTextField(
+                        kTextField(
                             _hospitalController,
                             (value) => hospital = value,
                             "Hospital",
                             TextInputType.text),
-                        registrationTextField(
+                        kTextField(
                             _doctorController,
                             (value) => doctor = value,
                             "Doctor",

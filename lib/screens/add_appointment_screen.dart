@@ -111,26 +111,8 @@ class _AddAppointmentScreenState extends State<AddAppointmentScreen> {
             padding: const EdgeInsets.all(20.0),
             child: Column(
               children: [
-                Text(
-                  "Add Appointment",
-                  textAlign: TextAlign.center,
-                  style: kTextStyle.copyWith(
-                    fontSize: 20,
-                  ),
-                ),
-                SizedBox(
-                  height: 30,
-                ),
-                Text(
-                  "Make an Appointment",
-                  textAlign: TextAlign.center,
-                  style: kTextStyle.copyWith(
-                    fontSize: 16,
-                  ),
-                ),
-                SizedBox(
-                  height: 20,
-                ),
+                _commonLabelText(title: "Add Appointment", fontSize: 30),
+                _commonLabelText(title: "Make an Appointment", fontSize: 20),
                 SizedBox(
                   height: 150,
                   child: ListView.builder(
@@ -146,26 +128,14 @@ class _AddAppointmentScreenState extends State<AddAppointmentScreen> {
                 SizedBox(
                   height: 50,
                 ),
-                Text(
-                  "Register Details",
-                  textAlign: TextAlign.center,
-                  style: kTextStyle.copyWith(
-                    fontSize: 16,
-                  ),
-                ),
+                _commonLabelText(title: "Register Details", fontSize: 16),
+                kTextField(_hospitalController, (value) => hospital = value,
+                    "Hospital", TextInputType.text),
                 SizedBox(
                   height: 20,
                 ),
-                registrationTextField(
-                    _hospitalController,
-                    (value) => hospital = value,
-                    "Hospital",
-                    TextInputType.text),
-                SizedBox(
-                  height: 20,
-                ),
-                registrationTextField(_doctorController,
-                    (value) => doctor = value, "Doctor", TextInputType.text),
+                kTextField(_doctorController, (value) => doctor = value,
+                    "Doctor", TextInputType.text),
                 SizedBox(
                   height: 20,
                 ),
@@ -249,6 +219,23 @@ class _AddAppointmentScreenState extends State<AddAppointmentScreen> {
           ),
         ),
       ),
+    );
+  }
+
+  Column _commonLabelText({@required title, @required fontSize}) {
+    return Column(
+      children: [
+        Text(
+          title,
+          textAlign: TextAlign.center,
+          style: kTextStyle.copyWith(
+            fontSize: fontSize,
+          ),
+        ),
+        SizedBox(
+          height: 20,
+        )
+      ],
     );
   }
 }

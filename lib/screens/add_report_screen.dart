@@ -145,12 +145,12 @@ class _AddReportScreenState extends State<AddReportScreen> {
                     fontSize: 20,
                   ),
                 ),
-                registrationTextField(
+                kTextField(
                     _hospitalController,
                     (value) => hospital = value,
                     "Hospital",
                     TextInputType.text),
-                registrationTextField(_doctorController,
+                kTextField(_doctorController,
                     (value) => doctor = value, "Doctor", TextInputType.text),
                 Padding(
                   padding: const EdgeInsets.all(10.0),

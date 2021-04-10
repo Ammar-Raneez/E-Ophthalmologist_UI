@@ -148,7 +148,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                           ],
                         ),
                         registrationInputLabel("Username"),
-                        registrationTextField(
+                        kTextField(
                             _usernameController,
                             (value) => username = value,
                             "Enter Username",
@@ -189,25 +189,25 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                           });
                         }),
                         registrationInputLabel("BMI"),
-                        registrationTextField(
+                        kTextField(
                             _bmiController,
                             (value) => bmi = value,
                             "Enter BMI",
                             TextInputType.number),
                         registrationInputLabel("HDL"),
-                        registrationTextField(
+                        kTextField(
                             _hdlController,
                             (value) => hdl = value,
                             "Enter HDL",
                             TextInputType.number),
                         registrationInputLabel("A1C"),
-                        registrationTextField(
+                        kTextField(
                             _a1cController,
                             (value) => a1c = value,
                             "Enter A1C",
                             TextInputType.number),
                         registrationInputLabel("LDL"),
-                        registrationTextField(
+                        kTextField(
                             _ldlController,
                             (value) => ldl = value,
                             "Enter LDL",

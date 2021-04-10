@@ -244,7 +244,7 @@ class _EditAppointmentScreenState extends State<EditAppointmentScreen> {
                 SizedBox(
                   height: 20,
                 ),
-                registrationTextField(
+                kTextField(
                     _hospitalController,
                     (value) => hospital = value,
                     "Hospital",
@@ -252,7 +252,7 @@ class _EditAppointmentScreenState extends State<EditAppointmentScreen> {
                 SizedBox(
                   height: 20,
                 ),
-                registrationTextField(_doctorController,
+                kTextField(_doctorController,
                     (value) => doctor = value, "Doctor", TextInputType.text),
                 SizedBox(
                   height: 20,

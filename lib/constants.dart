@@ -46,6 +46,21 @@ const kTextStyle = TextStyle(
   fontFamily: 'Poppins-Regular',
 );
 
+Padding kTextField(
+    var controller, Function onChange, String hintText, var keyboardType) {
+  return Padding(
+    padding: const EdgeInsets.all(10.0),
+    child: TextField(
+      controller: controller,
+      onChanged: onChange,
+      decoration: kTextFieldDecoration.copyWith(
+        hintText: hintText,
+      ),
+      keyboardType: keyboardType,
+    ),
+  );
+}
+
 
 
 // Registration & Edit Profile Specific
@@ -68,21 +83,6 @@ ListTile registrationRadioButton(
   return ListTile(
     title: Text(text),
     leading: Radio(value: value, groupValue: groupVal, onChanged: onchange),
-  );
-}
-
-Padding registrationTextField(
-    var controller, Function onChange, String hintText, var keyboardType) {
-  return Padding(
-    padding: const EdgeInsets.all(10.0),
-    child: TextField(
-      controller: controller,
-      onChanged: onChange,
-      decoration: kTextFieldDecoration.copyWith(
-        hintText: hintText,
-      ),
-      keyboardType: keyboardType,
-    ),
   );
 }
 
