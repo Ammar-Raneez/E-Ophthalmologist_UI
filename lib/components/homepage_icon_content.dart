@@ -21,17 +21,11 @@ class HomePageIconContent extends StatelessWidget {
         SizedBox(
           height: 10.0,
         ),
-        Text(
-            iconLabel,
-            style: kHomePageLabelTextStyle
-        ),
+        Text(iconLabel, style: kHomePageLabelTextStyle),
         SizedBox(
           height: 15.0,
         ),
-        Text(
-          iconValue,
-          style: kHomePageValueTextStyle
-        ),
+        Text(iconValue, style: kHomePageValueTextStyle),
       ],
     );
   }

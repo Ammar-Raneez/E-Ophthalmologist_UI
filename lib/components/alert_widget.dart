@@ -52,7 +52,7 @@ class AlertWidget extends StatelessWidget {
             ),
             SizedBox(
               height: 15,
-            )
+            ),
           ],
         ),
       ),
