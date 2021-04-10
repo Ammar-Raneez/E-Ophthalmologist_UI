@@ -246,44 +246,16 @@ class _ReportScreenState extends State<ReportScreen> {
                 children: [
                   _reportAppointmentLabels(title: "Appointments"),
                   haveAppointments
-                      ? Expanded(
-                          child: ListView.builder(
-                            itemCount: appointments.length,
-                            scrollDirection: Axis.horizontal,
-                            itemBuilder: (BuildContext context, int index) =>
-                                GestureDetector(
-                                    child: ReportPageReportAppointment(
-                                      doctor: appointments[index]['doctor'],
-                                      hospital: appointments[index]['hospital'],
-                                      date: appointments[index]['date'],
-                                      cardColor: Color(0xffaa0000),
-                                      textColor: '0xffffffff',
-                                    ),
-                                    onTap: () {
-                                      var argsForResult = {
-                                        'doctor': appointments[index]['doctor'],
-                                        'hospital': appointments[index]
-                                            ['hospital'],
-                                        'date': appointments[index]['date'],
-                                        'currentAppointmentId':
-                                            appointmentIds[index]
-                                      };
-                                      Navigator.pushNamed(
-                                          context, EditAppointmentScreen.id,
-                                          arguments: argsForResult);
-                                    },
-                                    onLongPress: () async {
-                                      createConfirmationAlert(
-                                          context,
-                                          "Delete Appointment",
-                                          "Are you sure you want to delete this appointment?",
-                                          200,
-                                          index,
-                                          "appointments",
-                                          appointments,
-                                          appointmentIds);
-                                    }),
-                          ),
+                      ? _listReportsAndAppointments(
+                          whichDocs: appointments,
+                          whichDocsIds: appointmentIds,
+                          navigate: EditAppointmentScreen.id,
+                          isReport: false,
+                          firebaseCollection: 'appointments',
+                          alertTitle: "Delete Appointment",
+                          alertDesc:
+                              "Are you sure you want to delete this appointment?",
+                          cardColor: Color(0xffaa0000),
                         )
                       : _emptyReportAppointment(
                           emptyText:
@@ -314,43 +286,16 @@ class _ReportScreenState extends State<ReportScreen> {
                   ),
                   _reportAppointmentLabels(title: "Reports"),
                   haveReports
-                      ? Expanded(
-                          child: ListView.builder(
-                            itemCount: reports.length,
-                            itemBuilder: (BuildContext context, int index) =>
-                                GestureDetector(
-                                    child: ReportPageReportAppointment(
-                                      doctor: reports[index]['doctor'],
-                                      hospital: reports[index]['hospital'],
-                                      date: reports[index]['date'],
-                                      cardColor: Color(0xff01CDFA),
-                                      textColor: '0xffffffff',
-                                    ),
-                                    onTap: () {
-                                      var argsForResult = {
-                                        'doctor': reports[index]['doctor'],
-                                        'hospital': reports[index]['hospital'],
-                                        'date': reports[index]['date'],
-                                        'image_document_urls': reports[index]
-                                            ['image_document_urls'],
-                                        'currentReportId': reportIds[index]
-                                      };
-                                      Navigator.pushNamed(
-                                          context, EditReportScreen.id,
-                                          arguments: argsForResult);
-                                    },
-                                    onLongPress: () async {
-                                      createConfirmationAlert(
-                                          context,
-                                          "Delete Report",
-                                          "Are you sure you want to delete this report?",
-                                          200,
-                                          index,
-                                          "past-reports",
-                                          reports,
-                                          reportIds);
-                                    }),
-                          ),
+                      ? _listReportsAndAppointments(
+                          whichDocs: reports,
+                          whichDocsIds: reportIds,
+                          navigate: EditReportScreen.id,
+                          isReport: true,
+                          firebaseCollection: 'past-reports',
+                          alertTitle: "Delete Report",
+                          alertDesc:
+                              "Are you sure you want to delete this report?",
+                          cardColor: Color(0xff01CDFA),
                         )
                       : _emptyReportAppointment(
                           emptyText:
@@ -402,6 +347,46 @@ class _ReportScreenState extends State<ReportScreen> {
             ),
           ),
         ),
+      ),
+    );
+  }
+
+  Expanded _listReportsAndAppointments(
+      {@required whichDocs,
+      @required whichDocsIds,
+      @required navigate,
+      @required isReport,
+      @required firebaseCollection,
+      @required alertTitle,
+      @required alertDesc,
+      @required cardColor}) {
+    return Expanded(
+      child: ListView.builder(
+        itemCount: whichDocs.length,
+        scrollDirection: isReport ? Axis.vertical : Axis.horizontal,
+        itemBuilder: (BuildContext context, int index) => GestureDetector(
+            child: ReportPageReportAppointment(
+              doctor: whichDocs[index]['doctor'],
+              hospital: whichDocs[index]['hospital'],
+              date: whichDocs[index]['date'],
+              cardColor: cardColor,
+              textColor: '0xffffffff',
+            ),
+            onTap: () {
+              var argsForResult = {
+                'doctor': whichDocs[index]['doctor'],
+                'hospital': whichDocs[index]['hospital'],
+                'date': whichDocs[index]['date'],
+                'image_document_urls':
+                    isReport ? whichDocs[index]['image_document_urls'] : "",
+                'currentReportId': whichDocsIds[index]
+              };
+              Navigator.pushNamed(context, navigate, arguments: argsForResult);
+            },
+            onLongPress: () async {
+              createConfirmationAlert(context, alertTitle, alertDesc, 200,
+                  index, firebaseCollection, whichDocs, whichDocsIds);
+            }),
       ),
     );
   }
