@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:ui/components/alert_widget.dart';
+import 'package:ui/components/custom_alert.dart';
 import 'package:ui/components/rounded_button.dart';
 import 'package:ui/constants.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -53,7 +53,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
     return showDialog(
       context: context,
       builder: (context) {
-        return AlertWidget(
+        return CustomAlert(
           title: title,
           message: message,
           status: status,

@@ -4,7 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
-import 'package:ui/components/alert_widget.dart';
+import 'package:ui/components/custom_alert.dart';
 import 'package:ui/components/rounded_button.dart';
 import 'package:ui/constants.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -50,7 +50,7 @@ class _AddReportScreenState extends State<AddReportScreen> {
     return showDialog(
       context: context,
       builder: (context) {
-        return AlertWidget(
+        return CustomAlert(
           title: title,
           message: message,
           status: status,

@@ -2,12 +2,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:ui/screens/current_screen.dart';
 
-class AlertWidget extends StatelessWidget {
+class CustomAlert extends StatelessWidget {
   final String title;
   final String message;
   final int status;
 
-  AlertWidget({this.title, this.message, this.status});
+  CustomAlert({this.title, this.message, this.status});
 
   @override
   Widget build(BuildContext context) {

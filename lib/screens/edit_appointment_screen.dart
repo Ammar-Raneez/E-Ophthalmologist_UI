@@ -4,7 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:ui/components/alert_widget.dart';
+import 'package:ui/components/custom_alert.dart';
 import 'package:ui/components/rounded_button.dart';
 import 'package:ui/constants.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -45,7 +45,7 @@ class _EditAppointmentScreenState extends State<EditAppointmentScreen> {
     return showDialog(
       context: context,
       builder: (context) {
-        return AlertWidget(
+        return CustomAlert(
           title: title,
           message: message,
           status: status,
