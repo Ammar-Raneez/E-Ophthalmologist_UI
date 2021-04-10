@@ -130,11 +130,10 @@ class _HomeScreenState extends State<HomeScreen> {
                       percent: 0.9,
                       center: Text(
                         "90%\nRisk",
-                        style: TextStyle(
-                            fontSize: 30.0,
-                            fontWeight: FontWeight.w700,
-                            color: Color(0xffdd0000),
-                            fontFamily: "Poppins-SemiBold"),
+                        style: kTextStyle.copyWith(
+                          fontSize: 30.0,
+                          color: Color(0xffdd0000),
+                        ),
                       ),
                       arcType: ArcType.HALF,
                       progressColor: Color(0xffdd0000),
@@ -283,11 +282,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                                     1000)
                                                             .year
                                                             .toString(),
-                                                    style: TextStyle(
-                                                      fontFamily:
-                                                          "Poppins-SemiBold",
-                                                      color: Colors.black38,
-                                                    ),
+                                                    style: kTextStyle,
                                                   ),
                                                   Text(
                                                     "Condition: " +
@@ -295,12 +290,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                                                 ['result']
                                                             .toString()
                                                             .toUpperCase(),
-                                                    style: TextStyle(
-                                                      fontFamily:
-                                                          "Poppins-SemiBold",
-                                                      color: Colors.black38,
-                                                      fontSize: 10,
-                                                    ),
+                                                    style: kTextStyle.copyWith(
+                                                        fontSize: 11.0),
                                                   ),
                                                 ],
                                               ),
