@@ -172,118 +172,14 @@ class _HomeScreenState extends State<HomeScreen> {
                               ),
                       ],
                     ),
-                    HomePageReusableCard(
-                      color: Colors.white,
-                      cardContent: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          Text(
-                            'BMI',
-                            style: kTextStyle.copyWith(
-                                color: Colors.indigo, fontSize: 25),
-                          ),
-                          SizedBox(
-                            height: 25.0,
-                          ),
-                          Text(
-                            'kg/m2',
-                            style: kTextStyle.copyWith(fontSize: 15),
-                          ),
-                          SizedBox(
-                            height: 5.0,
-                          ),
-                          Text(
-                            bmi.toString(),
-                            style: kTextStyle.copyWith(
-                                fontSize: 30, color: Colors.black),
-                          ),
-                        ],
-                      ),
-                    ),
-                    HomePageReusableCard(
-                      color: Colors.white,
-                      cardContent: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          Text(
-                            'A1C',
-                            style: kTextStyle.copyWith(
-                                color: Colors.indigo, fontSize: 25),
-                          ),
-                          SizedBox(
-                            height: 25.0,
-                          ),
-                          Text(
-                            'mmol/mol',
-                            style: kTextStyle.copyWith(fontSize: 15),
-                          ),
-                          SizedBox(
-                            height: 5.0,
-                          ),
-                          Text(
-                            a1c.toString(),
-                            style: kTextStyle.copyWith(
-                                fontSize: 30, color: Colors.black),
-                          ),
-                        ],
-                      ),
-                    ),
-                    HomePageReusableCard(
-                      color: Colors.white,
-                      cardContent: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          Text(
-                            'LDL',
-                            style: kTextStyle.copyWith(
-                                color: Colors.indigo, fontSize: 25),
-                          ),
-                          SizedBox(
-                            height: 25.0,
-                          ),
-                          Text(
-                            'mg/dL',
-                            style: kTextStyle.copyWith(fontSize: 15),
-                          ),
-                          SizedBox(
-                            height: 5.0,
-                          ),
-                          Text(
-                            ldl.toString(),
-                            style: kTextStyle.copyWith(
-                                fontSize: 30, color: Colors.black),
-                          ),
-                        ],
-                      ),
-                    ),
-                    HomePageReusableCard(
-                      color: Colors.white,
-                      cardContent: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          Text(
-                            'HDL',
-                            style: kTextStyle.copyWith(
-                                color: Colors.indigo, fontSize: 25),
-                          ),
-                          SizedBox(
-                            height: 25.0,
-                          ),
-                          Text(
-                            'mg/dL',
-                            style: kTextStyle.copyWith(fontSize: 15),
-                          ),
-                          SizedBox(
-                            height: 5.0,
-                          ),
-                          Text(
-                            hdl.toString(),
-                            style: kTextStyle.copyWith(
-                                fontSize: 30, color: Colors.black),
-                          ),
-                        ],
-                      ),
-                    ),
+                    _commonHorizontalCard(
+                        title: 'BMI', unit: 'kg/m2', val: bmi),
+                    _commonHorizontalCard(
+                        title: 'A1C', unit: 'mmol/mol', val: a1c),
+                    _commonHorizontalCard(
+                        title: 'LDL', unit: 'mg/dL', val: ldl),
+                    _commonHorizontalCard(
+                        title: 'HDL', unit: 'mg/dL', val: hdl),
                     eyeScans.length == 0
                         ? Container(
                             width: 0,
@@ -424,32 +320,34 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
     );
   }
+
+  HomePageReusableCard _commonHorizontalCard(
+      {@required title, @required unit, @required val}) {
+    return HomePageReusableCard(
+      color: Colors.white,
+      cardContent: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          Text(
+            title,
+            style: kTextStyle.copyWith(color: Colors.indigo, fontSize: 25),
+          ),
+          SizedBox(
+            height: 25.0,
+          ),
+          Text(
+            unit,
+            style: kTextStyle.copyWith(fontSize: 15),
+          ),
+          SizedBox(
+            height: 5.0,
+          ),
+          Text(
+            val.toString(),
+            style: kTextStyle.copyWith(fontSize: 30, color: Colors.black),
+          ),
+        ],
+      ),
+    );
+  }
 }
-
-//decoration: BoxDecoration(
-//image: DecorationImage(
-//image: NetworkImage(
-//eyeScans[index]['image_url'],
-//),
-//fit: BoxFit.cover,
-//alignment: Alignment.topCenter,
-//),
-//),
-
-//Padding(
-//padding: const EdgeInsets.all(18.0),
-//child: Center(
-//child: BorderedText(
-//strokeWidth: 2.0,
-//strokeColor: Colors.black,
-//child: Text(
-//eyeScans[index]['result']
-//.toString()
-//    .toUpperCase(),
-//style: TextStyle(
-//color: Colors.white,
-//),
-//),
-//),
-//),
-//)
