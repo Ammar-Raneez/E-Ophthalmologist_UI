@@ -61,7 +61,7 @@ class _CurrentScreenState extends State<CurrentScreen> {
             automaticallyImplyLeading: false,
             title: Text(
               "E-Ophthalmologist",
-              style: TextStyle(fontSize: 20.0,  fontFamily: "Poppins-SemiBold"),
+              style: TextStyle(fontSize: 20.0, fontFamily: "Poppins-SemiBold"),
             ),
             actions: [
               IconButton(
@@ -111,28 +111,23 @@ class _CurrentScreenState extends State<CurrentScreen> {
                 ),
                 label: "Home",
               ),
-              BottomNavigationBarItem(
-                  icon: Icon(
-                    Icons.add_a_photo,
-                    size: 27,
-                  ),
-                  label: "Diagnose"),
-              BottomNavigationBarItem(
-                  icon: Icon(
-                    Icons.attachment,
-                    size: 27,
-                  ),
-                  label: "Reports"),
-              BottomNavigationBarItem(
-                  icon: Icon(
-                    Icons.add_alert,
-                    size: 27,
-                  ),
-                  label: "Blog"),
+              _commonBottomNavigationBarItem(icon: Icons.add_a_photo, iconSize: 27.0, title: "Diagnosis"),
+              _commonBottomNavigationBarItem(icon: Icons.attachment, iconSize: 27.0, title: "Reports"),
+              _commonBottomNavigationBarItem(icon: Icons.add_alert, iconSize: 27.0, title: "Blog"),
             ],
           ),
         ),
       ),
     );
+  }
+
+  _commonBottomNavigationBarItem(
+      {@required icon, @required iconSize, @required title}) {
+    return BottomNavigationBarItem(
+        icon: Icon(
+          icon,
+          size: iconSize,
+        ),
+        label: title);
   }
 }
