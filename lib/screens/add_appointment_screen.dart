@@ -111,8 +111,8 @@ class _AddAppointmentScreenState extends State<AddAppointmentScreen> {
             padding: const EdgeInsets.all(20.0),
             child: Column(
               children: [
-                _commonLabelText(title: "Add Appointment", fontSize: 30),
-                _commonLabelText(title: "Make an Appointment", fontSize: 20),
+                _commonLabelText(title: "Add Appointment", fontSize: 20.0),
+                _commonLabelText(title: "Make an Appointment", fontSize: 16.0),
                 SizedBox(
                   height: 150,
                   child: ListView.builder(
@@ -128,7 +128,7 @@ class _AddAppointmentScreenState extends State<AddAppointmentScreen> {
                 SizedBox(
                   height: 50,
                 ),
-                _commonLabelText(title: "Register Details", fontSize: 16),
+                _commonLabelText(title: "Register Details", fontSize: 16.0),
                 kTextField(_hospitalController, (value) => hospital = value,
                     "Hospital", TextInputType.text),
                 SizedBox(
