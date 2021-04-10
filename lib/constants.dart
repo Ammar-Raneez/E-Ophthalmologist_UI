@@ -1,39 +1,14 @@
 import 'package:flutter/material.dart';
 
 // This constant is for the login background gradient color
-const kBackgroundRedGradient = LinearGradient(
+const kLoginRegistrationBackgroundGradient = LinearGradient(
   begin: Alignment.topCenter,
   end: Alignment.bottomCenter,
   colors: [Color(0xff01CDFA), Color(0xffcccccc)],
 );
 
-// This constant is for the text field decoration
+// This constant is for all the text fields decoration
 const kTextFieldDecoration = InputDecoration(
-  fillColor: Colors.white,
-  filled: true,
-  hintText: '',
-  hintStyle: TextStyle(color: Colors.grey),
-  contentPadding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
-  border: OutlineInputBorder(
-    borderRadius: BorderRadius.all(
-      Radius.circular(32.0),
-    ),
-  ),
-  enabledBorder: OutlineInputBorder(
-    borderSide: BorderSide(color: Color(0xff01CDFA), width: 1.0),
-    borderRadius: BorderRadius.all(
-      Radius.circular(32.0),
-    ),
-  ),
-  focusedBorder: OutlineInputBorder(
-    borderSide: BorderSide(color: Color(0xff01CDFA), width: 2.0),
-    borderRadius: BorderRadius.all(
-      Radius.circular(32.0),
-    ),
-  ),
-);
-
-const kRegistrationFieldDecoration = InputDecoration(
   fillColor: Colors.white,
   filled: true,
   hintText: '',
@@ -66,6 +41,7 @@ const kTextStyle = TextStyle(
   fontFamily: 'Poppins-Regular',
 );
 
+
 // Registration & Edit Profile Usage
 enum Gender { Male, Female }
 enum DMType { Type1, Type2 }
@@ -76,7 +52,7 @@ Padding registrationInputLabel(String text) {
     padding: const EdgeInsets.all(10.0),
     child: Text(
       text,
-      style: kTextStyle.copyWith(fontSize: 12, color: Colors.black),
+      style: kTextStyle.copyWith(fontSize: 12),
     ),
   );
 }
@@ -96,13 +72,14 @@ Padding registrationTextField(
     child: TextField(
       controller: controller,
       onChanged: onChange,
-      decoration: kRegistrationFieldDecoration.copyWith(
+      decoration: kTextFieldDecoration.copyWith(
         hintText: hintText,
       ),
       keyboardType: keyboardType,
     ),
   );
 }
+
 
 //home page
 const kHomePageLabelTextStyle = TextStyle(
@@ -130,5 +107,3 @@ const kHomePageNumberTextStyle = TextStyle(
     fontSize: 30.0,
     fontWeight: FontWeight.w900,
     fontFamily: "Poppins-SemiBold");
-
-const Color kHomePageCardColor = Color(0xffffffff);

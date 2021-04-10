@@ -88,7 +88,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
           inAsyncCall: showSpinner,
           child: Container(
             decoration: BoxDecoration(
-              gradient: kBackgroundRedGradient,
+              gradient: kLoginRegistrationBackgroundGradient,
             ),
             child: Padding(
               padding: EdgeInsets.symmetric(
@@ -211,7 +211,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                       onChanged: (value) {
                         password = value;
                       },
-                      decoration: kRegistrationFieldDecoration.copyWith(
+                      decoration: kTextFieldDecoration.copyWith(
                         hintText: "Enter Password",
                         prefixIcon: Icon(
                           Icons.lock,

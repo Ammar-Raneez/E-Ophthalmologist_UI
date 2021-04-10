@@ -90,7 +90,7 @@ class _LoginScreenState extends State<LoginScreen> {
             inAsyncCall: showSpinner,
             child: Container(
               decoration: BoxDecoration(
-                gradient: kBackgroundRedGradient,
+                gradient: kLoginRegistrationBackgroundGradient,
               ),
               child: Padding(
                 padding: EdgeInsets.symmetric(
