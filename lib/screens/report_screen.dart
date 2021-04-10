@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:ui/components/report_page_report_appointment.dart';
+import 'package:ui/constants.dart';
 import 'package:ui/screens/add_appointment_screen.dart';
 import 'package:ui/screens/add_report_screen.dart';
 import 'package:ui/screens/current_screen.dart';
@@ -82,7 +83,7 @@ class _ReportScreenState extends State<ReportScreen> {
     });
   }
 
-  createConfirmationAlert(
+  createDeleteConfirmationAlert(
       BuildContext context,
       String title,
       String message,
@@ -124,12 +125,7 @@ class _ReportScreenState extends State<ReportScreen> {
                     ),
                     Text(
                       title,
-                      style: TextStyle(
-                        color: Colors.black54,
-                        fontFamily: 'Poppins-Regular',
-                        fontSize: 19,
-                        fontWeight: FontWeight.w900,
-                      ),
+                      style: kTextStyle.copyWith(fontSize: 19.0),
                     ),
                   ],
                 ),
@@ -141,9 +137,7 @@ class _ReportScreenState extends State<ReportScreen> {
           ),
           content: Text(
             message,
-            style: TextStyle(
-              color: Colors.black54,
-            ),
+            style: kTextStyle,
           ),
           elevation: 2.0,
           actions: [
@@ -320,10 +314,9 @@ class _ReportScreenState extends State<ReportScreen> {
         child: Center(
           child: Text(
             emptyText,
-            style: TextStyle(
+            style: kTextStyle.copyWith(
               fontSize: 20.0,
               color: Color(0xffff0000),
-              fontFamily: 'Poppins-SemiBold',
             ),
             textAlign: TextAlign.center,
           ),
@@ -340,10 +333,9 @@ class _ReportScreenState extends State<ReportScreen> {
           alignment: Alignment.topLeft,
           child: Text(
             "Appointments",
-            style: TextStyle(
+            style: kTextStyle.copyWith(
               color: Color(0xff8d8e98),
               fontSize: 20,
-              fontFamily: 'Poppins-SemiBold',
             ),
           ),
         ),
@@ -384,7 +376,7 @@ class _ReportScreenState extends State<ReportScreen> {
               Navigator.pushNamed(context, navigate, arguments: argsForResult);
             },
             onLongPress: () async {
-              createConfirmationAlert(context, alertTitle, alertDesc, 200,
+              createDeleteConfirmationAlert(context, alertTitle, alertDesc, 200,
                   index, firebaseCollection, whichDocs, whichDocsIds);
             }),
       ),
