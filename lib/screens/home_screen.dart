@@ -95,11 +95,11 @@ class _HomeScreenState extends State<HomeScreen> {
           children: <Widget>[
             Text(
               label,
-              style: kHomePageLabelTextStyle,
+              style: kTextStyle,
             ),
             Text(
               val.toString(),
-              style: kHomePageNumberTextStyle,
+              style: kTextStyle.copyWith(fontSize: 30, color: Colors.black),
             ),
           ],
         ),
@@ -179,21 +179,23 @@ class _HomeScreenState extends State<HomeScreen> {
                         children: <Widget>[
                           Text(
                             'BMI',
-                            style: kHomePageMainLabelTextStyle,
+                            style: kTextStyle.copyWith(
+                                color: Colors.indigo, fontSize: 25),
                           ),
                           SizedBox(
                             height: 25.0,
                           ),
                           Text(
                             'kg/m2',
-                            style: kHomePageUnitTextStyle,
+                            style: kTextStyle.copyWith(fontSize: 15),
                           ),
                           SizedBox(
                             height: 5.0,
                           ),
                           Text(
                             bmi.toString(),
-                            style: kHomePageNumberTextStyle,
+                            style: kTextStyle.copyWith(
+                                fontSize: 30, color: Colors.black),
                           ),
                         ],
                       ),
@@ -205,21 +207,23 @@ class _HomeScreenState extends State<HomeScreen> {
                         children: <Widget>[
                           Text(
                             'A1C',
-                            style: kHomePageMainLabelTextStyle,
+                            style: kTextStyle.copyWith(
+                                color: Colors.indigo, fontSize: 25),
                           ),
                           SizedBox(
                             height: 25.0,
                           ),
                           Text(
                             'mmol/mol',
-                            style: kHomePageUnitTextStyle,
+                            style: kTextStyle.copyWith(fontSize: 15),
                           ),
                           SizedBox(
                             height: 5.0,
                           ),
                           Text(
                             a1c.toString(),
-                            style: kHomePageNumberTextStyle,
+                            style: kTextStyle.copyWith(
+                                fontSize: 30, color: Colors.black),
                           ),
                         ],
                       ),
@@ -231,21 +235,23 @@ class _HomeScreenState extends State<HomeScreen> {
                         children: <Widget>[
                           Text(
                             'LDL',
-                            style: kHomePageMainLabelTextStyle,
+                            style: kTextStyle.copyWith(
+                                color: Colors.indigo, fontSize: 25),
                           ),
                           SizedBox(
                             height: 25.0,
                           ),
                           Text(
                             'mg/dL',
-                            style: kHomePageUnitTextStyle,
+                            style: kTextStyle.copyWith(fontSize: 15),
                           ),
                           SizedBox(
                             height: 5.0,
                           ),
                           Text(
                             ldl.toString(),
-                            style: kHomePageNumberTextStyle,
+                            style: kTextStyle.copyWith(
+                                fontSize: 30, color: Colors.black),
                           ),
                         ],
                       ),
@@ -257,21 +263,23 @@ class _HomeScreenState extends State<HomeScreen> {
                         children: <Widget>[
                           Text(
                             'HDL',
-                            style: kHomePageMainLabelTextStyle,
+                            style: kTextStyle.copyWith(
+                                color: Colors.indigo, fontSize: 25),
                           ),
                           SizedBox(
                             height: 25.0,
                           ),
                           Text(
                             'mg/dL',
-                            style: kHomePageUnitTextStyle,
+                            style: kTextStyle.copyWith(fontSize: 15),
                           ),
                           SizedBox(
                             height: 5.0,
                           ),
                           Text(
                             hdl.toString(),
-                            style: kHomePageNumberTextStyle,
+                            style: kTextStyle.copyWith(
+                                fontSize: 30, color: Colors.black),
                           ),
                         ],
                       ),
@@ -288,7 +296,8 @@ class _HomeScreenState extends State<HomeScreen> {
                               alignment: Alignment.topLeft,
                               child: Text(
                                 "Past Scans",
-                                style: kHomePageMainLabelTextStyle,
+                                style: kTextStyle.copyWith(
+                                    color: Colors.indigo, fontSize: 25),
                               ),
                             ),
                           ),

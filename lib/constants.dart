@@ -33,16 +33,17 @@ const kTextFieldDecoration = InputDecoration(
   ),
 );
 
-// This constant is for the Text style for the
+// This constant is for all text styles
 const kTextStyle = TextStyle(
   color: Colors.black38,
-  fontSize: 15,
+  fontSize: 14,
   fontWeight: FontWeight.bold,
   fontFamily: 'Poppins-Regular',
 );
 
 
-// Registration & Edit Profile Usage
+
+// Registration & Edit Profile Specific
 enum Gender { Male, Female }
 enum DMType { Type1, Type2 }
 enum Smoker { Yes, No }
@@ -79,31 +80,3 @@ Padding registrationTextField(
     ),
   );
 }
-
-
-//home page
-const kHomePageLabelTextStyle = TextStyle(
-    fontSize: 14.0,
-    color: Color(0xff8d8e98),
-    fontWeight: FontWeight.w400,
-    fontFamily: "Poppins-SemiBold");
-
-const kHomePageMainLabelTextStyle = TextStyle(
-    fontSize: 25.0,
-    color: Colors.indigo,
-    fontWeight: FontWeight.w900,
-    fontFamily: "Poppins-SemiBold");
-
-const kHomePageValueTextStyle = TextStyle(
-    fontSize: 18.0,
-    color: Colors.black87,
-    fontWeight: FontWeight.bold,
-    fontFamily: "Poppins-SemiBold");
-
-const kHomePageUnitTextStyle = TextStyle(
-    fontSize: 15.0, color: Color(0xff8d8e98), fontFamily: "Poppins-SemiBold");
-
-const kHomePageNumberTextStyle = TextStyle(
-    fontSize: 30.0,
-    fontWeight: FontWeight.w900,
-    fontFamily: "Poppins-SemiBold");
