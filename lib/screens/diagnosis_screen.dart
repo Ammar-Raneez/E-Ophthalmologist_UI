@@ -121,8 +121,7 @@ class _DiagnosisScreenState extends State<DiagnosisScreen> {
             'image_url': imageUrl,
             'time': time
           };
-//          createAlertDialog(
-//              context, "Diagnosis", response.toString(), 201);
+
           Navigator.pushNamed(context, DiagnosisResultScreen.id,
               arguments: argsForResult);
         } else {
@@ -170,8 +169,8 @@ class _DiagnosisScreenState extends State<DiagnosisScreen> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: [
-                          contentText("DIABETIC RETINOPATHY", Colors.grey),
-                          contentText("Diagnosis", Colors.lightBlueAccent),
+                          _contentText("DIABETIC RETINOPATHY", Colors.grey),
+                          _contentText("Diagnosis", Colors.lightBlueAccent),
                           Expanded(
                             child: Padding(
                               padding: const EdgeInsets.all(20.0),
@@ -187,12 +186,12 @@ class _DiagnosisScreenState extends State<DiagnosisScreen> {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              diagnosisRaisedButton(
+                              _diagnosisRaisedButton(
                                   _openCamera, Icons.camera_alt_rounded),
                               SizedBox(
                                 width: 20.0,
                               ),
-                              diagnosisRaisedButton(_openGallery, Icons.photo),
+                              _diagnosisRaisedButton(_openGallery, Icons.photo),
                             ],
                           ),
                           SizedBox(
@@ -218,7 +217,7 @@ class _DiagnosisScreenState extends State<DiagnosisScreen> {
     );
   }
 
-  Center contentText(String text, Color color) {
+  Center _contentText(String text, Color color) {
     return Center(
       child: Text(
         text,
@@ -230,7 +229,7 @@ class _DiagnosisScreenState extends State<DiagnosisScreen> {
     );
   }
 
-  RaisedButton diagnosisRaisedButton(Function onPress, IconData icon) {
+  RaisedButton _diagnosisRaisedButton(Function onPress, IconData icon) {
     return RaisedButton(
       elevation: 3.0,
       padding: EdgeInsets.symmetric(horizontal: 25.0, vertical: 10.0),
