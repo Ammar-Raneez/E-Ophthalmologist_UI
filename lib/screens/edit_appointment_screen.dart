@@ -164,25 +164,28 @@ class _EditAppointmentScreenState extends State<EditAppointmentScreen> {
                 ),
                 Padding(
                   padding: const EdgeInsets.all(10.0),
-                  child: OutlinedButton(
-                    child: Text(
-                      "Date: $selectedDate",
-                      style: TextStyle(
-                        color: Color(0xff000000),
+                  child: Container(
+                    width: MediaQuery.of(context).size.width,
+                    child: OutlinedButton(
+                      child: Text(
+                        "Date: $selectedDate",
+                        style: TextStyle(
+                          color: Color(0xff000000),
+                        ),
                       ),
-                    ),
-                    onPressed: () async {
-                      await selectDate(context);
-                    },
-                    style: ButtonStyle(
-                      shadowColor: MaterialStateProperty.all<Color>(
-                        Color(0xff01CDFA),
-                      ),
-                      foregroundColor: MaterialStateProperty.all<Color>(
-                        Color(0xff01CDFA),
-                      ),
-                      overlayColor: MaterialStateProperty.all<Color>(
-                        Color(0xff01CDFA),
+                      onPressed: () async {
+                        await selectDate(context);
+                      },
+                      style: ButtonStyle(
+                        shadowColor: MaterialStateProperty.all<Color>(
+                          Color(0xff01CDFA),
+                        ),
+                        foregroundColor: MaterialStateProperty.all<Color>(
+                          Color(0xff01CDFA),
+                        ),
+                        overlayColor: MaterialStateProperty.all<Color>(
+                          Color(0xff01CDFA),
+                        ),
                       ),
                     ),
                   ),
