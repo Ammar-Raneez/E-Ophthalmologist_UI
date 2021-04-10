@@ -143,6 +143,16 @@ class _EditReportScreenState extends State<EditReportScreen> {
 
     return SafeArea(
       child: Scaffold(
+        appBar: AppBar(
+          automaticallyImplyLeading: false,
+          title: Center(
+            child: Text(
+              "E-Ophthalmologist",
+              style: kTextStyle.copyWith(fontSize: 20.0, color: Colors.white),
+            ),
+          ),
+          backgroundColor: Colors.indigo,
+        ),
         body: ModalProgressHUD(
           inAsyncCall: showSpinner,
           child: doctor == ""
@@ -155,7 +165,7 @@ class _EditReportScreenState extends State<EditReportScreen> {
                     padding: const EdgeInsets.all(20.0),
                     child: ListView(
                       children: [
-                        _commonLabelText(title: "Edit Report", fontSize: 20.0),
+                        _commonLabelText(title: "Edit Report", fontSize: 25.0),
                         kTextField(
                             _hospitalController,
                             (value) => hospital = value,
@@ -189,7 +199,7 @@ class _EditReportScreenState extends State<EditReportScreen> {
                           ),
                         ),
                         SizedBox(
-                          height: 20,
+                          height: 30,
                         ),
                         Column(
                           children: imageDocumentsURLS.length != 0
@@ -221,7 +231,7 @@ class _EditReportScreenState extends State<EditReportScreen> {
                                 ),
                         ),
                         SizedBox(
-                          height: 50,
+                          height: 30,
                         ),
                         RoundedButton(
                           onPressed: () async {

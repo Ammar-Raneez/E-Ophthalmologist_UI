@@ -119,12 +119,22 @@ class _EditAppointmentScreenState extends State<EditAppointmentScreen> {
 
     return SafeArea(
       child: Scaffold(
+        appBar: AppBar(
+          automaticallyImplyLeading: false,
+          title: Center(
+            child: Text(
+              "E-Ophthalmologist",
+              style: kTextStyle.copyWith(fontSize: 20.0, color: Colors.white),
+            ),
+          ),
+          backgroundColor: Colors.indigo,
+        ),
         body: SingleChildScrollView(
           child: Padding(
             padding: const EdgeInsets.all(20.0),
             child: Column(
               children: [
-                _commonLabelText(title: "Edit Appointment", fontSize: 20.0),
+                _commonLabelText(title: "Edit Appointment", fontSize: 25.0),
                 _commonLabelText(title: "Make an Appointment", fontSize: 16.0),
                 SizedBox(
                   height: 150,
@@ -150,7 +160,7 @@ class _EditAppointmentScreenState extends State<EditAppointmentScreen> {
                 kTextField(_doctorController, (value) => doctor = value,
                     "Doctor", TextInputType.text),
                 SizedBox(
-                  height: 20,
+                  height: 30,
                 ),
                 Padding(
                   padding: const EdgeInsets.all(10.0),
@@ -178,7 +188,7 @@ class _EditAppointmentScreenState extends State<EditAppointmentScreen> {
                   ),
                 ),
                 SizedBox(
-                  height: 50,
+                  height: 30,
                 ),
                 RoundedButton(
                   onPressed: () async {
