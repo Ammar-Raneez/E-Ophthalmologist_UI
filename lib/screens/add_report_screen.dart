@@ -119,10 +119,9 @@ class _AddReportScreenState extends State<AddReportScreen> {
       lastDate: DateTime.now(),
       helpText: "Date of Birth",
     );
-    if (picked != startDate && picked != null) {
+    if (picked != null) {
       setState(() {
-        startDate = picked;
-        selectedDate = DateFormat("yyyy-MM-dd").format(startDate);
+        selectedDate = DateFormat("yyyy-MM-dd").format(picked);
       });
     }
   }
