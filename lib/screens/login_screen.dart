@@ -121,25 +121,14 @@ class _LoginScreenState extends State<LoginScreen> {
                             Container(
                               height: 100,
                             ),
-                            Text(
-                              "Welcome!",
-                              textAlign: TextAlign.center,
-                              style: kTextStyle.copyWith(
-                                color: Color(0xffffffff),
-                                fontSize: 20,
-                              ),
-                            ),
+                            _commonLabelText(title: "Welcome!", fontSize: 20.0),
                           ],
                         ),
                       ),
                     if (keyboardOpenVisibility == 0.0)
-                      Text(
-                        "Log in to your existing account",
-                        textAlign: TextAlign.center,
-                        style: kTextStyle.copyWith(
-                          fontSize: 15,
-                        ),
-                      ),
+                      _commonLabelText(
+                          title: "Log in to your existing account!",
+                          fontSize: 15.0),
                     TextField(
                       controller: _emailAddressTextFieldController,
                       keyboardType: TextInputType.emailAddress,
@@ -197,12 +186,8 @@ class _LoginScreenState extends State<LoginScreen> {
                         crossAxisAlignment: CrossAxisAlignment.center,
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Text(
-                            "Don't have an account?",
-                            style: kTextStyle.copyWith(
-                              fontSize: 13,
-                            ),
-                          ),
+                          _commonLabelText(
+                              title: "Don't have an account?", fontSize: 13.0),
                           SizedBox(
                             width: 5.0,
                           ),
@@ -212,13 +197,8 @@ class _LoginScreenState extends State<LoginScreen> {
                               Navigator.pushNamed(
                                   context, RegistrationScreen.id);
                             },
-                            child: Text(
-                              "Sign Up",
-                              style: kTextStyle.copyWith(
-                                color: Color(0xff01CDFA),
-                                fontSize: 13,
-                              ),
-                            ),
+                            child: _commonLabelText(
+                                title: "Sign Up", fontSize: 13.0),
                           ),
                         ],
                       ),
@@ -229,6 +209,16 @@ class _LoginScreenState extends State<LoginScreen> {
             ),
           ),
         ),
+      ),
+    );
+  }
+
+  Text _commonLabelText({@required title, @required fontSize}) {
+    return Text(
+      title,
+      textAlign: TextAlign.center,
+      style: kTextStyle.copyWith(
+        fontSize: fontSize,
       ),
     );
   }
