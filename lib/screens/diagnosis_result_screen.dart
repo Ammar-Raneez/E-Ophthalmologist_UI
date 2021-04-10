@@ -99,15 +99,19 @@ class _DiagnosisResultScreenState extends State<DiagnosisResultScreen> {
                   ),
                 ),
                 _commonLabelText(
-                    sentence: "Scan on: $datetime", textColor: Colors.black, fontSize: 20.0),
+                    sentence: "Scan on: $datetime",
+                    textColor: Colors.black,
+                    fontSize: 20.0),
                 _commonLabelText(
                     sentence:
                         "A ${arguments['result']} condition has been detected in the above retinal fundus",
-                    textColor: Colors.red, fontSize: 20.0),
+                    textColor: Colors.red,
+                    fontSize: 20.0),
                 _commonLabelText(
                     sentence:
                         "This is a dummy treatment message, user will get a treatment and necessary details about this type of diabetic retinopathy here",
-                    textColor: Colors.black54, fontSize: 15.0),
+                    textColor: Colors.black54,
+                    fontSize: 15.0),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: RoundedButton(
@@ -127,7 +131,9 @@ class _DiagnosisResultScreenState extends State<DiagnosisResultScreen> {
   }
 
   Column _commonLabelText(
-      {@required String sentence, @required Color textColor, @required fontSize}) {
+      {@required String sentence,
+      @required Color textColor,
+      @required fontSize}) {
     return Column(
       children: [
         Align(
