@@ -116,6 +116,16 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+        appBar: AppBar(
+          automaticallyImplyLeading: false,
+          title: Center(
+            child: Text(
+              "E-Ophthalmologist",
+              style: kTextStyle.copyWith(fontSize: 20.0, color: Colors.white),
+            ),
+          ),
+          backgroundColor: Colors.indigo,
+        ),
         backgroundColor: Colors.white,
         body: ModalProgressHUD(
           inAsyncCall: showSpinner,
