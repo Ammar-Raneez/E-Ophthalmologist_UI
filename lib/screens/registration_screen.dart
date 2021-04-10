@@ -116,35 +116,20 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                       Container(
                         height: 150,
                       ),
-                      Text(
-                        "Nice to see you here 👋",
-                        textAlign: TextAlign.center,
-                        style: kTextStyle.copyWith(
-                          color: Color(0xffffffff),
-                          fontSize: 20,
-                        ),
-                      ),
+                      _commonLabelText(
+                          title: "Nice to see you here 👋", fontSize: 20.0),
                     ],
                   ),
-                  kTextField(
-                      _usernameController,
-                      (value) => username = value,
-                      "Enter Username",
-                      TextInputType.text),
-                  kTextField(
-                      _emailAddressController,
-                      (value) => email = value,
-                      "Enter Email Address",
-                      TextInputType.emailAddress),
+                  kTextField(_usernameController, (value) => username = value,
+                      "Enter Username", TextInputType.text),
+                  kTextField(_emailAddressController, (value) => email = value,
+                      "Enter Email Address", TextInputType.emailAddress),
                   Padding(
                     padding: const EdgeInsets.all(10.0),
                     child: OutlinedButton(
-                      child: Text(
-                        "Date of Birth: $selectedDate",
-                        style: TextStyle(
-                          color: Color(0xffffffff),
-                        ),
-                      ),
+                      child: _commonLabelText(
+                          title: "Date of Birth: $selectedDate",
+                          fontSize: 14.0),
                       onPressed: () async {
                         await selectDate(context);
                       },
@@ -235,12 +220,8 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                     onTap: () {
                       Navigator.pop(context);
                     },
-                    child: Text(
-                      "<- Back to login",
-                      textAlign: TextAlign.end,
-                      style: kTextStyle.copyWith(
-                          fontSize: 12, color: Colors.white),
-                    ),
+                    child: _commonLabelText(
+                        title: "< - Back to Login", fontSize: 12.0),
                   ),
                   RoundedButton(
                     onPressed: () async {
@@ -334,6 +315,14 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
           ),
         ),
       ),
+    );
+  }
+
+  Text _commonLabelText({@required title, @required fontSize}) {
+    return Text(
+      title,
+      textAlign: TextAlign.center,
+      style: kTextStyle.copyWith(fontSize: fontSize, color: Colors.white),
     );
   }
 }
