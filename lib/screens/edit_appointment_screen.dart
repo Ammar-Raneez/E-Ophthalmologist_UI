@@ -76,10 +76,9 @@ class _EditAppointmentScreenState extends State<EditAppointmentScreen> {
       lastDate: DateTime(2900, 01, 01),
       helpText: "Date of Birth",
     );
-    if (picked != startDate && picked != null) {
+    if (picked != null) {
       setState(() {
-        startDate = picked;
-        selectedDate = DateFormat("yyyy-MM-dd").format(startDate);
+        selectedDate = DateFormat("yyyy-MM-dd").format(picked);
       });
     }
   }
@@ -91,7 +90,6 @@ class _EditAppointmentScreenState extends State<EditAppointmentScreen> {
     setState(() {
       doctor = arguments['doctor'];
       hospital = arguments['hospital'];
-      selectedDate = arguments['date'];
       appointmentId = arguments['currentAppointmentId'];
     });
 
