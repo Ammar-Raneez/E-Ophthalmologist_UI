@@ -1,4 +1,6 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 // This constant is for the login background gradient color
 const kLoginRegistrationBackgroundGradient = LinearGradient(
@@ -81,5 +83,28 @@ Padding registrationTextField(
       ),
       keyboardType: keyboardType,
     ),
+  );
+}
+
+
+
+// Appointment screen hospital links
+Column buildHospitalLink({@required String hospital, @required String url}) {
+  return Column(
+    children: [
+      RichText(
+        text: TextSpan(
+            text: hospital,
+            style:
+            kTextStyle.copyWith(fontSize: 18, color: Colors.blueAccent),
+            recognizer: TapGestureRecognizer()
+              ..onTap = () {
+                launch(url);
+              }),
+      ),
+      SizedBox(
+        height: 10,
+      ),
+    ],
   );
 }

@@ -1,13 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:ui/components/custom_alert.dart';
 import 'package:ui/components/rounded_button.dart';
 import 'package:ui/constants.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 final _firestore = FirebaseFirestore.instance;
 
@@ -35,6 +33,9 @@ class _AddAppointmentScreenState extends State<AddAppointmentScreen> {
 
   // appointmentID - timestamp of creation
   String appointmentID = new Timestamp.now().toString();
+
+  var hospitalNames = [];
+  var hospitalLinks = [];
 
   @override
   void initState() {
@@ -120,101 +121,27 @@ class _AddAppointmentScreenState extends State<AddAppointmentScreen> {
                     physics: ClampingScrollPhysics(),
                     shrinkWrap: true,
                     children: [
-                      RichText(
-                        text: TextSpan(
-                            text: "National Eye Hospital",
-                            style: kTextStyle.copyWith(
-                                fontSize: 18, color: Colors.blueAccent),
-                            recognizer: TapGestureRecognizer()
-                              ..onTap = () {
-                                launch(
-                                    "https://nationaleyehospital.health.gov.lk/");
-                              }),
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      RichText(
-                        text: TextSpan(
-                            text: "Radiant Eye Hospital",
-                            style: kTextStyle.copyWith(
-                                fontSize: 18, color: Colors.blueAccent),
-                            recognizer: TapGestureRecognizer()
-                              ..onTap = () {
-                                launch("https://radianteye.lk/");
-                              }),
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      RichText(
-                        text: TextSpan(
-                            text: "Nawaloka Hospital",
-                            style: kTextStyle.copyWith(
-                                fontSize: 18, color: Colors.blueAccent),
-                            recognizer: TapGestureRecognizer()
-                              ..onTap = () {
-                                launch("https://www.nawaloka.com/");
-                              }),
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      RichText(
-                        text: TextSpan(
-                            text: "Asiri Hospital",
-                            style: kTextStyle.copyWith(
-                                fontSize: 18, color: Colors.blueAccent),
-                            recognizer: TapGestureRecognizer()
-                              ..onTap = () {
-                                launch("https://asirihealth.com/");
-                              }),
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      RichText(
-                        text: TextSpan(
-                            text: "Hemas Hospital",
-                            style: kTextStyle.copyWith(
-                              fontSize: 18,
-                              color: Colors.blueAccent,
-                            ),
-                            recognizer: TapGestureRecognizer()
-                              ..onTap = () {
-                                launch("https://www.hemas.com/");
-                              }),
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      RichText(
-                        text: TextSpan(
-                            text: "Ninewells Hospital",
-                            style: kTextStyle.copyWith(
-                              fontSize: 18,
-                              color: Colors.blueAccent,
-                            ),
-                            recognizer: TapGestureRecognizer()
-                              ..onTap = () {
-                                launch("https://ninewellshospital.lk/");
-                              }),
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      RichText(
-                        text: TextSpan(
-                            text: "Lanka Hospital",
-                            style: kTextStyle.copyWith(
-                              fontSize: 18,
-                              color: Colors.blueAccent,
-                            ),
-                            recognizer: TapGestureRecognizer()
-                              ..onTap = () {
-                                launch("https://www.lankahospitals.com/");
-                              }),
-                      ),
+                      buildHospitalLink(
+                          hospital: "National Eye Hospital",
+                          url: "https://nationaleyehospital.health.gov.lk/"),
+                      buildHospitalLink(
+                          hospital: "Radiant Eye Hospital",
+                          url: "https://radianteye.lk/"),
+                      buildHospitalLink(
+                          hospital: "Nawaloka Hospital",
+                          url: "https://www.nawaloka.com/"),
+                      buildHospitalLink(
+                          hospital: "Asiri Hospital",
+                          url: "https://asirihealth.com/"),
+                      buildHospitalLink(
+                          hospital: "Hemas Hospital",
+                          url: "https://www.hemas.com/"),
+                      buildHospitalLink(
+                          hospital: "Ninewells Hospital",
+                          url: "https://ninewellshospital.lk/"),
+                      buildHospitalLink(
+                          hospital: "Lanka Hospital",
+                          url: "https://www.lankahospitals.com/"),
                     ],
                   ),
                 ),
