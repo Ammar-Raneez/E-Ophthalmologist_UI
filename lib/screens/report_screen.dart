@@ -44,22 +44,30 @@ class _ReportScreenState extends State<ReportScreen> {
     var tempReports = [];
     var tempIds = [];
 
-    await document.reference.collection("past-reports").orderBy('date', descending: true).get().then((value) => {
-          value.docs.forEach((element) {
-            tempIds.add(element.id);
-            tempReports.add(element.data());
-          })
-        });
+    await document.reference
+        .collection("past-reports")
+        .orderBy('date', descending: true)
+        .get()
+        .then((value) => {
+              value.docs.forEach((element) {
+                tempIds.add(element.id);
+                tempReports.add(element.data());
+              })
+            });
 
     var tempAppointments = [];
     var tempAppointmentIds = [];
 
-    await document.reference.collection("appointments").orderBy('date').get().then((value) => {
-          value.docs.forEach((element) {
-            tempAppointmentIds.add(element.id);
-            tempAppointments.add(element.data());
-          })
-        });
+    await document.reference
+        .collection("appointments")
+        .orderBy('date')
+        .get()
+        .then((value) => {
+              value.docs.forEach((element) {
+                tempAppointmentIds.add(element.id);
+                tempAppointments.add(element.data());
+              })
+            });
 
     setState(() {
       haveReports = tempReports.length != 0 ? true : false;
@@ -236,22 +244,7 @@ class _ReportScreenState extends State<ReportScreen> {
               )
             : Column(
                 children: [
-                  Container(
-                    child: Padding(
-                      padding: const EdgeInsets.all(16.0),
-                      child: Align(
-                        alignment: Alignment.topLeft,
-                        child: Text(
-                          "Appointments",
-                          style: TextStyle(
-                            color: Color(0xff8d8e98),
-                            fontSize: 20,
-                            fontFamily: 'Poppins-SemiBold',
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
+                  _reportAppointmentLabels(title: "Appointments"),
                   haveAppointments
                       ? Expanded(
                           child: ListView.builder(
@@ -292,21 +285,9 @@ class _ReportScreenState extends State<ReportScreen> {
                                     }),
                           ),
                         )
-                      : Expanded(
-                          child: Padding(
-                          padding: const EdgeInsets.all(20.0),
-                          child: Center(
-                            child: Text(
-                              "There aren't any Appointments \n Click Add Appointment to Add",
-                              style: TextStyle(
-                                fontSize: 20.0,
-                                color: Color(0xffff0000),
-                                fontFamily: 'Poppins-SemiBold',
-                              ),
-                              textAlign: TextAlign.center,
-                            ),
-                          ),
-                        )),
+                      : _emptyReportAppointment(
+                          emptyText:
+                              "There aren't any Appointments \n Click Add Appointment to Add"),
                   Container(
                     child: Padding(
                       padding: const EdgeInsets.only(right: 16.0, bottom: 8.0),
@@ -331,22 +312,7 @@ class _ReportScreenState extends State<ReportScreen> {
                       ),
                     ),
                   ),
-                  Container(
-                    child: Padding(
-                      padding: const EdgeInsets.all(16.0),
-                      child: Align(
-                        alignment: Alignment.topLeft,
-                        child: Text(
-                          "Reports",
-                          style: TextStyle(
-                            color: Color(0xff8d8e98),
-                            fontSize: 20,
-                            fontFamily: 'Poppins-SemiBold',
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
+                  _reportAppointmentLabels(title: "Reports"),
                   haveReports
                       ? Expanded(
                           child: ListView.builder(
@@ -386,21 +352,9 @@ class _ReportScreenState extends State<ReportScreen> {
                                     }),
                           ),
                         )
-                      : Expanded(
-                          child: Padding(
-                          padding: const EdgeInsets.all(20.0),
-                          child: Center(
-                            child: Text(
-                              "There aren't any reports \n Click + to Add",
-                              style: TextStyle(
-                                fontSize: 20.0,
-                                color: Color(0xffff0000),
-                                fontFamily: 'Poppins-SemiBold',
-                              ),
-                              textAlign: TextAlign.center,
-                            ),
-                          ),
-                        )),
+                      : _emptyReportAppointment(
+                          emptyText:
+                              "There aren't any reports \n Click + to Add"),
                 ],
               ),
       ),
@@ -409,6 +363,44 @@ class _ReportScreenState extends State<ReportScreen> {
         child: Text(
           "+",
           style: TextStyle(fontSize: 40),
+        ),
+      ),
+    );
+  }
+
+  Expanded _emptyReportAppointment({@required emptyText}) {
+    return Expanded(
+      child: Padding(
+        padding: const EdgeInsets.all(20.0),
+        child: Center(
+          child: Text(
+            emptyText,
+            style: TextStyle(
+              fontSize: 20.0,
+              color: Color(0xffff0000),
+              fontFamily: 'Poppins-SemiBold',
+            ),
+            textAlign: TextAlign.center,
+          ),
+        ),
+      ),
+    );
+  }
+
+  Container _reportAppointmentLabels({@required title}) {
+    return Container(
+      child: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Align(
+          alignment: Alignment.topLeft,
+          child: Text(
+            "Appointments",
+            style: TextStyle(
+              color: Color(0xff8d8e98),
+              fontSize: 20,
+              fontFamily: 'Poppins-SemiBold',
+            ),
+          ),
         ),
       ),
     );
