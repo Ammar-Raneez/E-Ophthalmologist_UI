@@ -36,7 +36,6 @@ class _EditReportScreenState extends State<EditReportScreen> {
   String reportID;
   bool showSpinner = false;
 
-//  var imageDocuments = [];
   var imageDocumentsURLS = [];
 
   @override
@@ -115,11 +114,9 @@ class _EditReportScreenState extends State<EditReportScreen> {
       lastDate: DateTime.now(),
       helpText: "Date of Birth",
     );
-    if (picked != startDate && picked != null) {
-      print(picked);
+    if (picked != null) {
       setState(() {
-        startDate = picked;
-        selectedDate = DateFormat("yyyy-MM-dd").format(startDate);
+        selectedDate = DateFormat("yyyy-MM-dd").format(picked);
       });
     }
   }
@@ -133,12 +130,9 @@ class _EditReportScreenState extends State<EditReportScreen> {
     setState(() {
       doctor = arguments['doctor'];
       hospital = arguments['hospital'];
-      selectedDate = arguments['date'];
       imageDocumentsURLS = arguments['image_document_urls'];
       reportID = arguments['currentReportId'];
     });
-
-    print(imageDocumentsURLS);
 
     setState(() {
       _doctorController =
