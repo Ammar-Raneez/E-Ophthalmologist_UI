@@ -178,7 +178,8 @@ class _AddAppointmentScreenState extends State<AddAppointmentScreen> {
                         text: TextSpan(
                             text: "Hemas Hospital",
                             style: kTextStyle.copyWith(
-                                fontSize: 18, color: Colors.blueAccent,
+                              fontSize: 18,
+                              color: Colors.blueAccent,
                             ),
                             recognizer: TapGestureRecognizer()
                               ..onTap = () {
@@ -192,7 +193,8 @@ class _AddAppointmentScreenState extends State<AddAppointmentScreen> {
                         text: TextSpan(
                             text: "Ninewells Hospital",
                             style: kTextStyle.copyWith(
-                              fontSize: 18, color: Colors.blueAccent,
+                              fontSize: 18,
+                              color: Colors.blueAccent,
                             ),
                             recognizer: TapGestureRecognizer()
                               ..onTap = () {
@@ -206,7 +208,8 @@ class _AddAppointmentScreenState extends State<AddAppointmentScreen> {
                         text: TextSpan(
                             text: "Lanka Hospital",
                             style: kTextStyle.copyWith(
-                              fontSize: 18, color: Colors.blueAccent,
+                              fontSize: 18,
+                              color: Colors.blueAccent,
                             ),
                             recognizer: TapGestureRecognizer()
                               ..onTap = () {
@@ -255,12 +258,15 @@ class _AddAppointmentScreenState extends State<AddAppointmentScreen> {
                       await selectDate(context);
                     },
                     style: ButtonStyle(
-                      shadowColor:
-                          MaterialStateProperty.all<Color>(Color(0xff01CDFA)),
-                      foregroundColor:
-                          MaterialStateProperty.all<Color>(Color(0xff01CDFA)),
-                      overlayColor:
-                          MaterialStateProperty.all<Color>(Color(0xff01CDFA)),
+                      shadowColor: MaterialStateProperty.all<Color>(
+                        Color(0xff01CDFA),
+                      ),
+                      foregroundColor: MaterialStateProperty.all<Color>(
+                        Color(0xff01CDFA),
+                      ),
+                      overlayColor: MaterialStateProperty.all<Color>(
+                        Color(0xff01CDFA),
+                      ),
                     ),
                   ),
                 ),

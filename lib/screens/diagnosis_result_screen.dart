@@ -67,11 +67,11 @@ class _DiagnosisResultScreenState extends State<DiagnosisResultScreen> {
                   child: CachedNetworkImage(
                     progressIndicatorBuilder:
                         (context, url, downloadProgress) => SizedBox(
-                          width: width / 2,
-                          height: 200,
-                          child: Center(
-                            child: CircularProgressIndicator(
-                                value: downloadProgress.progress),
+                      width: width / 2,
+                      height: 200,
+                      child: Center(
+                        child: CircularProgressIndicator(
+                            value: downloadProgress.progress),
                       ),
                     ),
                     imageUrl: arguments['image_url'],

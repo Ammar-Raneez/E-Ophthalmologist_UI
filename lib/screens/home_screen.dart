@@ -142,18 +142,34 @@ class _HomeScreenState extends State<HomeScreen> {
                     Row(
                       children: <Widget>[
                         gender == "Male"
-                            ? iconCard(FontAwesomeIcons.mars, "GENDER",
-                                gender.toString())
-                            : iconCard(FontAwesomeIcons.venus, "GENDER",
-                                gender.toString()),
-                        iconCard(FontAwesomeIcons.eye, "TYPE", dm.toString()),
+                            ? iconCard(
+                                FontAwesomeIcons.mars,
+                                "GENDER",
+                                gender.toString(),
+                              )
+                            : iconCard(
+                                FontAwesomeIcons.venus,
+                                "GENDER",
+                                gender.toString(),
+                              ),
+                        iconCard(
+                          FontAwesomeIcons.eye,
+                          "TYPE",
+                          dm.toString(),
+                        ),
                         iconCard(
                             FontAwesomeIcons.calendar, "DURATION", "6 Years"),
                         smoker == "No"
-                            ? iconCard(FontAwesomeIcons.smokingBan, "SMOKER?",
-                                smoker.toString())
-                            : iconCard(FontAwesomeIcons.smoking, "SMOKER?",
-                                smoker.toString()),
+                            ? iconCard(
+                                FontAwesomeIcons.smokingBan,
+                                "SMOKER?",
+                                smoker.toString(),
+                              )
+                            : iconCard(
+                                FontAwesomeIcons.smoking,
+                                "SMOKER?",
+                                smoker.toString(),
+                              ),
                       ],
                     ),
                     HomePageReusableCard(
@@ -363,7 +379,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                                             .year
                                                             .toString(),
                                                     style: TextStyle(
-                                                        fontFamily: "Poppins-SemiBold",
+                                                      fontFamily:
+                                                          "Poppins-SemiBold",
                                                       color: Colors.black38,
                                                     ),
                                                   ),
@@ -374,9 +391,10 @@ class _HomeScreenState extends State<HomeScreen> {
                                                             .toString()
                                                             .toUpperCase(),
                                                     style: TextStyle(
-                                                        fontFamily: "Poppins-SemiBold",
+                                                      fontFamily:
+                                                          "Poppins-SemiBold",
                                                       color: Colors.black38,
-                                                        fontSize: 10,
+                                                      fontSize: 10,
                                                     ),
                                                   ),
                                                 ],

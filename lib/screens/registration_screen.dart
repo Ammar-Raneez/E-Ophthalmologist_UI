@@ -149,12 +149,15 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                         await selectDate(context);
                       },
                       style: ButtonStyle(
-                        shadowColor:
-                            MaterialStateProperty.all<Color>(Color(0xff01CDFA)),
-                        foregroundColor:
-                            MaterialStateProperty.all<Color>(Color(0xff01CDFA)),
-                        overlayColor:
-                            MaterialStateProperty.all<Color>(Color(0xff01CDFA)),
+                        shadowColor: MaterialStateProperty.all<Color>(
+                          Color(0xff01CDFA),
+                        ),
+                        foregroundColor: MaterialStateProperty.all<Color>(
+                          Color(0xff01CDFA),
+                        ),
+                        overlayColor: MaterialStateProperty.all<Color>(
+                          Color(0xff01CDFA),
+                        ),
                       ),
                     ),
                   ),

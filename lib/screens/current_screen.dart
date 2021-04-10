@@ -69,7 +69,7 @@ class _CurrentScreenState extends State<CurrentScreen> {
                 onPressed: () {
                   Navigator.pushNamed(context, EditProfileScreen.id);
                 },
-              )
+              ),
             ],
             backgroundColor: Colors.indigo,
           ),

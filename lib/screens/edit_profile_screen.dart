@@ -164,11 +164,14 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                             },
                             style: ButtonStyle(
                               shadowColor: MaterialStateProperty.all<Color>(
-                                  Color(0xff01CDFA)),
+                                Color(0xff01CDFA),
+                              ),
                               foregroundColor: MaterialStateProperty.all<Color>(
-                                  Color(0xff01CDFA)),
+                                Color(0xff01CDFA),
+                              ),
                               overlayColor: MaterialStateProperty.all<Color>(
-                                  Color(0xff01CDFA)),
+                                Color(0xff01CDFA),
+                              ),
                             ),
                           ),
                         ),
