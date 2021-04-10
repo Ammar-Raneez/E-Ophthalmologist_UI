@@ -189,29 +189,17 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                           });
                         }),
                         registrationInputLabel("BMI"),
-                        kTextField(
-                            _bmiController,
-                            (value) => bmi = value,
-                            "Enter BMI",
-                            TextInputType.number),
+                        kTextField(_bmiController, (value) => bmi = value,
+                            "Enter BMI", TextInputType.number),
                         registrationInputLabel("HDL"),
-                        kTextField(
-                            _hdlController,
-                            (value) => hdl = value,
-                            "Enter HDL",
-                            TextInputType.number),
+                        kTextField(_hdlController, (value) => hdl = value,
+                            "Enter HDL", TextInputType.number),
                         registrationInputLabel("A1C"),
-                        kTextField(
-                            _a1cController,
-                            (value) => a1c = value,
-                            "Enter A1C",
-                            TextInputType.number),
+                        kTextField(_a1cController, (value) => a1c = value,
+                            "Enter A1C", TextInputType.number),
                         registrationInputLabel("LDL"),
-                        kTextField(
-                            _ldlController,
-                            (value) => ldl = value,
-                            "Enter LDL",
-                            TextInputType.number),
+                        kTextField(_ldlController, (value) => ldl = value,
+                            "Enter LDL", TextInputType.number),
                         registrationInputLabel("Diabetes Mellitus Type"),
                         registrationRadioButton("Type 1", DMType.Type1, dm,
                             (value) {
