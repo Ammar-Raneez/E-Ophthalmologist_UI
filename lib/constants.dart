@@ -106,20 +106,29 @@ Padding registrationTextField(
 
 //home page
 const kHomePageLabelTextStyle = TextStyle(
-    fontSize: 14.0, color: Color(0xff8d8e98), fontWeight: FontWeight.w400);
+    fontSize: 14.0,
+    color: Color(0xff8d8e98),
+    fontWeight: FontWeight.w400,
+    fontFamily: "Poppins-SemiBold");
 
 const kHomePageMainLabelTextStyle = TextStyle(
-    fontSize: 25.0, color: Colors.indigo, fontWeight: FontWeight.w900);
+    fontSize: 25.0,
+    color: Colors.indigo,
+    fontWeight: FontWeight.w900,
+    fontFamily: "Poppins-SemiBold");
 
 const kHomePageValueTextStyle = TextStyle(
-    fontSize: 18.0, color: Colors.black87, fontWeight: FontWeight.bold);
+    fontSize: 18.0,
+    color: Colors.black87,
+    fontWeight: FontWeight.bold,
+    fontFamily: "Poppins-SemiBold");
 
 const kHomePageUnitTextStyle = TextStyle(
-  fontSize: 15.0,
-  color: Color(0xff8d8e98),
-);
+    fontSize: 15.0, color: Color(0xff8d8e98), fontFamily: "Poppins-SemiBold");
 
-const kHomePageNumberTextStyle =
-    TextStyle(fontSize: 30.0, fontWeight: FontWeight.w900);
+const kHomePageNumberTextStyle = TextStyle(
+    fontSize: 30.0,
+    fontWeight: FontWeight.w900,
+    fontFamily: "Poppins-SemiBold");
 
 const Color kHomePageCardColor = Color(0xffffffff);

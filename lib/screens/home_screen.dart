@@ -131,10 +131,10 @@ class _HomeScreenState extends State<HomeScreen> {
                       center: Text(
                         "90%\nRisk",
                         style: TextStyle(
-                          fontSize: 30.0,
-                          fontWeight: FontWeight.w700,
-                          color: Color(0xffdd0000),
-                        ),
+                            fontSize: 30.0,
+                            fontWeight: FontWeight.w700,
+                            color: Color(0xffdd0000),
+                            fontFamily: "Poppins-SemiBold"),
                       ),
                       arcType: ArcType.HALF,
                       progressColor: Color(0xffdd0000),

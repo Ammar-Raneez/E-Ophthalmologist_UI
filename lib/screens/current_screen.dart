@@ -60,8 +60,8 @@ class _CurrentScreenState extends State<CurrentScreen> {
           appBar: AppBar(
             automaticallyImplyLeading: false,
             title: Text(
-              "Retinopathy For Life",
-              style: TextStyle(fontSize: 20.0),
+              "E-Ophthalmologist",
+              style: TextStyle(fontSize: 20.0,  fontFamily: "Poppins-SemiBold"),
             ),
             actions: [
               IconButton(
