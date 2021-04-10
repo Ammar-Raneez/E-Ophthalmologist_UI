@@ -34,8 +34,24 @@ class _AddAppointmentScreenState extends State<AddAppointmentScreen> {
   // appointmentID - timestamp of creation
   String appointmentID = new Timestamp.now().toString();
 
-  var hospitalNames = [];
-  var hospitalLinks = [];
+  var hospitalNames = [
+    "National Eye Hospital",
+    "Radiant Eye Hospital",
+    "Nawaloka Hospital",
+    "Asiri Hospital",
+    "Hemas Hospital",
+    "Ninewells Hospital",
+    "Lanka Hospital"
+  ];
+  var hospitalLinks = [
+    "https://nationaleyehospital.health.gov.lk/",
+    "https://radianteye.lk/",
+    "https://www.nawaloka.com/",
+    "https://asirihealth.com/",
+    "https://www.hemas.com/",
+    "https://ninewellshospital.lk/",
+    "https://www.lankahospitals.com/"
+  ];
 
   @override
   void initState() {
@@ -117,32 +133,14 @@ class _AddAppointmentScreenState extends State<AddAppointmentScreen> {
                 ),
                 SizedBox(
                   height: 150,
-                  child: ListView(
+                  child: ListView.builder(
                     physics: ClampingScrollPhysics(),
+                    itemCount: hospitalNames.length,
                     shrinkWrap: true,
-                    children: [
-                      buildHospitalLink(
-                          hospital: "National Eye Hospital",
-                          url: "https://nationaleyehospital.health.gov.lk/"),
-                      buildHospitalLink(
-                          hospital: "Radiant Eye Hospital",
-                          url: "https://radianteye.lk/"),
-                      buildHospitalLink(
-                          hospital: "Nawaloka Hospital",
-                          url: "https://www.nawaloka.com/"),
-                      buildHospitalLink(
-                          hospital: "Asiri Hospital",
-                          url: "https://asirihealth.com/"),
-                      buildHospitalLink(
-                          hospital: "Hemas Hospital",
-                          url: "https://www.hemas.com/"),
-                      buildHospitalLink(
-                          hospital: "Ninewells Hospital",
-                          url: "https://ninewellshospital.lk/"),
-                      buildHospitalLink(
-                          hospital: "Lanka Hospital",
-                          url: "https://www.lankahospitals.com/"),
-                    ],
+                    itemBuilder: (BuildContext context, int index) =>
+                        buildHospitalLink(
+                            hospital: hospitalNames[index],
+                            url: hospitalLinks[index]),
                   ),
                 ),
                 SizedBox(
