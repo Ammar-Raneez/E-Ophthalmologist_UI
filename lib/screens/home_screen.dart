@@ -127,21 +127,49 @@ class _HomeScreenState extends State<HomeScreen> {
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     SizedBox(
-                      height: 70.0,
+                      height: 20.0,
                     ),
-                    CircularPercentIndicator(
-                      radius: 300.0,
-                      lineWidth: 50.0,
-                      percent: 0.9,
-                      center: Text(
-                        "90%\nRisk",
-                        style: kTextStyle.copyWith(
-                          fontSize: 30.0,
-                          color: Color(0xffdd0000),
-                        ),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 20.0, right: 20.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          CircularPercentIndicator(
+                            radius: 180.0,
+                            lineWidth: 15.0,
+                            percent: 0.9,
+                            center: Text(
+                              "90%",
+                              style: kTextStyle.copyWith(
+                                fontSize: 30.0,
+                                color: Color(0xffdd0000),
+                              ),
+                            ),
+                            progressColor: Color(0xffdd0000),
+                          ),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                "90%",
+                                style: kTextStyle.copyWith(
+                                  fontSize: 30,
+                                  color: Colors.red
+                                ),
+                              ),
+                              Text(
+                                "Chance of sight\nthreatening retinopathy",
+                                style: kTextStyle.copyWith(
+                                  fontSize: 15,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
                       ),
-                      arcType: ArcType.HALF,
-                      progressColor: Color(0xffdd0000),
+                    ),
+                    SizedBox(
+                      height: 20.0,
                     ),
                     Row(
                       children: <Widget>[
