@@ -13,12 +13,23 @@ class SpecificBlogScreen extends StatefulWidget {
 class _SpecificBlogScreenState extends State<SpecificBlogScreen> {
   String typeOfBlog;
 
+  // links to navigate for each blog
   var drStagesArticles = ["www.google.lk"];
   var drTypesArticles = ["www.google.lk"];
   var guidelinesArticles = ["www.google.lk"];
   var treatmentsArticles = ["www.google.lk"];
 
+  //short descriptions
+  var drStagesShortDescriptions = ["Clicking on this will navigate to the original blog found on the internet..."];
+  var drTypesShortDescriptions = ["Clicking on this will navigate to the original blog found on the internet..."];
+  var guidelinesShortDescriptions = ["Clicking on this will navigate to the original blog found on the internet..."];
+  var treatmentsShortDescriptions = ["Clicking on this will navigate to the original blog found on the internet..."];
+
+  // blog left images
+  var blogImages = ["images/tempblog.jpg"];
+
   var chosenBlogType = [];
+  var chosenBlogShortDescriptions = [];
 
   @override
   Widget build(BuildContext context) {
@@ -33,6 +44,13 @@ class _SpecificBlogScreenState extends State<SpecificBlogScreen> {
               : typeOfBlog == "Guidelines"
                   ? guidelinesArticles
                   : treatmentsArticles;
+      chosenBlogShortDescriptions = typeOfBlog == "Retinopathy Stages"
+          ? drStagesShortDescriptions
+          : typeOfBlog == "Diabetes Types"
+          ? drTypesShortDescriptions
+          : typeOfBlog == "Guidelines"
+          ? guidelinesShortDescriptions
+          : treatmentsShortDescriptions;
     });
 
     return SafeArea(
@@ -75,7 +93,7 @@ class _SpecificBlogScreenState extends State<SpecificBlogScreen> {
                           Container(
                             width: MediaQuery.of(context).size.width / 3,
                             child: Image.asset(
-                              "images/tempblog.jpg",
+                              blogImages[0],
                               height: 150,
                             ),
                           ),
@@ -88,7 +106,7 @@ class _SpecificBlogScreenState extends State<SpecificBlogScreen> {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   Text(
-                                    "Clicking on this will navigate to the original blog found on the internet...",
+                                    chosenBlogShortDescriptions[0],
                                     style: kTextStyle,
                                     textAlign: TextAlign.center,
                                   ),
@@ -114,7 +132,7 @@ class _SpecificBlogScreenState extends State<SpecificBlogScreen> {
                       Navigator.pop(context);
                     },
                     colour: Colors.indigo,
-                    title: "<-  Back to Home",
+                    title: "<-  Back to Blogs",
                   ),
                 ),
               ),
