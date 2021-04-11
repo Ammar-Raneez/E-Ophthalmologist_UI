@@ -233,7 +233,7 @@ class _DiagnosisScreenState extends State<DiagnosisScreen> {
     return RaisedButton(
       elevation: 3.0,
       padding: EdgeInsets.symmetric(horizontal: 25.0, vertical: 10.0),
-      color: Colors.grey,
+      color: Colors.lightBlueAccent,
       onPressed: onPress,
       child: Icon(
         icon,
