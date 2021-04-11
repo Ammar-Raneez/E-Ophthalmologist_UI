@@ -214,14 +214,22 @@ class _HomeScreenState extends State<HomeScreen> {
                               ),
                       ],
                     ),
-                    _commonHorizontalCard(
-                        title: 'BMI', unit: 'kg/m2', val: bmi),
-                    _commonHorizontalCard(
-                        title: 'A1C', unit: 'mmol/mol', val: a1c),
-                    _commonHorizontalCard(
-                        title: 'LDL', unit: 'mg/dL', val: ldl),
-                    _commonHorizontalCard(
-                        title: 'HDL', unit: 'mg/dL', val: hdl),
+                    Row(
+                      children: [
+                        _commonHorizontalCard(
+                            title: 'BMI', unit: 'kg/m2', val: bmi),
+                        _commonHorizontalCard(
+                            title: 'A1C', unit: 'mmol/mol', val: a1c),
+                      ],
+                    ),
+                    Row(
+                      children: [
+                        _commonHorizontalCard(
+                            title: 'LDL', unit: 'mg/dL', val: ldl),
+                        _commonHorizontalCard(
+                            title: 'HDL', unit: 'mg/dL', val: hdl),
+                      ],
+                    ),
                     eyeScans.length == 0
                         // if there are not any scans do not show this section
                         ? Container(
@@ -280,12 +288,9 @@ class _HomeScreenState extends State<HomeScreen> {
                                                 2.5,
                                             child: FittedBox(
                                               child: Image.asset(
-                                                  getRandomEyeScanImage(),
-                                                  height: 100,
-                                                  width: MediaQuery.of(context)
-                                                          .size
-                                                          .width /
-                                                      2.5),
+                                                getRandomEyeScanImage(),
+                                                height: 100,
+                                              ),
                                               fit: BoxFit.fill,
                                             ),
                                           ),
