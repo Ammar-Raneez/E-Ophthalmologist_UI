@@ -53,6 +53,9 @@ class _HomeScreenState extends State<HomeScreen> {
 
   bool showSpinner = false;
 
+  // for coloring based on risk percentage
+  Color riskColor;
+
   @override
   void initState() {
     super.initState();
@@ -110,35 +113,39 @@ class _HomeScreenState extends State<HomeScreen> {
         "https://api.retinarisk.com/api/auth/sign-in",
         data: {"email": "ammarraneez@gmail.com", "password": "Ammarraneez12"});
 
-    print(loginResponse);
     // send all required data to API endpoint to get the required risk
-    Response riskResponse = await dio
-        .post("https://api.retinarisk.com/api/calculator/calculaterisk", data: {
-      "data": {
-        "diabetesDuration": duration,
-        "diabetesType": dm == "Type I" ? "type1" : "type2",
-        "gender": gender == "Female" ? "female" : "male",
-        "hasRetinopathy": haveDr,
-        "bloodGlucose": a1c,
-        "bloodPressures": {"diastolic": diastolic, "systolic": systolic}
-      },
-      "options": {"format": "json", "language": "en"}
-    },
-      options: Options(
-        headers: {
-          "Authorization": loginResponse.data['access_token']
-        }
-      )
-    );
-    print(riskResponse);
+    Response riskResponse = await dio.post(
+        "https://api.retinarisk.com/api/calculator/calculaterisk",
+        data: {
+          "data": {
+            "diabetesDuration": duration,
+            "diabetesType": dm == "Type I" ? "type1" : "type2",
+            "gender": gender == "Female" ? "female" : "male",
+            "hasRetinopathy": haveDr,
+            "bloodGlucose": a1c,
+            "bloodPressures": {"diastolic": diastolic, "systolic": systolic}
+          },
+          "options": {"format": "json", "language": "en"}
+        },
+        options: Options(
+            headers: {"Authorization": loginResponse.data['access_token']}));
 
     setState(() {
       riskValue = (riskResponse.data['results']['RiskValue'] * 10).toString();
-      riskDescription = riskResponse.data['results']['Analysis']['riskValue']['text'];
-    });
+      riskDescription =
+          riskResponse.data['results']['Analysis']['riskValue']['text'];
 
-    print(riskValue);
-    print(riskDescription);
+      // just a coloring for the risk and percentage indicator
+      if (double.parse(riskValue) < 30.0) {
+        riskColor = Colors.lightGreenAccent;
+      } else if (double.parse(riskValue) < 50) {
+        riskColor = Colors.yellow;
+      } else if (double.parse(riskValue) < 75) {
+        riskColor = Colors.deepOrange;
+      } else {
+        riskColor = Colors.redAccent;
+      }
+    });
   }
 
   Expanded iconCard(IconData icon, String label, String value) {
@@ -202,31 +209,38 @@ class _HomeScreenState extends State<HomeScreen> {
                           CircularPercentIndicator(
                             radius: 180.0,
                             lineWidth: 15.0,
-                            percent: 0.9,
+                            percent: double.parse(riskValue) / 100,
                             center: Text(
-                              riskValue,
+                              riskValue + "%",
                               style: kTextStyle.copyWith(
                                 fontSize: 30.0,
-                                color: Color(0xffdd0000),
+                                color: riskColor,
                               ),
                             ),
-                            progressColor: Color(0xffdd0000),
+                            progressColor: riskColor,
                           ),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                riskValue,
-                                style: kTextStyle.copyWith(
-                                    fontSize: 40, color: Color(0xffdd0000)),
-                              ),
-                              Text(
-                                riskDescription,
-                                style: kTextStyle.copyWith(
-                                  fontSize: 15,
+                          Container(
+                            width: MediaQuery.of(context).size.width / 2.5,
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Text(
+                                  riskValue + "%",
+                                  style: kTextStyle.copyWith(
+                                      fontSize: 40, color: riskColor),
                                 ),
-                              ),
-                            ],
+                                Flexible(
+                                  fit: FlexFit.loose,
+                                  child: Text(
+                                    riskDescription,
+                                    style: kTextStyle.copyWith(
+                                      fontSize: 15,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
                         ],
                       ),
