@@ -25,6 +25,7 @@ class _DiagnosisScreenState extends State<DiagnosisScreen> {
   User user = FirebaseAuth.instance.currentUser;
 
   File imageFile;
+  // for http requests
   Dio dio = new Dio();
   bool showSpinner = false;
 
@@ -39,6 +40,7 @@ class _DiagnosisScreenState extends State<DiagnosisScreen> {
     getUserDetails();
   }
 
+  // get logged in users details
   getUserDetails() async {
     var document = await _firestore.collection("users").doc(user.email).get();
 
@@ -76,6 +78,7 @@ class _DiagnosisScreenState extends State<DiagnosisScreen> {
     });
   }
 
+  // detect the type of DR
   _detect() async {
     if (imageFile == null) {
       createAlertDialog(
@@ -85,14 +88,17 @@ class _DiagnosisScreenState extends State<DiagnosisScreen> {
         showSpinner = true;
       });
       try {
+        // get the image picked
         String fileName = imageFile.path.split('/').last;
 
+        // create FormData to be sent to the model endpoint
         FormData formData = new FormData.fromMap({
           "file":
               await MultipartFile.fromFile(imageFile.path, filename: fileName),
         });
 
-        //  Response object, formData is sent to the provided API
+        // Response object, formData is sent to the provided API,
+        // and the result is obtanied
         Response response = await dio.post(
           "https://bisfyp.azurewebsites.net/api/classify",
           data: formData,
@@ -101,20 +107,23 @@ class _DiagnosisScreenState extends State<DiagnosisScreen> {
         String result = response.data[0]['result'];
         String imageUrl = response.data[0]['image_url'];
 
+        // store time of this diagnosis
+        time = Timestamp.now();
+
+        // store this diagnosis details in user eye scans collection
+        // with the time of diagnosis
         _firestore.collection("users").doc(email).collection("eye-scans").add({
           'result': result,
           'image_url': imageUrl,
-          'timestamp': Timestamp.now(),
+          'timestamp': time,
         });
 
         setState(() {
           showSpinner = false;
         });
 
-        // store time of this diagnosis
-        time = Timestamp.now();
-
-        //  status alerts based on success
+        // once response is created, navigate to the result screen
+        // passing the obtained details as arguments
         if (response != null) {
           var argsForResult = {
             'result': result,
@@ -138,7 +147,7 @@ class _DiagnosisScreenState extends State<DiagnosisScreen> {
     }
   }
 
-  //  Open phone camera for on the spot photos
+  // Open phone camera for on the spot photos
   _openCamera() async {
     var selectedPicture =
         await ImagePicker.pickImage(source: ImageSource.camera);
@@ -175,6 +184,7 @@ class _DiagnosisScreenState extends State<DiagnosisScreen> {
                             child: Padding(
                               padding: const EdgeInsets.all(20.0),
                               child: imageFile == null
+                                  // display a placeholder if no image selected
                                   ? Image.asset('images/uploadImageGrey1.png')
                                   : Image.file(
                                       imageFile,
