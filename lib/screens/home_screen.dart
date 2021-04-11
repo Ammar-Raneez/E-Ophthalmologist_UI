@@ -165,7 +165,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               Text(
                                 "90%",
                                 style: kTextStyle.copyWith(
-                                    fontSize: 30, color: Colors.red),
+                                    fontSize: 40, color: Color(0xffdd0000)),
                               ),
                               Text(
                                 "Chance of sight\nthreatening retinopathy",

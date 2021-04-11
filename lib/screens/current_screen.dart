@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:ui/components/drawable_sidebar.dart';
 import 'package:ui/constants.dart';
 import 'package:ui/screens/diagnosis_screen.dart';
 import 'package:ui/screens/edit_profile_screen.dart';
@@ -58,6 +59,7 @@ class _CurrentScreenState extends State<CurrentScreen> {
           return true;
         },
         child: Scaffold(
+          drawer: DrawableSidebar(),
           appBar: AppBar(
             automaticallyImplyLeading: false,
             title: Text(
