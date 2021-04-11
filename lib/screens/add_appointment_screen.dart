@@ -34,6 +34,7 @@ class _AddAppointmentScreenState extends State<AddAppointmentScreen> {
   // appointmentID - timestamp of creation
   String appointmentID = new Timestamp.now().toString();
 
+  // hospital names and links to choose from
   var hospitalNames = [
     "National Eye Hospital",
     "Radiant Eye Hospital",
@@ -74,6 +75,7 @@ class _AddAppointmentScreenState extends State<AddAppointmentScreen> {
   }
 
   getUserDetails() async {
+    // get current logged in user details
     var document = await _firestore.collection("users").doc(user.email).get();
 
     setState(() {
@@ -97,6 +99,7 @@ class _AddAppointmentScreenState extends State<AddAppointmentScreen> {
     );
     if (picked != null) {
       setState(() {
+        // string formatted date
         selectedDate = DateFormat("yyyy-MM-dd").format(picked);
       });
     }
@@ -184,6 +187,7 @@ class _AddAppointmentScreenState extends State<AddAppointmentScreen> {
                   width: MediaQuery.of(context).size.width,
                   child: CustomRoundedButton(
                     onPressed: () async {
+                      // only allow if all fields are not empty
                       if (doctor == null ||
                           hospital == null ||
                           selectedDate == null ||
@@ -198,6 +202,7 @@ class _AddAppointmentScreenState extends State<AddAppointmentScreen> {
                         });
 
                         try {
+                          // add the new appointment details into the same users appointment collection
                           await _firestore
                               .collection("users")
                               .doc(email)

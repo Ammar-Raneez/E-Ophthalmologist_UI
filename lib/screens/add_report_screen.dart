@@ -33,6 +33,7 @@ class _AddReportScreenState extends State<AddReportScreen> {
   String email;
   bool showSpinner = false;
 
+  // hold images and the respective firebase deployed links
   var imageDocuments = [];
   var imageDocumentsURLS = [];
 
@@ -60,6 +61,7 @@ class _AddReportScreenState extends State<AddReportScreen> {
   }
 
   getUserDetails() async {
+    // get current logged in user details
     var document = await _firestore.collection("users").doc(user.email).get();
 
     setState(() {
@@ -72,11 +74,12 @@ class _AddReportScreenState extends State<AddReportScreen> {
     });
   }
 
-  //  Open phone gallery and store images into the arrays
+  // Open phone gallery and store image path to the image documents and deploy to firebase
   _openGalleryAndUpload() async {
     var selectedPicture =
         await ImagePicker.pickImage(source: ImageSource.gallery);
 
+    // get only fileName from path
     String fileName = selectedPicture.path.split('/').last;
 
     setState(() {
@@ -87,15 +90,17 @@ class _AddReportScreenState extends State<AddReportScreen> {
       showSpinner = true;
     });
 
-    // save chosen image into firebase storage, in the report specific directory
+    // save picked image into firebase storage, in the report specific directory
     Reference ref = FirebaseStorage.instance
         .ref()
+        // create a unique directory for a specific report
         .child(email + " " + reportID + "/")
         .child(fileName);
     UploadTask task = ref.putFile(selectedPicture);
 
     String thisImageUrl = "";
     task.whenComplete(() async {
+      // once uploaded to firebase, get that images link and store into the image urls list
       thisImageUrl = await ref.getDownloadURL();
       print(thisImageUrl);
       setState(() {
@@ -183,6 +188,7 @@ class _AddReportScreenState extends State<AddReportScreen> {
                 ),
                 Column(
                   children: imageDocuments.length != 0
+                      // loop and display the picked images
                       ? List.generate(
                           imageDocuments.length,
                           (index) => Image.file(imageDocuments[index],
@@ -190,6 +196,7 @@ class _AddReportScreenState extends State<AddReportScreen> {
                         )
                       : List.generate(
                           1,
+                          // if no images are picked display a temporary placeholder
                           (index) => Image.asset(
                             "images/uploadImageGrey1.png",
                             width: width,
@@ -216,6 +223,8 @@ class _AddReportScreenState extends State<AddReportScreen> {
                       });
 
                       try {
+                        // store the new report into the same users report collection, along with the images deployed urls
+                        // for access in edit report screen
                         await _firestore
                             .collection("users")
                             .doc(email)
