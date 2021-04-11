@@ -40,7 +40,8 @@ class _HomeScreenState extends State<HomeScreen> {
 //  static String riskValue = "";
 
   // comment this when main needed
-  static String riskDescription = "You have a low risk of developing sight threatening retinopathy";
+  static String riskDescription =
+      "You have a low risk of developing sight threatening retinopathy";
   static String riskValue = "20";
 
   var gender;
