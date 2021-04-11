@@ -25,17 +25,23 @@ class ReportScreen extends StatefulWidget {
 class _ReportScreenState extends State<ReportScreen> {
   User user = FirebaseAuth.instance.currentUser;
 
+  // reports toggle
   bool haveReports = true;
+  // report details, and their associated id's
   var reports = [];
   var reportIds = [];
 
+  // appointment toggle
   bool haveAppointments = true;
+  // appointment details, and their associated id's
   var appointments = [];
   var appointmentIds = [];
 
   bool showSpinner = false;
+  // delete toggle
   bool delete = false;
 
+  // card background images
   var appointmentBgImages = [
     "images/appointment1.jpg",
     "images/appointment2.jpg",
@@ -68,11 +74,14 @@ class _ReportScreenState extends State<ReportScreen> {
     getUserDetails();
   }
 
+  // get current user details
   getUserDetails() async {
     var document = await _firestore.collection("users").doc(user.email).get();
     var tempReports = [];
     var tempIds = [];
 
+    // order the reports with respect to date, in descending to bring the
+    // most recent to top
     await document.reference
         .collection("past-reports")
         .orderBy('date', descending: true)
@@ -87,6 +96,7 @@ class _ReportScreenState extends State<ReportScreen> {
     var tempAppointments = [];
     var tempAppointmentIds = [];
 
+    // order appointments in ascending order, to bring the upcoming to top
     await document.reference
         .collection("appointments")
         .orderBy('date')
@@ -99,6 +109,7 @@ class _ReportScreenState extends State<ReportScreen> {
             });
 
     setState(() {
+      // toggle have reports and have appointments
       haveReports = tempReports.length != 0 ? true : false;
       haveAppointments = tempAppointments.length != 0 ? true : false;
     });
@@ -111,6 +122,7 @@ class _ReportScreenState extends State<ReportScreen> {
     });
   }
 
+  // confirmation alert to handle deletion of an appointment or report
   createDeleteConfirmationAlert(
       BuildContext context,
       String title,
@@ -187,21 +199,25 @@ class _ReportScreenState extends State<ReportScreen> {
                     ),
                   ),
                   onPressed: () async {
+                    // if delete
                     var document = await _firestore
                         .collection("users")
                         .doc(user.email)
                         .get();
 
+                    // which collection and which doc id to remove from firebase
                     await document.reference
                         .collection(collection)
                         .doc(whichIds[index])
                         .delete();
 
+                    // also remove the specified from the list to prevent at the moment display of old data
                     setState(() {
                       whichIds.removeAt(index);
                       whichDocs.removeAt(index);
                     });
 
+                    // navigate back to home screen to trigger re-fetch
                     Navigator.pushNamed(
                       context,
                       CurrentScreen.id,
@@ -234,6 +250,7 @@ class _ReportScreenState extends State<ReportScreen> {
                     ),
                   ),
                   onPressed: () {
+                    // if do not delete, return to the screen
                     setState(() {
                       delete = false;
                     });
@@ -254,6 +271,7 @@ class _ReportScreenState extends State<ReportScreen> {
     );
   }
 
+  // get a random image to display as card background
   getRandomAppointmentImage() {
     final random = Random();
     return appointmentBgImages[random.nextInt(appointmentBgImages.length)];
@@ -269,6 +287,8 @@ class _ReportScreenState extends State<ReportScreen> {
     return Scaffold(
       body: ModalProgressHUD(
         inAsyncCall: showSpinner,
+        // if there are reports, but not fetched yet display loading spinner
+        // appointment and reports should be fetched at the same time
         child: haveReports && reports.length == 0
             ? Align(
                 child: CircularProgressIndicator(),
@@ -278,6 +298,7 @@ class _ReportScreenState extends State<ReportScreen> {
                 children: [
                   _reportAppointmentLabels(title: "Appointments"),
                   haveAppointments
+                      // display the list of appointments
                       ? _listReportsAndAppointments(
                           whichDocs: appointments,
                           whichDocsIds: appointmentIds,
@@ -289,6 +310,7 @@ class _ReportScreenState extends State<ReportScreen> {
                               "Are you sure you want to delete this appointment?",
                           cardColor: Color(0xffaa0000),
                         )
+                      // if no appointments added display a info message
                       : _emptyReportAppointment(
                           emptyText:
                               "There aren't any Appointments \n Click Add Appointment to Add"),
@@ -305,7 +327,9 @@ class _ReportScreenState extends State<ReportScreen> {
                             ),
                           ),
                           onPressed: () => Navigator.pushNamed(
-                              context, AddAppointmentScreen.id),
+                              // navigate to add appointment screen to add a new one
+                              context,
+                              AddAppointmentScreen.id),
                           style: ElevatedButton.styleFrom(
                             primary: Colors.redAccent,
                             shape: RoundedRectangleBorder(
@@ -318,6 +342,7 @@ class _ReportScreenState extends State<ReportScreen> {
                   ),
                   _reportAppointmentLabels(title: "Reports"),
                   haveReports
+                      // if there are reports display the list of reports
                       ? _listReportsAndAppointments(
                           whichDocs: reports,
                           whichDocsIds: reportIds,
@@ -329,6 +354,7 @@ class _ReportScreenState extends State<ReportScreen> {
                               "Are you sure you want to delete this report?",
                           cardColor: Colors.white54,
                         )
+                      // no reports? display an info message
                       : _emptyReportAppointment(
                           emptyText:
                               "There aren't any reports \n Click + to Add"),
@@ -336,6 +362,7 @@ class _ReportScreenState extends State<ReportScreen> {
               ),
       ),
       floatingActionButton: FloatingActionButton(
+        // add a report screen
         onPressed: () => Navigator.pushNamed(context, AddReportScreen.id),
         child: Text(
           "+",
@@ -383,11 +410,11 @@ class _ReportScreenState extends State<ReportScreen> {
   }
 
   Expanded _listReportsAndAppointments(
-      {@required whichDocs,
-      @required whichDocsIds,
-      @required navigate,
-      @required isReport,
-      @required firebaseCollection,
+      {@required whichDocs, // appointment or report
+      @required whichDocsIds, // appointment or report id's
+      @required navigate, // which screen to navigate on tap
+      @required isReport, // if is report, should also pass the image urls
+      @required firebaseCollection, // which firebase collection
       @required alertTitle,
       @required alertDesc,
       @required cardColor}) {
@@ -403,6 +430,7 @@ class _ReportScreenState extends State<ReportScreen> {
               cardColor: cardColor,
               textColor: '0xffffffff',
               bgImage: isReport
+                  // get random image for appointment or report
                   ? getRandomReportImage()
                   : getRandomAppointmentImage(),
             ),
@@ -411,6 +439,7 @@ class _ReportScreenState extends State<ReportScreen> {
                 'doctor': whichDocs[index]['doctor'],
                 'hospital': whichDocs[index]['hospital'],
                 'date': whichDocs[index]['date'],
+                // fetch and pass the image urls, if only its the list of reports
                 'image_document_urls':
                     isReport ? whichDocs[index]['image_document_urls'] : "",
                 'currentDocId': whichDocsIds[index]

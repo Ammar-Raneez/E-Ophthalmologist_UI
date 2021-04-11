@@ -226,7 +226,7 @@ class _EditReportScreenState extends State<EditReportScreen> {
                                       width: width,
                                       height: 300),
                                 )
-                                // if no images, display a placeholder image
+                              // if no images, display a placeholder image
                               : List.generate(
                                   1,
                                   (index) => Image.asset(
