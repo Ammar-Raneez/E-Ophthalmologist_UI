@@ -308,7 +308,7 @@ class _ReportScreenState extends State<ReportScreen> {
                           alertTitle: "Delete Appointment",
                           alertDesc:
                               "Are you sure you want to delete this appointment?",
-                          cardColor: Color(0xffaa0000),
+                          cardColor: Colors.white54,
                         )
                       // if no appointments added display a info message
                       : _emptyReportAppointment(

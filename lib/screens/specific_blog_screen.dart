@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:ui/components/custom_rounded_button.dart';
 import 'package:ui/constants.dart';
 
 class SpecificBlogScreen extends StatefulWidget {
@@ -68,7 +69,7 @@ class _SpecificBlogScreenState extends State<SpecificBlogScreen> {
                   scrollDirection: Axis.vertical,
                   itemBuilder: (context, index) => Card(
                     child: Container(
-                      height: 100,
+                      height: 150,
                       child: Row(
                         children: [
                           Container(
@@ -97,7 +98,23 @@ class _SpecificBlogScreenState extends State<SpecificBlogScreen> {
                     ),
                   ),
                 ),
-              )
+              ),
+              SizedBox(
+                height: 30,
+              ),
+              Container(
+                width: MediaQuery.of(context).size.width,
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: CustomRoundedButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    colour: Colors.indigo,
+                    title: "<-  Back to Home",
+                  ),
+                ),
+              ),
             ],
           ),
         ),

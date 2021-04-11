@@ -123,7 +123,7 @@ class _DiagnosisResultScreenState extends State<DiagnosisResultScreen> {
                       Navigator.pop(context);
                     },
                     colour: Colors.indigo,
-                    title: "Back to Home",
+                    title: "<-  Back to Home",
                   ),
                 ),
               ],
