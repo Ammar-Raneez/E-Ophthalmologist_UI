@@ -34,8 +34,15 @@ class _HomeScreenState extends State<HomeScreen> {
   static String diastolic = "";
   static String duration = "";
   static String haveDr = "";
-  static String riskDescription = "";
-  static String riskValue = "";
+
+  // uncomment when needed
+//  static String riskDescription = "";
+//  static String riskValue = "";
+
+  // comment this when main needed
+  static String riskDescription = "You have a low risk of developing sight threatening retinopathy";
+  static String riskValue = "20";
+
   var gender;
   var dm;
   var smoker;
@@ -60,7 +67,9 @@ class _HomeScreenState extends State<HomeScreen> {
   void initState() {
     super.initState();
     getUserDetails();
-    getRisk();
+
+    // uncomment when needed
+//    getRisk();
   }
 
   // get current user details
