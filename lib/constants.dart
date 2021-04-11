@@ -44,6 +44,7 @@ const kTextStyle = TextStyle(
   fontFamily: 'Poppins-Regular',
 );
 
+// This constant is for all tect fields
 Padding kTextField(
     var controller, Function onChange, String hintText, var keyboardType) {
   return Padding(
@@ -64,6 +65,7 @@ enum Gender { Male, Female }
 enum DMType { Type1, Type2 }
 enum Smoker { Yes, No }
 
+// Input labels in registration and edit
 Padding registrationInputLabel(String text) {
   return Padding(
     padding: const EdgeInsets.all(10.0),
@@ -74,6 +76,7 @@ Padding registrationInputLabel(String text) {
   );
 }
 
+// radio buttons in registration and edit
 ListTile registrationRadioButton(
     String text, var value, var groupVal, Function onchange) {
   return ListTile(
@@ -82,7 +85,8 @@ ListTile registrationRadioButton(
   );
 }
 
-// Appointment screen hospital links
+
+// Appointment hospital links report page
 Column buildHospitalLink({@required String hospital, @required String url}) {
   return Column(
     children: [
