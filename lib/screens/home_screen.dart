@@ -30,6 +30,7 @@ class _HomeScreenState extends State<HomeScreen> {
   static String a1c = "";
   static String ldl = "";
   static String hdl = "";
+  static String duration = "";
   var gender;
   var dm;
   var smoker;
@@ -76,6 +77,7 @@ class _HomeScreenState extends State<HomeScreen> {
       a1c = userDetails['A1C'];
       ldl = userDetails['LDL'];
       hdl = userDetails['HDL'];
+      duration = userDetails['Duration'];
       dm = userDetails['DM Type'];
       gender = userDetails['gender'];
       smoker = userDetails['smoker'];
@@ -200,7 +202,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           dm.toString(),
                         ),
                         iconCard(
-                            FontAwesomeIcons.calendar, "DURATION", "6 Years"),
+                            FontAwesomeIcons.calendar, "DURATION", duration),
                         smoker == "No"
                             ? iconCard(
                                 FontAwesomeIcons.smokingBan,
