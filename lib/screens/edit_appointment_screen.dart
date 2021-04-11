@@ -180,7 +180,7 @@ class _EditAppointmentScreenState extends State<EditAppointmentScreen> {
                         ),
                       ),
                       onPressed: () async {
-                        await selectDate(context);
+                        enableTextFields && await selectDate(context);
                       },
                       style: ButtonStyle(
                         shadowColor: MaterialStateProperty.all<Color>(
@@ -201,54 +201,71 @@ class _EditAppointmentScreenState extends State<EditAppointmentScreen> {
                 ),
                 Container(
                   width: MediaQuery.of(context).size.width,
-                  child: CustomRoundedButton(
-                    onPressed: () async {
-                      if (doctor == null ||
-                          hospital == null ||
-                          selectedDate == null ||
-                          doctor == "" ||
-                          hospital == "" ||
-                          selectedDate == "") {
-                        createAlertDialog(context, "Error",
-                            "Please fill all the given fields to proceed", 404);
-                      } else {
-                        setState(() {
-                          showSpinner = true;
-                        });
+                  child: enableTextFields
+                      ? CustomRoundedButton(
+                          onPressed: () async {
+                            if (doctor == null ||
+                                hospital == null ||
+                                selectedDate == null ||
+                                doctor == "" ||
+                                hospital == "" ||
+                                selectedDate == "") {
+                              createAlertDialog(
+                                  context,
+                                  "Error",
+                                  "Please fill all the given fields to proceed",
+                                  404);
+                            } else {
+                              setState(() {
+                                showSpinner = true;
+                              });
 
-                        try {
-                          // update the specific appointments details
-                          await _firestore
-                              .collection("users")
-                              .doc(email)
-                              .collection("appointments")
-                              .doc(appointmentId)
-                              .set({
-                            'doctor': doctor,
-                            'hospital': hospital,
-                            'date': selectedDate,
-                          });
+                              try {
+                                // update the specific appointments details
+                                await _firestore
+                                    .collection("users")
+                                    .doc(email)
+                                    .collection("appointments")
+                                    .doc(appointmentId)
+                                    .set({
+                                  'doctor': doctor,
+                                  'hospital': hospital,
+                                  'date': selectedDate,
+                                });
 
-                          createAlertDialog(context, "Success",
-                              "Appointment has been edited successfully!", 200);
+                                createAlertDialog(
+                                    context,
+                                    "Success",
+                                    "Appointment has been edited successfully!",
+                                    200);
 
-                          setState(() {
-                            showSpinner = false;
-                          });
+                                setState(() {
+                                  showSpinner = false;
+                                });
 
-                          _hospitalController.clear();
-                          _doctorController.clear();
-                        } catch (e) {
-                          createAlertDialog(context, "Error", e.message, 404);
-                          setState(() {
-                            showSpinner = false;
-                          });
-                        }
-                      }
-                    },
-                    title: "CONFIRM APPOINTMENT",
-                    colour: Colors.indigo,
-                  ),
+                                _hospitalController.clear();
+                                _doctorController.clear();
+                              } catch (e) {
+                                createAlertDialog(
+                                    context, "Error", e.message, 404);
+                                setState(() {
+                                  showSpinner = false;
+                                });
+                              }
+                            }
+                          },
+                          title: "CONFIRM APPOINTMENT",
+                          colour: Colors.indigo,
+                        )
+                      : CustomRoundedButton(
+                          onPressed: () {
+                            setState(() {
+                              enableTextFields = true;
+                            });
+                          },
+                          title: "EDIT",
+                          colour: Colors.indigo,
+                        ),
                 )
               ],
             ),
