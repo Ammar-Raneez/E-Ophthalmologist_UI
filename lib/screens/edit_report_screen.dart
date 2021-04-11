@@ -58,6 +58,7 @@ class _EditReportScreenState extends State<EditReportScreen> {
     );
   }
 
+  // get current user details
   getUserDetails() async {
     var document = await _firestore.collection("users").doc(user.email).get();
 
@@ -71,7 +72,7 @@ class _EditReportScreenState extends State<EditReportScreen> {
     });
   }
 
-  //  Open phone gallery and store images into the arrays
+  // Open phone gallery and store images into the arrays
   _openGalleryAndUpload() async {
     var selectedPicture =
         await ImagePicker.pickImage(source: ImageSource.gallery);
@@ -105,7 +106,7 @@ class _EditReportScreenState extends State<EditReportScreen> {
     });
   }
 
-  //  DatePicker handler
+  // DatePicker handler
   Future<Null> selectDate(BuildContext context) async {
     final DateTime picked = await showDatePicker(
       context: context,
@@ -125,6 +126,7 @@ class _EditReportScreenState extends State<EditReportScreen> {
   Widget build(BuildContext context) {
     var screenSize = MediaQuery.of(context).size;
     var width = screenSize.width;
+    // get the arguments passed
     final Map arguments = ModalRoute.of(context).settings.arguments as Map;
 
     setState(() {
@@ -134,6 +136,7 @@ class _EditReportScreenState extends State<EditReportScreen> {
       reportID = arguments['currentDocId'];
     });
 
+    // populate the text fields with the current values
     setState(() {
       _doctorController =
           TextEditingController.fromValue(TextEditingValue(text: "$doctor"));
@@ -204,6 +207,8 @@ class _EditReportScreenState extends State<EditReportScreen> {
                         Column(
                           children: imageDocumentsURLS.length != 0
                               ? List.generate(
+                                  // display the images added initially, whilst
+                                  // they download display a spinner
                                   imageDocumentsURLS.length,
                                   (index) => CachedNetworkImage(
                                       progressIndicatorBuilder: (context, url,
@@ -221,6 +226,7 @@ class _EditReportScreenState extends State<EditReportScreen> {
                                       width: width,
                                       height: 300),
                                 )
+                                // if no images, display a placeholder image
                               : List.generate(
                                   1,
                                   (index) => Image.asset(
@@ -252,6 +258,7 @@ class _EditReportScreenState extends State<EditReportScreen> {
                               });
 
                               try {
+                                // update the specific report with the new details
                                 await _firestore
                                     .collection("users")
                                     .doc(email)

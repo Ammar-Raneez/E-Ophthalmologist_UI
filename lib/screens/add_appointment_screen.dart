@@ -74,8 +74,8 @@ class _AddAppointmentScreenState extends State<AddAppointmentScreen> {
     );
   }
 
+  // get current logged in user details
   getUserDetails() async {
-    // get current logged in user details
     var document = await _firestore.collection("users").doc(user.email).get();
 
     setState(() {

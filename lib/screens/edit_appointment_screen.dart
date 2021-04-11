@@ -32,6 +32,7 @@ class _EditAppointmentScreenState extends State<EditAppointmentScreen> {
   String appointmentId;
   bool showSpinner = false;
 
+  // hospital names and links to choose from
   var hospitalNames = [
     "National Eye Hospital",
     "Radiant Eye Hospital",
@@ -71,6 +72,7 @@ class _EditAppointmentScreenState extends State<EditAppointmentScreen> {
     );
   }
 
+  // get current logged in user details
   getUserDetails() async {
     var document = await _firestore.collection("users").doc(user.email).get();
 
@@ -84,7 +86,7 @@ class _EditAppointmentScreenState extends State<EditAppointmentScreen> {
     });
   }
 
-  //  DatePicker handler
+  // DatePicker handler
   Future<Null> selectDate(BuildContext context) async {
     final DateTime picked = await showDatePicker(
       context: context,
@@ -104,6 +106,7 @@ class _EditAppointmentScreenState extends State<EditAppointmentScreen> {
   Widget build(BuildContext context) {
     final Map arguments = ModalRoute.of(context).settings.arguments as Map;
 
+    // get the specific appointments details passed as arguments
     setState(() {
       doctor = arguments['doctor'];
       hospital = arguments['hospital'];
@@ -111,6 +114,7 @@ class _EditAppointmentScreenState extends State<EditAppointmentScreen> {
     });
 
     setState(() {
+      // populate the text field with the already set values
       _doctorController =
           TextEditingController.fromValue(TextEditingValue(text: "$doctor"));
       _hospitalController =
@@ -211,6 +215,7 @@ class _EditAppointmentScreenState extends State<EditAppointmentScreen> {
                         });
 
                         try {
+                          // update the specific appointments details
                           await _firestore
                               .collection("users")
                               .doc(email)

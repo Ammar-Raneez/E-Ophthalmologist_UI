@@ -46,6 +46,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     getUserDetails();
   }
 
+  // get current user details
   getUserDetails() async {
     var document = await _firestore.collection("users").doc(user.email).get();
 
@@ -65,6 +66,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
       gender = userDetails['gender'];
       email = userDetails['userEmail'];
 
+      // populate the text fields with the current values after fetching
       _bmiController =
           TextEditingController.fromValue(TextEditingValue(text: "$bmi"));
       _hdlController =
@@ -95,7 +97,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     );
   }
 
-  //  DatePicker handler
+  // DatePicker handler
   Future<Null> selectDate(BuildContext context) async {
     final DateTime picked = await showDatePicker(
       context: context,
@@ -238,6 +240,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                         }),
                         CustomRoundedButton(
                           onPressed: () async {
+                            // only allow if all details are filled
                             if (username == null ||
                                 bmi == null ||
                                 a1c == null ||
@@ -266,6 +269,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                               });
 
                               try {
+                                // update this users details
                                 _firestore.collection("users").doc(email).set({
                                   "userEmail": email,
                                   "username": username,
@@ -287,7 +291,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                   showSpinner = false;
                                 });
 
-                                //  clear all fields
+                                // clear all fields
                                 _usernameController.clear();
                                 _bmiController.clear();
                                 _hdlController.clear();
