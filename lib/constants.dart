@@ -93,7 +93,7 @@ Column buildHospitalLink({@required String hospital, @required String url}) {
       RichText(
         text: TextSpan(
             text: hospital,
-            style: kTextStyle.copyWith(fontSize: 18, color: Colors.blueAccent),
+            style: kTextStyle.copyWith(fontSize: 18, color: Colors.green),
             recognizer: TapGestureRecognizer()
               ..onTap = () {
                 launch(url);

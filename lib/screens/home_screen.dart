@@ -327,7 +327,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               child: Text(
                                 "Past Scans",
                                 style: kTextStyle.copyWith(
-                                    color: Colors.indigo, fontSize: 25),
+                                    color: Color(0xff62B47F), fontSize: 25),
                               ),
                             ),
                           ),
@@ -453,7 +453,7 @@ class _HomeScreenState extends State<HomeScreen> {
         children: <Widget>[
           Text(
             title,
-            style: kTextStyle.copyWith(color: Colors.indigo, fontSize: 25),
+            style: kTextStyle.copyWith(color: Color(0xff62B47F), fontSize: 25),
           ),
           SizedBox(
             height: 10.0,

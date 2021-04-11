@@ -211,7 +211,7 @@ class _DiagnosisScreenState extends State<DiagnosisScreen> {
                             onPressed: () {
                               _detect();
                             },
-                            colour: Colors.indigo,
+                            colour: Color(0xff62B47F),
                             title: 'UPLOAD',
                           ),
                         ],
@@ -243,11 +243,11 @@ class _DiagnosisScreenState extends State<DiagnosisScreen> {
     return RaisedButton(
       elevation: 3.0,
       padding: EdgeInsets.symmetric(horizontal: 25.0, vertical: 10.0),
-      color: Colors.lightBlueAccent,
+      color: Colors.greenAccent,
       onPressed: onPress,
       child: Icon(
         icon,
-        color: Colors.white,
+        color: Colors.black54,
       ),
     );
   }

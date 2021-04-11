@@ -156,7 +156,7 @@ class _EditReportScreenState extends State<EditReportScreen> {
               style: kTextStyle.copyWith(fontSize: 20.0, color: Colors.white),
             ),
           ),
-          backgroundColor: Colors.indigo,
+          backgroundColor: Color(0xff62B47F),
         ),
         body: ModalProgressHUD(
           inAsyncCall: showSpinner,
@@ -298,7 +298,7 @@ class _EditReportScreenState extends State<EditReportScreen> {
                                   }
                                 },
                                 title: "CONFIRM",
-                                colour: Colors.indigo,
+                                colour: Color(0xff62B47F),
                               )
                             : CustomRoundedButton(
                                 onPressed: () {
@@ -307,7 +307,7 @@ class _EditReportScreenState extends State<EditReportScreen> {
                                   });
                                 },
                                 title: "EDIT",
-                                colour: Colors.indigo,
+                                colour: Color(0xff62B47F),
                               ),
                         SizedBox(
                           height: 10,

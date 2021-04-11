@@ -132,7 +132,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
               style: kTextStyle.copyWith(fontSize: 20.0, color: Colors.white),
             ),
           ),
-          backgroundColor: Colors.indigo,
+          backgroundColor: Color(0xff62B47F),
         ),
         backgroundColor: Colors.white,
         body: ModalProgressHUD(
@@ -342,7 +342,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                     }
                                   }
                                 },
-                                colour: Colors.indigo,
+                                colour: Color(0xff62B47F),
                                 title: 'CONFIRM',
                               )
                             : CustomRoundedButton(
@@ -352,7 +352,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                   });
                                 },
                                 title: "EDIT",
-                                colour: Colors.indigo,
+                                colour: Color(0xff62B47F),
                               ),
                         SizedBox(
                           height: 20.0,

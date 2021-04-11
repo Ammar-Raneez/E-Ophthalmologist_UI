@@ -192,7 +192,7 @@ class _ReportScreenState extends State<ReportScreen> {
                     vertical: 10,
                     horizontal: 30,
                   ),
-                  color: Colors.indigo,
+                  color: Color(0xff62B47F),
                   shape: new RoundedRectangleBorder(
                     borderRadius: new BorderRadius.circular(
                       10.0,
@@ -243,7 +243,7 @@ class _ReportScreenState extends State<ReportScreen> {
                     vertical: 10,
                     horizontal: 30,
                   ),
-                  color: Colors.indigo,
+                  color: Color(0xff62B47F),
                   shape: new RoundedRectangleBorder(
                     borderRadius: new BorderRadius.circular(
                       10.0,
@@ -368,7 +368,7 @@ class _ReportScreenState extends State<ReportScreen> {
           "+",
           style: TextStyle(fontSize: 40),
         ),
-        backgroundColor: Colors.indigo,
+        backgroundColor: Color(0xff62B47F),
       ),
     );
   }

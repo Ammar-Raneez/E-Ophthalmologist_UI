@@ -70,7 +70,7 @@ class _DiagnosisResultScreenState extends State<DiagnosisResultScreen> {
                 style: kTextStyle.copyWith(fontSize: 20.0, color: Colors.white),
               ),
             ),
-            backgroundColor: Colors.indigo,
+            backgroundColor: Color(0xff62B47F),
           ),
           body: Padding(
             padding: const EdgeInsets.all(8.0),
@@ -122,7 +122,7 @@ class _DiagnosisResultScreenState extends State<DiagnosisResultScreen> {
                     onPressed: () {
                       Navigator.pop(context);
                     },
-                    colour: Colors.indigo,
+                    colour: Color(0xff62B47F),
                     title: "<-  Back to Home",
                   ),
                 ),

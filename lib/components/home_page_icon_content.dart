@@ -17,7 +17,7 @@ class HomePageIconContent extends StatelessWidget {
         Icon(
           icon,
           size: 50.0,
-          color: Colors.indigo,
+          color: Color(0xff62B47F),
         ),
         SizedBox(
           height: 10.0,

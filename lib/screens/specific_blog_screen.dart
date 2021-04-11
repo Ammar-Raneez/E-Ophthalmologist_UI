@@ -73,7 +73,7 @@ class _SpecificBlogScreenState extends State<SpecificBlogScreen> {
               style: kTextStyle.copyWith(fontSize: 20.0, color: Colors.white),
             ),
           ),
-          backgroundColor: Colors.indigo,
+          backgroundColor: Color(0xff62B47F),
         ),
         body: Padding(
           padding: const EdgeInsets.all(20.0),
@@ -146,7 +146,7 @@ class _SpecificBlogScreenState extends State<SpecificBlogScreen> {
                     onPressed: () {
                       Navigator.pop(context);
                     },
-                    colour: Colors.indigo,
+                    colour: Color(0xff62B47F),
                     title: "<-  Back to Blogs",
                   ),
                 ),

@@ -146,7 +146,7 @@ class _AddReportScreenState extends State<AddReportScreen> {
               style: kTextStyle.copyWith(fontSize: 20.0, color: Colors.white),
             ),
           ),
-          backgroundColor: Colors.indigo,
+          backgroundColor: Color(0xff62B47F),
         ),
         body: Container(
           child: Padding(
@@ -255,7 +255,7 @@ class _AddReportScreenState extends State<AddReportScreen> {
                     }
                   },
                   title: "CONFIRM",
-                  colour: Colors.indigo,
+                  colour: Color(0xff62B47F),
                 ),
                 SizedBox(
                   height: 10,

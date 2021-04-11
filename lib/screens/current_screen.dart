@@ -72,7 +72,7 @@ class _CurrentScreenState extends State<CurrentScreen> {
                       style: kTextStyle.copyWith(
                           fontSize: 20.0, color: Colors.white),
                     ),
-                    backgroundColor: Colors.indigo,
+                    backgroundColor: Color(0xff62B47F),
                   ),
                   body: PageView(
                     controller: _pageController,
@@ -91,9 +91,9 @@ class _CurrentScreenState extends State<CurrentScreen> {
                   ),
                   // Bottom Nav bar - navigate between respective pages
                   bottomNavigationBar: BottomNavigationBar(
-                    selectedIconTheme: IconThemeData(color: Colors.indigo),
+                    selectedIconTheme: IconThemeData(color: Color(0xff62B47F)),
                     unselectedIconTheme: IconThemeData(color: Colors.grey),
-                    backgroundColor: Colors.indigo,
+                    backgroundColor: Color(0xff62B47F),
                     currentIndex: currentIndex,
                     showUnselectedLabels: false,
                     showSelectedLabels: false,

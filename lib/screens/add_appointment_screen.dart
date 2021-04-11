@@ -128,7 +128,7 @@ class _AddAppointmentScreenState extends State<AddAppointmentScreen> {
               style: kTextStyle.copyWith(fontSize: 20.0, color: Colors.white),
             ),
           ),
-          backgroundColor: Colors.indigo,
+          backgroundColor: Color(0xff62B47F),
         ),
         body: SingleChildScrollView(
           child: Padding(
@@ -243,7 +243,7 @@ class _AddAppointmentScreenState extends State<AddAppointmentScreen> {
                       }
                     },
                     title: "CONFIRM APPOINTMENT",
-                    colour: Colors.indigo,
+                    colour: Color(0xff62B47F),
                   ),
                 )
               ],

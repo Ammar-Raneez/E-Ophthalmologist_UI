@@ -133,7 +133,7 @@ class _EditAppointmentScreenState extends State<EditAppointmentScreen> {
               style: kTextStyle.copyWith(fontSize: 20.0, color: Colors.white),
             ),
           ),
-          backgroundColor: Colors.indigo,
+          backgroundColor: Color(0xff62B47F),
         ),
         body: SingleChildScrollView(
           child: Padding(
@@ -255,7 +255,7 @@ class _EditAppointmentScreenState extends State<EditAppointmentScreen> {
                             }
                           },
                           title: "CONFIRM APPOINTMENT",
-                          colour: Colors.indigo,
+                          colour: Color(0xff62B47F),
                         )
                       : CustomRoundedButton(
                           onPressed: () {
@@ -264,7 +264,7 @@ class _EditAppointmentScreenState extends State<EditAppointmentScreen> {
                             });
                           },
                           title: "EDIT",
-                          colour: Colors.indigo,
+                          colour: Color(0xff62B47F),
                         ),
                 )
               ],
