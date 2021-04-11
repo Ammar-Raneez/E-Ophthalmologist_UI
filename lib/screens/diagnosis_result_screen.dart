@@ -25,6 +25,7 @@ class _DiagnosisResultScreenState extends State<DiagnosisResultScreen> {
     getUserDetails();
   }
 
+  // get logged in user details
   getUserDetails() async {
     var document = await _firestore.collection("users").doc(user.email).get();
 
@@ -43,6 +44,7 @@ class _DiagnosisResultScreenState extends State<DiagnosisResultScreen> {
     var screenSize = MediaQuery.of(context).size;
     var width = screenSize.width;
     var height = screenSize.height;
+    // get values of the arguments passed
     final Map arguments = ModalRoute.of(context).settings.arguments as Map;
     String datetime = DateTime.fromMillisecondsSinceEpoch(
                 arguments['time'].seconds * 1000)
@@ -84,6 +86,8 @@ class _DiagnosisResultScreenState extends State<DiagnosisResultScreen> {
                 ),
                 Center(
                   child: CachedNetworkImage(
+                    // display a loading spinner while the image downloads and displays
+                    // from the argument url
                     progressIndicatorBuilder:
                         (context, url, downloadProgress) => SizedBox(
                       width: width / 2,

@@ -76,6 +76,7 @@ class _CurrentScreenState extends State<CurrentScreen> {
           ),
           body: PageView(
             controller: _pageController,
+            // navigate between pages
             onPageChanged: (page) {
               setState(() {
                 currentIndex = page;
@@ -88,7 +89,7 @@ class _CurrentScreenState extends State<CurrentScreen> {
               BlogScreen()
             ],
           ),
-          //  Bottom Nav bar - navigate between respective pages
+          // Bottom Nav bar - navigate between respective pages
           bottomNavigationBar: BottomNavigationBar(
             selectedIconTheme: IconThemeData(color: Colors.indigo),
             unselectedIconTheme: IconThemeData(color: Colors.grey),
