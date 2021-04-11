@@ -18,7 +18,7 @@ class RegistrationScreen extends StatefulWidget {
 }
 
 class _RegistrationScreenState extends State<RegistrationScreen> {
-  //  registration details
+  // registration details
   String username;
   String email;
   String bmi;
@@ -62,7 +62,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
     );
   }
 
-  //  DatePicker handler
+  // DatePicker handler
   Future<Null> selectDate(BuildContext context) async {
     final DateTime picked = await showDatePicker(
       context: context,
@@ -225,7 +225,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                   ),
                   CustomRoundedButton(
                     onPressed: () async {
-                      //  Only allow registration if all details are filled
+                      // Only allow registration if all details are filled
                       if (username == null ||
                           email == null ||
                           password == null ||
@@ -255,7 +255,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                         });
 
                         try {
-                          //  created the user, add all details to firestore and returns a user once created
+                          // create the user, add all details to firestore and returns a user once created
                           final newUser =
                               await _auth.createUserWithEmailAndPassword(
                                   email: email, password: password);
@@ -274,7 +274,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                             'timestamp': Timestamp.now(),
                           });
 
-                          //  Status based alerts - successful registration / not
+                          // Status based alerts - successful registration / not
                           if (newUser != null) {
                             createAlertDialog(context, "Success",
                                 "Account Registered Successfully!", 200);
@@ -287,7 +287,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                             showSpinner = false;
                           });
 
-                          //  clear all fields
+                          // clear all fields
                           _emailAddressController.clear();
                           _usernameController.clear();
                           _passwordTextFieldController.clear();

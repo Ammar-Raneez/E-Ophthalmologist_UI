@@ -25,8 +25,9 @@ class _LoginScreenState extends State<LoginScreen> {
   var _emailAddressTextFieldController = TextEditingController();
   var _passwordTextFieldController = TextEditingController();
 
+  // user login
   loginUserByEmailAndPassword(BuildContext context) async {
-    //  All fields must be provided to login
+    // All fields must be provided to login
     if (email == null || email == "" || password == null || password == "") {
       createAlertDialog(
           context, "Error", "Please fill all the given fields to proceed", 404);
@@ -35,7 +36,7 @@ class _LoginScreenState extends State<LoginScreen> {
         showSpinner = true;
       });
 
-      //  Login by firebase signInWithEmailAndPassword
+      // Login by firebase signInWithEmailAndPassword
       try {
         final user = await _auth.signInWithEmailAndPassword(
             email: email, password: password);
@@ -193,6 +194,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           ),
                           GestureDetector(
                             onTap: () {
+                              // navigate to registration screen
                               print("U tapped the sign up button");
                               Navigator.pushNamed(
                                   context, RegistrationScreen.id);
