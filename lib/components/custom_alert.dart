@@ -1,7 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:ui/constants.dart';
 import 'package:ui/screens/current_screen.dart';
 
+// custom alert boxes - information alerts
 class CustomAlert extends StatelessWidget {
   final String title;
   final String message;
@@ -41,12 +43,8 @@ class CustomAlert extends StatelessWidget {
                 ),
                 Text(
                   title,
-                  style: TextStyle(
-                    color: Colors.black54,
-                    fontFamily: 'Poppins-Regular',
-                    fontSize: 19,
-                    fontWeight: FontWeight.w900,
-                  ),
+                  style: kTextStyle.copyWith(
+                      fontSize: 19, fontWeight: FontWeight.w900),
                 ),
               ],
             ),

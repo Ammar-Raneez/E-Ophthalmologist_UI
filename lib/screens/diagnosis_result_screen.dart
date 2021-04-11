@@ -2,7 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:ui/components/rounded_button.dart';
+import 'package:ui/components/custom_rounded_button.dart';
 import 'package:ui/constants.dart';
 
 final _firestore = FirebaseFirestore.instance;
@@ -114,7 +114,7 @@ class _DiagnosisResultScreenState extends State<DiagnosisResultScreen> {
                     fontSize: 15.0),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: RoundedButton(
+                  child: CustomRoundedButton(
                     onPressed: () {
                       Navigator.pop(context);
                     },

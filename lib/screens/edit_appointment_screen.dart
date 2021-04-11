@@ -4,7 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:ui/components/custom_alert.dart';
-import 'package:ui/components/rounded_button.dart';
+import 'package:ui/components/custom_rounded_button.dart';
 import 'package:ui/constants.dart';
 
 final _firestore = FirebaseFirestore.instance;
@@ -195,7 +195,7 @@ class _EditAppointmentScreenState extends State<EditAppointmentScreen> {
                 ),
                 Container(
                   width: MediaQuery.of(context).size.width,
-                  child: RoundedButton(
+                  child: CustomRoundedButton(
                     onPressed: () async {
                       if (doctor == null ||
                           hospital == null ||

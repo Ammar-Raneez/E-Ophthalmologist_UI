@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:ui/components/custom_alert.dart';
-import 'package:ui/components/rounded_button.dart';
+import 'package:ui/components/custom_rounded_button.dart';
 import 'package:ui/constants.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 
@@ -200,7 +200,7 @@ class _AddReportScreenState extends State<AddReportScreen> {
                 SizedBox(
                   height: 40,
                 ),
-                RoundedButton(
+                CustomRoundedButton(
                   onPressed: () async {
                     if (doctor == null ||
                         hospital == null ||

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:ui/constants.dart';
 
+// report page appointment and report cards
 class ReportPageReportAppointment extends StatelessWidget {
   final String hospital;
   final String doctor;
@@ -37,36 +39,9 @@ class ReportPageReportAppointment extends StatelessWidget {
                     SizedBox(
                       height: 60.0,
                     ),
-                    Text(
-                      hospital,
-                      style: TextStyle(
-                        fontSize: 20.0,
-                        color: Color(
-                          int.parse(textColor),
-                        ),
-                        fontFamily: 'Poppins-SemiBold',
-                      ),
-                    ),
-                    Text(
-                      doctor,
-                      style: TextStyle(
-                        fontSize: 20.0,
-                        color: Color(
-                          int.parse(textColor),
-                        ),
-                        fontFamily: 'Poppins-SemiBold',
-                      ),
-                    ),
-                    Text(
-                      date,
-                      style: TextStyle(
-                        fontSize: 20.0,
-                        color: Color(
-                          int.parse(textColor),
-                        ),
-                        fontFamily: 'Poppins-SemiBold',
-                      ),
-                    ),
+                    _commonLabelText(title: hospital),
+                    _commonLabelText(title: doctor),
+                    _commonLabelText(title: date),
                   ],
                 ),
               ),
@@ -79,4 +54,16 @@ class ReportPageReportAppointment extends StatelessWidget {
           color: cardColor,
         ),
       );
+
+  Text _commonLabelText({@required title}) {
+    return Text(
+      title,
+      style: kTextStyle.copyWith(
+        fontSize: 20.0,
+        color: Color(
+          int.parse(textColor),
+        ),
+      ),
+    );
+  }
 }

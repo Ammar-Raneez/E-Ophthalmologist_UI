@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ui/components/custom_alert.dart';
-import 'package:ui/components/rounded_button.dart';
+import 'package:ui/components/custom_rounded_button.dart';
 import 'package:ui/constants.dart';
 import 'package:ui/screens/registration_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -168,7 +168,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
                       ),
                     ),
-                    RoundedButton(
+                    CustomRoundedButton(
                       onPressed: () {
                         loginUserByEmailAndPassword(context);
 

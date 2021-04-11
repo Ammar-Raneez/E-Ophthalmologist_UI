@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 
-class RoundedButton extends StatelessWidget {
+// custom rounded buttons (confirm, ok, in most screens)
+class CustomRoundedButton extends StatelessWidget {
   final Color colour;
   final String title;
   final Function onPressed;
 
-  RoundedButton({this.title, this.colour, @required this.onPressed});
+  CustomRoundedButton({this.title, this.colour, @required this.onPressed});
 
   @override
   Widget build(BuildContext context) {

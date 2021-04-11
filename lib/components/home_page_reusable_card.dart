@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
+// home page expanded horizontal rows
 class HomePageReusableCard extends StatelessWidget {
-  //only one assignment
   final Color color;
   final cardContent;
 

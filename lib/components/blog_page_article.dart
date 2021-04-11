@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:ui/constants.dart';
 
+// Blog page article cards
 class BlogArticle extends StatelessWidget {
   final String cardTitle;
   final Color cardColor;
@@ -25,12 +27,11 @@ class BlogArticle extends StatelessWidget {
               alignment: Alignment.center,
               child: Text(
                 cardTitle,
-                style: TextStyle(
+                style: kTextStyle.copyWith(
                   fontSize: 20.0,
                   color: Color(
                     int.parse(textColor),
                   ),
-                  fontFamily: 'Poppins-SemiBold',
                 ),
               ),
             ),

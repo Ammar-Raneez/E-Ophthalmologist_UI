@@ -7,7 +7,7 @@ import 'package:flutter/rendering.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:ui/components/custom_alert.dart';
-import 'package:ui/components/rounded_button.dart';
+import 'package:ui/components/custom_rounded_button.dart';
 import 'package:ui/constants.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:ui/screens/diagnosis_result_screen.dart';
@@ -197,7 +197,7 @@ class _DiagnosisScreenState extends State<DiagnosisScreen> {
                           SizedBox(
                             height: 20.0,
                           ),
-                          RoundedButton(
+                          CustomRoundedButton(
                             onPressed: () {
                               _detect();
                             },

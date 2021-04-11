@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:ui/constants.dart';
 
+// Home page first row of icons
 class HomePageIconContent extends StatelessWidget {
   final String iconLabel;
   final String iconValue;

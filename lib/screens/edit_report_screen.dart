@@ -8,7 +8,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:ui/components/custom_alert.dart';
-import 'package:ui/components/rounded_button.dart';
+import 'package:ui/components/custom_rounded_button.dart';
 import 'package:ui/constants.dart';
 
 final _firestore = FirebaseFirestore.instance;
@@ -233,7 +233,7 @@ class _EditReportScreenState extends State<EditReportScreen> {
                         SizedBox(
                           height: 40,
                         ),
-                        RoundedButton(
+                        CustomRoundedButton(
                           onPressed: () async {
                             if (doctor == null ||
                                 hospital == null ||

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ui/components/custom_alert.dart';
-import 'package:ui/components/rounded_button.dart';
+import 'package:ui/components/custom_rounded_button.dart';
 import 'package:ui/constants.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -223,7 +223,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                     child: _commonLabelText(
                         title: "< - Back to Login", fontSize: 12.0),
                   ),
-                  RoundedButton(
+                  CustomRoundedButton(
                     onPressed: () async {
                       //  Only allow registration if all details are filled
                       if (username == null ||

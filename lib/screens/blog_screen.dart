@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:ui/components/blogpage_article.dart';
+import 'package:ui/components/blog_page_article.dart';
 
 final _firestore = FirebaseFirestore.instance;
 
