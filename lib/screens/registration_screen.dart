@@ -25,6 +25,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
   String a1c;
   String ldl;
   String hdl;
+  String duration;
   String password;
 
   DateTime startDate = DateTime.now();
@@ -40,6 +41,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
   var _hdlController = TextEditingController();
   var _a1cController = TextEditingController();
   var _ldlController = TextEditingController();
+  var _durationController = TextEditingController();
   var _usernameController = TextEditingController();
   var _passwordTextFieldController = TextEditingController();
   var _emailAddressController = TextEditingController();
@@ -166,6 +168,8 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                       "Enter A1C", TextInputType.number, true),
                   kTextField(_ldlController, (value) => ldl = value,
                       "Enter LDL", TextInputType.number, true),
+                  kTextField(_durationController, (value) => duration= value,
+                      "Duration of Diabetes", TextInputType.number, true),
                   registrationInputLabel("Diabetes Mellitus Type"),
                   registrationRadioButton("Type 1", DMType.Type1, dm, (value) {
                     setState(() {
@@ -233,6 +237,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                           a1c == null ||
                           ldl == null ||
                           hdl == null ||
+                          duration == null ||
                           selectedDate == null ||
                           gender == null ||
                           dm == null ||
@@ -244,6 +249,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                           a1c == "" ||
                           ldl == "" ||
                           hdl == "" ||
+                          duration == "" ||
                           dm == "" ||
                           gender == "" ||
                           smoker == "") {
@@ -268,6 +274,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                             "A1C": a1c,
                             "LDL": ldl,
                             "HDL": hdl,
+                            "Duration": duration,
                             "gender": gender.toString(),
                             "DM Type": dm.toString(),
                             "smoker": smoker.toString(),
@@ -294,6 +301,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                           _bmiController.clear();
                           _hdlController.clear();
                           _ldlController.clear();
+                          _durationController.clear();
                           _a1cController.clear();
                         } catch (e) {
                           createAlertDialog(context, "Error", e.message, 404);
