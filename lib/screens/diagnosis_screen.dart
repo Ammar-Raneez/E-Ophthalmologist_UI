@@ -98,7 +98,7 @@ class _DiagnosisScreenState extends State<DiagnosisScreen> {
         });
 
         // Response object, formData is sent to the provided API,
-        // and the result is obtanied
+        // and the result is obtained
         Response response = await dio.post(
           "https://bisfyp.azurewebsites.net/api/classify",
           data: formData,

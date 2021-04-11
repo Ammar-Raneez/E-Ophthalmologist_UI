@@ -2,6 +2,7 @@ import 'dart:math';
 import 'dart:ui';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:dio/dio.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -23,6 +24,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  Dio dio = new Dio();
   User user = FirebaseAuth.instance.currentUser;
   var userDetails;
 
@@ -31,6 +33,8 @@ class _HomeScreenState extends State<HomeScreen> {
   static String systolic = "";
   static String diastolic = "";
   static String duration = "";
+  static String riskDescription = "";
+  static String riskValue = "";
   var gender;
   var dm;
   var smoker;
@@ -88,6 +92,40 @@ class _HomeScreenState extends State<HomeScreen> {
       dm = dm.toString() == "DMType.Type1" ? "Type I" : "Type II";
       eyeScans = tempScans;
     });
+  }
+
+  getRisk() async {
+      Response loginResponse = await dio.post(
+        "https://api.retinarisk.com/api/auth/sign-in",
+        data: {
+          "email": "ammarraneez@gmail.com",
+          "password": "Ammarraneez12"
+        }
+      );
+
+      Response riskResponse = await dio.post(
+        "https://api.retinarisk.com/api/calculator/calculaterisk",
+        data: {
+          "data":
+          {
+            "diabetesDuration": duration,
+            "diabetesType": dm == "Type I" ? "type1" : "type2",
+            "gender": gender == "Female" ? "female" : "male",
+            "hasRetinopathy": "0",
+            "bloodGlucose": a1c,
+            "bloodPressures":
+            {
+              "diastolic": diastolic,
+              "systolic": systolic
+            }
+          },
+          "options":
+          {
+            "format":"json",
+            "language":"en"
+          }
+        }
+      );
   }
 
   Expanded iconCard(IconData icon, String label, String value) {
