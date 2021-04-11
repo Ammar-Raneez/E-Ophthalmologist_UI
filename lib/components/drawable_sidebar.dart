@@ -2,6 +2,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:ui/constants.dart';
+import 'package:ui/screens/edit_profile_screen.dart';
 
 final _firestore = FirebaseFirestore.instance;
 
@@ -62,6 +64,11 @@ class _DrawableSidebarState extends State<DrawableSidebar> {
               image: DecorationImage(
                   fit: BoxFit.fill, image: AssetImage('images/sidebarBg.jpg')),
             ),
+          ),
+          ListTile(
+            leading: Icon(Icons.person),
+            title: Text("Edit Profile", style: kTextStyle,),
+            onTap: () => Navigator.pushNamed(context, EditProfileScreen.id),
           )
         ],
       ),

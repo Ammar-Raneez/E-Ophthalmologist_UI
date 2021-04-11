@@ -73,14 +73,6 @@ class _CurrentScreenState extends State<CurrentScreen> {
                       style: kTextStyle.copyWith(
                           fontSize: 20.0, color: Colors.white),
                     ),
-                    actions: [
-                      IconButton(
-                        icon: Icon(Icons.person),
-                        onPressed: () {
-                          Navigator.pushNamed(context, EditProfileScreen.id);
-                        },
-                      ),
-                    ],
                     backgroundColor: Colors.indigo,
                   ),
                   body: PageView(
