@@ -144,20 +144,14 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                     ),
                     child: ListView(
                       children: [
-                        Stack(
-                          alignment: Alignment.center,
-                          children: [
-                            Container(
-                              height: 100,
+                        Container(
+                          child: Text(
+                            "Edit Your Profile",
+                            textAlign: TextAlign.center,
+                            style: kTextStyle.copyWith(
+                              fontSize: 20,
                             ),
-                            Text(
-                              "Edit Your Profile",
-                              textAlign: TextAlign.center,
-                              style: kTextStyle.copyWith(
-                                fontSize: 20,
-                              ),
-                            ),
-                          ],
+                          ),
                         ),
                         registrationInputLabel("Username"),
                         kTextField(

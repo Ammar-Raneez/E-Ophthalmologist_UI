@@ -138,7 +138,7 @@ class _EditAppointmentScreenState extends State<EditAppointmentScreen> {
             padding: const EdgeInsets.all(20.0),
             child: Column(
               children: [
-                _commonLabelText(title: "Edit Appointment", fontSize: 25.0),
+                _commonLabelText(title: "Edit Appointment", fontSize: 20.0),
                 _commonLabelText(title: "Make an Appointment", fontSize: 16.0),
                 SizedBox(
                   height: 150,

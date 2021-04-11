@@ -168,7 +168,7 @@ class _EditReportScreenState extends State<EditReportScreen> {
                     padding: const EdgeInsets.all(20.0),
                     child: ListView(
                       children: [
-                        _commonLabelText(title: "Edit Report", fontSize: 25.0),
+                        _commonLabelText(title: "Edit Report", fontSize: 20.0),
                         kTextField(
                             _hospitalController,
                             (value) => hospital = value,
