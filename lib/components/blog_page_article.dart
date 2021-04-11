@@ -19,8 +19,9 @@ class BlogArticle extends StatelessWidget {
         padding: const EdgeInsets.fromLTRB(12, 0, 12, 8),
         child: Card(
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(
-              25.0,
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(25.0),
+              bottomRight: Radius.circular(25.0),
             ),
           ),
           child: Container(
@@ -41,8 +42,8 @@ class BlogArticle extends StatelessWidget {
               image: DecorationImage(
                   image: AssetImage(bgImage), fit: BoxFit.cover),
               borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(10.0),
-                bottomRight: Radius.circular(10.0),
+                topLeft: Radius.circular(25.0),
+                bottomRight: Radius.circular(25.0),
               ),
             ),
           ),

@@ -24,8 +24,8 @@ class ReportPageReportAppointment extends StatelessWidget {
         child: Card(
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(10.0),
-              bottomRight: Radius.circular(10.0),
+              topLeft: Radius.circular(25.0),
+              bottomRight: Radius.circular(25.0),
             ),
           ),
           child: Container(
@@ -50,8 +50,8 @@ class ReportPageReportAppointment extends StatelessWidget {
               image: DecorationImage(
                   image: AssetImage(bgImage), fit: BoxFit.cover),
               borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(10.0),
-                bottomRight: Radius.circular(10.0),
+                topLeft: Radius.circular(25.0),
+                bottomRight: Radius.circular(25.0),
               ),
             ),
           ),
