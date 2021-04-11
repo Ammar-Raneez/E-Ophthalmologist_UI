@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:ui/components/custom_rounded_button.dart';
 import 'package:ui/constants.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class SpecificBlogScreen extends StatefulWidget {
   static String id = "specificBlogScreen";
@@ -14,10 +15,10 @@ class _SpecificBlogScreenState extends State<SpecificBlogScreen> {
   String typeOfBlog;
 
   // links to navigate for each blog
-  var drStagesArticles = ["www.google.lk"];
-  var drTypesArticles = ["www.google.lk"];
-  var guidelinesArticles = ["www.google.lk"];
-  var treatmentsArticles = ["www.google.lk"];
+  var drStagesArticles = ["https://flutter.dev"];
+  var drTypesArticles = ["https://flutter.dev"];
+  var guidelinesArticles = ["https://flutter.dev"];
+  var treatmentsArticles = ["https://flutter.dev"];
 
   //short descriptions
   var drStagesShortDescriptions = [
@@ -97,33 +98,38 @@ class _SpecificBlogScreenState extends State<SpecificBlogScreen> {
                   itemBuilder: (context, index) => Card(
                     child: Container(
                       height: 150,
-                      child: Row(
-                        children: [
-                          Container(
-                            width: MediaQuery.of(context).size.width / 3,
-                            child: Image.asset(
-                              blogImages[0],
-                              height: 150,
-                            ),
-                          ),
-                          Container(
-                            width: MediaQuery.of(context).size.width / 2,
-                            child: Align(
-                              alignment: Alignment.center,
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text(
-                                    chosenBlogShortDescriptions[0],
-                                    style: kTextStyle,
-                                    textAlign: TextAlign.center,
-                                  ),
-                                ],
+                      child: GestureDetector(
+                        onTap: () async => await canLaunch(chosenBlogType[0])
+                            ? await launch(chosenBlogType[0])
+                            : throw 'Could not launch ${chosenBlogType[0]}',
+                        child: Row(
+                          children: [
+                            Container(
+                              width: MediaQuery.of(context).size.width / 3,
+                              child: Image.asset(
+                                blogImages[0],
+                                height: 150,
                               ),
                             ),
-                          ),
-                        ],
+                            Container(
+                              width: MediaQuery.of(context).size.width / 2,
+                              child: Align(
+                                alignment: Alignment.center,
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Text(
+                                      chosenBlogShortDescriptions[0],
+                                      style: kTextStyle,
+                                      textAlign: TextAlign.center,
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   ),

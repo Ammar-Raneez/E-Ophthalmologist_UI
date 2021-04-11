@@ -85,7 +85,7 @@ ListTile registrationRadioButton(
   );
 }
 
-// Appointment hospital links report page
+// Appointment hospital links report page for edit and add appointments
 Column buildHospitalLink({@required String hospital, @required String url}) {
   return Column(
     children: [
