@@ -40,6 +40,9 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   var _ldlController;
   var _usernameController;
 
+  bool enableTextFields = false;
+  bool showSpinner = false;
+
   @override
   void initState() {
     super.initState();
@@ -79,8 +82,6 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
           TextEditingController.fromValue(TextEditingValue(text: "$username"));
     });
   }
-
-  bool showSpinner = false;
 
   // popup alert
   createAlertDialog(
@@ -158,7 +159,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                             _usernameController,
                             (value) => username = value,
                             "Enter Username",
-                            TextInputType.text, true),
+                            TextInputType.text,
+                            enableTextFields),
                         Padding(
                           padding: const EdgeInsets.all(10.0),
                           child: OutlinedButton(
@@ -166,7 +168,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                               "Date of Birth: $selectedDate",
                             ),
                             onPressed: () async {
-                              await selectDate(context);
+                              enableTextFields && await selectDate(context);
                             },
                             style: ButtonStyle(
                               shadowColor: MaterialStateProperty.all<Color>(
@@ -195,17 +197,33 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                           });
                         }),
                         registrationInputLabel("BMI"),
-                        kTextField(_bmiController, (value) => bmi = value,
-                            "Enter BMI", TextInputType.number, true),
+                        kTextField(
+                            _bmiController,
+                            (value) => bmi = value,
+                            "Enter BMI",
+                            TextInputType.number,
+                            enableTextFields),
                         registrationInputLabel("HDL"),
-                        kTextField(_hdlController, (value) => hdl = value,
-                            "Enter HDL", TextInputType.number, true),
+                        kTextField(
+                            _hdlController,
+                            (value) => hdl = value,
+                            "Enter HDL",
+                            TextInputType.number,
+                            enableTextFields),
                         registrationInputLabel("A1C"),
-                        kTextField(_a1cController, (value) => a1c = value,
-                            "Enter A1C", TextInputType.number, true),
+                        kTextField(
+                            _a1cController,
+                            (value) => a1c = value,
+                            "Enter A1C",
+                            TextInputType.number,
+                            enableTextFields),
                         registrationInputLabel("LDL"),
-                        kTextField(_ldlController, (value) => ldl = value,
-                            "Enter LDL", TextInputType.number, true),
+                        kTextField(
+                            _ldlController,
+                            (value) => ldl = value,
+                            "Enter LDL",
+                            TextInputType.number,
+                            enableTextFields),
                         registrationInputLabel("Diabetes Mellitus Type"),
                         registrationRadioButton("Type 1", DMType.Type1, dm,
                             (value) {
@@ -232,77 +250,90 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                             smoker = value;
                           });
                         }),
-                        CustomRoundedButton(
-                          onPressed: () async {
-                            // only allow if all details are filled
-                            if (username == null ||
-                                bmi == null ||
-                                a1c == null ||
-                                ldl == null ||
-                                hdl == null ||
-                                selectedDate == null ||
-                                gender == null ||
-                                dm == null ||
-                                smoker == null ||
-                                username == "" ||
-                                bmi == "" ||
-                                a1c == "" ||
-                                ldl == "" ||
-                                hdl == "" ||
-                                dm == "" ||
-                                gender == "" ||
-                                smoker == "") {
-                              createAlertDialog(
-                                  context,
-                                  "Error",
-                                  "Please fill all the given fields to proceed",
-                                  404);
-                            } else {
-                              setState(() {
-                                showSpinner = true;
-                              });
+                        enableTextFields
+                            ? CustomRoundedButton(
+                                onPressed: () async {
+                                  // only allow if all details are filled
+                                  if (username == null ||
+                                      bmi == null ||
+                                      a1c == null ||
+                                      ldl == null ||
+                                      hdl == null ||
+                                      selectedDate == null ||
+                                      gender == null ||
+                                      dm == null ||
+                                      smoker == null ||
+                                      username == "" ||
+                                      bmi == "" ||
+                                      a1c == "" ||
+                                      ldl == "" ||
+                                      hdl == "" ||
+                                      dm == "" ||
+                                      gender == "" ||
+                                      smoker == "") {
+                                    createAlertDialog(
+                                        context,
+                                        "Error",
+                                        "Please fill all the given fields to proceed",
+                                        404);
+                                  } else {
+                                    setState(() {
+                                      showSpinner = true;
+                                    });
 
-                              try {
-                                // update this users details
-                                _firestore.collection("users").doc(email).set({
-                                  "userEmail": email,
-                                  "username": username,
-                                  "DOB": selectedDate,
-                                  "BMI": bmi,
-                                  "A1C": a1c,
-                                  "LDL": ldl,
-                                  "HDL": hdl,
-                                  "gender": gender.toString(),
-                                  "DM Type": dm.toString(),
-                                  "smoker": smoker.toString(),
-                                  'timestamp': Timestamp.now(),
-                                });
+                                    try {
+                                      // update this users details
+                                      _firestore
+                                          .collection("users")
+                                          .doc(email)
+                                          .set({
+                                        "userEmail": email,
+                                        "username": username,
+                                        "DOB": selectedDate,
+                                        "BMI": bmi,
+                                        "A1C": a1c,
+                                        "LDL": ldl,
+                                        "HDL": hdl,
+                                        "gender": gender.toString(),
+                                        "DM Type": dm.toString(),
+                                        "smoker": smoker.toString(),
+                                        'timestamp': Timestamp.now(),
+                                      });
 
-                                createAlertDialog(context, "Success",
-                                    "Details Updated Successfully!", 200);
+                                      createAlertDialog(context, "Success",
+                                          "Details Updated Successfully!", 200);
 
-                                setState(() {
-                                  showSpinner = false;
-                                });
+                                      setState(() {
+                                        showSpinner = false;
+                                      });
 
-                                // clear all fields
-                                _usernameController.clear();
-                                _bmiController.clear();
-                                _hdlController.clear();
-                                _ldlController.clear();
-                                _a1cController.clear();
-                              } catch (e) {
-                                createAlertDialog(
-                                    context, "Error", e.message, 404);
-                                setState(() {
-                                  showSpinner = false;
-                                });
-                              }
-                            }
-                          },
-                          colour: Colors.indigo,
-                          title: 'CONFIRM',
-                        ),
+                                      // clear all fields
+                                      _usernameController.clear();
+                                      _bmiController.clear();
+                                      _hdlController.clear();
+                                      _ldlController.clear();
+                                      _a1cController.clear();
+                                    } catch (e) {
+                                      createAlertDialog(
+                                          context, "Error", e.message, 404);
+                                      setState(() {
+                                        showSpinner = false;
+                                      });
+                                    }
+                                  }
+                                },
+                                colour: Colors.indigo,
+                                title: 'CONFIRM',
+                              )
+                            : CustomRoundedButton(
+                                onPressed: () {
+                                  setState(() {
+                                    enableTextFields = true;
+                                  });
+                                },
+                                title: "EDIT",
+                                colour: Colors.indigo,
+                              ),
                         SizedBox(
                           height: 20.0,
                         ),
