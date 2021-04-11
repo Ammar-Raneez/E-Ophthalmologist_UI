@@ -249,6 +249,12 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                             dm = value;
                           });
                         }),
+                        registrationRadioButton(
+                            "No Retinopathy", DMType.None, dm, (value) {
+                          setState(() {
+                            dm = value;
+                          });
+                        }),
                         registrationInputLabel("Smoker?"),
                         registrationRadioButton("Yes", Smoker.Yes, smoker,
                             (value) {
