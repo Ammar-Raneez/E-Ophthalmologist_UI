@@ -10,8 +10,16 @@ class SpecificBlogScreen extends StatefulWidget {
 }
 
 class _SpecificBlogScreenState extends State<SpecificBlogScreen> {
+  String typeOfBlog;
+
   @override
   Widget build(BuildContext context) {
+    final Map arguments = ModalRoute.of(context).settings.arguments as Map;
+
+    setState(() {
+      typeOfBlog = arguments['type'];
+    });
+
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
@@ -25,7 +33,7 @@ class _SpecificBlogScreenState extends State<SpecificBlogScreen> {
           backgroundColor: Colors.indigo,
         ),
         body: Container(
-          child: Text("Specific Blog"),
+          child: Text(typeOfBlog),
         ),
       ),
     );

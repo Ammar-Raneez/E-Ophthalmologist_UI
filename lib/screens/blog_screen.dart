@@ -42,7 +42,10 @@ class _BlogScreenState extends State<BlogScreen> {
                     itemCount: cardTitles.length,
                     itemBuilder: (context, index) => GestureDetector(
                       onTap: () {
-                        Navigator.pushNamed(context, SpecificBlogScreen.id);
+                        var args = {
+                          "type": cardTitles[index]
+                        };
+                        Navigator.pushNamed(context, SpecificBlogScreen.id, arguments: args);
                       },
                       child: BlogArticle(
                           cardTitle: cardTitles[index],
