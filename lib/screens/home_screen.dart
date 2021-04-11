@@ -281,15 +281,12 @@ class _HomeScreenState extends State<HomeScreen> {
                                       height: 100,
                                       child: Row(
                                         children: [
-                                          Container(
-                                            width: MediaQuery.of(context)
-                                                    .size
-                                                    .width /
-                                                2.5,
+                                          Expanded(
                                             child: FittedBox(
                                               child: Image.asset(
                                                 getRandomEyeScanImage(),
                                                 height: 100,
+                                                width: 100,
                                               ),
                                               fit: BoxFit.fill,
                                             ),

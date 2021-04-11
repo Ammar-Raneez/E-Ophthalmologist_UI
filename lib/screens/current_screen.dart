@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:ui/components/drawable_sidebar.dart';
 import 'package:ui/constants.dart';
 import 'package:ui/screens/diagnosis_screen.dart';
@@ -17,9 +18,9 @@ class CurrentScreen extends StatefulWidget {
 
 class _CurrentScreenState extends State<CurrentScreen> {
   int currentIndex = 0;
-  final _auth = FirebaseAuth.instance;
+  final user = FirebaseAuth.instance.currentUser;
 
-  User loggedInUser;
+  bool showSpinner = false;
 
   @override
   void initState() {
@@ -30,8 +31,6 @@ class _CurrentScreenState extends State<CurrentScreen> {
   //  fetch authenticated user
   void getCurrentUser() async {
     try {
-      final user = _auth.currentUser;
-
       if (user != null) {
         print("(Email-Password login) User is Present!");
         print(user.email);
@@ -58,71 +57,84 @@ class _CurrentScreenState extends State<CurrentScreen> {
           print("Signing out......");
           return true;
         },
-        child: Scaffold(
-          drawer: DrawableSidebar(),
-          appBar: AppBar(
-            automaticallyImplyLeading: false,
-            title: Text(
-              "E-Ophthalmologist",
-              style: kTextStyle.copyWith(fontSize: 20.0, color: Colors.white),
-            ),
-            actions: [
-              IconButton(
-                icon: Icon(Icons.person),
-                onPressed: () {
-                  Navigator.pushNamed(context, EditProfileScreen.id);
-                },
-              ),
-            ],
-            backgroundColor: Colors.indigo,
-          ),
-          body: PageView(
-            controller: _pageController,
-            // navigate between pages
-            onPageChanged: (page) {
-              setState(() {
-                currentIndex = page;
-              });
-            },
-            children: [
-              HomeScreen(),
-              DiagnosisScreen(),
-              ReportScreen(),
-              BlogScreen()
-            ],
-          ),
-          // Bottom Nav bar - navigate between respective pages
-          bottomNavigationBar: BottomNavigationBar(
-            selectedIconTheme: IconThemeData(color: Colors.indigo),
-            unselectedIconTheme: IconThemeData(color: Colors.grey),
-            backgroundColor: Colors.indigo,
-            currentIndex: currentIndex,
-            showUnselectedLabels: false,
-            showSelectedLabels: false,
-            onTap: (index) {
-              setState(() {
-                currentIndex = index;
-                _pageController.jumpToPage(
-                  index,
-                );
-              });
-            },
-            items: [
-              BottomNavigationBarItem(
-                icon: Icon(
-                  Icons.home,
-                  size: 27,
+        child: ModalProgressHUD(
+          inAsyncCall: showSpinner,
+          child: user.email == null
+              ? Align(
+                  child: CircularProgressIndicator(),
+                  alignment: Alignment.center,
+                )
+              : Scaffold(
+                  drawer: DrawableSidebar(),
+                  appBar: AppBar(
+                    automaticallyImplyLeading: false,
+                    title: Text(
+                      "E-Ophthalmologist",
+                      style: kTextStyle.copyWith(
+                          fontSize: 20.0, color: Colors.white),
+                    ),
+                    actions: [
+                      IconButton(
+                        icon: Icon(Icons.person),
+                        onPressed: () {
+                          Navigator.pushNamed(context, EditProfileScreen.id);
+                        },
+                      ),
+                    ],
+                    backgroundColor: Colors.indigo,
+                  ),
+                  body: PageView(
+                    controller: _pageController,
+                    // navigate between pages
+                    onPageChanged: (page) {
+                      setState(() {
+                        currentIndex = page;
+                      });
+                    },
+                    children: [
+                      HomeScreen(),
+                      DiagnosisScreen(),
+                      ReportScreen(),
+                      BlogScreen()
+                    ],
+                  ),
+                  // Bottom Nav bar - navigate between respective pages
+                  bottomNavigationBar: BottomNavigationBar(
+                    selectedIconTheme: IconThemeData(color: Colors.indigo),
+                    unselectedIconTheme: IconThemeData(color: Colors.grey),
+                    backgroundColor: Colors.indigo,
+                    currentIndex: currentIndex,
+                    showUnselectedLabels: false,
+                    showSelectedLabels: false,
+                    onTap: (index) {
+                      setState(() {
+                        currentIndex = index;
+                        _pageController.jumpToPage(
+                          index,
+                        );
+                      });
+                    },
+                    items: [
+                      BottomNavigationBarItem(
+                        icon: Icon(
+                          Icons.home,
+                          size: 27,
+                        ),
+                        label: "Home",
+                      ),
+                      _commonBottomNavigationBarItem(
+                          icon: Icons.add_a_photo,
+                          iconSize: 27.0,
+                          title: "Diagnosis"),
+                      _commonBottomNavigationBarItem(
+                          icon: Icons.attachment,
+                          iconSize: 27.0,
+                          title: "Reports"),
+                      _commonBottomNavigationBarItem(
+                          icon: Icons.add_alert, iconSize: 27.0, title: "Blog"),
+                    ],
+                  ),
                 ),
-                label: "Home",
-              ),
-              _commonBottomNavigationBarItem(
-                  icon: Icons.add_a_photo, iconSize: 27.0, title: "Diagnosis"),
-              _commonBottomNavigationBarItem(
-                  icon: Icons.attachment, iconSize: 27.0, title: "Reports"),
-              _commonBottomNavigationBarItem(
-                  icon: Icons.add_alert, iconSize: 27.0, title: "Blog"),
-            ],
-          ),
         ),
       ),
     );
