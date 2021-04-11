@@ -20,10 +20,18 @@ class _SpecificBlogScreenState extends State<SpecificBlogScreen> {
   var treatmentsArticles = ["www.google.lk"];
 
   //short descriptions
-  var drStagesShortDescriptions = ["Clicking on this will navigate to the original blog found on the internet..."];
-  var drTypesShortDescriptions = ["Clicking on this will navigate to the original blog found on the internet..."];
-  var guidelinesShortDescriptions = ["Clicking on this will navigate to the original blog found on the internet..."];
-  var treatmentsShortDescriptions = ["Clicking on this will navigate to the original blog found on the internet..."];
+  var drStagesShortDescriptions = [
+    "Clicking on this will navigate to the original blog found on the internet..."
+  ];
+  var drTypesShortDescriptions = [
+    "Clicking on this will navigate to the original blog found on the internet..."
+  ];
+  var guidelinesShortDescriptions = [
+    "Clicking on this will navigate to the original blog found on the internet..."
+  ];
+  var treatmentsShortDescriptions = [
+    "Clicking on this will navigate to the original blog found on the internet..."
+  ];
 
   // blog left images
   var blogImages = ["images/tempblog.jpg"];
@@ -36,6 +44,7 @@ class _SpecificBlogScreenState extends State<SpecificBlogScreen> {
     final Map arguments = ModalRoute.of(context).settings.arguments as Map;
 
     setState(() {
+      // based on chosen type of blog in arguments, determine articles
       typeOfBlog = arguments['type'];
       chosenBlogType = typeOfBlog == "Retinopathy Stages"
           ? drStagesArticles
@@ -47,10 +56,10 @@ class _SpecificBlogScreenState extends State<SpecificBlogScreen> {
       chosenBlogShortDescriptions = typeOfBlog == "Retinopathy Stages"
           ? drStagesShortDescriptions
           : typeOfBlog == "Diabetes Types"
-          ? drTypesShortDescriptions
-          : typeOfBlog == "Guidelines"
-          ? guidelinesShortDescriptions
-          : treatmentsShortDescriptions;
+              ? drTypesShortDescriptions
+              : typeOfBlog == "Guidelines"
+                  ? guidelinesShortDescriptions
+                  : treatmentsShortDescriptions;
     });
 
     return SafeArea(
