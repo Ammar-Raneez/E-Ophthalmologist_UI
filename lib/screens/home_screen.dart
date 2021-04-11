@@ -57,6 +57,7 @@ class _HomeScreenState extends State<HomeScreen> {
   void initState() {
     super.initState();
     getUserDetails();
+    getRisk();
   }
 
   // get current user details
@@ -104,22 +105,40 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   getRisk() async {
+    // must login and get authorization string beforehand
     Response loginResponse = await dio.post(
         "https://api.retinarisk.com/api/auth/sign-in",
         data: {"email": "ammarraneez@gmail.com", "password": "Ammarraneez12"});
 
+    print(loginResponse);
+    // send all required data to API endpoint to get the required risk
     Response riskResponse = await dio
         .post("https://api.retinarisk.com/api/calculator/calculaterisk", data: {
       "data": {
         "diabetesDuration": duration,
         "diabetesType": dm == "Type I" ? "type1" : "type2",
         "gender": gender == "Female" ? "female" : "male",
-        "hasRetinopathy": "0",
+        "hasRetinopathy": haveDr,
         "bloodGlucose": a1c,
         "bloodPressures": {"diastolic": diastolic, "systolic": systolic}
       },
       "options": {"format": "json", "language": "en"}
+    },
+      options: Options(
+        headers: {
+          "Authorization": loginResponse.data['access_token']
+        }
+      )
+    );
+    print(riskResponse);
+
+    setState(() {
+      riskValue = (riskResponse.data['results']['RiskValue'] * 10).toString();
+      riskDescription = riskResponse.data['results']['Analysis']['riskValue']['text'];
     });
+
+    print(riskValue);
+    print(riskDescription);
   }
 
   Expanded iconCard(IconData icon, String label, String value) {
@@ -163,7 +182,7 @@ class _HomeScreenState extends State<HomeScreen> {
       body: ModalProgressHUD(
         inAsyncCall: showSpinner,
         // if there are scans, but not fetched yet, display a spinner
-        child: haveScans && eyeScans.length == 0
+        child: (haveScans && eyeScans.length == 0) || riskValue == ""
             ? Align(
                 child: CircularProgressIndicator(),
                 alignment: Alignment.center,
@@ -185,7 +204,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             lineWidth: 15.0,
                             percent: 0.9,
                             center: Text(
-                              "90%",
+                              riskValue,
                               style: kTextStyle.copyWith(
                                 fontSize: 30.0,
                                 color: Color(0xffdd0000),
@@ -197,12 +216,12 @@ class _HomeScreenState extends State<HomeScreen> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                "90%",
+                                riskValue,
                                 style: kTextStyle.copyWith(
                                     fontSize: 40, color: Color(0xffdd0000)),
                               ),
                               Text(
-                                "Chance of sight\nthreatening retinopathy",
+                                riskDescription,
                                 style: kTextStyle.copyWith(
                                   fontSize: 15,
                                 ),
