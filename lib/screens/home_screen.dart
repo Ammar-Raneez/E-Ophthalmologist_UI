@@ -288,6 +288,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                               child: Image.asset(
                                                 getRandomEyeScanImage(),
                                                 height: 100,
+                                                width: 80,
                                               ),
                                               fit: BoxFit.fill,
                                             ),
