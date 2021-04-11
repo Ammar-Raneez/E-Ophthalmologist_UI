@@ -28,6 +28,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   static String a1c = "";
   static String ldl = "";
   static String hdl = "";
+  static String duration = "";
 
   DateTime startDate;
 
@@ -38,6 +39,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   var _hdlController;
   var _a1cController;
   var _ldlController;
+  var _durationController;
   var _usernameController;
 
   bool enableTextFields = false;
@@ -64,6 +66,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
       a1c = userDetails['A1C'];
       ldl = userDetails['LDL'];
       hdl = userDetails['HDL'];
+      duration = userDetails['Duration'];
       selectedDate = userDetails['DOB'];
       dm = userDetails['DM Type'];
       gender = userDetails['gender'];
@@ -78,6 +81,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
           TextEditingController.fromValue(TextEditingValue(text: "$a1c"));
       _ldlController =
           TextEditingController.fromValue(TextEditingValue(text: "$ldl"));
+      _durationController =
+          TextEditingController.fromValue(TextEditingValue(text: "$duration"));
       _usernameController =
           TextEditingController.fromValue(TextEditingValue(text: "$username"));
     });
@@ -224,6 +229,13 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                             "Enter LDL",
                             TextInputType.number,
                             enableTextFields),
+                        registrationInputLabel("Duration of Diabetes"),
+                        kTextField(
+                            _durationController,
+                                (value) => duration = value,
+                            "Enter duration",
+                            TextInputType.number,
+                            enableTextFields),
                         registrationInputLabel("Diabetes Mellitus Type"),
                         registrationRadioButton("Type 1", DMType.Type1, dm,
                             (value) {
@@ -259,6 +271,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                       a1c == null ||
                                       ldl == null ||
                                       hdl == null ||
+                                      duration == null ||
                                       selectedDate == null ||
                                       gender == null ||
                                       dm == null ||
@@ -294,6 +307,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                         "A1C": a1c,
                                         "LDL": ldl,
                                         "HDL": hdl,
+                                        "Duration": duration,
                                         "gender": gender.toString(),
                                         "DM Type": dm.toString(),
                                         "smoker": smoker.toString(),

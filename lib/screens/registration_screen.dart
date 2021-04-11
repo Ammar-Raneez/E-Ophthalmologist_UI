@@ -168,7 +168,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                       "Enter A1C", TextInputType.number, true),
                   kTextField(_ldlController, (value) => ldl = value,
                       "Enter LDL", TextInputType.number, true),
-                  kTextField(_durationController, (value) => duration= value,
+                  kTextField(_durationController, (value) => duration = value,
                       "Duration of Diabetes", TextInputType.number, true),
                   registrationInputLabel("Diabetes Mellitus Type"),
                   registrationRadioButton("Type 1", DMType.Type1, dm, (value) {
