@@ -86,22 +86,4 @@ class _BlogScreenState extends State<BlogScreen> {
       ),
     );
   }
-
-  Padding homeScreenTitles(String text, double fontSize, Color color) {
-    return Padding(
-      padding: const EdgeInsets.only(left: 12.0),
-      child: Container(
-        child: Align(
-          child: Text(
-            text,
-            style: TextStyle(
-                fontFamily: 'Poppins-SemiBold',
-                fontSize: fontSize,
-                color: color),
-          ),
-          alignment: Alignment.bottomLeft,
-        ),
-      ),
-    );
-  }
 }
