@@ -9,8 +9,6 @@ const kLoginRegistrationBackgroundGradient = LinearGradient(
   colors: [Color(0xff01CDFA), Color(0xffcccccc)],
 );
 
-
-
 // Common Constants
 // This constant is for all the text fields decoration
 const kTextFieldDecoration = InputDecoration(
@@ -61,8 +59,6 @@ Padding kTextField(
   );
 }
 
-
-
 // Registration & Edit Profile Specific
 enum Gender { Male, Female }
 enum DMType { Type1, Type2 }
@@ -86,8 +82,6 @@ ListTile registrationRadioButton(
   );
 }
 
-
-
 // Appointment screen hospital links
 Column buildHospitalLink({@required String hospital, @required String url}) {
   return Column(
@@ -95,8 +89,7 @@ Column buildHospitalLink({@required String hospital, @required String url}) {
       RichText(
         text: TextSpan(
             text: hospital,
-            style:
-            kTextStyle.copyWith(fontSize: 18, color: Colors.blueAccent),
+            style: kTextStyle.copyWith(fontSize: 18, color: Colors.blueAccent),
             recognizer: TapGestureRecognizer()
               ..onTap = () {
                 launch(url);
