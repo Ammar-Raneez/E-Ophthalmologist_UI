@@ -1,6 +1,6 @@
+import 'dart:math';
 import 'dart:ui';
 
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
@@ -37,6 +37,13 @@ class _HomeScreenState extends State<HomeScreen> {
   // user eye scans
   bool haveScans = true;
   var eyeScans = [];
+
+  // eye scan reports bg image
+  var eyeScanBgImage = [
+    "images/doctor1.jpg",
+    "images/doctor2.jpg",
+    "images/doctor3.jpg",
+  ];
 
   bool showSpinner = false;
 
@@ -111,6 +118,11 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
+  getRandomEyeScanImage() {
+    final random = Random();
+    return eyeScanBgImage[random.nextInt(eyeScanBgImage.length)];
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -153,9 +165,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               Text(
                                 "90%",
                                 style: kTextStyle.copyWith(
-                                  fontSize: 30,
-                                  color: Colors.red
-                                ),
+                                    fontSize: 30, color: Colors.red),
                               ),
                               Text(
                                 "Chance of sight\nthreatening retinopathy",
@@ -263,33 +273,29 @@ class _HomeScreenState extends State<HomeScreen> {
                                       height: 100,
                                       child: Row(
                                         children: [
-                                          CachedNetworkImage(
-                                            // while image downloads, display a spinner
-                                            progressIndicatorBuilder: (context,
-                                                    url, downloadProgress) =>
-                                                SizedBox(
-                                              height: 50,
-                                              child: Center(
-                                                child:
-                                                    CircularProgressIndicator(
-                                                        value: downloadProgress
-                                                            .progress),
+                                          Container(
+                                            width: MediaQuery.of(context)
+                                                    .size
+                                                    .width /
+                                                2.5,
+                                            child: FittedBox(
+                                              child: Image.asset(
+                                                getRandomEyeScanImage(),
+                                                height: 100,
                                               ),
+                                              fit: BoxFit.fill,
                                             ),
-                                            imageUrl: eyeScans[index]
-                                                ['image_url'],
-                                            height: 100,
                                           ),
                                           Container(
                                             width: MediaQuery.of(context)
                                                     .size
                                                     .width /
-                                                1.8,
-                                            child: Align(
-                                              alignment: Alignment.center,
+                                                2,
+                                            child: Padding(
+                                              padding: const EdgeInsets.all(16.0),
                                               child: Column(
                                                 crossAxisAlignment:
-                                                    CrossAxisAlignment.center,
+                                                    CrossAxisAlignment.start,
                                                 mainAxisAlignment:
                                                     MainAxisAlignment.center,
                                                 children: [
@@ -318,7 +324,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                                     1000)
                                                             .year
                                                             .toString(),
-                                                    style: kTextStyle,
+                                                    style: kTextStyle.copyWith(fontSize: 16),
                                                   ),
                                                   Text(
                                                     "Condition: " +
@@ -327,7 +333,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                             .toString()
                                                             .toUpperCase(),
                                                     style: kTextStyle.copyWith(
-                                                        fontSize: 11.0),
+                                                        fontSize: 16.0),
                                                   ),
                                                 ],
                                               ),
@@ -360,7 +366,14 @@ class _HomeScreenState extends State<HomeScreen> {
             style: kTextStyle.copyWith(color: Colors.indigo, fontSize: 25),
           ),
           SizedBox(
-            height: 25.0,
+            height: 10.0,
+          ),
+          Text(
+            val.toString(),
+            style: kTextStyle.copyWith(fontSize: 30, color: Colors.black),
+          ),
+          SizedBox(
+            height: 10.0,
           ),
           Text(
             unit,
@@ -368,10 +381,6 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
           SizedBox(
             height: 5.0,
-          ),
-          Text(
-            val.toString(),
-            style: kTextStyle.copyWith(fontSize: 30, color: Colors.black),
           ),
         ],
       ),
