@@ -62,12 +62,17 @@ class _DrawableSidebarState extends State<DrawableSidebar> {
             decoration: BoxDecoration(
               color: Colors.blue,
               image: DecorationImage(
-                  fit: BoxFit.fill, image: AssetImage('images/sidebarBg.jpg')),
+                fit: BoxFit.fill,
+                image: AssetImage('images/sidebarBg.jpg'),
+              ),
             ),
           ),
           ListTile(
             leading: Icon(Icons.person),
-            title: Text("Edit Profile", style: kTextStyle,),
+            title: Text(
+              "Edit Profile",
+              style: kTextStyle,
+            ),
             onTap: () => Navigator.pushNamed(context, EditProfileScreen.id),
           )
         ],
