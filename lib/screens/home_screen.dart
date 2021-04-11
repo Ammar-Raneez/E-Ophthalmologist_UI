@@ -34,6 +34,7 @@ class _HomeScreenState extends State<HomeScreen> {
   var dm;
   var smoker;
 
+  // user eye scans
   bool haveScans = true;
   var eyeScans = [];
 
@@ -45,10 +46,12 @@ class _HomeScreenState extends State<HomeScreen> {
     getUserDetails();
   }
 
+  // get current user details
   getUserDetails() async {
     var document = await _firestore.collection("users").doc(user.email).get();
     var tempScans = [];
 
+    // get all the scans done by this user
     await document.reference.collection("eye-scans").get().then((value) => {
           value.docs.forEach((element) {
             tempScans.add(element.data());
@@ -57,6 +60,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
     setState(() {
       userDetails = document.data();
+      // act as a toggle
       haveScans = tempScans.length != 0 ? true : false;
     });
 
@@ -112,6 +116,7 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       body: ModalProgressHUD(
         inAsyncCall: showSpinner,
+        // if there are scans, but not fetched yet, display a spinner
         child: haveScans && eyeScans.length == 0
             ? Align(
                 child: CircularProgressIndicator(),
@@ -180,6 +185,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     _commonHorizontalCard(
                         title: 'HDL', unit: 'mg/dL', val: hdl),
                     eyeScans.length == 0
+                        // if there are not any scans do not show this section
                         ? Container(
                             width: 0,
                             height: 0,
@@ -197,6 +203,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             ),
                           ),
                     eyeScans.length == 0
+                        // if there are not any scans do not show this section
                         ? Container(
                             width: 0,
                             height: 0,
@@ -213,6 +220,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                     (BuildContext context, int index) =>
                                         GestureDetector(
                                   onTap: () {
+                                    // pass the specific scan details to diagnosis result screen
                                     var argsForResult = {
                                       'result': eyeScans[index]['result'],
                                       'image_url': eyeScans[index]['image_url'],
@@ -228,6 +236,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                       child: Row(
                                         children: [
                                           CachedNetworkImage(
+                                            // while image downloads, display a spinner
                                             progressIndicatorBuilder: (context,
                                                     url, downloadProgress) =>
                                                 SizedBox(
