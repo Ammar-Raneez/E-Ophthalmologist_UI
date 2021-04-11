@@ -6,13 +6,15 @@ class ReportPageReportAppointment extends StatelessWidget {
   final String date;
   final Color cardColor;
   final String textColor;
+  final String bgImage;
 
   ReportPageReportAppointment(
       {@required this.hospital,
       @required this.doctor,
       @required this.date,
       @required this.cardColor,
-      @required this.textColor});
+      @required this.textColor,
+      @required this.bgImage});
 
   @override
   Widget build(BuildContext buildContext) => Padding(
@@ -68,6 +70,10 @@ class ReportPageReportAppointment extends StatelessWidget {
                   ],
                 ),
               ),
+            ),
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                  image: AssetImage(bgImage), fit: BoxFit.cover),
             ),
           ),
           color: cardColor,

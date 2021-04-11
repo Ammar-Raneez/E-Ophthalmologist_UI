@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
@@ -33,6 +35,22 @@ class _ReportScreenState extends State<ReportScreen> {
 
   bool showSpinner = false;
   bool delete = false;
+
+  var appointmentBgImages = [
+    "images/appointment1.jpg",
+    "images/appointment2.jpg",
+    "images/appointment3.jpg",
+    "images/appointment4.jpg",
+    "images/appointment5.jpg"
+  ];
+
+  var reportBgImages = [
+    "images/appointment1.jpg",
+    "images/appointment2.jpg",
+    "images/appointment3.jpg",
+    "images/appointment4.jpg",
+    "images/appointment5.jpg"
+  ];
 
   @override
   void initState() {
@@ -226,6 +244,16 @@ class _ReportScreenState extends State<ReportScreen> {
     );
   }
 
+  getRandomAppointmentImage() {
+    final random = Random();
+    return appointmentBgImages[random.nextInt(appointmentBgImages.length)];
+  }
+
+  getRandomReportImage() {
+    final random = Random();
+    return reportBgImages[random.nextInt(reportBgImages.length)];
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -363,6 +391,9 @@ class _ReportScreenState extends State<ReportScreen> {
               date: whichDocs[index]['date'],
               cardColor: cardColor,
               textColor: '0xffffffff',
+              bgImage: isReport
+                  ? getRandomReportImage()
+                  : getRandomAppointmentImage(),
             ),
             onTap: () {
               var argsForResult = {
