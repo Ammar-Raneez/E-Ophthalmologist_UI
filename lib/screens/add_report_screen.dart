@@ -198,7 +198,7 @@ class _AddReportScreenState extends State<AddReportScreen> {
                         ),
                 ),
                 SizedBox(
-                  height: 30,
+                  height: 40,
                 ),
                 RoundedButton(
                   onPressed: () async {
@@ -246,8 +246,11 @@ class _AddReportScreenState extends State<AddReportScreen> {
                     }
                   },
                   title: "CONFIRM",
-                  colour: Color(0xff01CDFA),
-                )
+                  colour: Colors.indigo,
+                ),
+                SizedBox(
+                  height: 10,
+                ),
               ],
             ),
           ),
@@ -258,6 +261,7 @@ class _AddReportScreenState extends State<AddReportScreen> {
             "+",
             style: TextStyle(fontSize: 40),
           ),
+          backgroundColor: Colors.redAccent,
         ),
       ),
     );

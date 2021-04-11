@@ -118,7 +118,7 @@ class _DiagnosisResultScreenState extends State<DiagnosisResultScreen> {
                     onPressed: () {
                       Navigator.pop(context);
                     },
-                    colour: Color(0xff01CDFA),
+                    colour: Colors.indigo,
                     title: "Back to Home",
                   ),
                 ),

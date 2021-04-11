@@ -180,7 +180,7 @@ class _ReportScreenState extends State<ReportScreen> {
                     vertical: 10,
                     horizontal: 30,
                   ),
-                  color: Color(0xff01CDFA),
+                  color: Colors.indigo,
                   shape: new RoundedRectangleBorder(
                     borderRadius: new BorderRadius.circular(
                       10.0,
@@ -227,7 +227,7 @@ class _ReportScreenState extends State<ReportScreen> {
                     vertical: 10,
                     horizontal: 30,
                   ),
-                  color: Color(0xff01CDFA),
+                  color: Colors.indigo,
                   shape: new RoundedRectangleBorder(
                     borderRadius: new BorderRadius.circular(
                       10.0,
@@ -327,7 +327,7 @@ class _ReportScreenState extends State<ReportScreen> {
                           alertTitle: "Delete Report",
                           alertDesc:
                               "Are you sure you want to delete this report?",
-                          cardColor: Color(0xff01CDFA),
+                          cardColor: Colors.white54,
                         )
                       : _emptyReportAppointment(
                           emptyText:
@@ -341,6 +341,7 @@ class _ReportScreenState extends State<ReportScreen> {
           "+",
           style: TextStyle(fontSize: 40),
         ),
+        backgroundColor: Colors.indigo,
       ),
     );
   }

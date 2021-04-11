@@ -302,7 +302,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                               }
                             }
                           },
-                          colour: Color(0xff01CDFA),
+                          colour: Colors.indigo,
                           title: 'CONFIRM',
                         ),
                         SizedBox(

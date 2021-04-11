@@ -227,7 +227,7 @@ class _AddAppointmentScreenState extends State<AddAppointmentScreen> {
                       }
                     },
                     title: "CONFIRM APPOINTMENT",
-                    colour: Color(0xff01CDFA),
+                    colour: Colors.indigo,
                   ),
                 )
               ],

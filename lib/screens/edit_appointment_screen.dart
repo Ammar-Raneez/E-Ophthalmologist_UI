@@ -240,7 +240,7 @@ class _EditAppointmentScreenState extends State<EditAppointmentScreen> {
                       }
                     },
                     title: "CONFIRM APPOINTMENT",
-                    colour: Color(0xff01CDFA),
+                    colour: Colors.indigo,
                   ),
                 )
               ],

@@ -201,7 +201,7 @@ class _DiagnosisScreenState extends State<DiagnosisScreen> {
                             onPressed: () {
                               _detect();
                             },
-                            colour: Colors.lightBlueAccent,
+                            colour: Colors.indigo,
                             title: 'UPLOAD',
                           ),
                         ],
