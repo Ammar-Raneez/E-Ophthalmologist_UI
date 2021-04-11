@@ -41,7 +41,12 @@ class _ReportScreenState extends State<ReportScreen> {
     "images/appointment2.jpg",
     "images/appointment3.jpg",
     "images/appointment4.jpg",
-    "images/appointment5.jpg"
+    "images/appointment5.jpg",
+    "images/appointment6.jpg",
+    "images/appointment7.jpg",
+    "images/appointment8.jpg",
+    "images/appointment9.jpg",
+    "images/appointment10.jpg"
   ];
 
   var reportBgImages = [
@@ -49,7 +54,12 @@ class _ReportScreenState extends State<ReportScreen> {
     "images/appointment2.jpg",
     "images/appointment3.jpg",
     "images/appointment4.jpg",
-    "images/appointment5.jpg"
+    "images/appointment5.jpg",
+    "images/appointment6.jpg",
+    "images/appointment7.jpg",
+    "images/appointment8.jpg",
+    "images/appointment9.jpg",
+    "images/appointment10.jpg"
   ];
 
   @override
