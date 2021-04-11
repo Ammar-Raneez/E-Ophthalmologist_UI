@@ -28,8 +28,8 @@ class _HomeScreenState extends State<HomeScreen> {
 
   static String bmi = "";
   static String a1c = "";
-  static String ldl = "";
-  static String hdl = "";
+  static String systolic = "";
+  static String diastolic = "";
   static String duration = "";
   var gender;
   var dm;
@@ -75,8 +75,8 @@ class _HomeScreenState extends State<HomeScreen> {
     setState(() {
       bmi = userDetails['BMI'];
       a1c = userDetails['A1C'];
-      ldl = userDetails['LDL'];
-      hdl = userDetails['HDL'];
+      systolic = userDetails['systolic'];
+      diastolic = userDetails['diastolic'];
       duration = userDetails['Duration'];
       dm = userDetails['DM Type'];
       gender = userDetails['gender'];
@@ -227,9 +227,9 @@ class _HomeScreenState extends State<HomeScreen> {
                     Row(
                       children: [
                         _commonHorizontalCard(
-                            title: 'LDL', unit: 'mg/dL', val: ldl),
+                            title: 'SYSTOLIC', unit: 'mg/dL', val: systolic),
                         _commonHorizontalCard(
-                            title: 'HDL', unit: 'mg/dL', val: hdl),
+                            title: 'DIASTOLIC', unit: 'mg/dL', val: diastolic),
                       ],
                     ),
                     eyeScans.length == 0

@@ -23,8 +23,8 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
   String email;
   String bmi;
   String a1c;
-  String ldl;
-  String hdl;
+  String systolic;
+  String diastolic;
   String duration;
   String password;
 
@@ -38,9 +38,9 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
   bool visiblePassword = false;
 
   var _bmiController = TextEditingController();
-  var _hdlController = TextEditingController();
+  var _diastolicController = TextEditingController();
   var _a1cController = TextEditingController();
-  var _ldlController = TextEditingController();
+  var _systolicController = TextEditingController();
   var _durationController = TextEditingController();
   var _usernameController = TextEditingController();
   var _passwordTextFieldController = TextEditingController();
@@ -162,12 +162,12 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                   }),
                   kTextField(_bmiController, (value) => bmi = value,
                       "Enter BMI", TextInputType.number, true),
-                  kTextField(_hdlController, (value) => hdl = value,
-                      "Enter HDL", TextInputType.number, true),
+                  kTextField(_diastolicController, (value) => diastolic = value,
+                      "Enter Diastolic Pressure", TextInputType.number, true),
                   kTextField(_a1cController, (value) => a1c = value,
                       "Enter A1C", TextInputType.number, true),
-                  kTextField(_ldlController, (value) => ldl = value,
-                      "Enter LDL", TextInputType.number, true),
+                  kTextField(_systolicController, (value) => systolic = value,
+                      "Enter Systolic Pressure", TextInputType.number, true),
                   kTextField(_durationController, (value) => duration = value,
                       "Duration of Diabetes", TextInputType.number, true),
                   registrationInputLabel("Diabetes Mellitus Type"),
@@ -235,8 +235,8 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                           password == null ||
                           bmi == null ||
                           a1c == null ||
-                          ldl == null ||
-                          hdl == null ||
+                          systolic == null ||
+                          diastolic == null ||
                           duration == null ||
                           selectedDate == null ||
                           gender == null ||
@@ -247,8 +247,8 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                           password == "" ||
                           bmi == "" ||
                           a1c == "" ||
-                          ldl == "" ||
-                          hdl == "" ||
+                          systolic == "" ||
+                          diastolic == "" ||
                           duration == "" ||
                           dm == "" ||
                           gender == "" ||
@@ -272,8 +272,8 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                             "DOB": selectedDate,
                             "BMI": bmi,
                             "A1C": a1c,
-                            "LDL": ldl,
-                            "HDL": hdl,
+                            "systolic": systolic,
+                            "diastolic": diastolic,
                             "Duration": duration,
                             "gender": gender.toString(),
                             "DM Type": dm.toString(),
@@ -299,8 +299,8 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                           _usernameController.clear();
                           _passwordTextFieldController.clear();
                           _bmiController.clear();
-                          _hdlController.clear();
-                          _ldlController.clear();
+                          _diastolicController.clear();
+                          _systolicController.clear();
                           _durationController.clear();
                           _a1cController.clear();
                         } catch (e) {

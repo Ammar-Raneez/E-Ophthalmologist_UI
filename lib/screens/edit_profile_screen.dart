@@ -26,8 +26,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   static String username = "";
   static String bmi = "";
   static String a1c = "";
-  static String ldl = "";
-  static String hdl = "";
+  static String systolic = "";
+  static String diastolic = "";
   static String duration = "";
 
   DateTime startDate;
@@ -36,9 +36,9 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   var dm;
   var smoker;
   var _bmiController;
-  var _hdlController;
+  var _diastolicController;
   var _a1cController;
-  var _ldlController;
+  var _systolicController;
   var _durationController;
   var _usernameController;
 
@@ -64,8 +64,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
       username = userDetails['username'];
       bmi = userDetails['BMI'];
       a1c = userDetails['A1C'];
-      ldl = userDetails['LDL'];
-      hdl = userDetails['HDL'];
+      systolic = userDetails['systolic'];
+      diastolic = userDetails['diastolic'];
       duration = userDetails['Duration'];
       selectedDate = userDetails['DOB'];
       dm = userDetails['DM Type'];
@@ -75,12 +75,12 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
       // populate the text fields with the current values after fetching
       _bmiController =
           TextEditingController.fromValue(TextEditingValue(text: "$bmi"));
-      _hdlController =
-          TextEditingController.fromValue(TextEditingValue(text: "$hdl"));
+      _diastolicController =
+          TextEditingController.fromValue(TextEditingValue(text: "$diastolic"));
       _a1cController =
           TextEditingController.fromValue(TextEditingValue(text: "$a1c"));
-      _ldlController =
-          TextEditingController.fromValue(TextEditingValue(text: "$ldl"));
+      _systolicController =
+          TextEditingController.fromValue(TextEditingValue(text: "$systolic"));
       _durationController =
           TextEditingController.fromValue(TextEditingValue(text: "$duration"));
       _usernameController =
@@ -208,11 +208,11 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                             "Enter BMI",
                             TextInputType.number,
                             enableTextFields),
-                        registrationInputLabel("HDL"),
+                        registrationInputLabel("Diastolic Pressure"),
                         kTextField(
-                            _hdlController,
-                            (value) => hdl = value,
-                            "Enter HDL",
+                            _diastolicController,
+                            (value) => diastolic = value,
+                            "Enter diastolic pressure",
                             TextInputType.number,
                             enableTextFields),
                         registrationInputLabel("A1C"),
@@ -222,17 +222,17 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                             "Enter A1C",
                             TextInputType.number,
                             enableTextFields),
-                        registrationInputLabel("LDL"),
+                        registrationInputLabel("Systolic Pressure"),
                         kTextField(
-                            _ldlController,
-                            (value) => ldl = value,
-                            "Enter LDL",
+                            _systolicController,
+                            (value) => systolic = value,
+                            "Enter systolic pressure",
                             TextInputType.number,
                             enableTextFields),
                         registrationInputLabel("Duration of Diabetes"),
                         kTextField(
                             _durationController,
-                                (value) => duration = value,
+                            (value) => duration = value,
                             "Enter duration",
                             TextInputType.number,
                             enableTextFields),
@@ -269,8 +269,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                   if (username == null ||
                                       bmi == null ||
                                       a1c == null ||
-                                      ldl == null ||
-                                      hdl == null ||
+                                      systolic == null ||
+                                      diastolic == null ||
                                       duration == null ||
                                       selectedDate == null ||
                                       gender == null ||
@@ -279,8 +279,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                       username == "" ||
                                       bmi == "" ||
                                       a1c == "" ||
-                                      ldl == "" ||
-                                      hdl == "" ||
+                                      systolic == "" ||
+                                      diastolic == "" ||
                                       dm == "" ||
                                       gender == "" ||
                                       smoker == "") {
@@ -305,8 +305,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                         "DOB": selectedDate,
                                         "BMI": bmi,
                                         "A1C": a1c,
-                                        "LDL": ldl,
-                                        "HDL": hdl,
+                                        "systolic": systolic,
+                                        "diastolic": diastolic,
                                         "Duration": duration,
                                         "gender": gender.toString(),
                                         "DM Type": dm.toString(),
@@ -324,8 +324,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                       // clear all fields
                                       _usernameController.clear();
                                       _bmiController.clear();
-                                      _hdlController.clear();
-                                      _ldlController.clear();
+                                      _diastolicController.clear();
+                                      _systolicController.clear();
                                       _a1cController.clear();
                                     } catch (e) {
                                       createAlertDialog(
