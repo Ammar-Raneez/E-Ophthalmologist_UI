@@ -49,6 +49,10 @@ class ReportPageReportAppointment extends StatelessWidget {
             decoration: BoxDecoration(
               image: DecorationImage(
                   image: AssetImage(bgImage), fit: BoxFit.cover),
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(10.0),
+                bottomRight: Radius.circular(10.0),
+              ),
             ),
           ),
           color: cardColor,

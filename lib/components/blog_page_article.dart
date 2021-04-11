@@ -6,11 +6,13 @@ class BlogArticle extends StatelessWidget {
   final String cardTitle;
   final Color cardColor;
   final String textColor;
+  final String bgImage;
 
   BlogArticle(
       {@required this.cardTitle,
       @required this.cardColor,
-      @required this.textColor});
+      @required this.textColor,
+      @required this.bgImage});
 
   @override
   Widget build(BuildContext buildContext) => Padding(
@@ -33,6 +35,14 @@ class BlogArticle extends StatelessWidget {
                     int.parse(textColor),
                   ),
                 ),
+              ),
+            ),
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                  image: AssetImage(bgImage), fit: BoxFit.cover),
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(10.0),
+                bottomRight: Radius.circular(10.0),
               ),
             ),
           ),
