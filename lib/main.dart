@@ -13,6 +13,7 @@ import 'package:ui/screens/login_screen.dart';
 import 'package:ui/screens/registration_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:ui/screens/report_screen.dart';
+import 'package:ui/screens/specific_blog_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -31,6 +32,7 @@ class MyApp extends StatelessWidget {
       routes: {
         HomeScreen.id: (context) => HomeScreen(),
         BlogScreen.id: (context) => BlogScreen(),
+        SpecificBlogScreen.id: (context) => SpecificBlogScreen(),
         LoginScreen.id: (context) => LoginScreen(),
         CurrentScreen.id: (context) => CurrentScreen(),
         RegistrationScreen.id: (context) => RegistrationScreen(),

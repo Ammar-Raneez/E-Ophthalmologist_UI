@@ -1,9 +1,6 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:ui/components/blog_page_article.dart';
-
-final _firestore = FirebaseFirestore.instance;
+import 'package:ui/screens/specific_blog_screen.dart';
 
 class BlogScreen extends StatefulWidget {
   static String id = "blogScreen";
@@ -13,75 +10,53 @@ class BlogScreen extends StatefulWidget {
 }
 
 class _BlogScreenState extends State<BlogScreen> {
-  User user = FirebaseAuth.instance.currentUser;
-  var userDetails;
-
   @override
   void initState() {
     super.initState();
-    getUserDetails();
   }
 
-  getUserDetails() async {
-    var document = await _firestore.collection("users").doc(user.email).get();
-    setState(() {
-      userDetails = document.data();
-    });
-  }
+  var textColors = ["0xFF757575", "0xFFFFFFFF", "0xFF757575", "0xFFFFFFFF"];
+  var cardColors = [
+    Color(0xffeeeeee),
+    Colors.lightBlueAccent,
+    Color(0xffeeeeee),
+    Colors.lightBlueAccent
+  ];
+  var cardTitles = [
+    "Retinopathy Stages",
+    "Diabetes Types",
+    "Guidelines",
+    "Treatments"
+  ];
 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
         body: Container(
-          child: userDetails == null
-              ? Align(
-                  child: CircularProgressIndicator(),
-                  alignment: Alignment.center,
-                )
-              : Column(
-                  children: [
-                    Expanded(
-                      child: Center(
-                        child: ListView(
-                          children: [
-                            Container(
-                              child: BlogArticle(
-                                cardTitle: 'Retinopathy Stages',
-                                cardColor: Color(0xffeeeeee),
-                                textColor: '0xFF757575',
-                              ),
-                            ),
-                            Container(
-                              child: BlogArticle(
-                                cardTitle: 'Diabetes Types',
-                                cardColor: Colors.lightBlueAccent,
-                                textColor: '0xFFFFFFFF',
-                              ),
-                            ),
-                            Container(
-                              child: BlogArticle(
-                                cardTitle: 'Guidelines',
-                                cardColor: Color(0xffeeeeee),
-                                textColor: '0xFF757575',
-                              ),
-                            ),
-                            Container(
-                              child: BlogArticle(
-                                cardTitle: 'Treatments',
-                                cardColor: Colors.lightBlueAccent,
-                                textColor: '0xFFFFFFFF',
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
+          child: Column(
+            children: [
+              Expanded(
+                child: Center(
+                  child: ListView.builder(
+                    itemCount: cardTitles.length,
+                    itemBuilder: (context, index) => GestureDetector(
+                      onTap: () {
+                        Navigator.pushNamed(context, SpecificBlogScreen.id);
+                      },
+                      child: BlogArticle(
+                          cardTitle: cardTitles[index],
+                          cardColor: cardColors[index],
+                          textColor: textColors[index]),
                     ),
-                    SizedBox(
-                      height: 21,
-                    ),
-                  ],
+                  ),
                 ),
+              ),
+              SizedBox(
+                height: 21,
+              ),
+            ],
+          ),
         ),
       ),
     );
