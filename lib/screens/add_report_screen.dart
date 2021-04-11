@@ -155,9 +155,9 @@ class _AddReportScreenState extends State<AddReportScreen> {
               children: [
                 _commonLabelText(title: "Add Report", fontSize: 20.0),
                 kTextField(_hospitalController, (value) => hospital = value,
-                    "Hospital", TextInputType.text),
+                    "Hospital", TextInputType.text, true),
                 kTextField(_doctorController, (value) => doctor = value,
-                    "Doctor", TextInputType.text),
+                    "Doctor", TextInputType.text, true),
                 Padding(
                   padding: const EdgeInsets.all(10.0),
                   child: OutlinedButton(

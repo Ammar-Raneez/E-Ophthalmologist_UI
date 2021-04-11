@@ -121,9 +121,9 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                     ],
                   ),
                   kTextField(_usernameController, (value) => username = value,
-                      "Enter Username", TextInputType.text),
+                      "Enter Username", TextInputType.text, true),
                   kTextField(_emailAddressController, (value) => email = value,
-                      "Enter Email Address", TextInputType.emailAddress),
+                      "Enter Email Address", TextInputType.emailAddress, true),
                   Padding(
                     padding: const EdgeInsets.all(10.0),
                     child: OutlinedButton(
@@ -159,13 +159,13 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                     });
                   }),
                   kTextField(_bmiController, (value) => bmi = value,
-                      "Enter BMI", TextInputType.number),
+                      "Enter BMI", TextInputType.number, true),
                   kTextField(_hdlController, (value) => hdl = value,
-                      "Enter HDL", TextInputType.number),
+                      "Enter HDL", TextInputType.number, true),
                   kTextField(_a1cController, (value) => a1c = value,
-                      "Enter A1C", TextInputType.number),
+                      "Enter A1C", TextInputType.number, true),
                   kTextField(_ldlController, (value) => ldl = value,
-                      "Enter LDL", TextInputType.number),
+                      "Enter LDL", TextInputType.number, true),
                   registrationInputLabel("Diabetes Mellitus Type"),
                   registrationRadioButton("Type 1", DMType.Type1, dm, (value) {
                     setState(() {

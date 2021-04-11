@@ -32,6 +32,8 @@ class _EditAppointmentScreenState extends State<EditAppointmentScreen> {
   String appointmentId;
   bool showSpinner = false;
 
+  bool enableTextFields = false;
+
   // hospital names and links to choose from
   var hospitalNames = [
     "National Eye Hospital",
@@ -157,12 +159,12 @@ class _EditAppointmentScreenState extends State<EditAppointmentScreen> {
                 ),
                 _commonLabelText(title: "Register Details", fontSize: 16.0),
                 kTextField(_hospitalController, (value) => hospital = value,
-                    "Hospital", TextInputType.text),
+                    "Hospital", TextInputType.text, enableTextFields),
                 SizedBox(
                   height: 20,
                 ),
                 kTextField(_doctorController, (value) => doctor = value,
-                    "Doctor", TextInputType.text),
+                    "Doctor", TextInputType.text, enableTextFields),
                 SizedBox(
                   height: 30,
                 ),

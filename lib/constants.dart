@@ -44,9 +44,9 @@ const kTextStyle = TextStyle(
   fontFamily: 'Poppins-Regular',
 );
 
-// This constant is for all tect fields
-Padding kTextField(
-    var controller, Function onChange, String hintText, var keyboardType) {
+// This constant is for all text fields
+Padding kTextField(var controller, Function onChange, String hintText,
+    var keyboardType, bool isEnabled) {
   return Padding(
     padding: const EdgeInsets.all(10.0),
     child: TextField(
@@ -55,6 +55,7 @@ Padding kTextField(
       decoration: kTextFieldDecoration.copyWith(
         hintText: hintText,
       ),
+      enabled: isEnabled,
       keyboardType: keyboardType,
     ),
   );

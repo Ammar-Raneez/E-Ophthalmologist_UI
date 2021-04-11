@@ -36,6 +36,8 @@ class _EditReportScreenState extends State<EditReportScreen> {
   String reportID;
   bool showSpinner = false;
 
+  bool enableTextFields = false;
+
   var imageDocumentsURLS = [];
 
   @override
@@ -173,9 +175,10 @@ class _EditReportScreenState extends State<EditReportScreen> {
                             _hospitalController,
                             (value) => hospital = value,
                             "Hospital",
-                            TextInputType.text),
+                            TextInputType.text,
+                            enableTextFields),
                         kTextField(_doctorController, (value) => doctor = value,
-                            "Doctor", TextInputType.text),
+                            "Doctor", TextInputType.text, enableTextFields),
                         Padding(
                           padding: const EdgeInsets.all(10.0),
                           child: OutlinedButton(
@@ -186,7 +189,7 @@ class _EditReportScreenState extends State<EditReportScreen> {
                               ),
                             ),
                             onPressed: () async {
-                              await selectDate(context);
+                              enableTextFields && await selectDate(context);
                             },
                             style: ButtonStyle(
                               shadowColor: MaterialStateProperty.all<Color>(
@@ -239,62 +242,73 @@ class _EditReportScreenState extends State<EditReportScreen> {
                         SizedBox(
                           height: 40,
                         ),
-                        CustomRoundedButton(
-                          onPressed: () async {
-                            if (doctor == null ||
-                                hospital == null ||
-                                selectedDate == null ||
-                                doctor == "" ||
-                                hospital == "" ||
-                                selectedDate == "") {
-                              createAlertDialog(
-                                  context,
-                                  "Error",
-                                  "Please fill all the given fields to proceed",
-                                  404);
-                            } else {
-                              setState(() {
-                                showSpinner = true;
-                              });
+                        enableTextFields
+                            ? CustomRoundedButton(
+                                onPressed: () async {
+                                  if (doctor == null ||
+                                      hospital == null ||
+                                      selectedDate == null ||
+                                      doctor == "" ||
+                                      hospital == "" ||
+                                      selectedDate == "") {
+                                    createAlertDialog(
+                                        context,
+                                        "Error",
+                                        "Please fill all the given fields to proceed",
+                                        404);
+                                  } else {
+                                    setState(() {
+                                      showSpinner = true;
+                                    });
 
-                              try {
-                                // update the specific report with the new details
-                                await _firestore
-                                    .collection("users")
-                                    .doc(email)
-                                    .collection("past-reports")
-                                    .doc(reportID)
-                                    .set({
-                                  'doctor': doctor,
-                                  'hospital': hospital,
-                                  'date': selectedDate,
-                                  'image_document_urls': imageDocumentsURLS
-                                });
+                                    try {
+                                      // update the specific report with the new details
+                                      await _firestore
+                                          .collection("users")
+                                          .doc(email)
+                                          .collection("past-reports")
+                                          .doc(reportID)
+                                          .set({
+                                        'doctor': doctor,
+                                        'hospital': hospital,
+                                        'date': selectedDate,
+                                        'image_document_urls':
+                                            imageDocumentsURLS
+                                      });
 
-                                createAlertDialog(
-                                    context,
-                                    "Success",
-                                    "Report Details have been edited successfully!",
-                                    200);
+                                      createAlertDialog(
+                                          context,
+                                          "Success",
+                                          "Report Details have been edited successfully!",
+                                          200);
 
-                                setState(() {
-                                  showSpinner = false;
-                                });
+                                      setState(() {
+                                        showSpinner = false;
+                                      });
 
-                                _hospitalController.clear();
-                                _doctorController.clear();
-                              } catch (e) {
-                                createAlertDialog(
-                                    context, "Error", e.message, 404);
-                                setState(() {
-                                  showSpinner = false;
-                                });
-                              }
-                            }
-                          },
-                          title: "CONFIRM",
-                          colour: Colors.indigo,
-                        ),
+                                      _hospitalController.clear();
+                                      _doctorController.clear();
+                                    } catch (e) {
+                                      createAlertDialog(
+                                          context, "Error", e.message, 404);
+                                      setState(() {
+                                        showSpinner = false;
+                                      });
+                                    }
+                                  }
+                                },
+                                title: "CONFIRM",
+                                colour: Colors.indigo,
+                              )
+                            : CustomRoundedButton(
+                                onPressed: () {
+                                  setState(() {
+                                    enableTextFields = true;
+                                  });
+                                },
+                                title: "EDIT",
+                                colour: Colors.indigo,
+                              ),
                         SizedBox(
                           height: 10,
                         ),
@@ -303,14 +317,16 @@ class _EditReportScreenState extends State<EditReportScreen> {
                   ),
                 ),
         ),
-        floatingActionButton: FloatingActionButton(
-          onPressed: () => _openGalleryAndUpload(),
-          child: Text(
-            "+",
-            style: TextStyle(fontSize: 40),
-          ),
-          backgroundColor: Colors.redAccent,
-        ),
+        floatingActionButton: enableTextFields
+            ? FloatingActionButton(
+                onPressed: () => _openGalleryAndUpload(),
+                child: Text(
+                  "+",
+                  style: TextStyle(fontSize: 40),
+                ),
+                backgroundColor: Colors.redAccent,
+              )
+            : null,
       ),
     );
   }

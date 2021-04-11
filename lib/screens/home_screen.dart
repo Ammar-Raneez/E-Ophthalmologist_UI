@@ -280,9 +280,12 @@ class _HomeScreenState extends State<HomeScreen> {
                                                 2.5,
                                             child: FittedBox(
                                               child: Image.asset(
-                                                getRandomEyeScanImage(),
-                                                height: 100,
-                                              ),
+                                                  getRandomEyeScanImage(),
+                                                  height: 100,
+                                                  width: MediaQuery.of(context)
+                                                          .size
+                                                          .width /
+                                                      2.5),
                                               fit: BoxFit.fill,
                                             ),
                                           ),
@@ -292,7 +295,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                                     .width /
                                                 2,
                                             child: Padding(
-                                              padding: const EdgeInsets.all(16.0),
+                                              padding:
+                                                  const EdgeInsets.all(16.0),
                                               child: Column(
                                                 crossAxisAlignment:
                                                     CrossAxisAlignment.start,
@@ -324,7 +328,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                                                     1000)
                                                             .year
                                                             .toString(),
-                                                    style: kTextStyle.copyWith(fontSize: 16),
+                                                    style: kTextStyle.copyWith(
+                                                        fontSize: 16),
                                                   ),
                                                   Text(
                                                     "Condition: " +
