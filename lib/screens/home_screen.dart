@@ -33,6 +33,7 @@ class _HomeScreenState extends State<HomeScreen> {
   static String systolic = "";
   static String diastolic = "";
   static String duration = "";
+  static String haveDr = "";
   static String riskDescription = "";
   static String riskValue = "";
   var gender;
@@ -89,43 +90,36 @@ class _HomeScreenState extends State<HomeScreen> {
       //Enum value is stored, use ternary to get only the Gender value
       gender = gender.toString() == "Gender.Male" ? "Male" : "Female";
       smoker = smoker.toString() == "Smoker.Yes" ? "Yes" : "No";
-      dm = dm.toString() == "DMType.Type1" ? "Type I" : "Type II";
+
+      // two separate variables for retina risk API
+      if (dm.toString() == "DMType.None") {
+        haveDr = "0";
+      } else {
+        haveDr = "1";
+        dm = dm.toString() == "DMType.Type1" ? "Type I" : "Type II";
+      }
+
       eyeScans = tempScans;
     });
   }
 
   getRisk() async {
-      Response loginResponse = await dio.post(
+    Response loginResponse = await dio.post(
         "https://api.retinarisk.com/api/auth/sign-in",
-        data: {
-          "email": "ammarraneez@gmail.com",
-          "password": "Ammarraneez12"
-        }
-      );
+        data: {"email": "ammarraneez@gmail.com", "password": "Ammarraneez12"});
 
-      Response riskResponse = await dio.post(
-        "https://api.retinarisk.com/api/calculator/calculaterisk",
-        data: {
-          "data":
-          {
-            "diabetesDuration": duration,
-            "diabetesType": dm == "Type I" ? "type1" : "type2",
-            "gender": gender == "Female" ? "female" : "male",
-            "hasRetinopathy": "0",
-            "bloodGlucose": a1c,
-            "bloodPressures":
-            {
-              "diastolic": diastolic,
-              "systolic": systolic
-            }
-          },
-          "options":
-          {
-            "format":"json",
-            "language":"en"
-          }
-        }
-      );
+    Response riskResponse = await dio
+        .post("https://api.retinarisk.com/api/calculator/calculaterisk", data: {
+      "data": {
+        "diabetesDuration": duration,
+        "diabetesType": dm == "Type I" ? "type1" : "type2",
+        "gender": gender == "Female" ? "female" : "male",
+        "hasRetinopathy": "0",
+        "bloodGlucose": a1c,
+        "bloodPressures": {"diastolic": diastolic, "systolic": systolic}
+      },
+      "options": {"format": "json", "language": "en"}
+    });
   }
 
   Expanded iconCard(IconData icon, String label, String value) {
@@ -234,11 +228,17 @@ class _HomeScreenState extends State<HomeScreen> {
                                 "GENDER",
                                 gender.toString(),
                               ),
-                        iconCard(
-                          FontAwesomeIcons.eye,
-                          "TYPE",
-                          dm.toString(),
-                        ),
+                        haveDr == "1"
+                            ? iconCard(
+                                FontAwesomeIcons.eye,
+                                "TYPE",
+                                dm.toString(),
+                              )
+                            : iconCard(
+                                FontAwesomeIcons.eyeSlash,
+                                "TYPE",
+                                "None",
+                              ),
                         iconCard(
                             FontAwesomeIcons.calendar, "DURATION", duration),
                         smoker == "No"
