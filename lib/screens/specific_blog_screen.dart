@@ -47,7 +47,7 @@ class _SpecificBlogScreenState extends State<SpecificBlogScreen> {
           backgroundColor: Colors.indigo,
         ),
         body: Padding(
-          padding: const EdgeInsets.all(8.0),
+          padding: const EdgeInsets.all(20.0),
           child: Column(
             children: [
               Container(
@@ -64,7 +64,6 @@ class _SpecificBlogScreenState extends State<SpecificBlogScreen> {
               ),
               Expanded(
                 child: ListView.builder(
-//                    shrinkWrap: true,
                   itemCount: 11,
                   scrollDirection: Axis.vertical,
                   itemBuilder: (context, index) => Card(
@@ -72,21 +71,23 @@ class _SpecificBlogScreenState extends State<SpecificBlogScreen> {
                       height: 100,
                       child: Row(
                         children: [
-                          Image.asset(
-                            "images/clouds.png",
-                            height: 100,
-                            width: 50,
+                          Container(
+                            width: MediaQuery.of(context).size.width / 3,
+                            child: Image.asset(
+                              "images/tempblog.jpg",
+                              height: 100,
+                            ),
                           ),
                           Container(
-                            width: MediaQuery.of(context).size.width / 1.8,
+                            width: MediaQuery.of(context).size.width / 2,
                             child: Align(
                               alignment: Alignment.center,
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  Text("this is a test message"),
-                                  Text("this is a test message"),
+                                  Text(
+                                      "This is a short description of a specific blog post, clicking on this will navigate to the original blog found on the internet..."),
                                 ],
                               ),
                             ),

@@ -240,7 +240,6 @@ class _HomeScreenState extends State<HomeScreen> {
                                             progressIndicatorBuilder: (context,
                                                     url, downloadProgress) =>
                                                 SizedBox(
-//                                              width: width / 2,
                                               height: 50,
                                               child: Center(
                                                 child:
