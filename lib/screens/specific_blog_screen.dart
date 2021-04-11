@@ -76,7 +76,7 @@ class _SpecificBlogScreenState extends State<SpecificBlogScreen> {
                             width: MediaQuery.of(context).size.width / 3,
                             child: Image.asset(
                               "images/tempblog.jpg",
-                              height: 100,
+                              height: 150,
                             ),
                           ),
                           Container(
@@ -88,7 +88,10 @@ class _SpecificBlogScreenState extends State<SpecificBlogScreen> {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   Text(
-                                      "This is a short description of a specific blog post, clicking on this will navigate to the original blog found on the internet..."),
+                                    "Clicking on this will navigate to the original blog found on the internet...",
+                                    style: kTextStyle,
+                                    textAlign: TextAlign.center,
+                                  ),
                                 ],
                               ),
                             ),
