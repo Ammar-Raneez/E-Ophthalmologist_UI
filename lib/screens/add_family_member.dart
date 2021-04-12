@@ -250,6 +250,7 @@ class _AddFamilyMemberScreenState extends State<AddFamilyMemberScreen> {
                             "DM Type": dm.toString(),
                             "smoker": smoker.toString(),
                             'timestamp': Timestamp.now(),
+                            "isFamilyMember": true
                           });
 
                           createAlertDialog(context, "Success",
