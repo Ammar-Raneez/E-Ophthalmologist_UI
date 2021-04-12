@@ -85,7 +85,7 @@ class _DrawableSidebarState extends State<DrawableSidebar> {
     tempIds.add("");
     tempMembers.add(document.data());
 
-    // add all family members, if any, linked to this user
+    // add all family members, if any, linked to this user, to list all the users
     await document.reference.collection("family").get().then((value) => {
           haveFamily = true,
           value.docs.forEach((element) {
