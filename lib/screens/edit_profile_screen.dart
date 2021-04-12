@@ -328,8 +328,9 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                     });
 
                                     try {
-                                      // update this users details
-                                      if (!currentUserDetails['isFamilyMember']) {
+                                      // update main users details
+                                      if (!currentUserDetails[
+                                          'isFamilyMember']) {
                                         _firestore
                                             .collection("users")
                                             .doc(email)
@@ -349,13 +350,14 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                           'timestamp': Timestamp.now(),
                                         });
                                       } else {
+                                        // update family member details
                                         _firestore
                                             .collection("users")
                                             .doc(email)
                                             .collection("family")
-                                            .doc(mainUserDetails['currentFamilyMember'])
+                                            .doc(mainUserDetails[
+                                                'currentFamilyMember'])
                                             .set({
-                                          "userEmail": email,
                                           "username": username,
                                           "DOB": selectedDate,
                                           "BMI": bmi,
@@ -363,11 +365,11 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                           "systolic": systolic,
                                           "diastolic": diastolic,
                                           "Duration": duration,
-                                          "isFamilyMember": true,
                                           "gender": gender.toString(),
                                           "DM Type": dm.toString(),
                                           "smoker": smoker.toString(),
                                           'timestamp': Timestamp.now(),
+                                          "isFamilyMember": true,
                                         });
                                       }
 
