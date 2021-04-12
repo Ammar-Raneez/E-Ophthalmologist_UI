@@ -19,7 +19,7 @@ class AddFamilyMemberScreen extends StatefulWidget {
 
 class _AddFamilyMemberScreenState extends State<AddFamilyMemberScreen> {
   User mainUser = FirebaseAuth.instance.currentUser;
-  String mainUserEmail = "";
+  String email = "";
 
   // new family member registration details
   String username;
@@ -55,7 +55,7 @@ class _AddFamilyMemberScreenState extends State<AddFamilyMemberScreen> {
 
   getMainUserDetails() async {
     setState(() {
-      mainUserEmail = mainUser.email;
+      email = mainUser.email;
     });
   }
 
@@ -232,10 +232,10 @@ class _AddFamilyMemberScreenState extends State<AddFamilyMemberScreen> {
                         });
 
                         try {
-                          // create the user, add all details to firestore and returns a user once created
+                          // create the family member, wont have an email, since its shared
                           _firestore
                               .collection("users")
-                              .doc(mainUserEmail)
+                              .doc(email)
                               .collection("family")
                               .doc(memberID)
                               .set({
