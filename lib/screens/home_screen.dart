@@ -26,6 +26,7 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   Dio dio = new Dio();
   User user = FirebaseAuth.instance.currentUser;
+  var userDocument;
   var userDetails;
 
   static String bmi = "";
@@ -73,20 +74,41 @@ class _HomeScreenState extends State<HomeScreen> {
 //    getRisk();
   }
 
+  // get the actual users document (family members document or main user)
+  getActualUserDocument() async {
+    var document = await _firestore.collection("users").doc(user.email).get();
+
+    if (document.data()['currentFamilyMember'] == '') {
+      setState(() {
+        userDocument = document;
+      });
+    } else {
+      var tempUserDocument = await _firestore
+          .collection("users")
+          .doc(user.email)
+          .collection('family')
+          .doc(document.data()['currentFamilyMember'])
+          .get();
+      setState(() {
+        userDocument = tempUserDocument;
+      });
+    }
+  }
+
   // get current user details
   getUserDetails() async {
-    var document = await _firestore.collection("users").doc(user.email).get();
+    await getActualUserDocument();
     var tempScans = [];
 
     // get all the scans done by this user
-    await document.reference.collection("eye-scans").get().then((value) => {
+    await userDocument.reference.collection("eye-scans").get().then((value) => {
           value.docs.forEach((element) {
             tempScans.add(element.data());
           })
         });
 
     setState(() {
-      userDetails = document.data();
+      userDetails = userDocument.data();
       // act as a toggle
       haveScans = tempScans.length != 0 ? true : false;
     });

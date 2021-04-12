@@ -134,8 +134,7 @@ class _DrawableSidebarState extends State<DrawableSidebar> {
                         "smoker": userDetails['smoker'].toString(),
                         'timestamp': Timestamp.now(),
                         "isFamilyMember": false,
-                          "currentFamilyMember": familyMembers[index]
-                              ['username']
+                          "currentFamilyMember": familyIds[index]
                         });
                       },
                     ),
