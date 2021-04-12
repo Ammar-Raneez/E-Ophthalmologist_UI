@@ -341,77 +341,98 @@ class _HomeScreenState extends State<HomeScreen> {
                                         context, DiagnosisResultScreen.id,
                                         arguments: argsForResult);
                                   },
-                                  child: Card(
-                                    child: Container(
-                                      height: 100,
-                                      child: Row(
-                                        children: [
-                                          Expanded(
-                                            child: FittedBox(
-                                              child: Image.asset(
-                                                getRandomEyeScanImage(),
-                                                height: 100,
-                                                width: 80,
-                                              ),
-                                              fit: BoxFit.fill,
-                                            ),
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Card(
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.all(
+                                          Radius.circular(15.0),
+                                        ),
+                                      ),
+                                      child: Container(
+                                        decoration: BoxDecoration(
+                                          borderRadius: BorderRadius.all(
+                                            Radius.circular(15.0),
                                           ),
-                                          Container(
-                                            width: MediaQuery.of(context)
-                                                    .size
-                                                    .width /
-                                                1.7,
-                                            child: Padding(
-                                              padding:
-                                                  const EdgeInsets.all(16.0),
-                                              child: Column(
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  Text(
-                                                    "Date: " +
-                                                        DateTime.fromMillisecondsSinceEpoch(
-                                                                eyeScans[index][
-                                                                            'timestamp']
-                                                                        .seconds *
-                                                                    1000)
-                                                            .day
-                                                            .toString() +
-                                                        "-" +
-                                                        DateTime.fromMillisecondsSinceEpoch(
-                                                                eyeScans[index][
-                                                                            'timestamp']
-                                                                        .seconds *
-                                                                    1000)
-                                                            .month
-                                                            .toString() +
-                                                        "-" +
-                                                        DateTime.fromMillisecondsSinceEpoch(
-                                                                eyeScans[index][
-                                                                            'timestamp']
-                                                                        .seconds *
-                                                                    1000)
-                                                            .year
-                                                            .toString(),
-                                                    style: kTextStyle.copyWith(
-                                                        fontSize: 16),
-                                                  ),
-                                                  Text(
-                                                    "Condition: " +
-                                                        eyeScans[index]
-                                                                ['result']
-                                                            .toString()
-                                                            .toUpperCase(),
-                                                    style: kTextStyle.copyWith(
-                                                        fontSize: 16.0),
-                                                  ),
-                                                ],
+                                        ),
+                                        height: 100,
+                                        child: Row(
+                                          children: [
+                                            Container(
+                                              width: MediaQuery.of(context)
+                                                      .size
+                                                      .width /
+                                                  3,
+                                              height: 100,
+                                              child: FittedBox(
+                                                child: Image.asset(
+                                                  getRandomEyeScanImage(),
+                                                ),
+                                                fit: BoxFit.fill,
                                               ),
                                             ),
-                                          ),
-                                        ],
+                                            Container(
+                                              width: MediaQuery.of(context)
+                                                      .size
+                                                      .width /
+                                                  1.7,
+                                              child: Padding(
+                                                padding:
+                                                    const EdgeInsets.all(16.0),
+                                                child: Column(
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.center,
+                                                  children: [
+                                                    Text(
+                                                      "Date: " +
+                                                          DateTime.fromMillisecondsSinceEpoch(
+                                                                  eyeScans[index]
+                                                                              [
+                                                                              'timestamp']
+                                                                          .seconds *
+                                                                      1000)
+                                                              .day
+                                                              .toString() +
+                                                          "-" +
+                                                          DateTime.fromMillisecondsSinceEpoch(
+                                                                  eyeScans[index]
+                                                                              [
+                                                                              'timestamp']
+                                                                          .seconds *
+                                                                      1000)
+                                                              .month
+                                                              .toString() +
+                                                          "-" +
+                                                          DateTime.fromMillisecondsSinceEpoch(
+                                                                  eyeScans[index]
+                                                                              [
+                                                                              'timestamp']
+                                                                          .seconds *
+                                                                      1000)
+                                                              .year
+                                                              .toString(),
+                                                      style:
+                                                          kTextStyle.copyWith(
+                                                              fontSize: 16),
+                                                    ),
+                                                    Text(
+                                                      "Condition: " +
+                                                          eyeScans[index]
+                                                                  ['result']
+                                                              .toString()
+                                                              .toUpperCase(),
+                                                      style:
+                                                          kTextStyle.copyWith(
+                                                              fontSize: 16.0),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
                                       ),
                                     ),
                                   ),
