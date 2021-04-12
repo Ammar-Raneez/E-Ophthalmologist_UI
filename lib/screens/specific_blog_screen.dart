@@ -124,7 +124,6 @@ class _SpecificBlogScreenState extends State<SpecificBlogScreen> {
                           child: Column(
                             children: [
                               Container(
-                                color: Colors.red,
                                 width: MediaQuery.of(context).size.width,
                                 height: 200,
                                 child: FittedBox(
@@ -135,53 +134,21 @@ class _SpecificBlogScreenState extends State<SpecificBlogScreen> {
                               SizedBox(
                                 height: 30.0,
                               ),
-                              Container(
-                                width: MediaQuery.of(context).size.width,
-                                child: Padding(
-                                  padding: const EdgeInsets.only(
-                                      left: 20.0, right: 20.0),
-                                  child: Align(
-                                    alignment: Alignment.topLeft,
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          chosenBlogTitles[0],
-                                          style: kTextStyle.copyWith(
-                                            fontSize: 20.0,
-                                            color: Colors.black,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
+                              _commonText(
+                                context,
+                                chosenBlogTitles[0],
+                                kTextStyle.copyWith(
+                                  fontSize: 20.0,
+                                  color: Colors.black,
                                 ),
                               ),
                               SizedBox(
                                 height: 30.0,
                               ),
-                              Container(
-                                width: MediaQuery.of(context).size.width,
-                                child: Padding(
-                                  padding: const EdgeInsets.only(
-                                      left: 20.0, right: 20.0),
-                                  child: Align(
-                                    alignment: Alignment.topLeft,
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.start,
-                                      children: [
-                                        Text(chosenBlogShortDescriptions[0],
-                                            style: kTextStyle),
-                                      ],
-                                    ),
-                                  ),
-                                ),
+                              _commonText(
+                                context,
+                                chosenBlogShortDescriptions[0],
+                                kTextStyle,
                               ),
                               SizedBox(height: 30),
                               Container(
@@ -212,6 +179,29 @@ class _SpecificBlogScreenState extends State<SpecificBlogScreen> {
                     ],
                   ),
                 ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Container _commonText(
+      BuildContext context, String text, TextStyle textStyle) {
+    return Container(
+      width: MediaQuery.of(context).size.width,
+      child: Padding(
+        padding: const EdgeInsets.only(left: 20.0, right: 20.0),
+        child: Align(
+          alignment: Alignment.topLeft,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Text(
+                text,
+                style: textStyle,
               ),
             ],
           ),
