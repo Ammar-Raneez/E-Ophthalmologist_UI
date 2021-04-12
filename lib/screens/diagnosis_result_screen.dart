@@ -1,11 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:ui/components/custom_rounded_button.dart';
 import 'package:ui/constants.dart';
-
-final _firestore = FirebaseFirestore.instance;
 
 class DiagnosisResultScreen extends StatefulWidget {
   static String id = 'diagnosisResultScreen';
@@ -15,28 +11,9 @@ class DiagnosisResultScreen extends StatefulWidget {
 }
 
 class _DiagnosisResultScreenState extends State<DiagnosisResultScreen> {
-  User user = FirebaseAuth.instance.currentUser;
-  var userDetails;
-  String email;
-
   @override
   void initState() {
     super.initState();
-    getUserDetails();
-  }
-
-  // get logged in user details
-  getUserDetails() async {
-    var document = await _firestore.collection("users").doc(user.email).get();
-
-    setState(() {
-      userDetails = document.data();
-      print(userDetails);
-    });
-
-    setState(() {
-      email = userDetails['userEmail'];
-    });
   }
 
   @override
