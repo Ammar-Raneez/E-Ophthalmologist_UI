@@ -33,6 +33,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
 
   DateTime startDate;
 
+  var diagnosis;
   var gender;
   var dm;
   var smoker;
@@ -95,6 +96,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
       diastolic = currentUserDetails['diastolic'];
       duration = currentUserDetails['Duration'];
       selectedDate = currentUserDetails['DOB'];
+      diagnosis = currentUserDetails['Diagnosis'];
       dm = currentUserDetails['DM Type'];
       gender = currentUserDetails['gender'];
       email = currentUserDetails['userEmail'];
@@ -276,10 +278,18 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                             dm = value;
                           });
                         }),
+                        registrationInputLabel("Diagnosed with Retinopathy?"),
                         registrationRadioButton(
-                            "No Retinopathy", DMType.None, dm, (value) {
+                            "No", Diagnosis.No, diagnosis, (value) {
                           setState(() {
-                            dm = value;
+                            diagnosis = value;
+                          });
+                        }),
+                        registrationRadioButton(
+                            "Yes", Diagnosis.Yes, diagnosis,
+                            (value) {
+                          setState(() {
+                            diagnosis = value;
                           });
                         }),
                         registrationInputLabel("Smoker?"),
@@ -308,6 +318,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                       selectedDate == null ||
                                       gender == null ||
                                       dm == null ||
+                                      diagnosis == null ||
                                       smoker == null ||
                                       username == "" ||
                                       bmi == "" ||
@@ -316,6 +327,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                       diastolic == "" ||
                                       dm == "" ||
                                       gender == "" ||
+                                      diagnosis == "" ||
                                       smoker == "") {
                                     createAlertDialog(
                                         context,
@@ -346,6 +358,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                           "isFamilyMember": false,
                                           "gender": gender.toString(),
                                           "DM Type": dm.toString(),
+                                          "Diagnosis": diagnosis.toString(),
                                           "smoker": smoker.toString(),
                                           'timestamp': Timestamp.now(),
                                         });
@@ -367,6 +380,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                           "Duration": duration,
                                           "gender": gender.toString(),
                                           "DM Type": dm.toString(),
+                                          "Diagnosis": diagnosis.toString(),
                                           "smoker": smoker.toString(),
                                           'timestamp': Timestamp.now(),
                                           "isFamilyMember": true,

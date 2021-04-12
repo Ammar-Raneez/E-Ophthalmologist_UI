@@ -35,7 +35,6 @@ class _HomeScreenState extends State<HomeScreen> {
   static String systolic = "";
   static String diastolic = "";
   static String duration = "";
-  static String haveDr = "";
 
   // uncomment when needed
 //  static String riskDescription = "";
@@ -46,6 +45,7 @@ class _HomeScreenState extends State<HomeScreen> {
       "You have a low risk of developing sight threatening retinopathy";
   static String riskValue = "20";
 
+  var diagnosis;
   var gender;
   var dm;
   var smoker;
@@ -123,19 +123,14 @@ class _HomeScreenState extends State<HomeScreen> {
       duration = currentUserDetails['Duration'];
       dm = currentUserDetails['DM Type'];
       gender = currentUserDetails['gender'];
+      diagnosis = currentUserDetails['Diagnosis'];
       smoker = currentUserDetails['smoker'];
 
-      //Enum value is stored, use ternary to get only the Gender value
+      //Enum value is stored, use ternary to produce normal strings
       gender = gender.toString() == "Gender.Male" ? "Male" : "Female";
       smoker = smoker.toString() == "Smoker.Yes" ? "Yes" : "No";
-
-      // two separate variables for retina risk API
-      if (dm.toString() == "DMType.None") {
-        haveDr = "0";
-      } else {
-        haveDr = "1";
-        dm = dm.toString() == "DMType.Type1" ? "Type I" : "Type II";
-      }
+      dm = dm.toString() == "DMType.Type1" ? "Type I" : "Type II";
+      diagnosis = diagnosis.toString() == "Diagnosis.Yes" ? "1" : "0";
 
       eyeScans = tempScans;
     });
@@ -155,7 +150,7 @@ class _HomeScreenState extends State<HomeScreen> {
             "diabetesDuration": duration,
             "diabetesType": dm == "Type I" ? "type1" : "type2",
             "gender": gender == "Female" ? "female" : "male",
-            "hasRetinopathy": haveDr,
+            "hasRetinopathy": diagnosis,
             "bloodGlucose": a1c,
             "bloodPressures": {"diastolic": diastolic, "systolic": systolic}
           },
@@ -289,11 +284,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                 gender.toString(), Colors.blue)
                             : iconCard(FontAwesomeIcons.venus, "GENDER",
                                 gender.toString(), Colors.pink),
-                        haveDr == "1"
-                            ? iconCard(FontAwesomeIcons.eye, "TYPE",
-                                dm.toString(), Colors.purple)
-                            : iconCard(FontAwesomeIcons.eyeSlash, "TYPE",
-                                "None", Colors.indigo),
+                        iconCard(FontAwesomeIcons.eye, "TYPE", dm.toString(),
+                            Colors.purple),
                         iconCard(FontAwesomeIcons.calendar, "DURATION",
                             duration, Colors.grey),
                         smoker == "No"

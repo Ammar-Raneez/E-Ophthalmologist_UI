@@ -31,6 +31,7 @@ class _AddFamilyMemberScreenState extends State<AddFamilyMemberScreen> {
 
   DateTime startDate = DateTime.now();
   String selectedDate = DateFormat("yyyy-MM-dd").format(DateTime.now());
+  var diagnosis;
   var gender;
   var smoker;
   var dm;
@@ -185,10 +186,17 @@ class _AddFamilyMemberScreenState extends State<AddFamilyMemberScreen> {
                       dm = value;
                     });
                   }),
-                  registrationRadioButton("No Retinopathy", DMType.None, dm,
-                      (value) {
+                  registrationInputLabel("Diagnosed with Retinopathy?"),
+                  registrationRadioButton(
+                      "No", Diagnosis.No, diagnosis, (value) {
                     setState(() {
-                      dm = value;
+                      diagnosis = value;
+                    });
+                  }),
+                  registrationRadioButton(
+                      "Yes", Diagnosis.Yes, diagnosis, (value) {
+                    setState(() {
+                      diagnosis = value;
                     });
                   }),
                   registrationInputLabel("Smoker?"),
@@ -214,6 +222,7 @@ class _AddFamilyMemberScreenState extends State<AddFamilyMemberScreen> {
                           selectedDate == null ||
                           gender == null ||
                           dm == null ||
+                          diagnosis == null ||
                           smoker == null ||
                           username == "" ||
                           bmi == "" ||
@@ -223,6 +232,7 @@ class _AddFamilyMemberScreenState extends State<AddFamilyMemberScreen> {
                           duration == "" ||
                           dm == "" ||
                           gender == "" ||
+                          diagnosis == "" ||
                           smoker == "") {
                         createAlertDialog(context, "Error",
                             "Please fill all the given fields to proceed", 404);
@@ -248,6 +258,7 @@ class _AddFamilyMemberScreenState extends State<AddFamilyMemberScreen> {
                             "Duration": duration,
                             "gender": gender.toString(),
                             "DM Type": dm.toString(),
+                            "Diagnosis": diagnosis.toString(),
                             "smoker": smoker.toString(),
                             'timestamp': Timestamp.now(),
                             "isFamilyMember": true

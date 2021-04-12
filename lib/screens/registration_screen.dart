@@ -33,6 +33,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
   var gender;
   var smoker;
   var dm;
+  var diagnosis;
 
   bool visiblePassword = false;
 
@@ -180,10 +181,17 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                       dm = value;
                     });
                   }),
-                  registrationRadioButton("No Retinopathy", DMType.None, dm,
+                  registrationInputLabel("Diagnosed with Retinopathy?"),
+                  registrationRadioButton("No", Diagnosis.No, diagnosis,
                       (value) {
                     setState(() {
-                      dm = value;
+                      diagnosis = value;
+                    });
+                  }),
+                  registrationRadioButton("Yes", Diagnosis.Yes, diagnosis,
+                      (value) {
+                    setState(() {
+                      diagnosis = value;
                     });
                   }),
                   registrationInputLabel("Smoker?"),
@@ -232,6 +240,9 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                     child: _commonLabelText(
                         title: "< - Back to Login", fontSize: 12.0),
                   ),
+                  SizedBox(
+                    height: 20,
+                  ),
                   CustomRoundedButton(
                     onPressed: () async {
                       // Only allow registration if all details are filled
@@ -246,6 +257,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                           selectedDate == null ||
                           gender == null ||
                           dm == null ||
+                          diagnosis == null ||
                           smoker == null ||
                           username == "" ||
                           email == "" ||
@@ -257,6 +269,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                           duration == "" ||
                           dm == "" ||
                           gender == "" ||
+                          diagnosis == "" ||
                           smoker == "") {
                         createAlertDialog(context, "Error",
                             "Please fill all the given fields to proceed", 404);
@@ -282,6 +295,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                             "Duration": duration,
                             "gender": gender.toString(),
                             "DM Type": dm.toString(),
+                            "Diagnosis": diagnosis.toString(),
                             "smoker": smoker.toString(),
                             'timestamp': Timestamp.now(),
                             "isFamilyMember": false,

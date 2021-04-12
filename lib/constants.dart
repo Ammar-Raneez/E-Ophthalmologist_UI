@@ -63,7 +63,8 @@ Padding kTextField(var controller, Function onChange, String hintText,
 
 // Registration & Edit Profile Specific
 enum Gender { Male, Female }
-enum DMType { Type1, Type2, None }
+enum DMType { Type1, Type2 }
+enum Diagnosis { Yes, No }
 enum Smoker { Yes, No }
 
 // Input labels in registration and edit
