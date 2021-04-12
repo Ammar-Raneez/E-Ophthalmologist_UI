@@ -284,7 +284,8 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                             "DM Type": dm.toString(),
                             "smoker": smoker.toString(),
                             'timestamp': Timestamp.now(),
-                            "isFamilyMember": false
+                            "isFamilyMember": false,
+                            "currentFamilyMember": ""
                           });
 
                           // Status based alerts - successful registration / not

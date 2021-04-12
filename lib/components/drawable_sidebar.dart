@@ -119,6 +119,25 @@ class _DrawableSidebarState extends State<DrawableSidebar> {
                         familyMembers[index]['username'],
                         style: kTextStyle,
                       ),
+                      onTap: () {
+                        _firestore.collection("users").doc(email).set({
+                        "userEmail": email,
+                        "username": userDetails['username'],
+                        "DOB": userDetails['DOB'],
+                        "BMI": userDetails['BMI'],
+                        "A1C": userDetails['A1C'],
+                        "systolic": userDetails['systolic'],
+                        "diastolic": userDetails['diastolic'],
+                        "Duration": userDetails['Duration'],
+                        "gender": userDetails['gender'].toString(),
+                        "DM Type": userDetails['DM Type'].toString(),
+                        "smoker": userDetails['smoker'].toString(),
+                        'timestamp': Timestamp.now(),
+                        "isFamilyMember": false,
+                          "currentFamilyMember": familyMembers[index]
+                              ['username']
+                        });
+                      },
                     ),
                   ),
                 ),
