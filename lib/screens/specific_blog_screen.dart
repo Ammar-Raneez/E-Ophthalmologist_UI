@@ -67,12 +67,19 @@ class _SpecificBlogScreenState extends State<SpecificBlogScreen> {
       child: Scaffold(
         appBar: AppBar(
           automaticallyImplyLeading: false,
-          title: Center(
-            child: Text(
-              "E-Ophthalmologist",
-              style: kTextStyle.copyWith(fontSize: 20.0, color: Colors.white),
-            ),
+          title: Text(
+            "E-Ophthalmologist",
+            style: kTextStyle.copyWith(fontSize: 20.0, color: Colors.white),
           ),
+          actions: [
+            IconButton(
+                icon: Icon(
+                  Icons.add_alert,
+                ),
+                onPressed: () {
+                  Navigator.pop(context);
+                }),
+          ],
           backgroundColor: Color(0xff62B47F),
         ),
         body: Padding(
@@ -132,22 +139,6 @@ class _SpecificBlogScreenState extends State<SpecificBlogScreen> {
                         ),
                       ),
                     ),
-                  ),
-                ),
-              ),
-              SizedBox(
-                height: 30,
-              ),
-              Container(
-                width: MediaQuery.of(context).size.width,
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: CustomRoundedButton(
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
-                    colour: Color(0xff62B47F),
-                    title: "<-  Back to Blogs",
                   ),
                 ),
               ),
