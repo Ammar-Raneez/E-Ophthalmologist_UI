@@ -20,6 +20,9 @@ class AddReportScreen extends StatefulWidget {
 
 class _AddReportScreenState extends State<AddReportScreen> {
   User user = FirebaseAuth.instance.currentUser;
+  var userDocument;
+  var mainUserDetails;
+  var currentUserDetails;
 
   String hospital;
   String doctor;
@@ -29,7 +32,6 @@ class _AddReportScreenState extends State<AddReportScreen> {
   var _hospitalController = TextEditingController();
   var _doctorController = TextEditingController();
 
-  var userDetails;
   String email;
   bool showSpinner = false;
 
@@ -60,17 +62,38 @@ class _AddReportScreenState extends State<AddReportScreen> {
     );
   }
 
-  getUserDetails() async {
-    // get current logged in user details
+  // get the actual users document (family members document or main user)
+  getActualUserDocument() async {
     var document = await _firestore.collection("users").doc(user.email).get();
+    mainUserDetails = document.data();
+
+    if (document.data()['currentFamilyMember'] == '') {
+      setState(() {
+        userDocument = document;
+      });
+    } else {
+      var tempUserDocument = await _firestore
+          .collection("users")
+          .doc(user.email)
+          .collection('family')
+          .doc(mainUserDetails['currentFamilyMember'])
+          .get();
+      setState(() {
+        userDocument = tempUserDocument;
+      });
+    }
+  }
+
+  getUserDetails() async {
+    await getActualUserDocument();
 
     setState(() {
-      userDetails = document.data();
-      print(userDetails);
+      currentUserDetails = userDocument.data();
+      print(currentUserDetails);
     });
 
     setState(() {
-      email = userDetails['userEmail'];
+      email = mainUserDetails['userEmail'];
     });
   }
 
@@ -225,17 +248,33 @@ class _AddReportScreenState extends State<AddReportScreen> {
                       try {
                         // store the new report into the same users report collection, along with the images deployed urls
                         // for access in edit report screen
-                        await _firestore
-                            .collection("users")
-                            .doc(email)
-                            .collection("past-reports")
-                            .doc(reportID)
-                            .set({
-                          'doctor': doctor,
-                          'hospital': hospital,
-                          'date': selectedDate,
-                          'image_document_urls': imageDocumentsURLS
-                        });
+                        if (!currentUserDetails['isFamilyMember']) {
+                          await _firestore
+                              .collection("users")
+                              .doc(email)
+                              .collection("past-reports")
+                              .doc(reportID)
+                              .set({
+                            'doctor': doctor,
+                            'hospital': hospital,
+                            'date': selectedDate,
+                            'image_document_urls': imageDocumentsURLS
+                          });
+                        } else {
+                          await _firestore
+                              .collection("users")
+                              .doc(email)
+                              .collection("family")
+                              .doc(mainUserDetails['currentFamilyMember'])
+                              .collection("past-reports")
+                              .doc(reportID)
+                              .set({
+                            'doctor': doctor,
+                            'hospital': hospital,
+                            'date': selectedDate,
+                            'image_document_urls': imageDocumentsURLS
+                          });
+                        }
 
                         createAlertDialog(
                             context, "Success", "Report Added!", 200);
