@@ -16,12 +16,12 @@ class DrawableSidebar extends StatefulWidget {
 
 class _DrawableSidebarState extends State<DrawableSidebar> {
   User user = FirebaseAuth.instance.currentUser;
-  var currentUserDetails;
-  var userDocument;
-  var mainUserDetails;
+  var currentUserDetails; // which user currently
+  var userDocument; // current users document
+  var mainUserDetails; // main user - (linked users will have this as main)
 
-  String email = "";
-  String username = "";
+  String email = ""; // single mail for multiple users
+  String username = ""; // current users name
 
   bool haveFamily = false;
   var familyIds = [];
@@ -37,13 +37,16 @@ class _DrawableSidebarState extends State<DrawableSidebar> {
   // get the actual users document (family members document or main user)
   getActualUserDocument() async {
     var document = await _firestore.collection("users").doc(user.email).get();
+    // main logged in users information
     mainUserDetails = document.data();
 
     if (document.data()['currentFamilyMember'] == '') {
       setState(() {
+        // if there's no current family member using, the main user is
         userDocument = document;
       });
     } else {
+      // A family member who is linked to the main user is using currently
       var tempUserDocument = await _firestore
           .collection("users")
           .doc(user.email)
@@ -61,6 +64,7 @@ class _DrawableSidebarState extends State<DrawableSidebar> {
     await getActualUserDocument();
 
     setState(() {
+      // will hold the current user
       currentUserDetails = userDocument.data();
       print(currentUserDetails);
     });
@@ -81,6 +85,7 @@ class _DrawableSidebarState extends State<DrawableSidebar> {
     tempIds.add("");
     tempMembers.add(document.data());
 
+    // add all family members, if any, linked to this user
     await document.reference.collection("family").get().then((value) => {
           haveFamily = true,
           value.docs.forEach((element) {
@@ -135,47 +140,24 @@ class _DrawableSidebarState extends State<DrawableSidebar> {
                     itemCount: familyMembers.length,
                     itemBuilder: (context, index) => ListTile(
                       leading: !familyMembers[index]['isFamilyMember']
-                          ? Icon(Icons.person_pin, color: Colors.black,)
+                          ? Icon(
+                              Icons.person_pin,
+                              color: Colors.black,
+                            )
                           : Icon(Icons.person_outline, color: Colors.black),
                       title: Text(
                         familyMembers[index]['username'],
                         style: kTextStyle.copyWith(color: Colors.black),
                       ),
                       onTap: () {
+                        // if the tapped user is the main user, modify it to
+                        // hold no reference, empty reference aka main user
                         if (!familyMembers[index]['isFamilyMember']) {
-                          _firestore.collection("users").doc(email).set({
-                            "userEmail": email,
-                            "username": mainUserDetails['username'],
-                            "DOB": mainUserDetails['DOB'],
-                            "BMI": mainUserDetails['BMI'],
-                            "A1C": mainUserDetails['A1C'],
-                            "systolic": mainUserDetails['systolic'],
-                            "diastolic": mainUserDetails['diastolic'],
-                            "Duration": mainUserDetails['Duration'],
-                            "gender": mainUserDetails['gender'].toString(),
-                            "DM Type": mainUserDetails['DM Type'].toString(),
-                            "smoker": mainUserDetails['smoker'].toString(),
-                            'timestamp': Timestamp.now(),
-                            "isFamilyMember": false,
-                            "currentFamilyMember": ""
-                          });
+                          _commonFirebaseCode(currentFam: "");
                         } else {
-                          _firestore.collection("users").doc(email).set({
-                            "userEmail": email,
-                            "username": mainUserDetails['username'],
-                            "DOB": mainUserDetails['DOB'],
-                            "BMI": mainUserDetails['BMI'],
-                            "A1C": mainUserDetails['A1C'],
-                            "systolic": mainUserDetails['systolic'],
-                            "diastolic": mainUserDetails['diastolic'],
-                            "Duration": mainUserDetails['Duration'],
-                            "gender": mainUserDetails['gender'].toString(),
-                            "DM Type": mainUserDetails['DM Type'].toString(),
-                            "smoker": mainUserDetails['smoker'].toString(),
-                            'timestamp': Timestamp.now(),
-                            "isFamilyMember": false,
-                            "currentFamilyMember": familyIds[index]
-                          });
+                          // if tapped user is a linked user, modify the main user
+                          // to hold a reference to the linked user
+                          _commonFirebaseCode(currentFam: familyIds[index]);
                         }
                         Navigator.pushNamed(context, CurrentScreen.id);
                       },
@@ -203,5 +185,24 @@ class _DrawableSidebarState extends State<DrawableSidebar> {
         ],
       ),
     );
+  }
+
+  _commonFirebaseCode({String currentFam}) {
+    _firestore.collection("users").doc(email).set({
+      "userEmail": email,
+      "username": mainUserDetails['username'],
+      "DOB": mainUserDetails['DOB'],
+      "BMI": mainUserDetails['BMI'],
+      "A1C": mainUserDetails['A1C'],
+      "systolic": mainUserDetails['systolic'],
+      "diastolic": mainUserDetails['diastolic'],
+      "Duration": mainUserDetails['Duration'],
+      "gender": mainUserDetails['gender'].toString(),
+      "DM Type": mainUserDetails['DM Type'].toString(),
+      "smoker": mainUserDetails['smoker'].toString(),
+      'timestamp': Timestamp.now(),
+      "isFamilyMember": false,
+      "currentFamilyMember": currentFam
+    });
   }
 }
