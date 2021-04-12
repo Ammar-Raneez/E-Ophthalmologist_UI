@@ -19,9 +19,11 @@ class AddAppointmentScreen extends StatefulWidget {
 
 class _AddAppointmentScreenState extends State<AddAppointmentScreen> {
   User user = FirebaseAuth.instance.currentUser;
+  // variables explained in sidebar
   var userDocument;
   var mainUserDetails;
   var currentUserDetails;
+  String email;
 
   String hospital;
   String doctor;
@@ -31,7 +33,6 @@ class _AddAppointmentScreenState extends State<AddAppointmentScreen> {
   var _hospitalController = TextEditingController();
   var _doctorController = TextEditingController();
 
-  String email;
   bool showSpinner = false;
 
   // appointmentID - timestamp of creation
@@ -99,7 +100,7 @@ class _AddAppointmentScreenState extends State<AddAppointmentScreen> {
     }
   }
 
-  // get current logged in user details
+  // get current logged in user details, if family member, get theirs
   getUserDetails() async {
     await getActualUserDocument();
 
@@ -109,6 +110,7 @@ class _AddAppointmentScreenState extends State<AddAppointmentScreen> {
     });
 
     setState(() {
+      // common email for any family member
       email = mainUserDetails['userEmail'];
     });
   }
