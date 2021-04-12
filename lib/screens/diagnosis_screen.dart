@@ -74,6 +74,7 @@ class _DiagnosisScreenState extends State<DiagnosisScreen> {
     });
 
     setState(() {
+      // shared email
       email = mainUserDetails['userEmail'];
     });
   }
@@ -147,6 +148,7 @@ class _DiagnosisScreenState extends State<DiagnosisScreen> {
             'timestamp': time,
           });
         } else {
+          // family member diagnoses
           _firestore
               .collection("users")
               .doc(email)
