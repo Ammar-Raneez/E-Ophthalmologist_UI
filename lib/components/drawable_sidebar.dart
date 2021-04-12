@@ -15,7 +15,9 @@ class DrawableSidebar extends StatefulWidget {
 
 class _DrawableSidebarState extends State<DrawableSidebar> {
   User user = FirebaseAuth.instance.currentUser;
-  var userDetails;
+  var currentUserDetails;
+  var userDocument;
+  var mainUserDetails;
 
   String email = "";
   String username = "";
@@ -31,18 +33,40 @@ class _DrawableSidebarState extends State<DrawableSidebar> {
     getFamilyDetails();
   }
 
+  // get the actual users document (family members document or main user)
+  getActualUserDocument() async {
+    var document = await _firestore.collection("users").doc(user.email).get();
+    mainUserDetails = document.data();
+
+    if (document.data()['currentFamilyMember'] == '') {
+      setState(() {
+        userDocument = document;
+      });
+    } else {
+      var tempUserDocument = await _firestore
+          .collection("users")
+          .doc(user.email)
+          .collection('family')
+          .doc(mainUserDetails['currentFamilyMember'])
+          .get();
+      setState(() {
+        userDocument = tempUserDocument;
+      });
+    }
+  }
+
   // get current logged in user details
   getUserDetails() async {
-    var document = await _firestore.collection("users").doc(user.email).get();
+    await getActualUserDocument();
 
     setState(() {
-      userDetails = document.data();
-      print(userDetails);
+      currentUserDetails = userDocument.data();
+      print(currentUserDetails);
     });
 
     setState(() {
-      email = userDetails['userEmail'];
-      username = userDetails['username'];
+      email = mainUserDetails['userEmail'];
+      username = currentUserDetails['username'];
     });
   }
 
@@ -122,16 +146,16 @@ class _DrawableSidebarState extends State<DrawableSidebar> {
                       onTap: () {
                         _firestore.collection("users").doc(email).set({
                         "userEmail": email,
-                        "username": userDetails['username'],
-                        "DOB": userDetails['DOB'],
-                        "BMI": userDetails['BMI'],
-                        "A1C": userDetails['A1C'],
-                        "systolic": userDetails['systolic'],
-                        "diastolic": userDetails['diastolic'],
-                        "Duration": userDetails['Duration'],
-                        "gender": userDetails['gender'].toString(),
-                        "DM Type": userDetails['DM Type'].toString(),
-                        "smoker": userDetails['smoker'].toString(),
+                        "username": currentUserDetails['username'],
+                        "DOB": currentUserDetails['DOB'],
+                        "BMI": currentUserDetails['BMI'],
+                        "A1C": currentUserDetails['A1C'],
+                        "systolic": currentUserDetails['systolic'],
+                        "diastolic": currentUserDetails['diastolic'],
+                        "Duration": currentUserDetails['Duration'],
+                        "gender": currentUserDetails['gender'].toString(),
+                        "DM Type": currentUserDetails['DM Type'].toString(),
+                        "smoker": currentUserDetails['smoker'].toString(),
                         'timestamp': Timestamp.now(),
                         "isFamilyMember": false,
                           "currentFamilyMember": familyIds[index]
