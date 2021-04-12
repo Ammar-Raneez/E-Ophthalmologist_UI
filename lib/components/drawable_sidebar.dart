@@ -76,6 +76,10 @@ class _DrawableSidebarState extends State<DrawableSidebar> {
 
     var tempIds = [];
     var tempMembers = [];
+    // add the main user to the beginning
+    tempIds.add("");
+    tempMembers.add(document.data());
+
     await document.reference.collection("family").get().then((value) => {
           haveFamily = true,
           value.docs.forEach((element) {
@@ -144,22 +148,46 @@ class _DrawableSidebarState extends State<DrawableSidebar> {
                         style: kTextStyle,
                       ),
                       onTap: () {
-                        _firestore.collection("users").doc(email).set({
-                        "userEmail": email,
-                        "username": currentUserDetails['username'],
-                        "DOB": currentUserDetails['DOB'],
-                        "BMI": currentUserDetails['BMI'],
-                        "A1C": currentUserDetails['A1C'],
-                        "systolic": currentUserDetails['systolic'],
-                        "diastolic": currentUserDetails['diastolic'],
-                        "Duration": currentUserDetails['Duration'],
-                        "gender": currentUserDetails['gender'].toString(),
-                        "DM Type": currentUserDetails['DM Type'].toString(),
-                        "smoker": currentUserDetails['smoker'].toString(),
-                        'timestamp': Timestamp.now(),
-                        "isFamilyMember": false,
-                          "currentFamilyMember": familyIds[index]
-                        });
+                        if (!currentUserDetails['isFamilyMember']) {
+                          _firestore.collection("users").doc(email).set({
+                            "userEmail": email,
+                            "username": currentUserDetails['username'],
+                            "DOB": currentUserDetails['DOB'],
+                            "BMI": currentUserDetails['BMI'],
+                            "A1C": currentUserDetails['A1C'],
+                            "systolic": currentUserDetails['systolic'],
+                            "diastolic": currentUserDetails['diastolic'],
+                            "Duration": currentUserDetails['Duration'],
+                            "gender": currentUserDetails['gender'].toString(),
+                            "DM Type": currentUserDetails['DM Type'].toString(),
+                            "smoker": currentUserDetails['smoker'].toString(),
+                            'timestamp': Timestamp.now(),
+                            "isFamilyMember": false,
+                            "currentFamilyMember": ""
+                          });
+                        } else {
+                          _firestore
+                              .collection("users")
+                              .doc(email)
+                              .collection("family")
+                              .doc(mainUserDetails['currentFamilyMember'])
+                              .set({
+                            "userEmail": email,
+                            "username": currentUserDetails['username'],
+                            "DOB": currentUserDetails['DOB'],
+                            "BMI": currentUserDetails['BMI'],
+                            "A1C": currentUserDetails['A1C'],
+                            "systolic": currentUserDetails['systolic'],
+                            "diastolic": currentUserDetails['diastolic'],
+                            "Duration": currentUserDetails['Duration'],
+                            "gender": currentUserDetails['gender'].toString(),
+                            "DM Type": currentUserDetails['DM Type'].toString(),
+                            "smoker": currentUserDetails['smoker'].toString(),
+                            'timestamp': Timestamp.now(),
+                            "isFamilyMember": true,
+                            "currentFamilyMember": familyIds[index]
+                          });
+                        }
                       },
                     ),
                   ),
