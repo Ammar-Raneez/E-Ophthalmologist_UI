@@ -42,6 +42,9 @@ class _AddFamilyMemberScreenState extends State<AddFamilyMemberScreen> {
   var _durationController = TextEditingController();
   var _usernameController = TextEditingController();
 
+  // family member id- timestamp of creation
+  String memberID = new Timestamp.now().toString();
+
   bool showSpinner = false;
 
   @override
@@ -233,6 +236,8 @@ class _AddFamilyMemberScreenState extends State<AddFamilyMemberScreen> {
                           _firestore
                               .collection("users")
                               .doc(mainUserEmail)
+                              .collection("family")
+                              .doc(memberID)
                               .set({
                             "username": username,
                             "DOB": selectedDate,
@@ -247,7 +252,6 @@ class _AddFamilyMemberScreenState extends State<AddFamilyMemberScreen> {
                             'timestamp': Timestamp.now(),
                           });
 
-                          // Status based alerts - successful registration / not
                           createAlertDialog(context, "Success",
                               "Account Added Successfully!", 200);
 
