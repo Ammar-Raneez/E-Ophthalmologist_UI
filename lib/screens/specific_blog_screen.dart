@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:ui/components/custom_rounded_button.dart';
 import 'package:ui/constants.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -83,7 +82,7 @@ class _SpecificBlogScreenState extends State<SpecificBlogScreen> {
           backgroundColor: Color(0xff62B47F),
         ),
         body: Padding(
-          padding: const EdgeInsets.all(20.0),
+          padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 10),
           child: Column(
             children: [
               Container(
@@ -96,49 +95,59 @@ class _SpecificBlogScreenState extends State<SpecificBlogScreen> {
                 ),
               ),
               SizedBox(
-                height: 30,
+                height: 10,
               ),
               Expanded(
                 child: ListView.builder(
                   itemCount: 11,
                   scrollDirection: Axis.vertical,
-                  itemBuilder: (context, index) => Card(
-                    child: Container(
-                      height: 150,
-                      child: GestureDetector(
-                        onTap: () async => await canLaunch(chosenBlogType[0])
-                            ? await launch(chosenBlogType[0])
-                            : throw 'Could not launch ${chosenBlogType[0]}',
-                        child: Row(
-                          children: [
-                            Container(
-                              width: MediaQuery.of(context).size.width / 3,
-                              child: Image.asset(
-                                blogImages[0],
-                                height: 150,
-                              ),
-                            ),
-                            Container(
-                              width: MediaQuery.of(context).size.width / 2,
-                              child: Align(
-                                alignment: Alignment.center,
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Text(
-                                      chosenBlogShortDescriptions[0],
-                                      style: kTextStyle,
-                                      textAlign: TextAlign.center,
-                                    ),
-                                  ],
+                  itemBuilder: (context, index) => Column(
+                    children: [
+                      Card(
+                        child: Container(
+                          height: 150,
+                          child: GestureDetector(
+                            onTap: () async => await canLaunch(
+                                    chosenBlogType[0])
+                                ? await launch(chosenBlogType[0])
+                                : throw 'Could not launch ${chosenBlogType[0]}',
+                            child: Row(
+                              children: [
+                                Container(
+                                  width: MediaQuery.of(context).size.width / 3,
+                                  child: Image.asset(
+                                    blogImages[0],
+                                    height: 150,
+                                  ),
                                 ),
-                              ),
+                                Container(
+                                  width: MediaQuery.of(context).size.width / 2,
+                                  child: Align(
+                                    alignment: Alignment.center,
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        Text(
+                                          chosenBlogShortDescriptions[0],
+                                          style: kTextStyle,
+                                          textAlign: TextAlign.center,
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ],
                             ),
-                          ],
+                          ),
                         ),
                       ),
-                    ),
+                      SizedBox(
+                        height: 30,
+                      ),
+                    ],
                   ),
                 ),
               ),
