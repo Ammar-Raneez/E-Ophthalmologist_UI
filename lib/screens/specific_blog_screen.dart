@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:ui/constants.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -19,25 +20,30 @@ class _SpecificBlogScreenState extends State<SpecificBlogScreen> {
   var guidelinesArticles = ["https://flutter.dev"];
   var treatmentsArticles = ["https://flutter.dev"];
 
-  //short descriptions
+  //short descriptions and associated blog titles
   var drStagesShortDescriptions = [
-    "Clicking on this will navigate to the original blog found on the internet..."
+    "adipiscing elit ut aliquam purus sit amet luctus venenatis lectus magna fringilla urna porttitor rhoncus dolor purus non enim praesent elementum facilisis leo vel fringilla est ullamcorper eget nulla facilisi etiam dignissim diam quis enim lobortis scelerisque fermentum dui faucibus in ornare quam viverra orci sagittis eu volutpat odio facilisis..."
   ];
+  var drStagesTitles = ["How To Prevent Diabetic Retinopathy?"];
   var drTypesShortDescriptions = [
-    "Clicking on this will navigate to the original blog found on the internet..."
+    "adipiscing elit ut aliquam purus sit amet luctus venenatis lectus magna fringilla urna porttitor rhoncus dolor purus non enim praesent elementum facilisis leo vel fringilla est ullamcorper eget nulla facilisi etiam dignissim diam quis enim lobortis scelerisque fermentum dui faucibus in ornare quam viverra orci sagittis eu volutpat odio facilisis..."
   ];
+  var drTypesTitles = ["How To Prevent Diabetic Retinopathy?"];
   var guidelinesShortDescriptions = [
-    "Clicking on this will navigate to the original blog found on the internet..."
+    "adipiscing elit ut aliquam purus sit amet luctus venenatis lectus magna fringilla urna porttitor rhoncus dolor purus non enim praesent elementum facilisis leo vel fringilla est ullamcorper eget nulla facilisi etiam dignissim diam quis enim lobortis scelerisque fermentum dui faucibus in ornare quam viverra orci sagittis eu volutpat odio facilisis..."
   ];
+  var guidelinesTitles = ["How To Prevent Diabetic Retinopathy?"];
   var treatmentsShortDescriptions = [
-    "Clicking on this will navigate to the original blog found on the internet..."
+    "adipiscing elit ut aliquam purus sit amet luctus venenatis lectus magna fringilla urna porttitor rhoncus dolor purus non enim praesent elementum facilisis leo vel fringilla est ullamcorper eget nulla facilisi etiam dignissim diam quis enim lobortis scelerisque fermentum dui faucibus in ornare quam viverra orci sagittis eu volutpat odio facilisis..."
   ];
+  var treatmentTitles = ["How To Prevent Diabetic Retinopathy?"];
 
   // blog left images
   var blogImages = ["images/tempblog.jpg"];
 
   var chosenBlogType = [];
   var chosenBlogShortDescriptions = [];
+  var chosenBlogTitles = [];
 
   @override
   Widget build(BuildContext context) {
@@ -60,6 +66,13 @@ class _SpecificBlogScreenState extends State<SpecificBlogScreen> {
               : typeOfBlog == "Guidelines"
                   ? guidelinesShortDescriptions
                   : treatmentsShortDescriptions;
+      chosenBlogTitles = typeOfBlog == "Retinopathy Stages"
+          ? drStagesTitles
+          : typeOfBlog == "Diabetes Types"
+              ? drTypesTitles
+              : typeOfBlog == "Guidelines"
+                  ? guidelinesTitles
+                  : treatmentTitles;
     });
 
     return SafeArea(
@@ -106,50 +119,90 @@ class _SpecificBlogScreenState extends State<SpecificBlogScreen> {
                       Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Container(
-                          height: 500,
+                          height: 550,
                           width: MediaQuery.of(context).size.width,
-                          child: GestureDetector(
-                            onTap: () async => await canLaunch(
-                                    chosenBlogType[0])
-                                ? await launch(chosenBlogType[0])
-                                : throw 'Could not launch ${chosenBlogType[0]}',
-                            child: Column(
-                              children: [
-                                Container(
-                                  color: Colors.red,
-                                  width: MediaQuery.of(context).size.width,
-                                  height: 200,
-                                  child: FittedBox(
-                                    child: Image.asset(
-                                      blogImages[0]
-                                    ),
-                                    fit: BoxFit.fill,
-                                  ),
+                          child: Column(
+                            children: [
+                              Container(
+                                color: Colors.red,
+                                width: MediaQuery.of(context).size.width,
+                                height: 200,
+                                child: FittedBox(
+                                  child: Image.asset(blogImages[0]),
+                                  fit: BoxFit.fill,
                                 ),
-                                SizedBox(
-                                  height: 30.0,
-                                ),
-                                Container(
-                                  width: MediaQuery.of(context).size.width,
+                              ),
+                              SizedBox(
+                                height: 30.0,
+                              ),
+                              Container(
+                                width: MediaQuery.of(context).size.width,
+                                child: Padding(
+                                  padding: const EdgeInsets.only(
+                                      left: 20.0, right: 20.0),
                                   child: Align(
-                                    alignment: Alignment.center,
+                                    alignment: Alignment.topLeft,
                                     child: Column(
                                       crossAxisAlignment:
-                                          CrossAxisAlignment.center,
+                                          CrossAxisAlignment.start,
                                       mainAxisAlignment:
-                                          MainAxisAlignment.center,
+                                          MainAxisAlignment.start,
                                       children: [
                                         Text(
-                                          chosenBlogShortDescriptions[0],
-                                          style: kTextStyle,
-                                          textAlign: TextAlign.center,
+                                          chosenBlogTitles[0],
+                                          style: kTextStyle.copyWith(
+                                            fontSize: 20.0,
+                                            color: Colors.black,
+                                          ),
                                         ),
                                       ],
                                     ),
                                   ),
                                 ),
-                              ],
-                            ),
+                              ),
+                              SizedBox(
+                                height: 30.0,
+                              ),
+                              Container(
+                                width: MediaQuery.of(context).size.width,
+                                child: Padding(
+                                  padding: const EdgeInsets.only(
+                                      left: 20.0, right: 20.0),
+                                  child: Align(
+                                    alignment: Alignment.topLeft,
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      children: [
+                                        Text(chosenBlogShortDescriptions[0],
+                                            style: kTextStyle),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              SizedBox(height: 30),
+                              Container(
+                                width: MediaQuery.of(context).size.width,
+                                child: Padding(
+                                  padding: const EdgeInsets.only(
+                                      left: 20.0, right: 20.0),
+                                  child: RichText(
+                                    text: TextSpan(
+                                        text: "READ MORE   ->",
+                                        style: kTextStyle.copyWith(
+                                            color: Colors.black),
+                                        recognizer: TapGestureRecognizer()
+                                          ..onTap = () {
+                                            launch(chosenBlogType[0]);
+                                          }),
+                                    textAlign: TextAlign.left,
+                                  ),
+                                ),
+                              )
+                            ],
                           ),
                         ),
                       ),
