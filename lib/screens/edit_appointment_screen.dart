@@ -18,6 +18,10 @@ class EditAppointmentScreen extends StatefulWidget {
 
 class _EditAppointmentScreenState extends State<EditAppointmentScreen> {
   User user = FirebaseAuth.instance.currentUser;
+  var userDocument;
+  var mainUserDetails;
+  var currentUserDetails;
+  String email;
 
   String hospital;
   String doctor;
@@ -27,8 +31,6 @@ class _EditAppointmentScreenState extends State<EditAppointmentScreen> {
   var _hospitalController = TextEditingController();
   var _doctorController = TextEditingController();
 
-  var userDetails;
-  String email;
   String appointmentId;
   bool showSpinner = false;
 
@@ -74,17 +76,39 @@ class _EditAppointmentScreenState extends State<EditAppointmentScreen> {
     );
   }
 
+  // get the actual users document (family members document or main user)
+  getActualUserDocument() async {
+    var document = await _firestore.collection("users").doc(user.email).get();
+    mainUserDetails = document.data();
+
+    if (document.data()['currentFamilyMember'] == '') {
+      setState(() {
+        userDocument = document;
+      });
+    } else {
+      var tempUserDocument = await _firestore
+          .collection("users")
+          .doc(user.email)
+          .collection('family')
+          .doc(mainUserDetails['currentFamilyMember'])
+          .get();
+      setState(() {
+        userDocument = tempUserDocument;
+      });
+    }
+  }
+
   // get current logged in user details
   getUserDetails() async {
-    var document = await _firestore.collection("users").doc(user.email).get();
+    await getActualUserDocument();
 
     setState(() {
-      userDetails = document.data();
-      print(userDetails);
+      currentUserDetails = userDocument.data();
+      print(currentUserDetails);
     });
 
     setState(() {
-      email = userDetails['userEmail'];
+      email = mainUserDetails['userEmail'];
     });
   }
 
@@ -222,16 +246,31 @@ class _EditAppointmentScreenState extends State<EditAppointmentScreen> {
 
                               try {
                                 // update the specific appointments details
-                                await _firestore
-                                    .collection("users")
-                                    .doc(email)
-                                    .collection("appointments")
-                                    .doc(appointmentId)
-                                    .set({
-                                  'doctor': doctor,
-                                  'hospital': hospital,
-                                  'date': selectedDate,
-                                });
+                                if (!currentUserDetails['isFamilyMember']) {
+                                  await _firestore
+                                      .collection("users")
+                                      .doc(email)
+                                      .collection("appointments")
+                                      .doc(appointmentId)
+                                      .set({
+                                    'doctor': doctor,
+                                    'hospital': hospital,
+                                    'date': selectedDate,
+                                  });
+                                } else {
+                                  await _firestore
+                                      .collection("users")
+                                      .doc(email)
+                                      .collection("family")
+                                      .doc(mainUserDetails['currentFamilyMember'])
+                                      .collection("appointments")
+                                      .doc(appointmentId)
+                                      .set({
+                                    'doctor': doctor,
+                                    'hospital': hospital,
+                                    'date': selectedDate,
+                                  });
+                                }
 
                                 createAlertDialog(
                                     context,
