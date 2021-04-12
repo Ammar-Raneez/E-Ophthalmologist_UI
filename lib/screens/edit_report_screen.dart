@@ -286,8 +286,9 @@ class _EditReportScreenState extends State<EditReportScreen> {
                                     });
 
                                     try {
-                                      // update the specific report with the new details
-                                      if (!currentUserDetails['isFamilyMember']) {
+                                      // update main user reports
+                                      if (!currentUserDetails[
+                                          'isFamilyMember']) {
                                         await _firestore
                                             .collection("users")
                                             .doc(email)
@@ -298,14 +299,16 @@ class _EditReportScreenState extends State<EditReportScreen> {
                                           'hospital': hospital,
                                           'date': selectedDate,
                                           'image_document_urls':
-                                          imageDocumentsURLS
+                                              imageDocumentsURLS
                                         });
                                       } else {
+                                        // update family member report
                                         await _firestore
                                             .collection("users")
                                             .doc(email)
                                             .collection("family")
-                                            .doc(mainUserDetails['currentFamilyMember'])
+                                            .doc(mainUserDetails[
+                                                'currentFamilyMember'])
                                             .collection("past-reports")
                                             .doc(reportID)
                                             .set({
@@ -313,10 +316,9 @@ class _EditReportScreenState extends State<EditReportScreen> {
                                           'hospital': hospital,
                                           'date': selectedDate,
                                           'image_document_urls':
-                                          imageDocumentsURLS
+                                              imageDocumentsURLS
                                         });
                                       }
-
 
                                       createAlertDialog(
                                           context,
