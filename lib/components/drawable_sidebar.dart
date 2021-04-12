@@ -20,10 +20,15 @@ class _DrawableSidebarState extends State<DrawableSidebar> {
   String email = "";
   String username = "";
 
+  bool haveFamily = false;
+  var familyIds = [];
+  var familyMembers = [];
+
   @override
   void initState() {
     super.initState();
     getUserDetails();
+    getFamilyDetails();
   }
 
   // get current logged in user details
@@ -38,6 +43,27 @@ class _DrawableSidebarState extends State<DrawableSidebar> {
     setState(() {
       email = userDetails['userEmail'];
       username = userDetails['username'];
+    });
+  }
+
+  // get all family details
+  getFamilyDetails() async {
+    var document = await _firestore.collection("users").doc(user.email).get();
+
+    var tempIds = [];
+    var tempMembers = [];
+    await document.reference.collection("family").get().then((value) => {
+          haveFamily = true,
+          value.docs.forEach((element) {
+            tempIds.add(element.id);
+            tempMembers.add(element.data());
+          })
+        });
+
+    setState(() {
+      familyIds = tempIds;
+      familyMembers = tempMembers;
+      print(familyMembers);
     });
   }
 
@@ -76,6 +102,27 @@ class _DrawableSidebarState extends State<DrawableSidebar> {
             ),
             onTap: () => Navigator.pushNamed(context, EditProfileScreen.id),
           ),
+          Divider(),
+          haveFamily && familyMembers.length == 0
+              ? Container(
+                  height: 0,
+                  width: 0,
+                )
+              : Container(
+                  height: 50,
+                  child: ListView.builder(
+                    shrinkWrap: true,
+                    itemCount: familyMembers.length,
+                    itemBuilder: (context, index) => ListTile(
+                      leading: Icon(Icons.person_pin),
+                      title: Text(
+                        familyMembers[index]['username'],
+                        style: kTextStyle,
+                      ),
+                    ),
+                  ),
+                ),
+          Divider(),
           ListTile(
             leading: Icon(Icons.person_add),
             title: Text(
