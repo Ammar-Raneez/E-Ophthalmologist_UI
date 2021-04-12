@@ -123,15 +123,6 @@ class _DrawableSidebarState extends State<DrawableSidebar> {
               ),
             ),
           ),
-          ListTile(
-            leading: Icon(Icons.person),
-            title: Text(
-              "Edit Profile",
-              style: kTextStyle,
-            ),
-            onTap: () => Navigator.pushNamed(context, EditProfileScreen.id),
-          ),
-          Divider(),
           haveFamily && familyMembers.length == 0
               ? Container(
                   height: 0,
@@ -144,11 +135,11 @@ class _DrawableSidebarState extends State<DrawableSidebar> {
                     itemCount: familyMembers.length,
                     itemBuilder: (context, index) => ListTile(
                       leading: !familyMembers[index]['isFamilyMember']
-                          ? Icon(Icons.person_pin)
-                          : Icon(Icons.person_outline),
+                          ? Icon(Icons.person_pin, color: Colors.black,)
+                          : Icon(Icons.person_outline, color: Colors.black),
                       title: Text(
                         familyMembers[index]['username'],
-                        style: kTextStyle,
+                        style: kTextStyle.copyWith(color: Colors.black),
                       ),
                       onTap: () {
                         if (!familyMembers[index]['isFamilyMember']) {
@@ -191,6 +182,15 @@ class _DrawableSidebarState extends State<DrawableSidebar> {
                     ),
                   ),
                 ),
+          Divider(),
+          ListTile(
+            leading: Icon(Icons.person),
+            title: Text(
+              "Edit Profile",
+              style: kTextStyle,
+            ),
+            onTap: () => Navigator.pushNamed(context, EditProfileScreen.id),
+          ),
           Divider(),
           ListTile(
             leading: Icon(Icons.person_add),
