@@ -99,7 +99,6 @@ class _ReportScreenState extends State<ReportScreen> {
     }
   }
 
-
   // get current user details
   getUserDetails() async {
     await getActualUserDocument();
