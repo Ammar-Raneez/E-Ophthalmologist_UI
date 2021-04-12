@@ -247,6 +247,7 @@ class _EditAppointmentScreenState extends State<EditAppointmentScreen> {
                               try {
                                 // update the specific appointments details
                                 if (!currentUserDetails['isFamilyMember']) {
+                                  // main user appointment
                                   await _firestore
                                       .collection("users")
                                       .doc(email)
@@ -258,6 +259,7 @@ class _EditAppointmentScreenState extends State<EditAppointmentScreen> {
                                     'date': selectedDate,
                                   });
                                 } else {
+                                  // family member appointment
                                   await _firestore
                                       .collection("users")
                                       .doc(email)
