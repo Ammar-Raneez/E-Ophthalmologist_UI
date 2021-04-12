@@ -246,8 +246,7 @@ class _AddReportScreenState extends State<AddReportScreen> {
                       });
 
                       try {
-                        // store the new report into the same users report collection, along with the images deployed urls
-                        // for access in edit report screen
+                        // add the new appointment details into the same users appointment collection
                         if (!currentUserDetails['isFamilyMember']) {
                           await _firestore
                               .collection("users")
@@ -261,6 +260,7 @@ class _AddReportScreenState extends State<AddReportScreen> {
                             'image_document_urls': imageDocumentsURLS
                           });
                         } else {
+                          // family member details
                           await _firestore
                               .collection("users")
                               .doc(email)

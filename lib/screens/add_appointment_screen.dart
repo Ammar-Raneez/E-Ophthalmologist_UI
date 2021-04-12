@@ -252,6 +252,7 @@ class _AddAppointmentScreenState extends State<AddAppointmentScreen> {
                               'date': selectedDate,
                             });
                           } else {
+                            // family member details
                             await _firestore
                                 .collection("users")
                                 .doc(email)
