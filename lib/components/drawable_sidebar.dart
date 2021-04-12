@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:ui/constants.dart';
+import 'package:ui/screens/add_family_member.dart';
 import 'package:ui/screens/edit_profile_screen.dart';
 
 final _firestore = FirebaseFirestore.instance;
@@ -74,6 +75,14 @@ class _DrawableSidebarState extends State<DrawableSidebar> {
               style: kTextStyle,
             ),
             onTap: () => Navigator.pushNamed(context, EditProfileScreen.id),
+          ),
+          ListTile(
+            leading: Icon(Icons.person_add),
+            title: Text(
+              "Add Family Member",
+              style: kTextStyle,
+            ),
+            onTap: () => Navigator.pushNamed(context, AddFamilyMemberScreen.id),
           )
         ],
       ),
