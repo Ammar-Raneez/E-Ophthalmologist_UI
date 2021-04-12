@@ -24,6 +24,9 @@ class ReportScreen extends StatefulWidget {
 
 class _ReportScreenState extends State<ReportScreen> {
   User user = FirebaseAuth.instance.currentUser;
+  var userDocument;
+  var mainUserDetails;
+  var currentUserDetails;
 
   // reports toggle
   bool haveReports = true;
@@ -74,15 +77,39 @@ class _ReportScreenState extends State<ReportScreen> {
     getUserDetails();
   }
 
+  // get the actual users document (family members document or main user)
+  getActualUserDocument() async {
+    var document = await _firestore.collection("users").doc(user.email).get();
+    mainUserDetails = document.data();
+
+    if (document.data()['currentFamilyMember'] == '') {
+      setState(() {
+        userDocument = document;
+      });
+    } else {
+      var tempUserDocument = await _firestore
+          .collection("users")
+          .doc(user.email)
+          .collection('family')
+          .doc(mainUserDetails['currentFamilyMember'])
+          .get();
+      setState(() {
+        userDocument = tempUserDocument;
+      });
+    }
+  }
+
+
   // get current user details
   getUserDetails() async {
-    var document = await _firestore.collection("users").doc(user.email).get();
+    await getActualUserDocument();
+
     var tempReports = [];
     var tempIds = [];
 
     // order the reports with respect to date, in descending to bring the
     // most recent to top
-    await document.reference
+    await userDocument.reference
         .collection("past-reports")
         .orderBy('date', descending: true)
         .get()
@@ -97,7 +124,7 @@ class _ReportScreenState extends State<ReportScreen> {
     var tempAppointmentIds = [];
 
     // order appointments in ascending order, to bring the upcoming to top
-    await document.reference
+    await userDocument.reference
         .collection("appointments")
         .orderBy('date')
         .get()
