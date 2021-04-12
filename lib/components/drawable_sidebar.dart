@@ -4,7 +4,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:ui/constants.dart';
 import 'package:ui/screens/add_family_member.dart';
+import 'package:ui/screens/current_screen.dart';
 import 'package:ui/screens/edit_profile_screen.dart';
+import 'package:ui/screens/home_screen.dart';
 
 final _firestore = FirebaseFirestore.instance;
 
@@ -148,46 +150,42 @@ class _DrawableSidebarState extends State<DrawableSidebar> {
                         style: kTextStyle,
                       ),
                       onTap: () {
-                        if (!currentUserDetails['isFamilyMember']) {
+                        if (!familyMembers[index]['isFamilyMember']) {
                           _firestore.collection("users").doc(email).set({
                             "userEmail": email,
-                            "username": currentUserDetails['username'],
-                            "DOB": currentUserDetails['DOB'],
-                            "BMI": currentUserDetails['BMI'],
-                            "A1C": currentUserDetails['A1C'],
-                            "systolic": currentUserDetails['systolic'],
-                            "diastolic": currentUserDetails['diastolic'],
-                            "Duration": currentUserDetails['Duration'],
-                            "gender": currentUserDetails['gender'].toString(),
-                            "DM Type": currentUserDetails['DM Type'].toString(),
-                            "smoker": currentUserDetails['smoker'].toString(),
+                            "username": mainUserDetails['username'],
+                            "DOB": mainUserDetails['DOB'],
+                            "BMI": mainUserDetails['BMI'],
+                            "A1C": mainUserDetails['A1C'],
+                            "systolic": mainUserDetails['systolic'],
+                            "diastolic": mainUserDetails['diastolic'],
+                            "Duration": mainUserDetails['Duration'],
+                            "gender": mainUserDetails['gender'].toString(),
+                            "DM Type": mainUserDetails['DM Type'].toString(),
+                            "smoker": mainUserDetails['smoker'].toString(),
                             'timestamp': Timestamp.now(),
                             "isFamilyMember": false,
                             "currentFamilyMember": ""
                           });
                         } else {
-                          _firestore
-                              .collection("users")
-                              .doc(email)
-                              .collection("family")
-                              .doc(mainUserDetails['currentFamilyMember'])
-                              .set({
+                          _firestore.collection("users").doc(email).set({
                             "userEmail": email,
-                            "username": currentUserDetails['username'],
-                            "DOB": currentUserDetails['DOB'],
-                            "BMI": currentUserDetails['BMI'],
-                            "A1C": currentUserDetails['A1C'],
-                            "systolic": currentUserDetails['systolic'],
-                            "diastolic": currentUserDetails['diastolic'],
-                            "Duration": currentUserDetails['Duration'],
-                            "gender": currentUserDetails['gender'].toString(),
-                            "DM Type": currentUserDetails['DM Type'].toString(),
-                            "smoker": currentUserDetails['smoker'].toString(),
+                            "username": mainUserDetails['username'],
+                            "DOB": mainUserDetails['DOB'],
+                            "BMI": mainUserDetails['BMI'],
+                            "A1C": mainUserDetails['A1C'],
+                            "systolic": mainUserDetails['systolic'],
+                            "diastolic": mainUserDetails['diastolic'],
+                            "Duration": mainUserDetails['Duration'],
+                            "gender": mainUserDetails['gender'].toString(),
+                            "DM Type": mainUserDetails['DM Type'].toString(),
+                            "smoker": mainUserDetails['smoker'].toString(),
                             'timestamp': Timestamp.now(),
-                            "isFamilyMember": true,
+                            "isFamilyMember": false,
                             "currentFamilyMember": familyIds[index]
                           });
                         }
+                        Navigator.pushNamed(context, CurrentScreen.id);
                       },
                     ),
                   ),
