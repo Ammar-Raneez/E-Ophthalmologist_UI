@@ -6,7 +6,6 @@ import 'package:ui/constants.dart';
 import 'package:ui/screens/add_family_member.dart';
 import 'package:ui/screens/current_screen.dart';
 import 'package:ui/screens/edit_profile_screen.dart';
-import 'package:ui/screens/home_screen.dart';
 
 final _firestore = FirebaseFirestore.instance;
 
@@ -144,7 +143,9 @@ class _DrawableSidebarState extends State<DrawableSidebar> {
                     shrinkWrap: true,
                     itemCount: familyMembers.length,
                     itemBuilder: (context, index) => ListTile(
-                      leading: Icon(Icons.person_pin),
+                      leading: !familyMembers[index]['isFamilyMember']
+                          ? Icon(Icons.person_pin)
+                          : Icon(Icons.person_outline),
                       title: Text(
                         familyMembers[index]['username'],
                         style: kTextStyle,
