@@ -27,7 +27,8 @@ class _HomeScreenState extends State<HomeScreen> {
   Dio dio = new Dio();
   User user = FirebaseAuth.instance.currentUser;
   var userDocument;
-  var userDetails;
+  var currentUserDetails;
+  var mainUserDetails;
 
   static String bmi = "";
   static String a1c = "";
@@ -77,8 +78,9 @@ class _HomeScreenState extends State<HomeScreen> {
   // get the actual users document (family members document or main user)
   getActualUserDocument() async {
     var document = await _firestore.collection("users").doc(user.email).get();
+    mainUserDetails = document.data();
 
-    if (document.data()['currentFamilyMember'] == '') {
+    if (mainUserDetails['currentFamilyMember'] == '') {
       setState(() {
         userDocument = document;
       });
@@ -87,7 +89,7 @@ class _HomeScreenState extends State<HomeScreen> {
           .collection("users")
           .doc(user.email)
           .collection('family')
-          .doc(document.data()['currentFamilyMember'])
+          .doc(mainUserDetails['currentFamilyMember'])
           .get();
       setState(() {
         userDocument = tempUserDocument;
@@ -108,20 +110,20 @@ class _HomeScreenState extends State<HomeScreen> {
         });
 
     setState(() {
-      userDetails = userDocument.data();
+      currentUserDetails = userDocument.data();
       // act as a toggle
       haveScans = tempScans.length != 0 ? true : false;
     });
 
     setState(() {
-      bmi = userDetails['BMI'];
-      a1c = userDetails['A1C'];
-      systolic = userDetails['systolic'];
-      diastolic = userDetails['diastolic'];
-      duration = userDetails['Duration'];
-      dm = userDetails['DM Type'];
-      gender = userDetails['gender'];
-      smoker = userDetails['smoker'];
+      bmi = currentUserDetails['BMI'];
+      a1c = currentUserDetails['A1C'];
+      systolic = currentUserDetails['systolic'];
+      diastolic = currentUserDetails['diastolic'];
+      duration = currentUserDetails['Duration'];
+      dm = currentUserDetails['DM Type'];
+      gender = currentUserDetails['gender'];
+      smoker = currentUserDetails['smoker'];
 
       //Enum value is stored, use ternary to get only the Gender value
       gender = gender.toString() == "Gender.Male" ? "Male" : "Female";

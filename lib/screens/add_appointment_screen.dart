@@ -19,6 +19,9 @@ class AddAppointmentScreen extends StatefulWidget {
 
 class _AddAppointmentScreenState extends State<AddAppointmentScreen> {
   User user = FirebaseAuth.instance.currentUser;
+  var userDocument;
+  var mainUserDetails;
+  var currentUserDetails;
 
   String hospital;
   String doctor;
@@ -28,7 +31,6 @@ class _AddAppointmentScreenState extends State<AddAppointmentScreen> {
   var _hospitalController = TextEditingController();
   var _doctorController = TextEditingController();
 
-  var userDetails;
   String email;
   bool showSpinner = false;
 
@@ -75,17 +77,39 @@ class _AddAppointmentScreenState extends State<AddAppointmentScreen> {
     );
   }
 
+  // get the actual users document (family members document or main user)
+  getActualUserDocument() async {
+    var document = await _firestore.collection("users").doc(user.email).get();
+    mainUserDetails = document.data();
+
+    if (document.data()['currentFamilyMember'] == '') {
+      setState(() {
+        userDocument = document;
+      });
+    } else {
+      var tempUserDocument = await _firestore
+          .collection("users")
+          .doc(user.email)
+          .collection('family')
+          .doc(mainUserDetails['currentFamilyMember'])
+          .get();
+      setState(() {
+        userDocument = tempUserDocument;
+      });
+    }
+  }
+
   // get current logged in user details
   getUserDetails() async {
-    var document = await _firestore.collection("users").doc(user.email).get();
+    await getActualUserDocument();
 
     setState(() {
-      userDetails = document.data();
-      print(userDetails);
+      currentUserDetails = userDocument.data();
+      print(currentUserDetails);
     });
 
     setState(() {
-      email = userDetails['userEmail'];
+      email = mainUserDetails['userEmail'];
     });
   }
 
@@ -214,16 +238,31 @@ class _AddAppointmentScreenState extends State<AddAppointmentScreen> {
 
                         try {
                           // add the new appointment details into the same users appointment collection
-                          await _firestore
-                              .collection("users")
-                              .doc(email)
-                              .collection("appointments")
-                              .doc(appointmentID)
-                              .set({
-                            'doctor': doctor,
-                            'hospital': hospital,
-                            'date': selectedDate,
-                          });
+                          if (!currentUserDetails['isFamilyMember']) {
+                            await _firestore
+                                .collection("users")
+                                .doc(email)
+                                .collection("appointments")
+                                .doc(appointmentID)
+                                .set({
+                              'doctor': doctor,
+                              'hospital': hospital,
+                              'date': selectedDate,
+                            });
+                          } else {
+                            await _firestore
+                                .collection("users")
+                                .doc(email)
+                                .collection("family")
+                                .doc(mainUserDetails['currentFamilyMember'])
+                                .collection("appointments")
+                                .doc(appointmentID)
+                                .set({
+                              'doctor': doctor,
+                              'hospital': hospital,
+                              'date': selectedDate,
+                            });
+                          }
 
                           createAlertDialog(context, "Success",
                               "Appointment Confirmed!", 200);
