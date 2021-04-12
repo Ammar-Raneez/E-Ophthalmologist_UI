@@ -103,25 +103,34 @@ class _SpecificBlogScreenState extends State<SpecificBlogScreen> {
                   scrollDirection: Axis.vertical,
                   itemBuilder: (context, index) => Column(
                     children: [
-                      Card(
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
                         child: Container(
-                          height: 150,
+                          height: 500,
+                          width: MediaQuery.of(context).size.width,
                           child: GestureDetector(
                             onTap: () async => await canLaunch(
                                     chosenBlogType[0])
                                 ? await launch(chosenBlogType[0])
                                 : throw 'Could not launch ${chosenBlogType[0]}',
-                            child: Row(
+                            child: Column(
                               children: [
                                 Container(
-                                  width: MediaQuery.of(context).size.width / 3,
-                                  child: Image.asset(
-                                    blogImages[0],
-                                    height: 150,
+                                  color: Colors.red,
+                                  width: MediaQuery.of(context).size.width,
+                                  height: 200,
+                                  child: FittedBox(
+                                    child: Image.asset(
+                                      blogImages[0]
+                                    ),
+                                    fit: BoxFit.fill,
                                   ),
                                 ),
+                                SizedBox(
+                                  height: 30.0,
+                                ),
                                 Container(
-                                  width: MediaQuery.of(context).size.width / 2,
+                                  width: MediaQuery.of(context).size.width,
                                   child: Align(
                                     alignment: Alignment.center,
                                     child: Column(
