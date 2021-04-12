@@ -34,7 +34,6 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
   var smoker;
   var dm;
 
-  bool visibleFavouriteFood = false;
   bool visiblePassword = false;
 
   var _bmiController = TextEditingController();
