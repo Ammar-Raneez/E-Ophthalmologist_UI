@@ -23,14 +23,16 @@ class DiagnosisScreen extends StatefulWidget {
 
 class _DiagnosisScreenState extends State<DiagnosisScreen> {
   User user = FirebaseAuth.instance.currentUser;
+  var userDocument;
+  var mainUserDetails;
+  var currentUserDetails;
+  String email;
 
   File imageFile;
   // for http requests
   Dio dio = new Dio();
   bool showSpinner = false;
 
-  var userDetails;
-  String email;
   dynamic responseBody;
   var time;
 
@@ -40,17 +42,39 @@ class _DiagnosisScreenState extends State<DiagnosisScreen> {
     getUserDetails();
   }
 
+  // get the actual users document (family members document or main user)
+  getActualUserDocument() async {
+    var document = await _firestore.collection("users").doc(user.email).get();
+    mainUserDetails = document.data();
+
+    if (document.data()['currentFamilyMember'] == '') {
+      setState(() {
+        userDocument = document;
+      });
+    } else {
+      var tempUserDocument = await _firestore
+          .collection("users")
+          .doc(user.email)
+          .collection('family')
+          .doc(mainUserDetails['currentFamilyMember'])
+          .get();
+      setState(() {
+        userDocument = tempUserDocument;
+      });
+    }
+  }
+
   // get logged in users details
   getUserDetails() async {
-    var document = await _firestore.collection("users").doc(user.email).get();
+    await getActualUserDocument();
 
     setState(() {
-      userDetails = document.data();
-      print(userDetails);
+      currentUserDetails = userDocument.data();
+      print(currentUserDetails);
     });
 
     setState(() {
-      email = userDetails['userEmail'];
+      email = mainUserDetails['userEmail'];
     });
   }
 
@@ -112,11 +136,29 @@ class _DiagnosisScreenState extends State<DiagnosisScreen> {
 
         // store this diagnosis details in user eye scans collection
         // with the time of diagnosis
-        _firestore.collection("users").doc(email).collection("eye-scans").add({
-          'result': result,
-          'image_url': imageUrl,
-          'timestamp': time,
-        });
+        if (!currentUserDetails['isFamilyMember']) {
+          _firestore
+              .collection("users")
+              .doc(email)
+              .collection("eye-scans")
+              .add({
+            'result': result,
+            'image_url': imageUrl,
+            'timestamp': time,
+          });
+        } else {
+          _firestore
+              .collection("users")
+              .doc(email)
+              .collection("family")
+              .doc(mainUserDetails['currentFamilyMember'])
+              .collection("eye-scans")
+              .add({
+            'result': result,
+            'image_url': imageUrl,
+            'timestamp': time,
+          });
+        }
 
         setState(() {
           showSpinner = false;
