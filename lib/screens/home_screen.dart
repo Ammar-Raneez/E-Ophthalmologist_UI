@@ -269,14 +269,14 @@ class _HomeScreenState extends State<HomeScreen> {
                             ? iconCard(FontAwesomeIcons.eye, "TYPE",
                                 dm.toString(), Colors.purple)
                             : iconCard(FontAwesomeIcons.eyeSlash, "TYPE",
-                                "None", Colors.grey),
+                                "None", Colors.indigo),
                         iconCard(FontAwesomeIcons.calendar, "DURATION",
                             duration, Colors.grey),
                         smoker == "No"
                             ? iconCard(FontAwesomeIcons.smokingBan, "SMOKER?",
                                 smoker.toString(), Colors.red)
                             : iconCard(FontAwesomeIcons.smoking, "SMOKER?",
-                                smoker.toString(), Colors.black),
+                                smoker.toString(), Colors.brown),
                       ],
                     ),
                     Row(
@@ -435,7 +435,7 @@ class _HomeScreenState extends State<HomeScreen> {
         children: <Widget>[
           Text(
             title,
-            style: kTextStyle.copyWith(color: Color(0xff62B47F), fontSize: 25),
+            style: kTextStyle.copyWith(color: Colors.greenAccent, fontSize: 25),
           ),
           SizedBox(
             height: 10.0,
