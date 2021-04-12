@@ -338,7 +338,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         : Padding(
                             padding: const EdgeInsets.only(bottom: 20.0),
                             child: SizedBox(
-                              height: 250.0,
+                              height: 100.0,
                               child: ListView.builder(
                                 physics: ClampingScrollPhysics(),
                                 shrinkWrap: true,
