@@ -112,7 +112,7 @@ class _EditReportScreenState extends State<EditReportScreen> {
     // save chosen image into firebase storage, in the report specific directory
     Reference ref = FirebaseStorage.instance
         .ref()
-        .child(email + " " + reportID + "/")
+        .child(email + " " + mainUserDetails['currentFamilyMember'] + " " +  reportID + "/")
         .child(fileName);
     UploadTask task = ref.putFile(selectedPicture);
 

@@ -117,7 +117,7 @@ class _AddReportScreenState extends State<AddReportScreen> {
     Reference ref = FirebaseStorage.instance
         .ref()
         // create a unique directory for a specific report
-        .child(email + " " + reportID + "/")
+        .child(email + " " + mainUserDetails['currentFamilyMember'] + " " + reportID + "/")
         .child(fileName);
     UploadTask task = ref.putFile(selectedPicture);
 
