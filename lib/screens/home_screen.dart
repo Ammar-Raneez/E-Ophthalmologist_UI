@@ -158,11 +158,11 @@ class _HomeScreenState extends State<HomeScreen> {
     });
   }
 
-  Expanded iconCard(IconData icon, String label, String value) {
+  Expanded iconCard(IconData icon, String label, String value, Color color) {
     return Expanded(
       child: HomePageReusableCard(
         color: Colors.white,
-        cardContent: HomePageIconContent(label, value, icon),
+        cardContent: HomePageIconContent(label, value, icon, color),
       ),
     );
   }
@@ -261,40 +261,22 @@ class _HomeScreenState extends State<HomeScreen> {
                     Row(
                       children: <Widget>[
                         gender == "Male"
-                            ? iconCard(
-                                FontAwesomeIcons.mars,
-                                "GENDER",
-                                gender.toString(),
-                              )
-                            : iconCard(
-                                FontAwesomeIcons.venus,
-                                "GENDER",
-                                gender.toString(),
-                              ),
+                            ? iconCard(FontAwesomeIcons.mars, "GENDER",
+                                gender.toString(), Colors.blue)
+                            : iconCard(FontAwesomeIcons.venus, "GENDER",
+                                gender.toString(), Colors.pink),
                         haveDr == "1"
-                            ? iconCard(
-                                FontAwesomeIcons.eye,
-                                "TYPE",
-                                dm.toString(),
-                              )
-                            : iconCard(
-                                FontAwesomeIcons.eyeSlash,
-                                "TYPE",
-                                "None",
-                              ),
-                        iconCard(
-                            FontAwesomeIcons.calendar, "DURATION", duration),
+                            ? iconCard(FontAwesomeIcons.eye, "TYPE",
+                                dm.toString(), Colors.purple)
+                            : iconCard(FontAwesomeIcons.eyeSlash, "TYPE",
+                                "None", Colors.grey),
+                        iconCard(FontAwesomeIcons.calendar, "DURATION",
+                            duration, Colors.grey),
                         smoker == "No"
-                            ? iconCard(
-                                FontAwesomeIcons.smokingBan,
-                                "SMOKER?",
-                                smoker.toString(),
-                              )
-                            : iconCard(
-                                FontAwesomeIcons.smoking,
-                                "SMOKER?",
-                                smoker.toString(),
-                              ),
+                            ? iconCard(FontAwesomeIcons.smokingBan, "SMOKER?",
+                                smoker.toString(), Colors.red)
+                            : iconCard(FontAwesomeIcons.smoking, "SMOKER?",
+                                smoker.toString(), Colors.black),
                       ],
                     ),
                     Row(

@@ -6,8 +6,10 @@ class HomePageIconContent extends StatelessWidget {
   final String iconLabel;
   final String iconValue;
   final IconData icon;
+  final Color iconColor;
 
-  HomePageIconContent(this.iconLabel, this.iconValue, this.icon);
+  HomePageIconContent(
+      this.iconLabel, this.iconValue, this.icon, this.iconColor);
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +19,7 @@ class HomePageIconContent extends StatelessWidget {
         Icon(
           icon,
           size: 50.0,
-          color: Color(0xff62B47F),
+          color: iconColor,
         ),
         SizedBox(
           height: 10.0,
