@@ -18,11 +18,12 @@ class EditProfileScreen extends StatefulWidget {
 
 class _EditProfileScreenState extends State<EditProfileScreen> {
   User user = FirebaseAuth.instance.currentUser;
-  var userDetails;
-
+  var userDocument;
+  var mainUserDetails;
+  var currentUserDetails;
   String email;
-  String selectedDate;
 
+  String selectedDate;
   static String username = "";
   static String bmi = "";
   static String a1c = "";
@@ -51,26 +52,52 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     getUserDetails();
   }
 
+  // get the actual users document (family members document or main user)
+  getActualUserDocument() async {
+    var document = await _firestore.collection("users").doc(user.email).get();
+    mainUserDetails = document.data();
+
+    if (document.data()['currentFamilyMember'] == '') {
+      setState(() {
+        userDocument = document;
+      });
+    } else {
+      var tempUserDocument = await _firestore
+          .collection("users")
+          .doc(user.email)
+          .collection('family')
+          .doc(mainUserDetails['currentFamilyMember'])
+          .get();
+      setState(() {
+        userDocument = tempUserDocument;
+      });
+    }
+  }
+
   // get current user details
   getUserDetails() async {
-    var document = await _firestore.collection("users").doc(user.email).get();
+    await getActualUserDocument();
 
     setState(() {
-      userDetails = document.data();
-      print(userDetails);
+      currentUserDetails = userDocument.data();
+      print(currentUserDetails);
     });
 
     setState(() {
-      username = userDetails['username'];
-      bmi = userDetails['BMI'];
-      a1c = userDetails['A1C'];
-      systolic = userDetails['systolic'];
-      diastolic = userDetails['diastolic'];
-      duration = userDetails['Duration'];
-      selectedDate = userDetails['DOB'];
-      dm = userDetails['DM Type'];
-      gender = userDetails['gender'];
-      email = userDetails['userEmail'];
+      email = mainUserDetails['userEmail'];
+    });
+
+    setState(() {
+      username = currentUserDetails['username'];
+      bmi = currentUserDetails['BMI'];
+      a1c = currentUserDetails['A1C'];
+      systolic = currentUserDetails['systolic'];
+      diastolic = currentUserDetails['diastolic'];
+      duration = currentUserDetails['Duration'];
+      selectedDate = currentUserDetails['DOB'];
+      dm = currentUserDetails['DM Type'];
+      gender = currentUserDetails['gender'];
+      email = currentUserDetails['userEmail'];
 
       // populate the text fields with the current values after fetching
       _bmiController =
@@ -302,23 +329,45 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
 
                                     try {
                                       // update this users details
-                                      _firestore
-                                          .collection("users")
-                                          .doc(email)
-                                          .set({
-                                        "userEmail": email,
-                                        "username": username,
-                                        "DOB": selectedDate,
-                                        "BMI": bmi,
-                                        "A1C": a1c,
-                                        "systolic": systolic,
-                                        "diastolic": diastolic,
-                                        "Duration": duration,
-                                        "gender": gender.toString(),
-                                        "DM Type": dm.toString(),
-                                        "smoker": smoker.toString(),
-                                        'timestamp': Timestamp.now(),
-                                      });
+                                      if (!currentUserDetails['isFamilyMember']) {
+                                        _firestore
+                                            .collection("users")
+                                            .doc(email)
+                                            .set({
+                                          "userEmail": email,
+                                          "username": username,
+                                          "DOB": selectedDate,
+                                          "BMI": bmi,
+                                          "A1C": a1c,
+                                          "systolic": systolic,
+                                          "diastolic": diastolic,
+                                          "Duration": duration,
+                                          "gender": gender.toString(),
+                                          "DM Type": dm.toString(),
+                                          "smoker": smoker.toString(),
+                                          'timestamp': Timestamp.now(),
+                                        });
+                                      } else {
+                                        _firestore
+                                            .collection("users")
+                                            .doc(email)
+                                            .collection("family")
+                                            .doc(mainUserDetails['currentFamilyMember'])
+                                            .set({
+                                          "userEmail": email,
+                                          "username": username,
+                                          "DOB": selectedDate,
+                                          "BMI": bmi,
+                                          "A1C": a1c,
+                                          "systolic": systolic,
+                                          "diastolic": diastolic,
+                                          "Duration": duration,
+                                          "gender": gender.toString(),
+                                          "DM Type": dm.toString(),
+                                          "smoker": smoker.toString(),
+                                          'timestamp': Timestamp.now(),
+                                        });
+                                      }
 
                                       createAlertDialog(context, "Success",
                                           "Details Updated Successfully!", 200);
