@@ -4,10 +4,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:ui/constants.dart';
-import 'package:ui/screens/blog_screen/diabetes_care.dart';
-import 'package:ui/screens/blog_screen/diabetes_retinopathy.dart';
-import 'package:ui/screens/blog_screen/eye_care.dart';
-import 'package:ui/screens/blog_screen/treatment.dart';
+import 'package:ui/screens/blog_screen/models/diabetes_care.dart';
+import 'package:ui/screens/blog_screen/models/diabetes_retinopathy.dart';
+import 'package:ui/screens/blog_screen/models/eye_care.dart';
+import 'package:ui/screens/blog_screen/models/treatment.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class SpecificBlogScreen extends StatefulWidget {
