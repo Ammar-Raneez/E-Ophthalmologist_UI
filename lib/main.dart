@@ -1,20 +1,20 @@
 import 'package:flutter/material.dart';
-import 'package:ui/screens/add_appointment_screen.dart';
 import 'package:ui/screens/add_family_member.dart';
-import 'package:ui/screens/add_report_screen.dart';
+import 'package:ui/screens/blog_screen/blog_screen.dart';
+import 'package:ui/screens/blog_screen/specific_blog_screen.dart';
 import 'package:ui/screens/current_screen.dart';
 import 'package:ui/screens/diagnosis_result_screen.dart';
 import 'package:ui/screens/diagnosis_screen.dart';
-import 'package:ui/screens/edit_appointment_screen.dart';
 import 'package:ui/screens/edit_profile_screen.dart';
-import 'file:///C:/Users/Public/Downloads/Learning/UNI/Semester%20II/BIS%20FYP%20Diabetic%20Retinopathy/UI/lib/screens/blog_screen/blog_screen.dart';
-import 'package:ui/screens/edit_report_screen.dart';
 import 'package:ui/screens/home_screen.dart';
 import 'package:ui/screens/login_screen.dart';
 import 'package:ui/screens/registration_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:ui/screens/report_screen.dart';
-import 'file:///C:/Users/Public/Downloads/Learning/UNI/Semester%20II/BIS%20FYP%20Diabetic%20Retinopathy/UI/lib/screens/blog_screen/specific_blog_screen.dart';
+import 'package:ui/screens/reports_and_appointment/add_appointment_screen.dart';
+import 'package:ui/screens/reports_and_appointment/add_report_screen.dart';
+import 'package:ui/screens/reports_and_appointment/edit_appointment_screen.dart';
+import 'package:ui/screens/reports_and_appointment/edit_report_screen.dart';
+import 'package:ui/screens/reports_and_appointment/report_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

@@ -8,11 +8,11 @@ import 'package:flutter/material.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:ui/components/report_page_report_appointment.dart';
 import 'package:ui/constants.dart';
-import 'package:ui/screens/add_appointment_screen.dart';
-import 'package:ui/screens/add_report_screen.dart';
 import 'package:ui/screens/current_screen.dart';
-import 'package:ui/screens/edit_appointment_screen.dart';
-import 'package:ui/screens/edit_report_screen.dart';
+import 'package:ui/screens/reports_and_appointment/add_appointment_screen.dart';
+import 'package:ui/screens/reports_and_appointment/add_report_screen.dart';
+import 'package:ui/screens/reports_and_appointment/edit_appointment_screen.dart';
+import 'package:ui/screens/reports_and_appointment/edit_report_screen.dart';
 
 final _firestore = FirebaseFirestore.instance;
 
