@@ -354,9 +354,10 @@ class _ReportScreenState extends State<ReportScreen> {
                             ),
                           ),
                           onPressed: () => Navigator.pushNamed(
-                              // navigate to add appointment screen to add a new one
-                              context,
-                              AddAppointmentScreen.id),
+                                  // navigate to add appointment screen to add a new one
+                                  context,
+                                  AddAppointmentScreen.id)
+                              .then(onGoBack),
                           style: ElevatedButton.styleFrom(
                             primary: Colors.redAccent,
                             shape: RoundedRectangleBorder(
@@ -390,7 +391,8 @@ class _ReportScreenState extends State<ReportScreen> {
       ),
       floatingActionButton: FloatingActionButton(
         // add a report screen
-        onPressed: () => Navigator.pushNamed(context, AddReportScreen.id),
+        onPressed: () =>
+            Navigator.pushNamed(context, AddReportScreen.id).then(onGoBack),
         child: Text(
           "+",
           style: TextStyle(fontSize: 40),
@@ -479,7 +481,8 @@ class _ReportScreenState extends State<ReportScreen> {
                     isReport ? whichDocs[index]['image_document_urls'] : "",
                 'currentDocId': whichDocsIds[index]
               };
-              Navigator.pushNamed(context, navigate, arguments: argsForResult).then(onGoBack);
+              Navigator.pushNamed(context, navigate, arguments: argsForResult)
+                  .then(onGoBack);
             },
             onLongPress: () async {
               createDeleteConfirmationAlert(context, alertTitle, alertDesc, 200,
