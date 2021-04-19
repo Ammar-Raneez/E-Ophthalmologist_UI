@@ -57,6 +57,7 @@ class _AddReportScreenState extends State<AddReportScreen> {
           title: title,
           message: message,
           status: status,
+          reportTab: true,
         );
       },
     );
@@ -163,12 +164,18 @@ class _AddReportScreenState extends State<AddReportScreen> {
       child: Scaffold(
         appBar: AppBar(
           automaticallyImplyLeading: false,
-          title: Center(
-            child: Text(
-              "E-Ophthalmologist",
-              style: kTextStyle.copyWith(fontSize: 20.0, color: Colors.white),
-            ),
+          centerTitle: true,
+          title: Text(
+            "E-Ophthalmologist",
+            style: kTextStyle.copyWith(fontSize: 20.0, color: Colors.white),
           ),
+          leading: IconButton(
+              icon: Icon(
+                Icons.arrow_back,
+              ),
+              onPressed: () {
+                Navigator.pop(context);
+              }),
           backgroundColor: Color(0xff62B47F),
         ),
         body: Container(

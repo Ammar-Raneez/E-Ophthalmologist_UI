@@ -2,14 +2,16 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:ui/constants.dart';
 import 'package:ui/screens/current_screen.dart';
+import 'package:ui/screens/report_screen.dart';
 
 // custom alert boxes - information alerts
 class CustomAlert extends StatelessWidget {
   final String title;
   final String message;
   final int status;
+  bool reportTab = false;
 
-  CustomAlert({this.title, this.message, this.status});
+  CustomAlert({this.title, this.message, this.status, this.reportTab});
 
   @override
   Widget build(BuildContext context) {
@@ -83,7 +85,11 @@ class CustomAlert extends StatelessWidget {
                 Navigator.pop(
                   context,
                 );
+                !reportTab ?
                 Navigator.pushNamed(
+                  context,
+                  CurrentScreen.id,
+                ) : Navigator.pushNamed(
                   context,
                   CurrentScreen.id,
                 );
