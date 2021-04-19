@@ -1,6 +1,8 @@
 class EyeCare {
   final titles = [
-    "Risk Factors For Developing Type 2 Diabetes",
+    "14 Top Tips To Support Diabetic Eye Care",
+    "How to Reduce Vision Loss From Diabetic Blindness",
+    "How to Avoid Suffering From Eyestrain"
   ];
 
   final allBlog = [
@@ -63,6 +65,8 @@ class EyeCare {
   ];
 
   final blogShortDescriptions = [
-    '''A new report indicates that insomnia is a novel risk factor for developing type 2 diabetes. The Sweden-based study that appears in the journal Diabetologia identified 19 risk factors for type 2 diabetes. It further evaluated 21 risk factors that had scarce evidence, and another 15 that reduced the risk of the condition.'''
+    '''Diabetes will eventually affect the blood vessels in your eyes. This is called diabetic retinopathy (DR), and it can lead to visual impairment and blindness. By controlling your blood sugar and blood pressure, you can reducethe damage diabetes can cause in your eyes. However, your eyes will eventually...''',
+    '''Systematic eye screening and preventive treatment dramatically reduce diabetic blindness. This has been shown to be true in Iceland, where over the past thirty years, there has been a dramatic drop in vision loss due to diabetes to the point that diabetic blindness has been all but eradicated...''',
+    '''Everyday we stare at our computers, televisions, phones and other devices without thinking too much of the potential consequences. The Vision Council found that 80% of American adults use digital devices for more than 2 hour per day, and 59% of those experience the symptoms of eyestrain...'''
   ];
 }
