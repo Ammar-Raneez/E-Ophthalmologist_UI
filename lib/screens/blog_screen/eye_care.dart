@@ -63,11 +63,6 @@ class EyeCare {
   ];
 
   final blogShortDescriptions = [
-    '''
-      A new report indicates that insomnia is a novel risk factor for developing type 2 diabetes. The
-      Sweden-based study that appears in the journal Diabetologia identified 19 risk factors for type
-      2 diabetes. It further evaluated 21 risk factors that had scarce evidence, and another 15 that
-      reduced the risk of the condition.
-    '''
+    '''A new report indicates that insomnia is a novel risk factor for developing type 2 diabetes. The Sweden-based study that appears in the journal Diabetologia identified 19 risk factors for type 2 diabetes. It further evaluated 21 risk factors that had scarce evidence, and another 15 that reduced the risk of the condition.'''
   ];
 }

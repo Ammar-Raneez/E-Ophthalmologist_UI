@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -19,7 +21,24 @@ class _SpecificBlogScreenState extends State<SpecificBlogScreen> {
   String typeOfBlog;
 
   // blog left images
-  var blogImages = ["images/tempblog.jpg"];
+  var blogBgImages = [
+    "images/appointment1.jpg",
+    "images/appointment2.jpg",
+    "images/appointment3.jpg",
+    "images/appointment4.jpg",
+    "images/appointment5.jpg",
+    "images/appointment6.jpg",
+    "images/appointment7.jpg",
+    "images/appointment8.jpg",
+    "images/appointment9.jpg",
+    "images/appointment10.jpg"
+  ];
+
+  // get a random image to display as card background
+  getRandomBlogImage() {
+    final random = Random();
+    return blogBgImages[random.nextInt(blogBgImages.length)];
+  }
 
   var chosenBlogType = [];
   var chosenBlogShortDescriptions = [];
@@ -92,14 +111,23 @@ class _SpecificBlogScreenState extends State<SpecificBlogScreen> {
               ),
               Expanded(
                 child: ListView.builder(
-                  itemCount: chosenBlogType.length,
+                  itemCount: chosenBlogShortDescriptions.length,
                   scrollDirection: Axis.vertical,
                   itemBuilder: (context, index) => Column(
                     children: [
                       Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Container(
-                          height: 600,
+                          decoration:
+                              BoxDecoration(color: Colors.white, boxShadow: [
+                            BoxShadow(
+                              color: Color(0xffbbbbbb).withOpacity(0.5),
+                              spreadRadius: 1,
+                              blurRadius: 7,
+                              offset: Offset(0, 2),
+                            ),
+                          ]),
+                          height: 560,
                           width: MediaQuery.of(context).size.width,
                           child: Column(
                             children: [
@@ -107,7 +135,7 @@ class _SpecificBlogScreenState extends State<SpecificBlogScreen> {
                                 width: MediaQuery.of(context).size.width,
                                 height: 200,
                                 child: FittedBox(
-                                  child: Image.asset(blogImages[0]),
+                                  child: Image.asset(getRandomBlogImage()),
                                   fit: BoxFit.fill,
                                 ),
                               ),
@@ -154,7 +182,7 @@ class _SpecificBlogScreenState extends State<SpecificBlogScreen> {
                         ),
                       ),
                       SizedBox(
-                        height: 30,
+                        height: 10,
                       ),
                     ],
                   ),
