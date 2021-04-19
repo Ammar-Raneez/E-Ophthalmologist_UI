@@ -155,12 +155,18 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
       child: Scaffold(
         appBar: AppBar(
           automaticallyImplyLeading: false,
-          title: Center(
-            child: Text(
-              "E-Ophthalmologist",
-              style: kTextStyle.copyWith(fontSize: 20.0, color: Colors.white),
-            ),
+          centerTitle: true,
+          title: Text(
+            "E-Ophthalmologist",
+            style: kTextStyle.copyWith(fontSize: 20.0, color: Colors.white),
           ),
+          leading: IconButton(
+              icon: Icon(
+                Icons.arrow_back,
+              ),
+              onPressed: () {
+                Navigator.pop(context);
+              }),
           backgroundColor: Color(0xff62B47F),
         ),
         backgroundColor: Colors.white,
@@ -181,7 +187,9 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                       children: [
                         Container(
                           child: Text(
-                            "Edit Your Profile",
+                            enableTextFields
+                                ? "Edit Your Profile"
+                                : "View Your Profile",
                             textAlign: TextAlign.center,
                             style: kTextStyle.copyWith(
                               fontSize: 20,
@@ -279,14 +287,13 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                           });
                         }),
                         registrationInputLabel("Diagnosed with Retinopathy?"),
-                        registrationRadioButton(
-                            "No", Diagnosis.No, diagnosis, (value) {
+                        registrationRadioButton("No", Diagnosis.No, diagnosis,
+                            (value) {
                           setState(() {
                             diagnosis = value;
                           });
                         }),
-                        registrationRadioButton(
-                            "Yes", Diagnosis.Yes, diagnosis,
+                        registrationRadioButton("Yes", Diagnosis.Yes, diagnosis,
                             (value) {
                           setState(() {
                             diagnosis = value;

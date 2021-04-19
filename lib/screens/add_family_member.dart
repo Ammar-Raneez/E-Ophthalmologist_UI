@@ -98,11 +98,17 @@ class _AddFamilyMemberScreenState extends State<AddFamilyMemberScreen> {
       child: Scaffold(
         appBar: AppBar(
           automaticallyImplyLeading: false,
-          title: Center(
-            child: Text(
-              "E-Ophthalmologist",
-              style: kTextStyle.copyWith(fontSize: 20.0, color: Colors.white),
-            ),
+          leading: IconButton(
+              icon: Icon(
+                Icons.arrow_back,
+              ),
+              onPressed: () {
+                Navigator.pop(context);
+              }),
+          centerTitle: true,
+          title: Text(
+            "E-Ophthalmologist",
+            style: kTextStyle.copyWith(fontSize: 20.0, color: Colors.white),
           ),
           backgroundColor: Color(0xff62B47F),
         ),
@@ -187,14 +193,14 @@ class _AddFamilyMemberScreenState extends State<AddFamilyMemberScreen> {
                     });
                   }),
                   registrationInputLabel("Diagnosed with Retinopathy?"),
-                  registrationRadioButton(
-                      "No", Diagnosis.No, diagnosis, (value) {
+                  registrationRadioButton("No", Diagnosis.No, diagnosis,
+                      (value) {
                     setState(() {
                       diagnosis = value;
                     });
                   }),
-                  registrationRadioButton(
-                      "Yes", Diagnosis.Yes, diagnosis, (value) {
+                  registrationRadioButton("Yes", Diagnosis.Yes, diagnosis,
+                      (value) {
                     setState(() {
                       diagnosis = value;
                     });
