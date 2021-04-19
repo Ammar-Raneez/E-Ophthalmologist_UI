@@ -7,10 +7,10 @@ class DiabetesCare {
   ];
 
   final allBlog = [
-    "blogs/diabetes care 0.pdf",
-    "blogs/diabetes care 1.pdf",
-    "blogs/diabetes care 2.pdf",
-    "blogs/diabetes care 3.pdf",
+    "blogs/diabetescare0.pdf",
+    "blogs/diabetescare1.pdf",
+    "blogs/diabetescare2.pdf",
+    "blogs/diabetescare3.pdf",
   ];
 
   final blogShortDescriptions = [

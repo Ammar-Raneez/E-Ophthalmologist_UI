@@ -6,9 +6,9 @@ class EyeCare {
   ];
 
   final allBlog = [
-    "blogs/eye care 0.pdf",
-    "blogs/eye care 1.pdf",
-    "blogs/eye care 2.pdf",
+    "blogs/eyecare0.pdf",
+    "blogs/eyecare1.pdf",
+    "blogs/eyecare2.pdf",
   ];
 
   final blogShortDescriptions = [

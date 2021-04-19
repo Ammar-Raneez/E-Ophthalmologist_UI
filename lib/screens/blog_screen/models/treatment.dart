@@ -7,10 +7,10 @@ class Treatment {
   ];
 
   final allBlog = [
-    "blogs/treatment 0.pdf",
-    "blogs/treatment 1.pdf",
-    "blogs/treatment 2.pdf",
-    "blogs/treatment 3.pdf",
+    "blogs/treatment0.pdf",
+    "blogs/treatment1.pdf",
+    "blogs/treatment2.pdf",
+    "blogs/treatment3.pdf",
   ];
 
   final blogShortDescriptions = [

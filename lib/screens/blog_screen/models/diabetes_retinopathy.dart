@@ -5,8 +5,8 @@ class DiabetesRetinopathy {
   ];
 
   final allBlog = [
-    "blogs/retinopathy 0.pdf",
-    "blogs/retinopathy 1.pdf",
+    "blogs/retinopathy0.pdf",
+    "blogs/retinopathy1.pdf",
   ];
 
   final blogShortDescriptions = [
