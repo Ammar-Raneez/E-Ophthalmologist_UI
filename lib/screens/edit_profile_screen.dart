@@ -197,117 +197,102 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                             ),
                           ),
                         ),
-                        registrationInputLabel("Username"),
+                        kRegistrationInputLabel("Username"),
                         kTextField(
                             _usernameController,
                             (value) => username = value,
                             "Enter Username",
                             TextInputType.text,
                             enableTextFields),
-                        Padding(
-                          padding: const EdgeInsets.all(10.0),
-                          child: OutlinedButton(
-                            child: Text(
-                              "Date of Birth: $selectedDate",
-                            ),
-                            onPressed: () async {
+                        kBuildDateTime(
+                            context: context,
+                            which: 'Date of Birth',
+                            value: selectedDate,
+                            press: () async {
                               enableTextFields && await selectDate(context);
-                            },
-                            style: ButtonStyle(
-                              shadowColor: MaterialStateProperty.all<Color>(
-                                Color(0xff62B47F),
-                              ),
-                              foregroundColor: MaterialStateProperty.all<Color>(
-                                Color(0xff62B47F),
-                              ),
-                              overlayColor: MaterialStateProperty.all<Color>(
-                                Color(0xff62B47F),
-                              ),
-                            ),
-                          ),
-                        ),
-                        registrationInputLabel("Gender"),
-                        registrationRadioButton("Male", Gender.Male, gender,
+                            }),
+                        kRegistrationInputLabel("Gender"),
+                        kRegistrationRadioButton("Male", Gender.Male, gender,
                             (value) {
                           setState(() {
                             gender = value;
                           });
                         }),
-                        registrationRadioButton("Female", Gender.Female, gender,
-                            (value) {
+                        kRegistrationRadioButton(
+                            "Female", Gender.Female, gender, (value) {
                           setState(() {
                             gender = value;
                           });
                         }),
-                        registrationInputLabel("BMI"),
+                        kRegistrationInputLabel("BMI"),
                         kTextField(
                             _bmiController,
                             (value) => bmi = value,
                             "Enter BMI",
                             TextInputType.number,
                             enableTextFields),
-                        registrationInputLabel("Diastolic Pressure"),
+                        kRegistrationInputLabel("Diastolic Pressure"),
                         kTextField(
                             _diastolicController,
                             (value) => diastolic = value,
                             "Enter diastolic pressure",
                             TextInputType.number,
                             enableTextFields),
-                        registrationInputLabel("A1C"),
+                        kRegistrationInputLabel("A1C"),
                         kTextField(
                             _a1cController,
                             (value) => a1c = value,
                             "Enter A1C",
                             TextInputType.number,
                             enableTextFields),
-                        registrationInputLabel("Systolic Pressure"),
+                        kRegistrationInputLabel("Systolic Pressure"),
                         kTextField(
                             _systolicController,
                             (value) => systolic = value,
                             "Enter systolic pressure",
                             TextInputType.number,
                             enableTextFields),
-                        registrationInputLabel("Duration of Diabetes"),
+                        kRegistrationInputLabel("Duration of Diabetes"),
                         kTextField(
                             _durationController,
                             (value) => duration = value,
                             "Enter duration",
                             TextInputType.number,
                             enableTextFields),
-                        registrationInputLabel("Diabetes Mellitus Type"),
-                        registrationRadioButton("Type 1", DMType.Type1, dm,
+                        kRegistrationInputLabel("Diabetes Mellitus Type"),
+                        kRegistrationRadioButton("Type 1", DMType.Type1, dm,
                             (value) {
                           setState(() {
                             dm = value;
                           });
                         }),
-                        registrationRadioButton("Type 2", DMType.Type2, dm,
+                        kRegistrationRadioButton("Type 2", DMType.Type2, dm,
                             (value) {
                           setState(() {
                             dm = value;
                           });
                         }),
-                        registrationInputLabel("Diagnosed with Retinopathy?"),
-                        registrationRadioButton("No", Diagnosis.No, diagnosis,
+                        kRegistrationInputLabel("Diagnosed with Retinopathy?"),
+                        kRegistrationRadioButton("No", Diagnosis.No, diagnosis,
                             (value) {
                           setState(() {
                             diagnosis = value;
                           });
                         }),
-                        registrationRadioButton("Yes", Diagnosis.Yes, diagnosis,
-                            (value) {
+                        kRegistrationRadioButton(
+                            "Yes", Diagnosis.Yes, diagnosis, (value) {
                           setState(() {
                             diagnosis = value;
                           });
                         }),
-                        registrationInputLabel("Smoker?"),
-                        registrationRadioButton("Yes", Smoker.Yes, smoker,
+                        kRegistrationInputLabel("Smoker?"),
+                        kRegistrationRadioButton("Yes", Smoker.Yes, smoker,
                             (value) {
                           setState(() {
                             smoker = value;
                           });
                         }),
-                        registrationRadioButton("No", Smoker.No, smoker,
+                        kRegistrationRadioButton("No", Smoker.No, smoker,
                             (value) {
                           setState(() {
                             smoker = value;

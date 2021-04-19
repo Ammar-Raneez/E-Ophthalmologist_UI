@@ -197,7 +197,7 @@ class _EditAppointmentScreenState extends State<EditAppointmentScreen> {
                     itemCount: hospitalNames.length,
                     shrinkWrap: true,
                     itemBuilder: (BuildContext context, int index) =>
-                        buildHospitalLink(
+                        kBuildHospitalLink(
                             hospital: hospitalNames[index],
                             url: hospitalLinks[index]),
                   ),
@@ -216,62 +216,20 @@ class _EditAppointmentScreenState extends State<EditAppointmentScreen> {
                 SizedBox(
                   height: 30,
                 ),
-                Padding(
-                  padding: const EdgeInsets.all(10.0),
-                  child: Container(
-                    width: MediaQuery.of(context).size.width,
-                    child: OutlinedButton(
-                      child: Text(
-                        "Date: $selectedDate",
-                        style: TextStyle(
-                          color: Color(0xff000000),
-                        ),
-                      ),
-                      onPressed: () async {
-                        enableTextFields && await selectDate(context);
-                      },
-                      style: ButtonStyle(
-                        shadowColor: MaterialStateProperty.all<Color>(
-                          Color(0xff01CDFA),
-                        ),
-                        foregroundColor: MaterialStateProperty.all<Color>(
-                          Color(0xff01CDFA),
-                        ),
-                        overlayColor: MaterialStateProperty.all<Color>(
-                          Color(0xff01CDFA),
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(10.0),
-                  child: Container(
-                    width: MediaQuery.of(context).size.width,
-                    child: OutlinedButton(
-                      child: Text(
-                        "Time: $selectedTime",
-                        style: TextStyle(
-                          color: Color(0xff000000),
-                        ),
-                      ),
-                      onPressed: () async {
-                        enableTextFields && await selectTime(context);
-                      },
-                      style: ButtonStyle(
-                        shadowColor: MaterialStateProperty.all<Color>(
-                          Color(0xff01CDFA),
-                        ),
-                        foregroundColor: MaterialStateProperty.all<Color>(
-                          Color(0xff01CDFA),
-                        ),
-                        overlayColor: MaterialStateProperty.all<Color>(
-                          Color(0xff01CDFA),
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
+                kBuildDateTime(
+                    context: context,
+                    which: 'Date',
+                    value: selectedDate,
+                    press: () async {
+                      enableTextFields && await selectDate(context);
+                    }),
+                kBuildDateTime(
+                    context: context,
+                    which: 'Time',
+                    value: selectedTime,
+                    press: () async {
+                      enableTextFields && await selectTime(context);
+                    }),
                 SizedBox(
                   height: 30,
                 ),

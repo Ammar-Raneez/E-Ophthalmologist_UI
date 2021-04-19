@@ -219,31 +219,13 @@ class _EditReportScreenState extends State<EditReportScreen> {
                             enableTextFields),
                         kTextField(_doctorController, (value) => doctor = value,
                             "Doctor", TextInputType.text, enableTextFields),
-                        Padding(
-                          padding: const EdgeInsets.all(10.0),
-                          child: OutlinedButton(
-                            child: Text(
-                              "Date: $selectedDate",
-                              style: TextStyle(
-                                color: Color(0xff000000),
-                              ),
-                            ),
-                            onPressed: () async {
+                        kBuildDateTime(
+                            context: context,
+                            which: 'Date',
+                            value: selectedDate,
+                            press: () async {
                               enableTextFields && await selectDate(context);
-                            },
-                            style: ButtonStyle(
-                              shadowColor: MaterialStateProperty.all<Color>(
-                                Color(0xff01CDFA),
-                              ),
-                              foregroundColor: MaterialStateProperty.all<Color>(
-                                Color(0xff01CDFA),
-                              ),
-                              overlayColor: MaterialStateProperty.all<Color>(
-                                Color(0xff01CDFA),
-                              ),
-                            ),
-                          ),
-                        ),
+                            }),
                         SizedBox(
                           height: 30,
                         ),

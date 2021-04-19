@@ -127,35 +127,20 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                       "Enter Username", TextInputType.text, true),
                   kTextField(_emailAddressController, (value) => email = value,
                       "Enter Email Address", TextInputType.emailAddress, true),
-                  Padding(
-                    padding: const EdgeInsets.all(10.0),
-                    child: OutlinedButton(
-                      child: _commonLabelText(
-                          title: "Date of Birth: $selectedDate",
-                          fontSize: 14.0),
-                      onPressed: () async {
+                  kBuildDateTime(
+                      context: context,
+                      which: 'Date of Birth',
+                      value: selectedDate,
+                      press: () async {
                         await selectDate(context);
-                      },
-                      style: ButtonStyle(
-                        shadowColor: MaterialStateProperty.all<Color>(
-                          Color(0xff01CDFA),
-                        ),
-                        foregroundColor: MaterialStateProperty.all<Color>(
-                          Color(0xff01CDFA),
-                        ),
-                        overlayColor: MaterialStateProperty.all<Color>(
-                          Color(0xff01CDFA),
-                        ),
-                      ),
-                    ),
-                  ),
-                  registrationInputLabel("Gender"),
-                  registrationRadioButton("Male", Gender.Male, gender, (value) {
+                      }),
+                  kRegistrationInputLabel("Gender"),
+                  kRegistrationRadioButton("Male", Gender.Male, gender, (value) {
                     setState(() {
                       gender = value;
                     });
                   }),
-                  registrationRadioButton("Female", Gender.Female, gender,
+                  kRegistrationRadioButton("Female", Gender.Female, gender,
                       (value) {
                     setState(() {
                       gender = value;
@@ -171,37 +156,37 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                       "Enter Systolic Pressure", TextInputType.number, true),
                   kTextField(_durationController, (value) => duration = value,
                       "Duration of Diabetes", TextInputType.number, true),
-                  registrationInputLabel("Diabetes Mellitus Type"),
-                  registrationRadioButton("Type 1", DMType.Type1, dm, (value) {
+                  kRegistrationInputLabel("Diabetes Mellitus Type"),
+                  kRegistrationRadioButton("Type 1", DMType.Type1, dm, (value) {
                     setState(() {
                       dm = value;
                     });
                   }),
-                  registrationRadioButton("Type 2", DMType.Type2, dm, (value) {
+                  kRegistrationRadioButton("Type 2", DMType.Type2, dm, (value) {
                     setState(() {
                       dm = value;
                     });
                   }),
-                  registrationInputLabel("Diagnosed with Retinopathy?"),
-                  registrationRadioButton("No", Diagnosis.No, diagnosis,
+                  kRegistrationInputLabel("Diagnosed with Retinopathy?"),
+                  kRegistrationRadioButton("No", Diagnosis.No, diagnosis,
                       (value) {
                     setState(() {
                       diagnosis = value;
                     });
                   }),
-                  registrationRadioButton("Yes", Diagnosis.Yes, diagnosis,
+                  kRegistrationRadioButton("Yes", Diagnosis.Yes, diagnosis,
                       (value) {
                     setState(() {
                       diagnosis = value;
                     });
                   }),
-                  registrationInputLabel("Smoker?"),
-                  registrationRadioButton("Yes", Smoker.Yes, smoker, (value) {
+                  kRegistrationInputLabel("Smoker?"),
+                  kRegistrationRadioButton("Yes", Smoker.Yes, smoker, (value) {
                     setState(() {
                       smoker = value;
                     });
                   }),
-                  registrationRadioButton("No", Smoker.No, smoker, (value) {
+                  kRegistrationRadioButton("No", Smoker.No, smoker, (value) {
                     setState(() {
                       smoker = value;
                     });

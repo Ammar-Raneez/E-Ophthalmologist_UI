@@ -68,7 +68,7 @@ enum Diagnosis { Yes, No }
 enum Smoker { Yes, No }
 
 // Input labels in registration and edit
-Padding registrationInputLabel(String text) {
+Padding kRegistrationInputLabel(String text) {
   return Padding(
     padding: const EdgeInsets.all(10.0),
     child: Text(
@@ -79,7 +79,7 @@ Padding registrationInputLabel(String text) {
 }
 
 // radio buttons in registration and edit
-ListTile registrationRadioButton(
+ListTile kRegistrationRadioButton(
     String text, var value, var groupVal, Function onchange) {
   return ListTile(
     title: Text(text),
@@ -88,7 +88,7 @@ ListTile registrationRadioButton(
 }
 
 // Appointment hospital links report page for edit and add appointments
-Column buildHospitalLink({@required String hospital, @required String url}) {
+Column kBuildHospitalLink({@required String hospital, @required String url}) {
   return Column(
     children: [
       RichText(
@@ -104,5 +104,39 @@ Column buildHospitalLink({@required String hospital, @required String url}) {
         height: 10,
       ),
     ],
+  );
+}
+
+// date and time picker constant
+Padding kBuildDateTime(
+    {@required BuildContext context,
+    @required String which,
+    @required String value,
+    @required Function press}) {
+  return Padding(
+    padding: const EdgeInsets.all(10.0),
+    child: Container(
+      width: MediaQuery.of(context).size.width,
+      child: OutlinedButton(
+        child: Text(
+          "$which: $value",
+          style: TextStyle(
+            color: Color(0xff000000),
+          ),
+        ),
+        onPressed: press,
+        style: ButtonStyle(
+          shadowColor: MaterialStateProperty.all<Color>(
+            Color(0xff01CDFA),
+          ),
+          foregroundColor: MaterialStateProperty.all<Color>(
+            Color(0xff01CDFA),
+          ),
+          overlayColor: MaterialStateProperty.all<Color>(
+            Color(0xff01CDFA),
+          ),
+        ),
+      ),
+    ),
   );
 }

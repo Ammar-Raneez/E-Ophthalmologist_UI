@@ -118,7 +118,12 @@ class _AddReportScreenState extends State<AddReportScreen> {
     Reference ref = FirebaseStorage.instance
         .ref()
         // create a unique directory for a specific report
-        .child(email + " " + mainUserDetails['currentFamilyMember'] + " " + reportID + "/")
+        .child(email +
+            " " +
+            mainUserDetails['currentFamilyMember'] +
+            " " +
+            reportID +
+            "/")
         .child(fileName);
     UploadTask task = ref.putFile(selectedPicture);
 
@@ -188,31 +193,13 @@ class _AddReportScreenState extends State<AddReportScreen> {
                     "Hospital", TextInputType.text, true),
                 kTextField(_doctorController, (value) => doctor = value,
                     "Doctor", TextInputType.text, true),
-                Padding(
-                  padding: const EdgeInsets.all(10.0),
-                  child: OutlinedButton(
-                    child: Text(
-                      "Date: $selectedDate",
-                      style: TextStyle(
-                        color: Color(0xff000000),
-                      ),
-                    ),
-                    onPressed: () async {
+                kBuildDateTime(
+                    context: context,
+                    which: 'Date',
+                    value: selectedDate,
+                    press: () async {
                       await selectDate(context);
-                    },
-                    style: ButtonStyle(
-                      shadowColor: MaterialStateProperty.all<Color>(
-                        Color(0xff01CDFA),
-                      ),
-                      foregroundColor: MaterialStateProperty.all<Color>(
-                        Color(0xff01CDFA),
-                      ),
-                      overlayColor: MaterialStateProperty.all<Color>(
-                        Color(0xff01CDFA),
-                      ),
-                    ),
-                  ),
-                ),
+                    }),
                 SizedBox(
                   height: 30,
                 ),
