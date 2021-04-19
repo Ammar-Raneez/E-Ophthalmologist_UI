@@ -4,7 +4,7 @@ import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:ui/components/drawable_sidebar.dart';
 import 'package:ui/constants.dart';
 import 'package:ui/screens/diagnosis_screen.dart';
-import 'package:ui/screens/blog_screen.dart';
+import 'file:///C:/Users/Public/Downloads/Learning/UNI/Semester%20II/BIS%20FYP%20Diabetic%20Retinopathy/UI/lib/screens/blog_screen/blog_screen.dart';
 import 'package:ui/screens/home_screen.dart';
 import 'package:ui/screens/report_screen.dart';
 

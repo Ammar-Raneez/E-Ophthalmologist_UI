@@ -2,7 +2,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:ui/components/blog_page_article.dart';
-import 'package:ui/screens/specific_blog_screen.dart';
+import 'file:///C:/Users/Public/Downloads/Learning/UNI/Semester%20II/BIS%20FYP%20Diabetic%20Retinopathy/UI/lib/screens/blog_screen/specific_blog_screen.dart';
 
 class BlogScreen extends StatefulWidget {
   static String id = "blogScreen";
