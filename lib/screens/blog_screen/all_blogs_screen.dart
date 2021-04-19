@@ -2,16 +2,16 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:ui/components/blog_page_article.dart';
-import 'package:ui/screens/blog_screen/specific_blog_screen.dart';
+import 'package:ui/screens/blog_screen/each_blog_type_screen.dart';
 
-class BlogScreen extends StatefulWidget {
-  static String id = "blogScreen";
+class AllBlogsScreen extends StatefulWidget {
+  static String id = "allBlogsScreen";
 
   @override
-  _BlogScreenState createState() => _BlogScreenState();
+  _AllBlogsScreenState createState() => _AllBlogsScreenState();
 }
 
-class _BlogScreenState extends State<BlogScreen> {
+class _AllBlogsScreenState extends State<AllBlogsScreen> {
   @override
   void initState() {
     super.initState();
@@ -59,7 +59,7 @@ class _BlogScreenState extends State<BlogScreen> {
                     itemBuilder: (context, index) => GestureDetector(
                       onTap: () {
                         var args = {"type": cardTitles[index]};
-                        Navigator.pushNamed(context, SpecificBlogScreen.id,
+                        Navigator.pushNamed(context, EachBlogTypeScreen.id,
                             arguments: args);
                       },
                       child: BlogArticle(
