@@ -72,6 +72,15 @@ class _CurrentScreenState extends State<CurrentScreen> {
                       style: kTextStyle.copyWith(
                           fontSize: 20.0, color: Colors.white),
                     ),
+                    actions: [
+                      Builder(
+                        builder: (context) => // Ensure Scaffold is in context
+                            IconButton(
+                                icon: Icon(Icons.menu),
+                                onPressed: () =>
+                                    Scaffold.of(context).openDrawer()),
+                      ),
+                    ],
                     backgroundColor: Color(0xff62B47F),
                   ),
                   body: PageView(
