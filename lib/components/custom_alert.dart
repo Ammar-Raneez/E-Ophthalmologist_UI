@@ -9,9 +9,10 @@ class CustomAlert extends StatelessWidget {
   final String title;
   final String message;
   final int status;
-  bool reportTab = false;
+  final bool reportTab;
 
-  CustomAlert({this.title, this.message, this.status, this.reportTab});
+  CustomAlert(
+      {this.title, this.message, this.status, @required this.reportTab});
 
   @override
   Widget build(BuildContext context) {
@@ -85,14 +86,12 @@ class CustomAlert extends StatelessWidget {
                 Navigator.pop(
                   context,
                 );
-                !reportTab ?
-                Navigator.pushNamed(
-                  context,
-                  CurrentScreen.id,
-                ) : Navigator.pushNamed(
-                  context,
-                  CurrentScreen.id,
-                );
+                reportTab
+                    ? Navigator.pop(context)
+                    : Navigator.pushNamed(
+                        context,
+                        CurrentScreen.id,
+                      );
               } else {
                 Navigator.pop(
                   context,

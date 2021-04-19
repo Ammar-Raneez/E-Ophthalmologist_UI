@@ -127,6 +127,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
           title: title,
           message: message,
           status: status,
+          reportTab: false,
         );
       },
     );

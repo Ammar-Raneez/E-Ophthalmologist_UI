@@ -59,6 +59,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
           title: title,
           message: message,
           status: status,
+          reportTab: false,
         );
       },
     );

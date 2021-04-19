@@ -73,6 +73,7 @@ class _LoginScreenState extends State<LoginScreen> {
           title: title,
           message: message,
           status: status,
+          reportTab: false,
         );
       },
     );

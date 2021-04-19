@@ -70,6 +70,7 @@ class _AddFamilyMemberScreenState extends State<AddFamilyMemberScreen> {
           title: title,
           message: message,
           status: status,
+          reportTab: false,
         );
       },
     );

@@ -88,6 +88,7 @@ class _DiagnosisScreenState extends State<DiagnosisScreen> {
           title: title,
           message: message,
           status: status,
+          reportTab: false,
         );
       },
     );
