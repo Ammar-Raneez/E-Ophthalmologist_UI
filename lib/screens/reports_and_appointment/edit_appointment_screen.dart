@@ -26,6 +26,9 @@ class _EditAppointmentScreenState extends State<EditAppointmentScreen> {
   String hospital;
   String doctor;
   DateTime startDate = DateTime.now();
+  TimeOfDay startTime = TimeOfDay.now();
+  String selectedTime =
+      TimeOfDay.now().hour.toString() + ":" + TimeOfDay.now().minute.toString();
   String selectedDate = DateFormat("yyyy-MM-dd").format(DateTime.now());
 
   var _hospitalController = TextEditingController();
@@ -111,6 +114,16 @@ class _EditAppointmentScreenState extends State<EditAppointmentScreen> {
     setState(() {
       email = mainUserDetails['userEmail'];
     });
+  }
+
+  selectTime(BuildContext context) async {
+    TimeOfDay picked =
+        await showTimePicker(context: context, initialTime: startTime);
+    if (picked != null) {
+      setState(() {
+        selectedTime = picked.hour.toString() + ":" + picked.minute.toString();
+      });
+    }
   }
 
   // DatePicker handler
@@ -231,6 +244,34 @@ class _EditAppointmentScreenState extends State<EditAppointmentScreen> {
                     ),
                   ),
                 ),
+                Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: Container(
+                    width: MediaQuery.of(context).size.width,
+                    child: OutlinedButton(
+                      child: Text(
+                        "Time: $selectedTime",
+                        style: TextStyle(
+                          color: Color(0xff000000),
+                        ),
+                      ),
+                      onPressed: () async {
+                        enableTextFields && await selectTime(context);
+                      },
+                      style: ButtonStyle(
+                        shadowColor: MaterialStateProperty.all<Color>(
+                          Color(0xff01CDFA),
+                        ),
+                        foregroundColor: MaterialStateProperty.all<Color>(
+                          Color(0xff01CDFA),
+                        ),
+                        overlayColor: MaterialStateProperty.all<Color>(
+                          Color(0xff01CDFA),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
                 SizedBox(
                   height: 30,
                 ),
@@ -242,9 +283,11 @@ class _EditAppointmentScreenState extends State<EditAppointmentScreen> {
                             if (doctor == null ||
                                 hospital == null ||
                                 selectedDate == null ||
+                                selectedTime == null ||
                                 doctor == "" ||
                                 hospital == "" ||
-                                selectedDate == "") {
+                                selectedDate == "" ||
+                                selectedTime == "") {
                               createAlertDialog(
                                   context,
                                   "Error",
@@ -268,6 +311,7 @@ class _EditAppointmentScreenState extends State<EditAppointmentScreen> {
                                     'doctor': doctor,
                                     'hospital': hospital,
                                     'date': selectedDate,
+                                    'time': selectedTime
                                   });
                                 } else {
                                   // family member appointment
@@ -283,6 +327,7 @@ class _EditAppointmentScreenState extends State<EditAppointmentScreen> {
                                     'doctor': doctor,
                                     'hospital': hospital,
                                     'date': selectedDate,
+                                    'time': selectedTime
                                   });
                                 }
 
