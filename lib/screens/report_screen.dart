@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:math';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -435,6 +436,14 @@ class _ReportScreenState extends State<ReportScreen> {
     );
   }
 
+  void refreshData() {
+    getUserDetails();
+  }
+
+  FutureOr onGoBack(dynamic value) {
+    refreshData();
+  }
+
   Expanded _listReportsAndAppointments(
       {@required whichDocs, // appointment or report
       @required whichDocsIds, // appointment or report id's
@@ -470,7 +479,7 @@ class _ReportScreenState extends State<ReportScreen> {
                     isReport ? whichDocs[index]['image_document_urls'] : "",
                 'currentDocId': whichDocsIds[index]
               };
-              Navigator.pushNamed(context, navigate, arguments: argsForResult);
+              Navigator.pushNamed(context, navigate, arguments: argsForResult).then(onGoBack);
             },
             onLongPress: () async {
               createDeleteConfirmationAlert(context, alertTitle, alertDesc, 200,
