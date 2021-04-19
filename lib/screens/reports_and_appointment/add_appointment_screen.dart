@@ -28,6 +28,9 @@ class _AddAppointmentScreenState extends State<AddAppointmentScreen> {
   String hospital;
   String doctor;
   DateTime startDate = DateTime.now();
+  TimeOfDay startTime = TimeOfDay.now();
+  String selectedTime =
+      TimeOfDay.now().hour.toString() + ":" + TimeOfDay.now().minute.toString();
   String selectedDate = DateFormat("yyyy-MM-dd").format(DateTime.now());
 
   var _hospitalController = TextEditingController();
@@ -114,6 +117,16 @@ class _AddAppointmentScreenState extends State<AddAppointmentScreen> {
       // common email for any family member
       email = mainUserDetails['userEmail'];
     });
+  }
+
+  selectTime(BuildContext context) async {
+    TimeOfDay picked =
+        await showTimePicker(context: context, initialTime: startTime);
+    if (picked != null) {
+      setState(() {
+        selectedTime = picked.hour.toString() + ":" + picked.minute.toString();
+      });
+    }
   }
 
   //  DatePicker handler
@@ -224,6 +237,34 @@ class _AddAppointmentScreenState extends State<AddAppointmentScreen> {
                     ),
                   ),
                 ),
+                Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: Container(
+                    width: MediaQuery.of(context).size.width,
+                    child: OutlinedButton(
+                      child: Text(
+                        "Time: $selectedTime",
+                        style: TextStyle(
+                          color: Color(0xff000000),
+                        ),
+                      ),
+                      onPressed: () async {
+                        await selectTime(context);
+                      },
+                      style: ButtonStyle(
+                        shadowColor: MaterialStateProperty.all<Color>(
+                          Color(0xff01CDFA),
+                        ),
+                        foregroundColor: MaterialStateProperty.all<Color>(
+                          Color(0xff01CDFA),
+                        ),
+                        overlayColor: MaterialStateProperty.all<Color>(
+                          Color(0xff01CDFA),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
                 SizedBox(
                   height: 30,
                 ),
@@ -235,9 +276,11 @@ class _AddAppointmentScreenState extends State<AddAppointmentScreen> {
                       if (doctor == null ||
                           hospital == null ||
                           selectedDate == null ||
+                          selectedTime == null ||
                           doctor == "" ||
                           hospital == "" ||
-                          selectedDate == "") {
+                          selectedDate == "" ||
+                          selectedTime == "") {
                         createAlertDialog(context, "Error",
                             "Please fill all the given fields to proceed", 404);
                       } else {
@@ -257,6 +300,7 @@ class _AddAppointmentScreenState extends State<AddAppointmentScreen> {
                               'doctor': doctor,
                               'hospital': hospital,
                               'date': selectedDate,
+                              'time': selectedTime
                             });
                           } else {
                             // family member details
@@ -271,6 +315,7 @@ class _AddAppointmentScreenState extends State<AddAppointmentScreen> {
                               'doctor': doctor,
                               'hospital': hospital,
                               'date': selectedDate,
+                              'time': selectedTime
                             });
                           }
 
