@@ -19,9 +19,9 @@ class _BlogScreenState extends State<BlogScreen> {
 
   // all card titles
   var cardTitles = [
-    "Retinopathy Stages",
-    "Diabetes Types",
-    "Guidelines",
+    "Diabetes Care",
+    "Diabetes Retinopathy",
+    "Eye Care",
     "Treatments"
   ];
 

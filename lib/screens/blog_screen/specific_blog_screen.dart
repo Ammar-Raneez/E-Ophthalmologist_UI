@@ -2,6 +2,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:ui/constants.dart';
+import 'package:ui/screens/blog_screen/diabetes_care.dart';
+import 'package:ui/screens/blog_screen/diabetes_retinopathy.dart';
+import 'package:ui/screens/blog_screen/eye_care.dart';
+import 'package:ui/screens/blog_screen/treatment.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class SpecificBlogScreen extends StatefulWidget {
@@ -13,30 +17,6 @@ class SpecificBlogScreen extends StatefulWidget {
 
 class _SpecificBlogScreenState extends State<SpecificBlogScreen> {
   String typeOfBlog;
-
-  // links to navigate for each blog
-  var drStagesArticles = ["https://flutter.dev"];
-  var drTypesArticles = ["https://flutter.dev"];
-  var guidelinesArticles = ["https://flutter.dev"];
-  var treatmentsArticles = ["https://flutter.dev"];
-
-  //short descriptions and associated blog titles
-  var drStagesShortDescriptions = [
-    "adipiscing elit ut aliquam purus sit amet luctus venenatis lectus magna fringilla urna porttitor rhoncus dolor purus non enim praesent elementum facilisis leo vel fringilla est ullamcorper eget nulla facilisi etiam dignissim diam quis enim lobortis scelerisque fermentum dui faucibus in ornare quam viverra orci sagittis eu volutpat odio facilisis..."
-  ];
-  var drStagesTitles = ["How To Prevent Diabetic Retinopathy?"];
-  var drTypesShortDescriptions = [
-    "adipiscing elit ut aliquam purus sit amet luctus venenatis lectus magna fringilla urna porttitor rhoncus dolor purus non enim praesent elementum facilisis leo vel fringilla est ullamcorper eget nulla facilisi etiam dignissim diam quis enim lobortis scelerisque fermentum dui faucibus in ornare quam viverra orci sagittis eu volutpat odio facilisis..."
-  ];
-  var drTypesTitles = ["How To Prevent Diabetic Retinopathy?"];
-  var guidelinesShortDescriptions = [
-    "adipiscing elit ut aliquam purus sit amet luctus venenatis lectus magna fringilla urna porttitor rhoncus dolor purus non enim praesent elementum facilisis leo vel fringilla est ullamcorper eget nulla facilisi etiam dignissim diam quis enim lobortis scelerisque fermentum dui faucibus in ornare quam viverra orci sagittis eu volutpat odio facilisis..."
-  ];
-  var guidelinesTitles = ["How To Prevent Diabetic Retinopathy?"];
-  var treatmentsShortDescriptions = [
-    "adipiscing elit ut aliquam purus sit amet luctus venenatis lectus magna fringilla urna porttitor rhoncus dolor purus non enim praesent elementum facilisis leo vel fringilla est ullamcorper eget nulla facilisi etiam dignissim diam quis enim lobortis scelerisque fermentum dui faucibus in ornare quam viverra orci sagittis eu volutpat odio facilisis..."
-  ];
-  var treatmentTitles = ["How To Prevent Diabetic Retinopathy?"];
 
   // blog left images
   var blogImages = ["images/tempblog.jpg"];
@@ -52,27 +32,27 @@ class _SpecificBlogScreenState extends State<SpecificBlogScreen> {
     setState(() {
       // based on chosen type of blog in arguments, determine articles
       typeOfBlog = arguments['type'];
-      chosenBlogType = typeOfBlog == "Retinopathy Stages"
-          ? drStagesArticles
-          : typeOfBlog == "Diabetes Types"
-              ? drTypesArticles
-              : typeOfBlog == "Guidelines"
-                  ? guidelinesArticles
-                  : treatmentsArticles;
-      chosenBlogShortDescriptions = typeOfBlog == "Retinopathy Stages"
-          ? drStagesShortDescriptions
-          : typeOfBlog == "Diabetes Types"
-              ? drTypesShortDescriptions
-              : typeOfBlog == "Guidelines"
-                  ? guidelinesShortDescriptions
-                  : treatmentsShortDescriptions;
-      chosenBlogTitles = typeOfBlog == "Retinopathy Stages"
-          ? drStagesTitles
-          : typeOfBlog == "Diabetes Types"
-              ? drTypesTitles
-              : typeOfBlog == "Guidelines"
-                  ? guidelinesTitles
-                  : treatmentTitles;
+      chosenBlogType = typeOfBlog == "Diabetes Care"
+          ? DiabetesCare().allBlog
+          : typeOfBlog == "Diabetes Retinopathy"
+              ? DiabetesRetinopathy().allBlog
+              : typeOfBlog == "Eye Care"
+                  ? EyeCare().allBlog
+                  : Treatment().allBlog;
+      chosenBlogShortDescriptions = typeOfBlog == "Diabetes Care"
+          ? DiabetesCare().blogShortDescriptions
+          : typeOfBlog == "Diabetes Retinopathy"
+              ? DiabetesRetinopathy().blogShortDescriptions
+              : typeOfBlog == "Eye Care"
+                  ? EyeCare().blogShortDescriptions
+                  : Treatment().blogShortDescriptions;
+      chosenBlogTitles = typeOfBlog == "Diabetes Care"
+          ? DiabetesCare().titles
+          : typeOfBlog == "Diabetes Retinopathy"
+              ? DiabetesRetinopathy().titles
+              : typeOfBlog == "Eye Care"
+                  ? EyeCare().titles
+                  : Treatment().titles;
     });
 
     return SafeArea(
@@ -112,14 +92,14 @@ class _SpecificBlogScreenState extends State<SpecificBlogScreen> {
               ),
               Expanded(
                 child: ListView.builder(
-                  itemCount: 11,
+                  itemCount: chosenBlogType.length,
                   scrollDirection: Axis.vertical,
                   itemBuilder: (context, index) => Column(
                     children: [
                       Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Container(
-                          height: 550,
+                          height: 600,
                           width: MediaQuery.of(context).size.width,
                           child: Column(
                             children: [
@@ -136,7 +116,7 @@ class _SpecificBlogScreenState extends State<SpecificBlogScreen> {
                               ),
                               _commonText(
                                 context,
-                                chosenBlogTitles[0],
+                                chosenBlogTitles[index],
                                 kTextStyle.copyWith(
                                   fontSize: 20.0,
                                   color: Colors.black,
@@ -147,7 +127,7 @@ class _SpecificBlogScreenState extends State<SpecificBlogScreen> {
                               ),
                               _commonText(
                                 context,
-                                chosenBlogShortDescriptions[0],
+                                chosenBlogShortDescriptions[index],
                                 kTextStyle,
                               ),
                               SizedBox(height: 30),
@@ -163,7 +143,7 @@ class _SpecificBlogScreenState extends State<SpecificBlogScreen> {
                                             color: Colors.black),
                                         recognizer: TapGestureRecognizer()
                                           ..onTap = () {
-                                            launch(chosenBlogType[0]);
+                                            launch(chosenBlogType[index]);
                                           }),
                                     textAlign: TextAlign.left,
                                   ),
