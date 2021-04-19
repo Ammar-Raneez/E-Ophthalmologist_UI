@@ -112,7 +112,12 @@ class _EditReportScreenState extends State<EditReportScreen> {
     // save chosen image into firebase storage, in the report specific directory
     Reference ref = FirebaseStorage.instance
         .ref()
-        .child(email + " " + mainUserDetails['currentFamilyMember'] + " " +  reportID + "/")
+        .child(email +
+            " " +
+            mainUserDetails['currentFamilyMember'] +
+            " " +
+            reportID +
+            "/")
         .child(fileName);
     UploadTask task = ref.putFile(selectedPicture);
 
@@ -194,7 +199,11 @@ class _EditReportScreenState extends State<EditReportScreen> {
                     padding: const EdgeInsets.all(20.0),
                     child: ListView(
                       children: [
-                        _commonLabelText(title: enableTextFields ? "Edit Report" : "View Report", fontSize: 20.0),
+                        _commonLabelText(
+                            title: enableTextFields
+                                ? "Edit Report"
+                                : "View Report",
+                            fontSize: 20.0),
                         kTextField(
                             _hospitalController,
                             (value) => hospital = value,
