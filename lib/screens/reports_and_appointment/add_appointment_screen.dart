@@ -165,13 +165,21 @@ class _AddAppointmentScreenState extends State<AddAppointmentScreen> {
                 _commonLabelText(title: "Add Appointment", fontSize: 20.0),
                 _commonLabelText(title: "Make an Appointment", fontSize: 16.0),
                 SizedBox(
-                  height: 150,
+                  height: 200,
                   child: ListView.builder(
                     physics: ClampingScrollPhysics(),
                     itemCount: Appointment.allDetails.length,
                     shrinkWrap: true,
                     itemBuilder: (BuildContext context, int index) =>
-                        kBuildHospitalLink(),
+                        kBuildHospitalLink(
+                            doctor: Appointment.allDetails[index]['doctor'],
+                            hospitals: Appointment.allDetails[index]
+                                ['hospitals'],
+                            telNums:
+                                Appointment.allDetails[index]['telNums'] != null
+                                    ? Appointment.allDetails[index]['telNums']
+                                    : [null],
+                            url: Appointment.allDetails[index]['channeling']),
                   ),
                 ),
                 SizedBox(

@@ -88,20 +88,38 @@ ListTile kRegistrationRadioButton(
 }
 
 // Appointment hospital links report page for edit and add appointments
-Column kBuildHospitalLink({@required String hospital, @required String url}) {
+Column kBuildHospitalLink(
+    {@required String doctor,
+    @required var hospitals,
+    @required var telNums,
+    @required String url}) {
   return Column(
     children: [
       RichText(
         text: TextSpan(
-            text: hospital,
+            text: doctor,
             style: kTextStyle.copyWith(fontSize: 18, color: Colors.green),
             recognizer: TapGestureRecognizer()
               ..onTap = () {
                 launch(url);
               }),
       ),
+      Container(
+        height: telNums[0] != null ? 100 : 30,
+        child: ListView.builder(
+          shrinkWrap: true,
+          itemCount: hospitals.length,
+          itemBuilder: (BuildContext context, int index) => Row(
+            children: [
+              Text(hospitals[index], style: kTextStyle,),
+              Text(telNums[index] != null ? telNums[index] : "", style: kTextStyle)
+            ],
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          ),
+        ),
+      ),
       SizedBox(
-        height: 10,
+        height: 20,
       ),
     ],
   );
