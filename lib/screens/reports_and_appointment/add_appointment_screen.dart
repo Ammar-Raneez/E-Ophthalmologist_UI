@@ -7,6 +7,7 @@ import 'package:ui/components/custom_alert.dart';
 import 'package:ui/components/custom_rounded_button.dart';
 import 'package:ui/constants.dart';
 import 'package:add_2_calendar/add_2_calendar.dart';
+import 'package:ui/screens/reports_and_appointment/models/appointments.dart';
 
 final _firestore = FirebaseFirestore.instance;
 
@@ -40,26 +41,6 @@ class _AddAppointmentScreenState extends State<AddAppointmentScreen> {
 
   // appointmentID - timestamp of creation
   String appointmentID = new Timestamp.now().toString();
-
-  // hospital names and links to choose from
-  var hospitalNames = [
-    "National Eye Hospital",
-    "Radiant Eye Hospital",
-    "Nawaloka Hospital",
-    "Asiri Hospital",
-    "Hemas Hospital",
-    "Ninewells Hospital",
-    "Lanka Hospital"
-  ];
-  var hospitalLinks = [
-    "https://nationaleyehospital.health.gov.lk/",
-    "https://radianteye.lk/",
-    "https://www.nawaloka.com/",
-    "https://asirihealth.com/",
-    "https://www.hemas.com/",
-    "https://ninewellshospital.lk/",
-    "https://www.lankahospitals.com/"
-  ];
 
   @override
   void initState() {
@@ -187,12 +168,10 @@ class _AddAppointmentScreenState extends State<AddAppointmentScreen> {
                   height: 150,
                   child: ListView.builder(
                     physics: ClampingScrollPhysics(),
-                    itemCount: hospitalNames.length,
+                    itemCount: Appointment.allDetails.length,
                     shrinkWrap: true,
                     itemBuilder: (BuildContext context, int index) =>
-                        kBuildHospitalLink(
-                            hospital: hospitalNames[index],
-                            url: hospitalLinks[index]),
+                        kBuildHospitalLink(),
                   ),
                 ),
                 SizedBox(
