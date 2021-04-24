@@ -172,21 +172,6 @@ class _EditAppointmentScreenState extends State<EditAppointmentScreen> {
                     fontSize: 20.0),
                 _commonLabelText(title: "Make an Appointment", fontSize: 16.0),
                 SizedBox(
-                  height: 200,
-                  child: ListView.builder(
-                    physics: ClampingScrollPhysics(),
-                    itemCount: Appointment.allDetails.length,
-                    shrinkWrap: true,
-                    itemBuilder: (BuildContext context, int index) =>
-                        kBuildHospitalLink(
-                            doctor: Appointment.allDetails[index]['doctor'],
-                            hospitals: Appointment.allDetails[index]
-                                ['hospitals'],
-                            telNums: Appointment.allDetails[index]['telNums'],
-                            url: Appointment.allDetails[index]['channeling']),
-                  ),
-                ),
-                SizedBox(
                   height: 50,
                 ),
                 _commonLabelText(title: "Register Details", fontSize: 16.0),
