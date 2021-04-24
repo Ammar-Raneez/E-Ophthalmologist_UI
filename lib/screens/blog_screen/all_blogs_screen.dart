@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:ui/components/blog_page_article.dart';
+import 'package:ui/constants.dart';
 import 'package:ui/screens/blog_screen/each_blog_type_screen.dart';
 
 class AllBlogsScreen extends StatefulWidget {
