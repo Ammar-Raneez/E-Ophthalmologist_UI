@@ -24,6 +24,8 @@ class _EditAppointmentScreenState extends State<EditAppointmentScreen> {
   var currentUserDetails;
   String email;
 
+  String viewedTime;
+  String viewedDate;
   String hospital;
   String doctor;
   DateTime startDate = DateTime.now();
@@ -132,6 +134,8 @@ class _EditAppointmentScreenState extends State<EditAppointmentScreen> {
       doctor = arguments['doctor'];
       hospital = arguments['hospital'];
       appointmentId = arguments['currentDocId'];
+      viewedDate = arguments['date'];
+      viewedTime = arguments['time'];
     });
 
     setState(() {
@@ -173,7 +177,11 @@ class _EditAppointmentScreenState extends State<EditAppointmentScreen> {
                 SizedBox(
                   height: 30,
                 ),
-                _commonLabelText(title: "Register Details", fontSize: 16.0),
+                _commonLabelText(
+                    title: enableTextFields
+                        ? "Register Details"
+                        : "Registered Details",
+                    fontSize: 16.0),
                 kRegistrationInputLabel("Hospital"),
                 kTextField(_hospitalController, (value) => hospital = value,
                     "Hospital", TextInputType.text, enableTextFields),

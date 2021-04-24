@@ -213,6 +213,11 @@ class _EditReportScreenState extends State<EditReportScreen> {
                                 ? "Edit Report"
                                 : "View Report",
                             fontSize: 20.0),
+                        _commonLabelText(
+                            title: enableTextFields
+                                ? "Register Details"
+                                : "Registered Details",
+                            fontSize: 16.0),
                         enableTextFields
                             ? Column(
                                 children: [
