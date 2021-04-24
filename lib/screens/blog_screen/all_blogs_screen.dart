@@ -2,7 +2,6 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:ui/components/blog_page_article.dart';
-import 'package:ui/constants.dart';
 import 'package:ui/screens/blog_screen/each_blog_type_screen.dart';
 
 class AllBlogsScreen extends StatefulWidget {
@@ -50,23 +49,6 @@ class _AllBlogsScreenState extends State<AllBlogsScreen> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        appBar: AppBar(
-          automaticallyImplyLeading: false,
-          title: Text(
-            "E-Ophthalmologist",
-            style: kTextStyle.copyWith(fontSize: 20.0, color: Colors.white),
-          ),
-          actions: [
-            IconButton(
-                icon: Icon(
-                  Icons.add_alert,
-                ),
-                onPressed: () {
-                  Navigator.pop(context);
-                }),
-          ],
-          backgroundColor: Color(0xff62B47F),
-        ),
         body: Container(
           child: Column(
             children: [
