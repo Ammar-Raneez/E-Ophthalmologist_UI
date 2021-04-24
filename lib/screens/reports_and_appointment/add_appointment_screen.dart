@@ -205,6 +205,9 @@ class _AddAppointmentScreenState extends State<AddAppointmentScreen> {
                     press: () async {
                       await selectDate(context);
                     }),
+                SizedBox(
+                  height: 20,
+                ),
                 kBuildDateTime(
                     context: context,
                     which: 'Time',

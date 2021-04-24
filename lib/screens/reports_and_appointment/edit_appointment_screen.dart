@@ -226,20 +226,39 @@ class _EditAppointmentScreenState extends State<EditAppointmentScreen> {
                 SizedBox(
                   height: 30,
                 ),
-                kBuildDateTime(
-                    context: context,
-                    which: 'Date',
-                    value: selectedDate,
-                    press: () async {
-                      enableTextFields && await selectDate(context);
-                    }),
-                kBuildDateTime(
-                    context: context,
-                    which: 'Time',
-                    value: selectedTime,
-                    press: () async {
-                      enableTextFields && await selectTime(context);
-                    }),
+                enableTextFields
+                    ? kBuildDateTime(
+                        context: context,
+                        which: 'Date',
+                        value: selectedDate,
+                        press: () async {
+                          enableTextFields && await selectDate(context);
+                        })
+                    : Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          kValueReadMore("Date", Colors.black38),
+                          kValueReadMore(viewedDate, Colors.black),
+                        ],
+                      ),
+                SizedBox(
+                  height: 20,
+                ),
+                enableTextFields
+                    ? kBuildDateTime(
+                        context: context,
+                        which: 'Time',
+                        value: selectedTime,
+                        press: () async {
+                          enableTextFields && await selectTime(context);
+                        })
+                    : Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          kValueReadMore("Time", Colors.black38),
+                          kValueReadMore(viewedDate, Colors.black),
+                        ],
+                      ),
                 SizedBox(
                   height: 30,
                 ),
