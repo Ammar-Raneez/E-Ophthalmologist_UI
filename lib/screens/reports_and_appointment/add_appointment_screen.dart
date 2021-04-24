@@ -186,11 +186,13 @@ class _AddAppointmentScreenState extends State<AddAppointmentScreen> {
                   height: 50,
                 ),
                 _commonLabelText(title: "Register Details", fontSize: 16.0),
+                kRegistrationInputLabel("Hospital"),
                 kTextField(_hospitalController, (value) => hospital = value,
                     "Hospital", TextInputType.text, true),
                 SizedBox(
                   height: 20,
                 ),
+                kRegistrationInputLabel("Doctor"),
                 kTextField(_doctorController, (value) => doctor = value,
                     "Doctor", TextInputType.text, true),
                 SizedBox(
