@@ -253,21 +253,22 @@ class _EditReportScreenState extends State<EditReportScreen> {
                                   kValueReadMore(doctor, Colors.black),
                                 ],
                               ),
-                        enableTextFields ?
-                        kBuildDateTime(
-                            context: context,
-                            which: 'Date',
-                            value: selectedDate,
-                            press: () async {
-                              enableTextFields && await selectDate(context);
-                            })
-                        : Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            kValueReadMore("Date", Colors.black38),
-                            kValueReadMore(viewedDate, Colors.black),
-                          ],
-                        ),
+                        enableTextFields
+                            ? kBuildDateTime(
+                                context: context,
+                                which: 'Date',
+                                value: selectedDate,
+                                press: () async {
+                                  enableTextFields && await selectDate(context);
+                                })
+                            : Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  kValueReadMore("Date", Colors.black38),
+                                  kValueReadMore(viewedDate, Colors.black),
+                                ],
+                              ),
                         SizedBox(
                           height: 30,
                         ),
@@ -306,93 +307,81 @@ class _EditReportScreenState extends State<EditReportScreen> {
                         SizedBox(
                           height: 40,
                         ),
-                        enableTextFields
-                            ? CustomRoundedButton(
-                                onPressed: () async {
-                                  if (doctor == null ||
-                                      hospital == null ||
-                                      selectedDate == null ||
-                                      doctor == "" ||
-                                      hospital == "" ||
-                                      selectedDate == "") {
-                                    createAlertDialog(
-                                        context,
-                                        "Error",
-                                        "Please fill all the given fields to proceed",
-                                        404);
-                                  } else {
-                                    setState(() {
-                                      showSpinner = true;
+                        if (enableTextFields)
+                          CustomRoundedButton(
+                            onPressed: () async {
+                              if (doctor == null ||
+                                  hospital == null ||
+                                  selectedDate == null ||
+                                  doctor == "" ||
+                                  hospital == "" ||
+                                  selectedDate == "") {
+                                createAlertDialog(
+                                    context,
+                                    "Error",
+                                    "Please fill all the given fields to proceed",
+                                    404);
+                              } else {
+                                setState(() {
+                                  showSpinner = true;
+                                });
+
+                                try {
+                                  // update main user reports
+                                  if (!currentUserDetails['isFamilyMember']) {
+                                    await _firestore
+                                        .collection("users")
+                                        .doc(email)
+                                        .collection("past-reports")
+                                        .doc(reportID)
+                                        .set({
+                                      'doctor': doctor,
+                                      'hospital': hospital,
+                                      'date': selectedDate,
+                                      'image_document_urls': imageDocumentsURLS
                                     });
-
-                                    try {
-                                      // update main user reports
-                                      if (!currentUserDetails[
-                                          'isFamilyMember']) {
-                                        await _firestore
-                                            .collection("users")
-                                            .doc(email)
-                                            .collection("past-reports")
-                                            .doc(reportID)
-                                            .set({
-                                          'doctor': doctor,
-                                          'hospital': hospital,
-                                          'date': selectedDate,
-                                          'image_document_urls':
-                                              imageDocumentsURLS
-                                        });
-                                      } else {
-                                        // update family member report
-                                        await _firestore
-                                            .collection("users")
-                                            .doc(email)
-                                            .collection("family")
-                                            .doc(mainUserDetails[
-                                                'currentFamilyMember'])
-                                            .collection("past-reports")
-                                            .doc(reportID)
-                                            .set({
-                                          'doctor': doctor,
-                                          'hospital': hospital,
-                                          'date': selectedDate,
-                                          'image_document_urls':
-                                              imageDocumentsURLS
-                                        });
-                                      }
-
-                                      createAlertDialog(
-                                          context,
-                                          "Success",
-                                          "Report Details have been edited successfully!",
-                                          200);
-
-                                      setState(() {
-                                        showSpinner = false;
-                                      });
-
-                                      _hospitalController.clear();
-                                      _doctorController.clear();
-                                    } catch (e) {
-                                      createAlertDialog(
-                                          context, "Error", e.message, 404);
-                                      setState(() {
-                                        showSpinner = false;
-                                      });
-                                    }
+                                  } else {
+                                    // update family member report
+                                    await _firestore
+                                        .collection("users")
+                                        .doc(email)
+                                        .collection("family")
+                                        .doc(mainUserDetails[
+                                            'currentFamilyMember'])
+                                        .collection("past-reports")
+                                        .doc(reportID)
+                                        .set({
+                                      'doctor': doctor,
+                                      'hospital': hospital,
+                                      'date': selectedDate,
+                                      'image_document_urls': imageDocumentsURLS
+                                    });
                                   }
-                                },
-                                title: "CONFIRM",
-                                colour: Color(0xff62B47F),
-                              )
-                            : CustomRoundedButton(
-                                onPressed: () {
+
+                                  createAlertDialog(
+                                      context,
+                                      "Success",
+                                      "Report Details have been edited successfully!",
+                                      200);
+
                                   setState(() {
-                                    enableTextFields = true;
+                                    showSpinner = false;
                                   });
-                                },
-                                title: "EDIT",
-                                colour: Color(0xff62B47F),
-                              ),
+
+                                  _hospitalController.clear();
+                                  _doctorController.clear();
+                                } catch (e) {
+                                  createAlertDialog(
+                                      context, "Error", e.message, 404);
+                                  setState(() {
+                                    showSpinner = false;
+                                  });
+                                }
+                              }
+                            },
+                            title: "CONFIRM",
+                            colour: Color(0xff62B47F),
+                          ),
                         SizedBox(
                           height: 10,
                         ),
@@ -410,7 +399,15 @@ class _EditReportScreenState extends State<EditReportScreen> {
                 ),
                 backgroundColor: Colors.redAccent,
               )
-            : null,
+            : FloatingActionButton(
+                onPressed: () => {
+                  setState(() {
+                    enableTextFields = true;
+                  })
+                },
+                child: Icon(Icons.edit),
+                backgroundColor: Colors.redAccent,
+              ),
       ),
     );
   }
