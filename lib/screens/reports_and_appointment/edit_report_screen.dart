@@ -27,6 +27,7 @@ class _EditReportScreenState extends State<EditReportScreen> {
   var currentUserDetails;
   String email;
 
+  String viewedDate;
   String hospital;
   String doctor;
   DateTime startDate = DateTime.now();
@@ -166,6 +167,7 @@ class _EditReportScreenState extends State<EditReportScreen> {
       hospital = arguments['hospital'];
       imageDocumentsURLS = arguments['image_document_urls'];
       reportID = arguments['currentDocId'];
+      viewedDate = arguments['date'];
     });
 
     // populate the text fields with the current values
@@ -211,23 +213,61 @@ class _EditReportScreenState extends State<EditReportScreen> {
                                 ? "Edit Report"
                                 : "View Report",
                             fontSize: 20.0),
-                        kRegistrationInputLabel("Hospital"),
-                        kTextField(
-                            _hospitalController,
-                            (value) => hospital = value,
-                            "Hospital",
-                            TextInputType.text,
-                            enableTextFields),
-                        kRegistrationInputLabel("Doctor"),
-                        kTextField(_doctorController, (value) => doctor = value,
-                            "Doctor", TextInputType.text, enableTextFields),
+                        enableTextFields
+                            ? Column(
+                                children: [
+                                  kRegistrationInputLabel("Hospital"),
+                                  kTextField(
+                                      _hospitalController,
+                                      (value) => hospital = value,
+                                      "Hospital",
+                                      TextInputType.text,
+                                      enableTextFields),
+                                ],
+                              )
+                            : Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  kValueReadMore("Hospital", Colors.black38),
+                                  kValueReadMore(hospital, Colors.black),
+                                ],
+                              ),
+                        enableTextFields
+                            ? Column(
+                                children: [
+                                  kRegistrationInputLabel("Doctor"),
+                                  kTextField(
+                                      _doctorController,
+                                      (value) => doctor = value,
+                                      "Doctor",
+                                      TextInputType.text,
+                                      enableTextFields),
+                                ],
+                              )
+                            : Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  kValueReadMore("Doctor", Colors.black38),
+                                  kValueReadMore(doctor, Colors.black),
+                                ],
+                              ),
+                        enableTextFields ?
                         kBuildDateTime(
                             context: context,
                             which: 'Date',
                             value: selectedDate,
                             press: () async {
                               enableTextFields && await selectDate(context);
-                            }),
+                            })
+                        : Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            kValueReadMore("Date", Colors.black38),
+                            kValueReadMore(viewedDate, Colors.black),
+                          ],
+                        ),
                         SizedBox(
                           height: 30,
                         ),

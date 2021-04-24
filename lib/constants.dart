@@ -78,6 +78,17 @@ Padding kRegistrationInputLabel(String text) {
   );
 }
 
+// Input labels in view report and appointment screens
+Padding kValueReadMore(String text, Color color) {
+  return Padding(
+    padding: const EdgeInsets.all(10.0),
+    child: Text(
+      text,
+      style: kTextStyle.copyWith(fontSize: 18, color: color),
+    ),
+  );
+}
+
 // radio buttons in registration and edit
 ListTile kRegistrationRadioButton(
     String text, var value, var groupVal, Function onchange) {
