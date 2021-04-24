@@ -376,7 +376,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                               width: MediaQuery.of(context)
                                                       .size
                                                       .width /
-                                                  3,
+                                                  4,
                                               height: 100,
                                               child: Padding(
                                                 padding: const EdgeInsets.all(8.0),
@@ -384,7 +384,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                   child: Image.asset(
                                                     getRandomEyeScanImage(),
                                                   ),
-                                                  fit: BoxFit.fill,
+                                                  fit: BoxFit.cover,
                                                 ),
                                               ),
                                             ),
