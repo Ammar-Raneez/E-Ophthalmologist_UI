@@ -174,11 +174,13 @@ class _EditAppointmentScreenState extends State<EditAppointmentScreen> {
                   height: 30,
                 ),
                 _commonLabelText(title: "Register Details", fontSize: 16.0),
+                kRegistrationInputLabel("Hospital"),
                 kTextField(_hospitalController, (value) => hospital = value,
                     "Hospital", TextInputType.text, enableTextFields),
                 SizedBox(
                   height: 20,
                 ),
+                kRegistrationInputLabel("Doctor"),
                 kTextField(_doctorController, (value) => doctor = value,
                     "Doctor", TextInputType.text, enableTextFields),
                 SizedBox(
