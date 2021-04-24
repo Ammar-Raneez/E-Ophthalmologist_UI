@@ -49,6 +49,23 @@ class _AllBlogsScreenState extends State<AllBlogsScreen> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+        appBar: AppBar(
+          automaticallyImplyLeading: false,
+          title: Text(
+            "E-Ophthalmologist",
+            style: kTextStyle.copyWith(fontSize: 20.0, color: Colors.white),
+          ),
+          actions: [
+            IconButton(
+                icon: Icon(
+                  Icons.add_alert,
+                ),
+                onPressed: () {
+                  Navigator.pop(context);
+                }),
+          ],
+          backgroundColor: Color(0xff62B47F),
+        ),
         body: Container(
           child: Column(
             children: [
