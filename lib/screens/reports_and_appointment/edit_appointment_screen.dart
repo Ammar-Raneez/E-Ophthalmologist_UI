@@ -182,15 +182,47 @@ class _EditAppointmentScreenState extends State<EditAppointmentScreen> {
                         ? "Register Details"
                         : "Registered Details",
                     fontSize: 16.0),
-                kRegistrationInputLabel("Hospital"),
-                kTextField(_hospitalController, (value) => hospital = value,
-                    "Hospital", TextInputType.text, enableTextFields),
+                enableTextFields
+                    ? Column(
+                        children: [
+                          kRegistrationInputLabel("Hospital"),
+                          kTextField(
+                              _hospitalController,
+                              (value) => hospital = value,
+                              "Hospital",
+                              TextInputType.text,
+                              enableTextFields),
+                        ],
+                      )
+                    : Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          kValueReadMore("Hospital", Colors.black38),
+                          kValueReadMore(hospital, Colors.black),
+                        ],
+                      ),
                 SizedBox(
                   height: 20,
                 ),
-                kRegistrationInputLabel("Doctor"),
-                kTextField(_doctorController, (value) => doctor = value,
-                    "Doctor", TextInputType.text, enableTextFields),
+                enableTextFields
+                    ? Column(
+                        children: [
+                          kRegistrationInputLabel("Doctor"),
+                          kTextField(
+                              _doctorController,
+                              (value) => doctor = value,
+                              "Doctor",
+                              TextInputType.text,
+                              enableTextFields),
+                        ],
+                      )
+                    : Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          kValueReadMore("Doctor", Colors.black38),
+                          kValueReadMore(doctor, Colors.black),
+                        ],
+                      ),
                 SizedBox(
                   height: 30,
                 ),
