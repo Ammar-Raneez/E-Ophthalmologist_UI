@@ -136,6 +136,7 @@ class _AddFamilyMemberScreenState extends State<AddFamilyMemberScreen> {
                   SizedBox(
                     height: 30,
                   ),
+                  kRegistrationInputLabel("Username"),
                   kTextField(_usernameController, (value) => username = value,
                       "Enter Username", TextInputType.text, true),
                   kBuildDateTime(
@@ -158,14 +159,19 @@ class _AddFamilyMemberScreenState extends State<AddFamilyMemberScreen> {
                       gender = value;
                     });
                   }),
+                  kRegistrationInputLabel("BMI"),
                   kTextField(_bmiController, (value) => bmi = value,
                       "Enter BMI", TextInputType.number, true),
+                  kRegistrationInputLabel("Diastolic Pressure"),
                   kTextField(_diastolicController, (value) => diastolic = value,
                       "Enter Diastolic Pressure", TextInputType.number, true),
+                  kRegistrationInputLabel("A1C"),
                   kTextField(_a1cController, (value) => a1c = value,
                       "Enter A1C", TextInputType.number, true),
+                  kRegistrationInputLabel("Systolic Pressure"),
                   kTextField(_systolicController, (value) => systolic = value,
                       "Enter Systolic Pressure", TextInputType.number, true),
+                  kRegistrationInputLabel("Duration of Diabetes"),
                   kTextField(_durationController, (value) => duration = value,
                       "Duration of Diabetes", TextInputType.number, true),
                   kRegistrationInputLabel("Diabetes Mellitus Type"),
