@@ -345,6 +345,17 @@ class _EditAppointmentScreenState extends State<EditAppointmentScreen> {
             ),
           ),
         ),
+        floatingActionButton: enableTextFields
+            ? null
+            : FloatingActionButton(
+                onPressed: () => {
+                  setState(() {
+                    enableTextFields = true;
+                  })
+                },
+                child: Icon(Icons.edit),
+                backgroundColor: Colors.redAccent,
+              ),
       ),
     );
   }
