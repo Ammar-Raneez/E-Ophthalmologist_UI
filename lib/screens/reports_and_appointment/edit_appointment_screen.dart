@@ -262,96 +262,85 @@ class _EditAppointmentScreenState extends State<EditAppointmentScreen> {
                 SizedBox(
                   height: 30,
                 ),
-                Container(
-                  width: MediaQuery.of(context).size.width,
-                  child: enableTextFields
-                      ? CustomRoundedButton(
-                          onPressed: () async {
-                            if (doctor == null ||
-                                hospital == null ||
-                                selectedDate == null ||
-                                selectedTime == null ||
-                                doctor == "" ||
-                                hospital == "" ||
-                                selectedDate == "" ||
-                                selectedTime == "") {
-                              createAlertDialog(
-                                  context,
-                                  "Error",
-                                  "Please fill all the given fields to proceed",
-                                  404);
-                            } else {
-                              setState(() {
-                                showSpinner = true;
+                if (enableTextFields)
+                  Container(
+                    width: MediaQuery.of(context).size.width,
+                    child: CustomRoundedButton(
+                      onPressed: () async {
+                        if (doctor == null ||
+                            hospital == null ||
+                            selectedDate == null ||
+                            selectedTime == null ||
+                            doctor == "" ||
+                            hospital == "" ||
+                            selectedDate == "" ||
+                            selectedTime == "") {
+                          createAlertDialog(
+                              context,
+                              "Error",
+                              "Please fill all the given fields to proceed",
+                              404);
+                        } else {
+                          setState(() {
+                            showSpinner = true;
+                          });
+
+                          try {
+                            // update the specific appointments details
+                            if (!currentUserDetails['isFamilyMember']) {
+                              // main user appointment
+                              await _firestore
+                                  .collection("users")
+                                  .doc(email)
+                                  .collection("appointments")
+                                  .doc(appointmentId)
+                                  .set({
+                                'doctor': doctor,
+                                'hospital': hospital,
+                                'date': selectedDate,
+                                'time': selectedTime
                               });
-
-                              try {
-                                // update the specific appointments details
-                                if (!currentUserDetails['isFamilyMember']) {
-                                  // main user appointment
-                                  await _firestore
-                                      .collection("users")
-                                      .doc(email)
-                                      .collection("appointments")
-                                      .doc(appointmentId)
-                                      .set({
-                                    'doctor': doctor,
-                                    'hospital': hospital,
-                                    'date': selectedDate,
-                                    'time': selectedTime
-                                  });
-                                } else {
-                                  // family member appointment
-                                  await _firestore
-                                      .collection("users")
-                                      .doc(email)
-                                      .collection("family")
-                                      .doc(mainUserDetails[
-                                          'currentFamilyMember'])
-                                      .collection("appointments")
-                                      .doc(appointmentId)
-                                      .set({
-                                    'doctor': doctor,
-                                    'hospital': hospital,
-                                    'date': selectedDate,
-                                    'time': selectedTime
-                                  });
-                                }
-
-                                createAlertDialog(
-                                    context,
-                                    "Success",
-                                    "Appointment has been edited successfully!",
-                                    200);
-
-                                setState(() {
-                                  showSpinner = false;
-                                });
-
-                                _hospitalController.clear();
-                                _doctorController.clear();
-                              } catch (e) {
-                                createAlertDialog(
-                                    context, "Error", e.message, 404);
-                                setState(() {
-                                  showSpinner = false;
-                                });
-                              }
+                            } else {
+                              // family member appointment
+                              await _firestore
+                                  .collection("users")
+                                  .doc(email)
+                                  .collection("family")
+                                  .doc(mainUserDetails['currentFamilyMember'])
+                                  .collection("appointments")
+                                  .doc(appointmentId)
+                                  .set({
+                                'doctor': doctor,
+                                'hospital': hospital,
+                                'date': selectedDate,
+                                'time': selectedTime
+                              });
                             }
-                          },
-                          title: "CONFIRM APPOINTMENT",
-                          colour: Color(0xff62B47F),
-                        )
-                      : CustomRoundedButton(
-                          onPressed: () {
+
+                            createAlertDialog(
+                                context,
+                                "Success",
+                                "Appointment has been edited successfully!",
+                                200);
+
                             setState(() {
-                              enableTextFields = true;
+                              showSpinner = false;
                             });
-                          },
-                          title: "EDIT",
-                          colour: Color(0xff62B47F),
-                        ),
-                )
+
+                            _hospitalController.clear();
+                            _doctorController.clear();
+                          } catch (e) {
+                            createAlertDialog(context, "Error", e.message, 404);
+                            setState(() {
+                              showSpinner = false;
+                            });
+                          }
+                        }
+                      },
+                      title: "CONFIRM APPOINTMENT",
+                      colour: Color(0xff62B47F),
+                    ),
+                  ),
               ],
             ),
           ),
