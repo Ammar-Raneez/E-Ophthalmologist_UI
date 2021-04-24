@@ -211,12 +211,14 @@ class _EditReportScreenState extends State<EditReportScreen> {
                                 ? "Edit Report"
                                 : "View Report",
                             fontSize: 20.0),
+                        kRegistrationInputLabel("Hospital"),
                         kTextField(
                             _hospitalController,
                             (value) => hospital = value,
                             "Hospital",
                             TextInputType.text,
                             enableTextFields),
+                        kRegistrationInputLabel("Doctor"),
                         kTextField(_doctorController, (value) => doctor = value,
                             "Doctor", TextInputType.text, enableTextFields),
                         kBuildDateTime(
