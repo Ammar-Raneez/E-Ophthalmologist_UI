@@ -165,7 +165,7 @@ class _AddAppointmentScreenState extends State<AddAppointmentScreen> {
                 _commonLabelText(title: "Add Appointment", fontSize: 20.0),
                 _commonLabelText(title: "Make an Appointment", fontSize: 16.0),
                 SizedBox(
-                  height: 200,
+                  height: 300,
                   child: ListView.builder(
                     physics: ClampingScrollPhysics(),
                     itemCount: Appointment.allDetails.length,

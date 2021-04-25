@@ -135,7 +135,7 @@ class _DrawableSidebarState extends State<DrawableSidebar> {
                   width: 0,
                 )
               : Container(
-                  height: 50,
+//                  height: 50,
                   child: ListView.builder(
                     shrinkWrap: true,
                     itemCount: familyMembers.length,

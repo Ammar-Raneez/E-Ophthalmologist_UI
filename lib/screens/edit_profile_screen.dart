@@ -298,122 +298,113 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                             smoker = value;
                           });
                         }),
-                        enableTextFields
-                            ? CustomRoundedButton(
-                                onPressed: () async {
-                                  // only allow if all details are filled
-                                  if (username == null ||
-                                      bmi == null ||
-                                      a1c == null ||
-                                      systolic == null ||
-                                      diastolic == null ||
-                                      duration == null ||
-                                      selectedDate == null ||
-                                      gender == null ||
-                                      dm == null ||
-                                      diagnosis == null ||
-                                      smoker == null ||
-                                      username == "" ||
-                                      bmi == "" ||
-                                      a1c == "" ||
-                                      systolic == "" ||
-                                      diastolic == "" ||
-                                      dm == "" ||
-                                      gender == "" ||
-                                      diagnosis == "" ||
-                                      smoker == "") {
-                                    createAlertDialog(
-                                        context,
-                                        "Error",
-                                        "Please fill all the given fields to proceed",
-                                        404);
-                                  } else {
-                                    setState(() {
-                                      showSpinner = true;
+                        if (enableTextFields)
+                          CustomRoundedButton(
+                            onPressed: () async {
+                              // only allow if all details are filled
+                              if (username == null ||
+                                  bmi == null ||
+                                  a1c == null ||
+                                  systolic == null ||
+                                  diastolic == null ||
+                                  duration == null ||
+                                  selectedDate == null ||
+                                  gender == null ||
+                                  dm == null ||
+                                  diagnosis == null ||
+                                  smoker == null ||
+                                  username == "" ||
+                                  bmi == "" ||
+                                  a1c == "" ||
+                                  systolic == "" ||
+                                  diastolic == "" ||
+                                  dm == "" ||
+                                  gender == "" ||
+                                  diagnosis == "" ||
+                                  smoker == "") {
+                                createAlertDialog(
+                                    context,
+                                    "Error",
+                                    "Please fill all the given fields to proceed",
+                                    404);
+                              } else {
+                                setState(() {
+                                  showSpinner = true;
+                                });
+
+                                try {
+                                  // update main users details
+                                  if (!currentUserDetails['isFamilyMember']) {
+                                    _firestore
+                                        .collection("users")
+                                        .doc(email)
+                                        .set({
+                                      "userEmail": email,
+                                      "username": username,
+                                      "DOB": selectedDate,
+                                      "BMI": bmi,
+                                      "A1C": a1c,
+                                      "systolic": systolic,
+                                      "diastolic": diastolic,
+                                      "Duration": duration,
+                                      "isFamilyMember": false,
+                                      "gender": gender.toString(),
+                                      "DM Type": dm.toString(),
+                                      "Diagnosis": diagnosis.toString(),
+                                      "smoker": smoker.toString(),
+                                      'timestamp': Timestamp.now(),
                                     });
-
-                                    try {
-                                      // update main users details
-                                      if (!currentUserDetails[
-                                          'isFamilyMember']) {
-                                        _firestore
-                                            .collection("users")
-                                            .doc(email)
-                                            .set({
-                                          "userEmail": email,
-                                          "username": username,
-                                          "DOB": selectedDate,
-                                          "BMI": bmi,
-                                          "A1C": a1c,
-                                          "systolic": systolic,
-                                          "diastolic": diastolic,
-                                          "Duration": duration,
-                                          "isFamilyMember": false,
-                                          "gender": gender.toString(),
-                                          "DM Type": dm.toString(),
-                                          "Diagnosis": diagnosis.toString(),
-                                          "smoker": smoker.toString(),
-                                          'timestamp': Timestamp.now(),
-                                        });
-                                      } else {
-                                        // update family member details
-                                        _firestore
-                                            .collection("users")
-                                            .doc(email)
-                                            .collection("family")
-                                            .doc(mainUserDetails[
-                                                'currentFamilyMember'])
-                                            .set({
-                                          "username": username,
-                                          "DOB": selectedDate,
-                                          "BMI": bmi,
-                                          "A1C": a1c,
-                                          "systolic": systolic,
-                                          "diastolic": diastolic,
-                                          "Duration": duration,
-                                          "gender": gender.toString(),
-                                          "DM Type": dm.toString(),
-                                          "Diagnosis": diagnosis.toString(),
-                                          "smoker": smoker.toString(),
-                                          'timestamp': Timestamp.now(),
-                                          "isFamilyMember": true,
-                                        });
-                                      }
-
-                                      createAlertDialog(context, "Success",
-                                          "Details Updated Successfully!", 200);
-
-                                      setState(() {
-                                        showSpinner = false;
-                                      });
-
-                                      // clear all fields
-                                      _usernameController.clear();
-                                      _bmiController.clear();
-                                      _diastolicController.clear();
-                                      _systolicController.clear();
-                                      _a1cController.clear();
-                                    } catch (e) {
-                                      createAlertDialog(
-                                          context, "Error", e.message, 404);
-                                      setState(() {
-                                        showSpinner = false;
-                                      });
-                                    }
+                                  } else {
+                                    print("update");
+                                    // update family member details
+                                    _firestore
+                                        .collection("users")
+                                        .doc(email)
+                                        .collection("family")
+                                        .doc(mainUserDetails[
+                                            'currentFamilyMember'])
+                                        .set({
+                                      "username": username,
+                                      "DOB": selectedDate,
+                                      "BMI": bmi,
+                                      "A1C": a1c,
+                                      "systolic": systolic,
+                                      "diastolic": diastolic,
+                                      "Duration": duration,
+                                      "gender": gender.toString(),
+                                      "DM Type": dm.toString(),
+                                      "Diagnosis": diagnosis.toString(),
+                                      "smoker": smoker.toString(),
+                                      'timestamp': Timestamp.now(),
+                                      "isFamilyMember": true,
+                                    });
                                   }
-                                },
-                                colour: Color(0xff62B47F),
-                                title: 'CONFIRM',
-                              )
-                            : CustomRoundedButton(
-                                onPressed: () {
+
+                                  createAlertDialog(context, "Success",
+                                      "Details Updated Successfully!", 200);
+
                                   setState(() {
-                                    enableTextFields = true;
+                                    showSpinner = false;
                                   });
-                                },
-                                title: "EDIT",
-                                colour: Color(0xff62B47F),
-                              ),
+
+                                  // clear all fields
+                                  _usernameController.clear();
+                                  _bmiController.clear();
+                                  _diastolicController.clear();
+                                  _systolicController.clear();
+                                  _a1cController.clear();
+                                } catch (e) {
+                                  createAlertDialog(
+                                      context, "Error", e.message, 404);
+                                  setState(() {
+                                    showSpinner = false;
+                                  });
+                                }
+                              }
+                            },
+                            colour: Color(0xff62B47F),
+                            title: 'CONFIRM',
+                          ),
                         SizedBox(
                           height: 20.0,
                         ),
@@ -422,6 +413,17 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                   ),
                 ),
         ),
+        floatingActionButton: enableTextFields
+            ? null
+            : FloatingActionButton(
+                onPressed: () => {
+                  setState(() {
+                    enableTextFields = true;
+                  })
+                },
+                child: Icon(Icons.edit),
+                backgroundColor: Colors.redAccent,
+              ),
       ),
     );
   }
