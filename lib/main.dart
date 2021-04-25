@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ui/screens/add_family_member.dart';
+import 'package:ui/screens/welcome_screen.dart';
 import 'package:ui/screens/blog_screen/all_blogs_screen.dart';
 import 'package:ui/screens/blog_screen/each_blog_type_screen.dart';
 import 'package:ui/screens/blog_screen/specific_blog_screen.dart';
@@ -28,8 +29,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       // first page to show
-      home: LoginScreen(),
-      initialRoute: LoginScreen.id,
+      home: WelcomeScreen(),
+      initialRoute: WelcomeScreen.id,
       // all screen routes
       routes: {
         HomeScreen.id: (context) => HomeScreen(),
