@@ -102,13 +102,14 @@ class RegistrationFirstScreenState extends State<RegistrationFirstScreen> {
                         height: 150,
                       ),
                       _commonLabelText(
-                          title: "Nice to see you here 👋", fontSize: 20.0, color: Colors.white),
+                          title: "Nice to see you here 👋",
+                          fontSize: 20.0,
+                          color: Colors.white),
                     ],
                   ),
                   kRegistrationInputLabel("Username"),
                   kTextField(_usernameController, (value) => username = value,
                       "Enter Username", TextInputType.text, true),
-
                   kRegistrationInputLabel("Email"),
                   kTextField(_emailAddressController, (value) => email = value,
                       "Enter Email Address", TextInputType.emailAddress, true),
@@ -157,7 +158,9 @@ class RegistrationFirstScreenState extends State<RegistrationFirstScreen> {
                       Navigator.pop(context);
                     },
                     child: _commonLabelText(
-                        title: "< - Back to Login", fontSize: 12.0, color: Colors.black),
+                        title: "< - Back to Login",
+                        fontSize: 12.0,
+                        color: Colors.black),
                   ),
                   SizedBox(
                     height: 20,
@@ -179,8 +182,17 @@ class RegistrationFirstScreenState extends State<RegistrationFirstScreen> {
                           showSpinner = true;
                         });
 
+                        var arguments = {
+                          "username": username,
+                          "email": email,
+                          "password": password,
+                          "selectedDate": selectedDate
+                        };
+
                         try {
-                          Navigator.pushNamed(context, RegistrationSecondScreen.id);
+                          Navigator.pushNamed(
+                              context, RegistrationSecondScreen.id,
+                              arguments: arguments);
 
                           setState(() {
                             showSpinner = false;
@@ -213,7 +225,8 @@ class RegistrationFirstScreenState extends State<RegistrationFirstScreen> {
     );
   }
 
-  Text _commonLabelText({@required title, @required fontSize, @required color}) {
+  Text _commonLabelText(
+      {@required title, @required fontSize, @required color}) {
     return Text(
       title,
       textAlign: TextAlign.center,
