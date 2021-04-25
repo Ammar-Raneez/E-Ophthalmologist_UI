@@ -1,12 +1,14 @@
+import 'dart:async';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:intl/intl.dart';
 import 'package:ui/components/custom_alert.dart';
 import 'package:ui/components/custom_rounded_button.dart';
 import 'package:ui/constants.dart';
-import 'package:ui/screens/reports_and_appointment/models/appointments.dart';
 
 final _firestore = FirebaseFirestore.instance;
 
@@ -34,6 +36,9 @@ class _EditAppointmentScreenState extends State<EditAppointmentScreen> {
       TimeOfDay.now().hour.toString() + ":" + TimeOfDay.now().minute.toString();
   String selectedDate = DateFormat("yyyy-MM-dd").format(DateTime.now());
 
+  Set<Marker> _markers = {};
+  LatLng _target;
+  Completer<GoogleMapController> _controller = Completer();
   var _hospitalController = TextEditingController();
   var _doctorController = TextEditingController();
 
@@ -136,6 +141,16 @@ class _EditAppointmentScreenState extends State<EditAppointmentScreen> {
       appointmentId = arguments['currentDocId'];
       viewedDate = arguments['date'];
       viewedTime = arguments['time'];
+    });
+
+    setState(() {
+      _target = LatLng(45.521563, -122.677433);
+      _markers.add(
+        Marker(
+          position: _target,
+          markerId: MarkerId(hospital.toString())
+        )
+      );
     });
 
     setState(() {
@@ -262,6 +277,21 @@ class _EditAppointmentScreenState extends State<EditAppointmentScreen> {
                 SizedBox(
                   height: 30,
                 ),
+                if (!enableTextFields)
+                  SizedBox(
+                    width: MediaQuery.of(context).size.width,
+                    height: 300,
+                    child: GoogleMap(
+                      initialCameraPosition: CameraPosition(
+                        target: _target,
+                        zoom: 16.0,
+                      ),
+                      markers: _markers,
+                      onMapCreated: (GoogleMapController controller) {
+                        _controller.complete(controller);
+                      },
+                    ),
+                  ),
                 if (enableTextFields)
                   Container(
                     width: MediaQuery.of(context).size.width,

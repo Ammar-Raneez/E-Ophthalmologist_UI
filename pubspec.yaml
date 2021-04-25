@@ -24,6 +24,7 @@ dependencies:
   percent_indicator: "^2.1.7+2"
   pdf_flutter: ^1.1.4
   bordered_text: ^1.0.1
+  google_maps_flutter: 1.2.0
   intl: ^0.16.1
   flutter_native_splash: ^0.1.4
   http: ^0.12.2
