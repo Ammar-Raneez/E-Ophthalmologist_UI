@@ -110,7 +110,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       child: Hero(
                         tag: "logo",
                         child: Container(
-                          height: 100,
+                          height: 150,
                           child: Image.asset('images/officialLogo.png'),
                         ),
                       ),

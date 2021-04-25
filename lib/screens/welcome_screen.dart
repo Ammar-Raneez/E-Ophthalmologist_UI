@@ -86,11 +86,6 @@ class _WelcomeScreenState extends State<WelcomeScreen>
                     ),
                   ),
                 ),
-                Text(
-                  "E-Ophthalmologist",
-                  style: kTextStyle.copyWith(fontSize: 30, color: Colors.white),
-                  textAlign: TextAlign.center,
-                )
               ],
             )
           ],
