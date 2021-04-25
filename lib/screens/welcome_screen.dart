@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ui/constants.dart';
 // import 'package:ui/screens/diagnosis/lungDiagnosis_screen.dart';
 import 'package:ui/screens/login_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -63,13 +64,13 @@ class _WelcomeScreenState extends State<WelcomeScreen>
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        backgroundColor: Color(0xff01CDFA),
+        backgroundColor: Colors.green,
         body: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
+            Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 GestureDetector(
                   onTap: () {
@@ -84,6 +85,11 @@ class _WelcomeScreenState extends State<WelcomeScreen>
                       height: animation.value * 300,
                     ),
                   ),
+                ),
+                Text(
+                  "E-Ophthalmologist",
+                  style: kTextStyle.copyWith(fontSize: 30, color: Colors.white),
+                  textAlign: TextAlign.center,
                 )
               ],
             )
