@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:ui/components/custom_alert.dart';
 import 'package:ui/components/custom_rounded_button.dart';
 import 'package:ui/constants.dart';
-import 'package:ui/screens/registration_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
+import 'package:ui/screens/registration_first_screen.dart';
 
 class LoginScreen extends StatefulWidget {
   static String id = "loginScreen";
@@ -198,7 +198,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               // navigate to registration screen
                               print("U tapped the sign up button");
                               Navigator.pushNamed(
-                                  context, RegistrationScreen.id);
+                                  context, RegistrationFirstScreen.id);
                             },
                             child: _commonLabelText(
                                 title: "Sign Up", fontSize: 13.0, color: Colors.green),

@@ -221,7 +221,7 @@ class _EditReportScreenState extends State<EditReportScreen> {
                         enableTextFields
                             ? Column(
                                 children: [
-                                  kRegistrationInputLabel("Hospital"),
+                                  kEditProfileInputLabel("Hospital"),
                                   kTextField(
                                       _hospitalController,
                                       (value) => hospital = value,
@@ -241,7 +241,7 @@ class _EditReportScreenState extends State<EditReportScreen> {
                         enableTextFields
                             ? Column(
                                 children: [
-                                  kRegistrationInputLabel("Doctor"),
+                                  kEditProfileInputLabel("Doctor"),
                                   kTextField(
                                       _doctorController,
                                       (value) => doctor = value,

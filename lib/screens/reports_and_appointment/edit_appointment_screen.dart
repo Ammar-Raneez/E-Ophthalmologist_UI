@@ -213,7 +213,7 @@ class _EditAppointmentScreenState extends State<EditAppointmentScreen> {
                 enableTextFields
                     ? Column(
                         children: [
-                          kRegistrationInputLabel("Hospital"),
+                          kEditProfileInputLabel("Hospital"),
                           kTextField(
                               _hospitalController,
                               (value) => hospital = value,
@@ -235,7 +235,7 @@ class _EditAppointmentScreenState extends State<EditAppointmentScreen> {
                 enableTextFields
                     ? Column(
                         children: [
-                          kRegistrationInputLabel("Doctor"),
+                          kEditProfileInputLabel("Doctor"),
                           kTextField(
                               _doctorController,
                               (value) => doctor = value,

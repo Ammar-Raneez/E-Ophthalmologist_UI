@@ -74,7 +74,7 @@ class CustomAlert extends StatelessWidget {
               vertical: 10,
               horizontal: 30,
             ),
-            color: Color(0xff01CDFA),
+            color: Colors.green,
             shape: new RoundedRectangleBorder(
               borderRadius: new BorderRadius.circular(
                 10.0,

@@ -9,15 +9,15 @@ import 'package:intl/intl.dart';
 
 final _firestore = FirebaseFirestore.instance;
 
-class RegistrationScreen extends StatefulWidget {
+class RegistrationSecondScreen extends StatefulWidget {
   //  page routing
-  static String id = "registerScreen";
+  static String id = "registerSecondScreen";
 
   @override
-  _RegistrationScreenState createState() => _RegistrationScreenState();
+  RegistrationSecondScreenState createState() => RegistrationSecondScreenState();
 }
 
-class _RegistrationScreenState extends State<RegistrationScreen> {
+class RegistrationSecondScreenState extends State<RegistrationSecondScreen> {
   // registration details
   String username;
   String email;
@@ -134,18 +134,18 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                       press: () async {
                         await selectDate(context);
                       }),
-                  kRegistrationInputLabel("Gender"),
+                  kEditProfileInputLabel("Gender"),
                   kRegistrationRadioButton("Male", Gender.Male, gender, (value) {
                     setState(() {
                       gender = value;
                     });
                   }),
                   kRegistrationRadioButton("Female", Gender.Female, gender,
-                      (value) {
-                    setState(() {
-                      gender = value;
-                    });
-                  }),
+                          (value) {
+                        setState(() {
+                          gender = value;
+                        });
+                      }),
                   kTextField(_bmiController, (value) => bmi = value,
                       "Enter BMI", TextInputType.number, true),
                   kTextField(_diastolicController, (value) => diastolic = value,
@@ -156,7 +156,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                       "Enter Systolic Pressure", TextInputType.number, true),
                   kTextField(_durationController, (value) => duration = value,
                       "Duration of Diabetes", TextInputType.number, true),
-                  kRegistrationInputLabel("Diabetes Mellitus Type"),
+                  kEditProfileInputLabel("Diabetes Mellitus Type"),
                   kRegistrationRadioButton("Type 1", DMType.Type1, dm, (value) {
                     setState(() {
                       dm = value;
@@ -167,20 +167,20 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                       dm = value;
                     });
                   }),
-                  kRegistrationInputLabel("Diagnosed with Retinopathy?"),
+                  kEditProfileInputLabel("Diagnosed with Retinopathy?"),
                   kRegistrationRadioButton("No", Diagnosis.No, diagnosis,
-                      (value) {
-                    setState(() {
-                      diagnosis = value;
-                    });
-                  }),
+                          (value) {
+                        setState(() {
+                          diagnosis = value;
+                        });
+                      }),
                   kRegistrationRadioButton("Yes", Diagnosis.Yes, diagnosis,
-                      (value) {
-                    setState(() {
-                      diagnosis = value;
-                    });
-                  }),
-                  kRegistrationInputLabel("Smoker?"),
+                          (value) {
+                        setState(() {
+                          diagnosis = value;
+                        });
+                      }),
+                  kEditProfileInputLabel("Smoker?"),
                   kRegistrationRadioButton("Yes", Smoker.Yes, smoker, (value) {
                     setState(() {
                       smoker = value;
@@ -267,8 +267,8 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                         try {
                           // create the user, add all details to firestore and returns a user once created
                           final newUser =
-                              await _auth.createUserWithEmailAndPassword(
-                                  email: email, password: password);
+                          await _auth.createUserWithEmailAndPassword(
+                              email: email, password: password);
 
                           _firestore.collection("users").doc(email).set({
                             "userEmail": email,

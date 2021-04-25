@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:ui/screens/add_family_member.dart';
+import 'package:ui/screens/registration_first_screen.dart';
+import 'package:ui/screens/registration_second_screen.dart';
 import 'package:ui/screens/welcome_screen.dart';
 import 'package:ui/screens/blog_screen/all_blogs_screen.dart';
 import 'package:ui/screens/blog_screen/each_blog_type_screen.dart';
@@ -10,7 +12,6 @@ import 'package:ui/screens/diagnosis_screen.dart';
 import 'package:ui/screens/edit_profile_screen.dart';
 import 'package:ui/screens/home_screen.dart';
 import 'package:ui/screens/login_screen.dart';
-import 'package:ui/screens/registration_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:ui/screens/reports_and_appointment/add_appointment_screen.dart';
 import 'package:ui/screens/reports_and_appointment/add_report_screen.dart';
@@ -38,7 +39,8 @@ class MyApp extends StatelessWidget {
         EachBlogTypeScreen.id: (context) => EachBlogTypeScreen(),
         SpecificBlogScreen.id: (context) => SpecificBlogScreen(),
         LoginScreen.id: (context) => LoginScreen(),
-        RegistrationScreen.id: (context) => RegistrationScreen(),
+        RegistrationFirstScreen.id: (context) => RegistrationFirstScreen(),
+        RegistrationSecondScreen.id: (context) => RegistrationSecondScreen(),
         CurrentScreen.id: (context) => CurrentScreen(),
         DiagnosisScreen.id: (context) => DiagnosisScreen(),
         DiagnosisResultScreen.id: (context) => DiagnosisResultScreen(),

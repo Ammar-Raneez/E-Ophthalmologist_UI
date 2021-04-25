@@ -197,7 +197,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                             ),
                           ),
                         ),
-                        kRegistrationInputLabel("Username"),
+                        kEditProfileInputLabel("Username"),
                         kTextField(
                             _usernameController,
                             (value) => username = value,
@@ -211,7 +211,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                             press: () async {
                               enableTextFields && await selectDate(context);
                             }),
-                        kRegistrationInputLabel("Gender"),
+                        kEditProfileInputLabel("Gender"),
                         kRegistrationRadioButton("Male", Gender.Male, gender,
                             (value) {
                           setState(() {
@@ -224,42 +224,42 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                             gender = value;
                           });
                         }),
-                        kRegistrationInputLabel("BMI"),
+                        kEditProfileInputLabel("BMI"),
                         kTextField(
                             _bmiController,
                             (value) => bmi = value,
                             "Enter BMI",
                             TextInputType.number,
                             enableTextFields),
-                        kRegistrationInputLabel("Diastolic Pressure"),
+                        kEditProfileInputLabel("Diastolic Pressure"),
                         kTextField(
                             _diastolicController,
                             (value) => diastolic = value,
                             "Enter diastolic pressure",
                             TextInputType.number,
                             enableTextFields),
-                        kRegistrationInputLabel("A1C"),
+                        kEditProfileInputLabel("A1C"),
                         kTextField(
                             _a1cController,
                             (value) => a1c = value,
                             "Enter A1C",
                             TextInputType.number,
                             enableTextFields),
-                        kRegistrationInputLabel("Systolic Pressure"),
+                        kEditProfileInputLabel("Systolic Pressure"),
                         kTextField(
                             _systolicController,
                             (value) => systolic = value,
                             "Enter systolic pressure",
                             TextInputType.number,
                             enableTextFields),
-                        kRegistrationInputLabel("Duration of Diabetes"),
+                        kEditProfileInputLabel("Duration of Diabetes"),
                         kTextField(
                             _durationController,
                             (value) => duration = value,
                             "Enter duration",
                             TextInputType.number,
                             enableTextFields),
-                        kRegistrationInputLabel("Diabetes Mellitus Type"),
+                        kEditProfileInputLabel("Diabetes Mellitus Type"),
                         kRegistrationRadioButton("Type 1", DMType.Type1, dm,
                             (value) {
                           setState(() {
@@ -272,7 +272,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                             dm = value;
                           });
                         }),
-                        kRegistrationInputLabel("Diagnosed with Retinopathy?"),
+                        kEditProfileInputLabel("Diagnosed with Retinopathy?"),
                         kRegistrationRadioButton("No", Diagnosis.No, diagnosis,
                             (value) {
                           setState(() {
@@ -285,7 +285,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                             diagnosis = value;
                           });
                         }),
-                        kRegistrationInputLabel("Smoker?"),
+                        kEditProfileInputLabel("Smoker?"),
                         kRegistrationRadioButton("Yes", Smoker.Yes, smoker,
                             (value) {
                           setState(() {

@@ -196,10 +196,10 @@ class _AddReportScreenState extends State<AddReportScreen> {
             child: ListView(
               children: [
                 _commonLabelText(title: "Add Report", fontSize: 20.0),
-                kRegistrationInputLabel("Hospital"),
+                kEditProfileInputLabel("Hospital"),
                 kTextField(_hospitalController, (value) => hospital = value,
                     "Hospital", TextInputType.text, true),
-                kRegistrationInputLabel("Doctor"),
+                kEditProfileInputLabel("Doctor"),
                 kTextField(_doctorController, (value) => doctor = value,
                     "Doctor", TextInputType.text, true),
                 kBuildDateTime(

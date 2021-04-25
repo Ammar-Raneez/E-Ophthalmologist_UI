@@ -136,7 +136,7 @@ class _AddFamilyMemberScreenState extends State<AddFamilyMemberScreen> {
                   SizedBox(
                     height: 30,
                   ),
-                  kRegistrationInputLabel("Username"),
+                  kEditProfileInputLabel("Username"),
                   kTextField(_usernameController, (value) => username = value,
                       "Enter Username", TextInputType.text, true),
                   kBuildDateTime(
@@ -146,7 +146,7 @@ class _AddFamilyMemberScreenState extends State<AddFamilyMemberScreen> {
                       press: () async {
                         await selectDate(context);
                       }),
-                  kRegistrationInputLabel("Gender"),
+                  kEditProfileInputLabel("Gender"),
                   kRegistrationRadioButton("Male", Gender.Male, gender,
                       (value) {
                     setState(() {
@@ -159,22 +159,22 @@ class _AddFamilyMemberScreenState extends State<AddFamilyMemberScreen> {
                       gender = value;
                     });
                   }),
-                  kRegistrationInputLabel("BMI"),
+                  kEditProfileInputLabel("BMI"),
                   kTextField(_bmiController, (value) => bmi = value,
                       "Enter BMI", TextInputType.number, true),
-                  kRegistrationInputLabel("Diastolic Pressure"),
+                  kEditProfileInputLabel("Diastolic Pressure"),
                   kTextField(_diastolicController, (value) => diastolic = value,
                       "Enter Diastolic Pressure", TextInputType.number, true),
-                  kRegistrationInputLabel("A1C"),
+                  kEditProfileInputLabel("A1C"),
                   kTextField(_a1cController, (value) => a1c = value,
                       "Enter A1C", TextInputType.number, true),
-                  kRegistrationInputLabel("Systolic Pressure"),
+                  kEditProfileInputLabel("Systolic Pressure"),
                   kTextField(_systolicController, (value) => systolic = value,
                       "Enter Systolic Pressure", TextInputType.number, true),
-                  kRegistrationInputLabel("Duration of Diabetes"),
+                  kEditProfileInputLabel("Duration of Diabetes"),
                   kTextField(_durationController, (value) => duration = value,
                       "Duration of Diabetes", TextInputType.number, true),
-                  kRegistrationInputLabel("Diabetes Mellitus Type"),
+                  kEditProfileInputLabel("Diabetes Mellitus Type"),
                   kRegistrationRadioButton("Type 1", DMType.Type1, dm, (value) {
                     setState(() {
                       dm = value;
@@ -185,7 +185,7 @@ class _AddFamilyMemberScreenState extends State<AddFamilyMemberScreen> {
                       dm = value;
                     });
                   }),
-                  kRegistrationInputLabel("Diagnosed with Retinopathy?"),
+                  kEditProfileInputLabel("Diagnosed with Retinopathy?"),
                   kRegistrationRadioButton("No", Diagnosis.No, diagnosis,
                       (value) {
                     setState(() {
@@ -198,7 +198,7 @@ class _AddFamilyMemberScreenState extends State<AddFamilyMemberScreen> {
                       diagnosis = value;
                     });
                   }),
-                  kRegistrationInputLabel("Smoker?"),
+                  kEditProfileInputLabel("Smoker?"),
                   kRegistrationRadioButton("Yes", Smoker.Yes, smoker, (value) {
                     setState(() {
                       smoker = value;
