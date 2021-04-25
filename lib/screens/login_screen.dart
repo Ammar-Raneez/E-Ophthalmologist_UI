@@ -123,14 +123,14 @@ class _LoginScreenState extends State<LoginScreen> {
                             Container(
                               height: 100,
                             ),
-                            _commonLabelText(title: "Welcome!", fontSize: 20.0),
+                            _commonLabelText(title: "Welcome!", fontSize: 20.0, color: Colors.white),
                           ],
                         ),
                       ),
                     if (keyboardOpenVisibility == 0.0)
                       _commonLabelText(
                           title: "Log in to your existing account!",
-                          fontSize: 15.0),
+                          fontSize: 15.0, color: Colors.white),
                     TextField(
                       controller: _emailAddressTextFieldController,
                       keyboardType: TextInputType.emailAddress,
@@ -141,7 +141,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         hintText: "Enter your email",
                         prefixIcon: Icon(
                           Icons.person,
-                          color: Color(0xff01CDFA),
+                          color: Colors.greenAccent,
                         ),
                       ),
                     ),
@@ -155,7 +155,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         hintText: "Enter your password",
                         prefixIcon: Icon(
                           Icons.lock,
-                          color: Color(0xff01CDFA),
+                          color: Colors.greenAccent,
                         ),
                         suffixIcon: GestureDetector(
                           onTap: () {
@@ -165,7 +165,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           },
                           child: Icon(
                             Icons.remove_red_eye,
-                            color: Color(0xff01CDFA),
+                            color: Colors.greenAccent,
                           ),
                         ),
                       ),
@@ -178,7 +178,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         _emailAddressTextFieldController.clear();
                         _passwordTextFieldController.clear();
                       },
-                      colour: Color(0xff01CDFA),
+                      colour: Colors.greenAccent,
                       title: 'LOG IN',
                     ),
                     Padding(
@@ -189,7 +189,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           _commonLabelText(
-                              title: "Don't have an account?", fontSize: 13.0),
+                              title: "Don't have an account?", fontSize: 13.0, color: Colors.black),
                           SizedBox(
                             width: 5.0,
                           ),
@@ -201,7 +201,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                   context, RegistrationScreen.id);
                             },
                             child: _commonLabelText(
-                                title: "Sign Up", fontSize: 13.0),
+                                title: "Sign Up", fontSize: 13.0, color: Colors.green),
                           ),
                         ],
                       ),
@@ -216,12 +216,13 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
-  Text _commonLabelText({@required title, @required fontSize}) {
+  Text _commonLabelText({@required title, @required fontSize, @required color}) {
     return Text(
       title,
       textAlign: TextAlign.center,
       style: kTextStyle.copyWith(
         fontSize: fontSize,
+        color: color
       ),
     );
   }
