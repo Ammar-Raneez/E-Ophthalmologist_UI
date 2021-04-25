@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+//import 'package:file_picker/file_picker.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -102,9 +103,15 @@ class _AddReportScreenState extends State<AddReportScreen> {
   _openGalleryAndUpload() async {
     var selectedPicture =
         await ImagePicker.pickImage(source: ImageSource.gallery);
+//    var selectedDocument = await FilePicker.platform
+//        .pickFiles(allowedExtensions: ['jpg', 'png', 'pdf', 'doc', 'docx']);
+//    PlatformFile platformFile = selectedDocument.files.first;
 
     // get only fileName from path
     String fileName = selectedPicture.path.split('/').last;
+
+    // get the corresponding file from the platform file
+//    File pickedFile = File(platformFile.path);
 
     setState(() {
       imageDocuments.add(selectedPicture);

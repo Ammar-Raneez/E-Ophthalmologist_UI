@@ -6,7 +6,7 @@ import 'package:intl/intl.dart';
 import 'package:ui/components/custom_alert.dart';
 import 'package:ui/components/custom_rounded_button.dart';
 import 'package:ui/constants.dart';
-import 'package:add_2_calendar/add_2_calendar.dart';
+//import 'package:add_2_calendar/add_2_calendar.dart';
 import 'package:ui/screens/reports_and_appointment/models/appointments.dart';
 
 final _firestore = FirebaseFirestore.instance;
@@ -126,14 +126,14 @@ class _AddAppointmentScreenState extends State<AddAppointmentScreen> {
       });
 
       // add an event to systems default calendar
-      final Event event = Event(
-        title: 'E-Ophthalmologist Appointment',
-        description: 'Scheduled an appointment with $doctor',
-        location: '$hospital',
-        startDate: picked,
-        endDate: DateTime(picked.year, picked.month, picked.day + 1),
-      );
-      Add2Calendar.addEvent2Cal(event);
+//      final Event event = Event(
+//        title: 'E-Ophthalmologist Appointment',
+//        description: 'Scheduled an appointment with $doctor',
+//        location: '$hospital',
+//        startDate: picked,
+//        endDate: DateTime(picked.year, picked.month, picked.day + 1),
+//      );
+//      Add2Calendar.addEvent2Cal(event);
     }
   }
 
