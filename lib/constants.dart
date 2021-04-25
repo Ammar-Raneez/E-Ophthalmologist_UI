@@ -6,7 +6,7 @@ import 'package:url_launcher/url_launcher.dart';
 const kLoginRegistrationBackgroundGradient = LinearGradient(
   begin: Alignment.topCenter,
   end: Alignment.bottomCenter,
-  colors: [Colors.green, Color(0xffcccccc)],
+  colors: [Color(0xff264c59), Color(0xff26aa59)],
 );
 
 // Common Constants

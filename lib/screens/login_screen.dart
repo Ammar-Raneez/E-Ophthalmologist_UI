@@ -201,7 +201,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                   context, RegistrationFirstScreen.id);
                             },
                             child: _commonLabelText(
-                                title: "Sign Up", fontSize: 13.0, color: Colors.green),
+                                title: "Sign Up", fontSize: 13.0, color: Colors.white),
                           ),
                         ],
                       ),
