@@ -110,7 +110,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       child: Hero(
                         tag: "logo",
                         child: Container(
-                          height: 150,
+                          height: 200,
                           child: Image.asset('images/officialLogo.png'),
                         ),
                       ),
@@ -121,7 +121,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           alignment: Alignment.center,
                           children: [
                             Container(
-                              height: 100,
+                              height: 50,
                             ),
                             _commonLabelText(title: "Welcome!", fontSize: 20.0, color: Colors.white),
                           ],

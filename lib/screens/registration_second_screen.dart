@@ -116,7 +116,7 @@ class RegistrationSecondScreenState extends State<RegistrationSecondScreen> {
                   Hero(
                     tag: "logo",
                     child: Container(
-                      height: 100,
+                      height: 200,
                       child: Image.asset('images/officialLogo.png'),
                     ),
                   ),
