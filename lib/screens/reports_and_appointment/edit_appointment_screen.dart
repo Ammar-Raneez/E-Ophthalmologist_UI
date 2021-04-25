@@ -5,6 +5,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:intl/intl.dart';
 import 'package:ui/components/custom_alert.dart';
 import 'package:ui/components/custom_rounded_button.dart';
@@ -38,6 +39,7 @@ class _EditAppointmentScreenState extends State<EditAppointmentScreen> {
 
   Set<Marker> _markers = {};
   LatLng _target;
+  List<Placemark> placemark;
   Completer<GoogleMapController> _controller = Completer();
   var _hospitalController = TextEditingController();
   var _doctorController = TextEditingController();
@@ -143,14 +145,30 @@ class _EditAppointmentScreenState extends State<EditAppointmentScreen> {
       viewedTime = arguments['time'];
     });
 
+    getHospitalCoordinates() async {
+      placemark = await Geolocator().placemarkFromAddress(hospital);
+    }
+
     setState(() {
-      _target = LatLng(45.521563, -122.677433);
-      _markers.add(
-        Marker(
-          position: _target,
-          markerId: MarkerId(hospital.toString())
-        )
-      );
+      getHospitalCoordinates();
+    });
+
+    setState(() {
+      if (placemark != null) {
+        double lat = placemark[0].position.latitude;
+        double lng = placemark[0].position.longitude;
+        _target = LatLng(lat, lng);
+        _markers.add(
+            Marker(
+                position: _target,
+                infoWindow: InfoWindow(
+                    title: "Appointment with, $doctor",
+                    snippet: "$hospital"
+                ),
+                markerId: MarkerId(hospital.toString())
+            )
+        );
+      }
     });
 
     setState(() {
@@ -277,11 +295,12 @@ class _EditAppointmentScreenState extends State<EditAppointmentScreen> {
                 SizedBox(
                   height: 30,
                 ),
-                if (!enableTextFields)
+                if (!enableTextFields && _target != null)
                   SizedBox(
                     width: MediaQuery.of(context).size.width,
                     height: 300,
-                    child: GoogleMap(
+                    child:
+                    GoogleMap(
                       initialCameraPosition: CameraPosition(
                         target: _target,
                         zoom: 16.0,
