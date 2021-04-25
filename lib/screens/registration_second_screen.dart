@@ -15,7 +15,8 @@ class RegistrationSecondScreen extends StatefulWidget {
   static String id = "registerSecondScreen";
 
   @override
-  RegistrationSecondScreenState createState() => RegistrationSecondScreenState();
+  RegistrationSecondScreenState createState() =>
+      RegistrationSecondScreenState();
 }
 
 class RegistrationSecondScreenState extends State<RegistrationSecondScreen> {
@@ -93,7 +94,6 @@ class RegistrationSecondScreenState extends State<RegistrationSecondScreen> {
       password = arguments['password'];
     });
 
-
     return SafeArea(
       child: Scaffold(
         backgroundColor: Colors.white,
@@ -134,17 +134,18 @@ class RegistrationSecondScreenState extends State<RegistrationSecondScreen> {
                     ],
                   ),
                   kRegistrationInputLabel("Gender"),
-                  kRegistrationRadioButton("Male", Gender.Male, gender, (value) {
+                  kRegistrationRadioButton("Male", Gender.Male, gender,
+                      (value) {
                     setState(() {
                       gender = value;
                     });
                   }),
                   kRegistrationRadioButton("Female", Gender.Female, gender,
-                          (value) {
-                        setState(() {
-                          gender = value;
-                        });
-                      }),
+                      (value) {
+                    setState(() {
+                      gender = value;
+                    });
+                  }),
                   kRegistrationInputLabel("BMI"),
                   kTextField(_bmiController, (value) => bmi = value,
                       "Enter BMI", TextInputType.number, true),
@@ -173,17 +174,17 @@ class RegistrationSecondScreenState extends State<RegistrationSecondScreen> {
                   }),
                   kRegistrationInputLabel("Diagnosed with Retinopathy?"),
                   kRegistrationRadioButton("No", Diagnosis.No, diagnosis,
-                          (value) {
-                        setState(() {
-                          diagnosis = value;
-                        });
-                      }),
+                      (value) {
+                    setState(() {
+                      diagnosis = value;
+                    });
+                  }),
                   kRegistrationRadioButton("Yes", Diagnosis.Yes, diagnosis,
-                          (value) {
-                        setState(() {
-                          diagnosis = value;
-                        });
-                      }),
+                      (value) {
+                    setState(() {
+                      diagnosis = value;
+                    });
+                  }),
                   kRegistrationInputLabel("Smoker?"),
                   kRegistrationRadioButton("Yes", Smoker.Yes, smoker, (value) {
                     setState(() {
@@ -199,8 +200,7 @@ class RegistrationSecondScreenState extends State<RegistrationSecondScreen> {
                     onTap: () {
                       Navigator.pushNamed(context, RegistrationFirstScreen.id);
                     },
-                    child: _commonLabelText(
-                        title: "< - Back", fontSize: 12.0),
+                    child: _commonLabelText(title: "< - Back", fontSize: 12.0),
                   ),
                   SizedBox(
                     height: 20,
@@ -243,8 +243,8 @@ class RegistrationSecondScreenState extends State<RegistrationSecondScreen> {
                         try {
                           // create the user, add all details to firestore and returns a user once created
                           final newUser =
-                          await _auth.createUserWithEmailAndPassword(
-                              email: email, password: password);
+                              await _auth.createUserWithEmailAndPassword(
+                                  email: email, password: password);
 
                           _firestore.collection("users").doc(email).set({
                             "userEmail": email,

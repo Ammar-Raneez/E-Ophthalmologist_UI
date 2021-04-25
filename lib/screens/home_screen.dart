@@ -55,9 +55,7 @@ class _HomeScreenState extends State<HomeScreen> {
   var eyeScans = [];
 
   // eye scan reports bg image
-  var eyeScanBgImage = [
-    "images/search.png"
-  ];
+  var eyeScanBgImage = ["images/search.png"];
 
   bool showSpinner = false;
 
@@ -379,7 +377,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                                   4,
                                               height: 100,
                                               child: Padding(
-                                                padding: const EdgeInsets.all(8.0),
+                                                padding:
+                                                    const EdgeInsets.all(8.0),
                                                 child: FittedBox(
                                                   child: Image.asset(
                                                     getRandomEyeScanImage(),

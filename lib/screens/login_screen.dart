@@ -123,14 +123,18 @@ class _LoginScreenState extends State<LoginScreen> {
                             Container(
                               height: 50,
                             ),
-                            _commonLabelText(title: "Welcome!", fontSize: 20.0, color: Colors.white),
+                            _commonLabelText(
+                                title: "Welcome!",
+                                fontSize: 20.0,
+                                color: Colors.white),
                           ],
                         ),
                       ),
                     if (keyboardOpenVisibility == 0.0)
                       _commonLabelText(
                           title: "Log in to your existing account!",
-                          fontSize: 15.0, color: Colors.white),
+                          fontSize: 15.0,
+                          color: Colors.white),
                     TextField(
                       controller: _emailAddressTextFieldController,
                       keyboardType: TextInputType.emailAddress,
@@ -189,7 +193,9 @@ class _LoginScreenState extends State<LoginScreen> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           _commonLabelText(
-                              title: "Don't have an account?", fontSize: 13.0, color: Colors.black),
+                              title: "Don't have an account?",
+                              fontSize: 13.0,
+                              color: Colors.black),
                           SizedBox(
                             width: 5.0,
                           ),
@@ -201,7 +207,9 @@ class _LoginScreenState extends State<LoginScreen> {
                                   context, RegistrationFirstScreen.id);
                             },
                             child: _commonLabelText(
-                                title: "Sign Up", fontSize: 13.0, color: Colors.white),
+                                title: "Sign Up",
+                                fontSize: 13.0,
+                                color: Colors.white),
                           ),
                         ],
                       ),
@@ -216,14 +224,12 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
-  Text _commonLabelText({@required title, @required fontSize, @required color}) {
+  Text _commonLabelText(
+      {@required title, @required fontSize, @required color}) {
     return Text(
       title,
       textAlign: TextAlign.center,
-      style: kTextStyle.copyWith(
-        fontSize: fontSize,
-        color: color
-      ),
+      style: kTextStyle.copyWith(fontSize: fontSize, color: color),
     );
   }
 }

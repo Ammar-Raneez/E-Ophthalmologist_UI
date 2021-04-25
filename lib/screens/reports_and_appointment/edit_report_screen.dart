@@ -277,55 +277,56 @@ class _EditReportScreenState extends State<EditReportScreen> {
                         SizedBox(
                           height: 30,
                         ),
-                        enableTextFields ?
-                        Column(
-                          children: imageDocumentsURLS.length != 0
-                              ? List.generate(
-                                  // display the images added initially, whilst
-                                  // they download display a spinner
-                                  imageDocumentsURLS.length,
-                                  (index) => CachedNetworkImage(
-                                      progressIndicatorBuilder: (context, url,
-                                              downloadProgress) =>
-                                          SizedBox(
-                                            width: width / 2,
-                                            height: 200,
-                                            child: Center(
-                                              child: CircularProgressIndicator(
-                                                  value: downloadProgress
-                                                      .progress),
-                                            ),
-                                          ),
-                                      imageUrl: imageDocumentsURLS[index],
-                                      width: width,
-                                      height: 300),
-                                )
-                              // if no images, display a placeholder image
-                              : List.generate(
-                                  1,
-                                  (index) => Image.asset(
-                                    "images/uploadImageGrey1.png",
-                                    width: width,
-                                    height: 300,
-                                  ),
+                        enableTextFields
+                            ? Column(
+                                children: imageDocumentsURLS.length != 0
+                                    ? List.generate(
+                                        // display the images added initially, whilst
+                                        // they download display a spinner
+                                        imageDocumentsURLS.length,
+                                        (index) => CachedNetworkImage(
+                                            progressIndicatorBuilder: (context,
+                                                    url, downloadProgress) =>
+                                                SizedBox(
+                                                  width: width / 2,
+                                                  height: 200,
+                                                  child: Center(
+                                                    child:
+                                                        CircularProgressIndicator(
+                                                            value:
+                                                                downloadProgress
+                                                                    .progress),
+                                                  ),
+                                                ),
+                                            imageUrl: imageDocumentsURLS[index],
+                                            width: width,
+                                            height: 300),
+                                      )
+                                    // if no images, display a placeholder image
+                                    : List.generate(
+                                        1,
+                                        (index) => Image.asset(
+                                          "images/uploadImageGrey1.png",
+                                          width: width,
+                                          height: 300,
+                                        ),
+                                      ),
+                              )
+                            : Container(
+                                height: MediaQuery.of(context).size.height / 2,
+                                width: MediaQuery.of(context).size.width,
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    Text(
+                                      "No Associated documents have been added",
+                                      style: kTextStyle.copyWith(fontSize: 30),
+                                      textAlign: TextAlign.center,
+                                    ),
+                                  ],
                                 ),
-                        ) : Container(
-                          height: MediaQuery.of(context).size.height / 2,
-                          width: MediaQuery.of(context).size.width,
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Text(
-                                "No Associated documents have been added",
-                                style: kTextStyle.copyWith(
-                                  fontSize: 30
-                                ),
-                                textAlign: TextAlign.center,
                               ),
-                            ],
-                          ),
-                        ),
                         SizedBox(
                           height: 40,
                         ),
