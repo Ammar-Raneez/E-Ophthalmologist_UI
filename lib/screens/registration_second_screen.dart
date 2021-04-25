@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:ui/components/custom_alert.dart';
 import 'package:ui/components/custom_rounded_button.dart';
 import 'package:ui/constants.dart';
+import 'package:ui/screens/registration_first_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
@@ -123,18 +124,7 @@ class RegistrationSecondScreenState extends State<RegistrationSecondScreen> {
                           title: "Nice to see you here 👋", fontSize: 20.0),
                     ],
                   ),
-                  kTextField(_usernameController, (value) => username = value,
-                      "Enter Username", TextInputType.text, true),
-                  kTextField(_emailAddressController, (value) => email = value,
-                      "Enter Email Address", TextInputType.emailAddress, true),
-                  kBuildDateTime(
-                      context: context,
-                      which: 'Date of Birth',
-                      value: selectedDate,
-                      press: () async {
-                        await selectDate(context);
-                      }),
-                  kEditProfileInputLabel("Gender"),
+                  kRegistrationInputLabel("Gender"),
                   kRegistrationRadioButton("Male", Gender.Male, gender, (value) {
                     setState(() {
                       gender = value;
@@ -146,17 +136,22 @@ class RegistrationSecondScreenState extends State<RegistrationSecondScreen> {
                           gender = value;
                         });
                       }),
+                  kRegistrationInputLabel("BMI"),
                   kTextField(_bmiController, (value) => bmi = value,
                       "Enter BMI", TextInputType.number, true),
+                  kRegistrationInputLabel("Diastolic Pressure"),
                   kTextField(_diastolicController, (value) => diastolic = value,
                       "Enter Diastolic Pressure", TextInputType.number, true),
+                  kRegistrationInputLabel("A1C"),
                   kTextField(_a1cController, (value) => a1c = value,
                       "Enter A1C", TextInputType.number, true),
+                  kRegistrationInputLabel("Systolic Pressure"),
                   kTextField(_systolicController, (value) => systolic = value,
                       "Enter Systolic Pressure", TextInputType.number, true),
+                  kRegistrationInputLabel("Duration of Diabetes"),
                   kTextField(_durationController, (value) => duration = value,
                       "Duration of Diabetes", TextInputType.number, true),
-                  kEditProfileInputLabel("Diabetes Mellitus Type"),
+                  kRegistrationInputLabel("Diabetes Mellitus Type"),
                   kRegistrationRadioButton("Type 1", DMType.Type1, dm, (value) {
                     setState(() {
                       dm = value;
@@ -167,7 +162,7 @@ class RegistrationSecondScreenState extends State<RegistrationSecondScreen> {
                       dm = value;
                     });
                   }),
-                  kEditProfileInputLabel("Diagnosed with Retinopathy?"),
+                  kRegistrationInputLabel("Diagnosed with Retinopathy?"),
                   kRegistrationRadioButton("No", Diagnosis.No, diagnosis,
                           (value) {
                         setState(() {
@@ -180,7 +175,7 @@ class RegistrationSecondScreenState extends State<RegistrationSecondScreen> {
                           diagnosis = value;
                         });
                       }),
-                  kEditProfileInputLabel("Smoker?"),
+                  kRegistrationInputLabel("Smoker?"),
                   kRegistrationRadioButton("Yes", Smoker.Yes, smoker, (value) {
                     setState(() {
                       smoker = value;
@@ -191,40 +186,12 @@ class RegistrationSecondScreenState extends State<RegistrationSecondScreen> {
                       smoker = value;
                     });
                   }),
-                  Padding(
-                    padding: const EdgeInsets.all(10.0),
-                    child: TextField(
-                      controller: _passwordTextFieldController,
-                      obscureText: !visiblePassword,
-                      onChanged: (value) {
-                        password = value;
-                      },
-                      decoration: kTextFieldDecoration.copyWith(
-                        hintText: "Enter Password",
-                        prefixIcon: Icon(
-                          Icons.lock,
-                          color: Color(0xff01CDFA),
-                        ),
-                        suffixIcon: GestureDetector(
-                          onTap: () {
-                            setState(() {
-                              visiblePassword = !visiblePassword;
-                            });
-                          },
-                          child: Icon(
-                            Icons.remove_red_eye,
-                            color: Color(0xff01CDFA),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
                   GestureDetector(
                     onTap: () {
-                      Navigator.pop(context);
+                      Navigator.pushNamed(context, RegistrationFirstScreen.id);
                     },
                     child: _commonLabelText(
-                        title: "< - Back to Login", fontSize: 12.0),
+                        title: "< - Back", fontSize: 12.0),
                   ),
                   SizedBox(
                     height: 20,
@@ -318,7 +285,7 @@ class RegistrationSecondScreenState extends State<RegistrationSecondScreen> {
                         }
                       }
                     },
-                    colour: Color(0xff01CDFA),
+                    colour: Colors.greenAccent,
                     title: 'REGISTER ACCOUNT',
                   ),
                   SizedBox(
