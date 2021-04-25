@@ -85,6 +85,15 @@ class RegistrationSecondScreenState extends State<RegistrationSecondScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final Map arguments = ModalRoute.of(context).settings.arguments as Map;
+    setState(() {
+      username = arguments['username'];
+      email = arguments['email'];
+      selectedDate = arguments['selectedDate'];
+      password = arguments['password'];
+    });
+
+
     return SafeArea(
       child: Scaffold(
         backgroundColor: Colors.white,
