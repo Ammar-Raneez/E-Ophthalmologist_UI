@@ -356,6 +356,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                     });
                                   } else {
                                     print("update");
+                                    print(username);
                                     // update family member details
                                     _firestore
                                         .collection("users")
