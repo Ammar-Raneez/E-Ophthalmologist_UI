@@ -158,16 +158,11 @@ class _EditAppointmentScreenState extends State<EditAppointmentScreen> {
         double lat = placemark[0].position.latitude;
         double lng = placemark[0].position.longitude;
         _target = LatLng(lat, lng);
-        _markers.add(
-            Marker(
-                position: _target,
-                infoWindow: InfoWindow(
-                    title: "Appointment with, $doctor",
-                    snippet: "$hospital"
-                ),
-                markerId: MarkerId(hospital.toString())
-            )
-        );
+        _markers.add(Marker(
+            position: _target,
+            infoWindow: InfoWindow(
+                title: "Appointment with, $doctor", snippet: "$hospital"),
+            markerId: MarkerId(hospital.toString())));
       }
     });
 
@@ -222,7 +217,7 @@ class _EditAppointmentScreenState extends State<EditAppointmentScreen> {
                           kTextField(
                               _hospitalController,
                               (value) => hospital = value,
-                              "Hospital",
+                              "Please enter the fullname of the hospital",
                               TextInputType.text,
                               enableTextFields),
                         ],
@@ -299,8 +294,7 @@ class _EditAppointmentScreenState extends State<EditAppointmentScreen> {
                   SizedBox(
                     width: MediaQuery.of(context).size.width,
                     height: 300,
-                    child:
-                    GoogleMap(
+                    child: GoogleMap(
                       initialCameraPosition: CameraPosition(
                         target: _target,
                         zoom: 16.0,
