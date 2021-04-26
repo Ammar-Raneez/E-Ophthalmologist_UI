@@ -21,14 +21,16 @@ class EditAppointmentScreen extends StatefulWidget {
 }
 
 class _EditAppointmentScreenState extends State<EditAppointmentScreen> {
-  User user = FirebaseAuth.instance.currentUser;
-  var userDocument;
-  var mainUserDetails;
-  var currentUserDetails;
-  String email;
+  User user = FirebaseAuth.instance.currentUser; // main admin user
+  var currentUserDetails; // which user currently
+  var userDocument; // current users document
+  var mainUserDetails; // main user - (linked users will have this as main)
+  String email; // single mail for multiple users
 
+  // show date and time only in view mode, since in edit mode errors are thrown
   String viewedTime;
   String viewedDate;
+
   String hospital;
   String doctor;
   DateTime startDate = DateTime.now();
@@ -37,16 +39,22 @@ class _EditAppointmentScreenState extends State<EditAppointmentScreen> {
       TimeOfDay.now().hour.toString() + ":" + TimeOfDay.now().minute.toString();
   String selectedDate = DateFormat("yyyy-MM-dd").format(DateTime.now());
 
+  // hospital marker
   Set<Marker> _markers = {};
+  // hospital location
   LatLng _target;
+  // get location based on address
   List<Placemark> placemark;
   Completer<GoogleMapController> _controller = Completer();
+
   var _hospitalController = TextEditingController();
   var _doctorController = TextEditingController();
 
+  // appointments unique identifier
   String appointmentId;
   bool showSpinner = false;
 
+  // toggle edit mode
   bool enableTextFields = false;
 
   @override
@@ -106,6 +114,7 @@ class _EditAppointmentScreenState extends State<EditAppointmentScreen> {
     });
   }
 
+  // time picker handler
   selectTime(BuildContext context) async {
     TimeOfDay picked =
         await showTimePicker(context: context, initialTime: startTime);
@@ -145,8 +154,13 @@ class _EditAppointmentScreenState extends State<EditAppointmentScreen> {
       viewedTime = arguments['time'];
     });
 
+    // get lat and lng of hospital
     getHospitalCoordinates() async {
-      placemark = await Geolocator().placemarkFromAddress(hospital);
+      try {
+        placemark = await Geolocator().placemarkFromAddress(hospital);
+      } catch (Exception) {
+        print("Location could not be found");
+      }
     }
 
     setState(() {
@@ -154,6 +168,7 @@ class _EditAppointmentScreenState extends State<EditAppointmentScreen> {
     });
 
     setState(() {
+      // add marker at the obtained placemark lat and lng
       if (placemark != null) {
         double lat = placemark[0].position.latitude;
         double lng = placemark[0].position.longitude;
@@ -290,21 +305,31 @@ class _EditAppointmentScreenState extends State<EditAppointmentScreen> {
                 SizedBox(
                   height: 30,
                 ),
-                if (!enableTextFields && _target != null)
-                  SizedBox(
-                    width: MediaQuery.of(context).size.width,
-                    height: 300,
-                    child: GoogleMap(
-                      initialCameraPosition: CameraPosition(
-                        target: _target,
-                        zoom: 16.0,
+                !enableTextFields && _target != null
+                    // display a google map snippet of the hospital location
+                    ? SizedBox(
+                        width: MediaQuery.of(context).size.width,
+                        height: 300,
+                        child: GoogleMap(
+                          initialCameraPosition: CameraPosition(
+                            target: _target,
+                            zoom: 16.0,
+                          ),
+                          markers: _markers,
+                          onMapCreated: (GoogleMapController controller) {
+                            _controller.complete(controller);
+                          },
+                        ),
+                      )
+                    // display a message if the location was not rendered
+                    : Container(
+                        child: Text(
+                          "The specified Hospital could not be rendered, refreshing might help",
+                          style: kTextStyle.copyWith(fontSize: 26),
+                          textAlign: TextAlign.center,
+                        ),
                       ),
-                      markers: _markers,
-                      onMapCreated: (GoogleMapController controller) {
-                        _controller.complete(controller);
-                      },
-                    ),
-                  ),
+                // only if edit mode
                 if (enableTextFields)
                   Container(
                     width: MediaQuery.of(context).size.width,
