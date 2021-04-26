@@ -227,10 +227,8 @@ class _ReportScreenState extends State<ReportScreen> {
                     });
 
                     // navigate back to home screen to trigger re-fetch
-                    Navigator.pushNamed(
-                      context,
-                      CurrentScreen.id,
-                    );
+                    Navigator.pop(context);
+                    refreshData();
                   },
                   child: Text(
                     "Yes",
