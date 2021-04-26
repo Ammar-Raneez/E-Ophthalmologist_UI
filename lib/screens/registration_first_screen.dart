@@ -4,6 +4,7 @@ import 'package:ui/components/custom_rounded_button.dart';
 import 'package:ui/constants.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:intl/intl.dart';
+import 'package:ui/screens/login_screen.dart';
 import 'package:ui/screens/registration_second_screen.dart';
 
 class RegistrationFirstScreen extends StatefulWidget {
@@ -155,7 +156,7 @@ class RegistrationFirstScreenState extends State<RegistrationFirstScreen> {
                   ),
                   GestureDetector(
                     onTap: () {
-                      Navigator.pop(context);
+                      Navigator.pushNamed(context, LoginScreen.id);
                     },
                     child: _commonLabelText(
                         title: "< - Back to Login",
