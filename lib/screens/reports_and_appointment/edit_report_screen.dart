@@ -326,6 +326,9 @@ class _EditReportScreenState extends State<EditReportScreen> {
                                                   allDocumentsURLS[index],
                                                   height: 200,
                                                 ),
+                                                SizedBox(
+                                                  height: 10,
+                                                ),
                                                 Align(
                                                   alignment:
                                                       Alignment.bottomRight,

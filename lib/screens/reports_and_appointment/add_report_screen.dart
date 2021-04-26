@@ -246,6 +246,9 @@ class _AddReportScreenState extends State<AddReportScreen> {
                                           allDocumentsURLS[index],
                                           height: 200,
                                         ),
+                                        SizedBox(
+                                          height: 10,
+                                        ),
                                         Align(
                                           alignment: Alignment.bottomRight,
                                           child: GestureDetector(
