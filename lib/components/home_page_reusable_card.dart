@@ -10,7 +10,7 @@ class HomePageReusableCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: MediaQuery.of(context).size.width / 2.1,
+      width: MediaQuery.of(context).size.width / 2.15,
       child: cardContent,
       margin: EdgeInsets.all(5.0),
       height: 150,

@@ -8,7 +8,6 @@ import 'package:flutter/material.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:ui/components/report_page_report_appointment.dart';
 import 'package:ui/constants.dart';
-import 'package:ui/screens/current_screen.dart';
 import 'package:ui/screens/reports_and_appointment/add_appointment_screen.dart';
 import 'package:ui/screens/reports_and_appointment/add_report_screen.dart';
 import 'package:ui/screens/reports_and_appointment/edit_appointment_screen.dart';
@@ -226,7 +225,6 @@ class _ReportScreenState extends State<ReportScreen> {
                       whichDocs.removeAt(index);
                     });
 
-                    // navigate back to home screen to trigger re-fetch
                     Navigator.pop(context);
                     refreshData();
                   },
