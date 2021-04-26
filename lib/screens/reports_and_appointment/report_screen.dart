@@ -24,10 +24,11 @@ class ReportScreen extends StatefulWidget {
 }
 
 class _ReportScreenState extends State<ReportScreen> {
-  User user = FirebaseAuth.instance.currentUser;
-  var userDocument;
-  var mainUserDetails;
-  var currentUserDetails;
+  User user = FirebaseAuth.instance.currentUser; // main admin user
+  var currentUserDetails; // which user currently
+  var userDocument; // current users document
+  var mainUserDetails; // main user - (linked users will have this as main)
+  String email; // single mail for multiple users
 
   // reports toggle
   bool haveReports = true;
@@ -46,20 +47,7 @@ class _ReportScreenState extends State<ReportScreen> {
   bool delete = false;
 
   // card background images
-  var appointmentBgImages = [
-    "images/appointment1.jpg",
-    "images/appointment2.jpg",
-    "images/appointment3.jpg",
-    "images/appointment4.jpg",
-    "images/appointment5.jpg",
-    "images/appointment6.jpg",
-    "images/appointment7.jpg",
-    "images/appointment8.jpg",
-    "images/appointment9.jpg",
-    "images/appointment10.jpg"
-  ];
-
-  var reportBgImages = [
+  var bgImages = [
     "images/appointment1.jpg",
     "images/appointment2.jpg",
     "images/appointment3.jpg",
@@ -108,7 +96,7 @@ class _ReportScreenState extends State<ReportScreen> {
     var tempIds = [];
 
     // order the reports with respect to date, in descending to bring the
-    // most recent to top
+    // most recent added to top
     await userDocument.reference
         .collection("past-reports")
         .orderBy('date', descending: true)
@@ -226,14 +214,8 @@ class _ReportScreenState extends State<ReportScreen> {
                     ),
                   ),
                   onPressed: () async {
-                    // if delete
-                    var document = await _firestore
-                        .collection("users")
-                        .doc(user.email)
-                        .get();
-
                     // which collection and which doc id to remove from firebase
-                    await document.reference
+                    await userDocument.reference
                         .collection(collection)
                         .doc(whichIds[index])
                         .delete();
@@ -299,14 +281,9 @@ class _ReportScreenState extends State<ReportScreen> {
   }
 
   // get a random image to display as card background
-  getRandomAppointmentImage() {
+  getRandomImage() {
     final random = Random();
-    return appointmentBgImages[random.nextInt(appointmentBgImages.length)];
-  }
-
-  getRandomReportImage() {
-    final random = Random();
-    return reportBgImages[random.nextInt(reportBgImages.length)];
+    return bgImages[random.nextInt(bgImages.length)];
   }
 
   @override
@@ -466,10 +443,7 @@ class _ReportScreenState extends State<ReportScreen> {
               date: whichDocs[index]['date'],
               cardColor: cardColor,
               textColor: '0xffffffff',
-              bgImage: isReport
-                  // get random image for appointment or report
-                  ? getRandomReportImage()
-                  : getRandomAppointmentImage(),
+              bgImage: getRandomImage(),
             ),
             onTap: () {
               var argsForResult = {
