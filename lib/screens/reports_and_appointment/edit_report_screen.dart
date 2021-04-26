@@ -1,10 +1,12 @@
+import 'dart:io';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:ui/components/custom_alert.dart';
@@ -41,7 +43,7 @@ class _EditReportScreenState extends State<EditReportScreen> {
 
   bool enableTextFields = false;
 
-  var imageDocumentsURLS = [];
+  var allDocumentsURLS = [];
 
   @override
   void initState() {
@@ -100,18 +102,20 @@ class _EditReportScreenState extends State<EditReportScreen> {
     });
   }
 
-  // Open phone gallery and store images into the arrays
-  _openGalleryAndUpload() async {
-    var selectedPicture =
-        await ImagePicker.pickImage(source: ImageSource.gallery);
+  _openAndUpload() async {
+    var selectedDocument = await FilePicker.platform
+        .pickFiles(allowedExtensions: ['jpg', 'png', 'pdf', 'doc', 'docx'], type: FileType.custom);
+    PlatformFile platformFile = selectedDocument.files.first;
+    String fileName = platformFile.path.split('/').last;
 
-    String fileName = selectedPicture.path.split('/').last;
+    // get the corresponding file from the platform file
+    File pickedFile = File(platformFile.path);
 
     setState(() {
       showSpinner = true;
     });
 
-    // save chosen image into firebase storage, in the report specific directory
+    // save chosen document into firebase storage, in the report specific directory
     Reference ref = FirebaseStorage.instance
         .ref()
         .child(email +
@@ -121,14 +125,14 @@ class _EditReportScreenState extends State<EditReportScreen> {
             reportID +
             "/")
         .child(fileName);
-    UploadTask task = ref.putFile(selectedPicture);
+    UploadTask task = ref.putFile(pickedFile);
 
     String thisImageUrl = "";
     task.whenComplete(() async {
       thisImageUrl = await ref.getDownloadURL();
       print(thisImageUrl);
       setState(() {
-        imageDocumentsURLS.add(thisImageUrl);
+        allDocumentsURLS.add(thisImageUrl);
       });
     }).catchError((onError) {
       print(onError);
@@ -165,7 +169,7 @@ class _EditReportScreenState extends State<EditReportScreen> {
     setState(() {
       doctor = arguments['doctor'];
       hospital = arguments['hospital'];
-      imageDocumentsURLS = arguments['image_document_urls'];
+      allDocumentsURLS = arguments['image_document_urls'];
       reportID = arguments['currentDocId'];
       viewedDate = arguments['date'];
     });
@@ -279,11 +283,11 @@ class _EditReportScreenState extends State<EditReportScreen> {
                         ),
                         enableTextFields
                             ? Column(
-                                children: imageDocumentsURLS.length != 0
+                                children: allDocumentsURLS.length != 0
                                     ? List.generate(
                                         // display the images added initially, whilst
                                         // they download display a spinner
-                                        imageDocumentsURLS.length,
+                                        allDocumentsURLS.length,
                                         (index) => CachedNetworkImage(
                                             progressIndicatorBuilder: (context,
                                                     url, downloadProgress) =>
@@ -298,7 +302,7 @@ class _EditReportScreenState extends State<EditReportScreen> {
                                                                     .progress),
                                                   ),
                                                 ),
-                                            imageUrl: imageDocumentsURLS[index],
+                                            imageUrl: allDocumentsURLS[index],
                                             width: width,
                                             height: 300),
                                       )
@@ -361,7 +365,7 @@ class _EditReportScreenState extends State<EditReportScreen> {
                                       'doctor': doctor,
                                       'hospital': hospital,
                                       'date': selectedDate,
-                                      'image_document_urls': imageDocumentsURLS
+                                      'image_document_urls': allDocumentsURLS
                                     });
                                   } else {
                                     // update family member report
@@ -377,7 +381,7 @@ class _EditReportScreenState extends State<EditReportScreen> {
                                       'doctor': doctor,
                                       'hospital': hospital,
                                       'date': selectedDate,
-                                      'image_document_urls': imageDocumentsURLS
+                                      'image_document_urls': allDocumentsURLS
                                     });
                                   }
 
@@ -415,7 +419,7 @@ class _EditReportScreenState extends State<EditReportScreen> {
         ),
         floatingActionButton: enableTextFields
             ? FloatingActionButton(
-                onPressed: () => _openGalleryAndUpload(),
+                onPressed: () => _openAndUpload(),
                 child: Text(
                   "+",
                   style: TextStyle(fontSize: 40),
