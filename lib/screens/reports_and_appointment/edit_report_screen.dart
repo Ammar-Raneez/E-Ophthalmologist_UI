@@ -9,6 +9,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
+import 'package:pdf_flutter/pdf_flutter.dart';
 import 'package:ui/components/custom_alert.dart';
 import 'package:ui/components/custom_rounded_button.dart';
 import 'package:ui/constants.dart';
@@ -106,8 +107,8 @@ class _EditReportScreenState extends State<EditReportScreen> {
 
   _openAndUpload() async {
     // allow only images and pdf
-    var selectedDocument = await FilePicker.platform
-        .pickFiles(allowedExtensions: ['jpg', 'png', 'pdf'], type: FileType.custom);
+    var selectedDocument = await FilePicker.platform.pickFiles(
+        allowedExtensions: ['jpg', 'png', 'pdf'], type: FileType.custom);
     PlatformFile platformFile = selectedDocument.files.first;
     String fileName = platformFile.path.split('/').last;
 
@@ -292,28 +293,40 @@ class _EditReportScreenState extends State<EditReportScreen> {
                             ? Column(
                                 children: allDocumentsURLS.length != 0
                                     ? List.generate(
-                                        // display the images added initially, whilst
-                                        // they download display a spinner
                                         allDocumentsURLS.length,
-                                        (index) => CachedNetworkImage(
-                                            progressIndicatorBuilder: (context,
-                                                    url, downloadProgress) =>
-                                                SizedBox(
-                                                  width: width / 2,
-                                                  height: 200,
-                                                  child: Center(
-                                                    child:
-                                                        CircularProgressIndicator(
-                                                            value:
-                                                                downloadProgress
-                                                                    .progress),
-                                                  ),
+                                        (index) => allDocumentsExtensions[
+                                                    index] !=
+                                                'pdf'
+                                            ? Padding(
+                                              padding: const EdgeInsets.all(8.0),
+                                              child: CachedNetworkImage(
+                                                  progressIndicatorBuilder:
+                                                      (context, url,
+                                                              downloadProgress) =>
+                                                          SizedBox(
+                                                            width: width / 2,
+                                                            height: 200,
+                                                            child: Center(
+                                                              child: CircularProgressIndicator(
+                                                                  value: downloadProgress
+                                                                      .progress),
+                                                            ),
+                                                          ),
+                                                  imageUrl:
+                                                      allDocumentsURLS[index],
+                                                  width: width,
+                                                  height: 300),
+                                            )
+                                            : Padding(
+                                              padding: const EdgeInsets.all(8.0),
+                                              child: SizedBox(
+                                                  height: 400,
+                                                  child: PDF.network(
+                                                      allDocumentsURLS[index]),
                                                 ),
-                                            imageUrl: allDocumentsURLS[index],
-                                            width: width,
-                                            height: 300),
+                                            ),
                                       )
-                                    // if no images, display a placeholder image
+                                    // if no documents are picked display a temporary placeholder
                                     : List.generate(
                                         1,
                                         (index) => Image.asset(

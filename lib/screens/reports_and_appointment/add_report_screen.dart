@@ -6,8 +6,8 @@ import 'package:file_picker/file_picker.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-//import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
+import 'package:pdf_flutter/pdf_flutter.dart';
 import 'package:ui/components/custom_alert.dart';
 import 'package:ui/components/custom_rounded_button.dart';
 import 'package:ui/constants.dart';
@@ -216,23 +216,35 @@ class _AddReportScreenState extends State<AddReportScreen> {
                       // loop and display the picked images
                       ? List.generate(
                           allDocumentsURLS.length,
-                          (index) => CachedNetworkImage(
-                              progressIndicatorBuilder:
-                                  (context, url, downloadProgress) => SizedBox(
-                                        width: width / 2,
-                                        height: 200,
-                                        child: Center(
-                                          child: CircularProgressIndicator(
-                                              value: downloadProgress.progress),
+                          (index) => allDocumentsExtensions[index] != 'pdf'
+                              ? Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: CachedNetworkImage(
+                                    progressIndicatorBuilder: (context, url,
+                                            downloadProgress) =>
+                                        SizedBox(
+                                          width: width / 2,
+                                          height: 200,
+                                          child: Center(
+                                            child: CircularProgressIndicator(
+                                                value: downloadProgress.progress),
+                                          ),
                                         ),
-                                      ),
-                              imageUrl: allDocumentsURLS[index],
-                              width: width,
-                              height: 300),
+                                    imageUrl: allDocumentsURLS[index],
+                                    width: width,
+                                    height: 300),
+                              )
+                              : Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: SizedBox(
+                                    height: 400,
+                                    child: PDF.network(allDocumentsURLS[index]),
+                                  ),
+                              ),
                         )
                       : List.generate(
                           1,
-                          // if no images are picked display a temporary placeholder
+                          // if no documents are picked display a temporary placeholder
                           (index) => Image.asset(
                             "images/uploadImageGrey1.png",
                             width: width,
