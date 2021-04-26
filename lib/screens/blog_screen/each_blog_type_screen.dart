@@ -49,7 +49,7 @@ class _EachBlogTypeScreenState extends State<EachBlogTypeScreen> {
     final Map arguments = ModalRoute.of(context).settings.arguments as Map;
 
     setState(() {
-      // based on chosen type of blog in arguments, determine articles
+      // based on chosen type of blog in arguments, determine the articles
       typeOfBlog = arguments['type'];
       chosenBlogType = typeOfBlog == "Diabetes Care"
           ? DiabetesCare().allBlog
@@ -134,7 +134,9 @@ class _EachBlogTypeScreenState extends State<EachBlogTypeScreen> {
                                 width: MediaQuery.of(context).size.width,
                                 height: 200,
                                 child: FittedBox(
-                                  child: Image.asset(getRandomBlogImage()),
+                                  child: Image.asset(
+                                    getRandomBlogImage(),
+                                  ),
                                   fit: BoxFit.fill,
                                 ),
                               ),

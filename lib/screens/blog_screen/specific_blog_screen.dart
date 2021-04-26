@@ -14,6 +14,10 @@ class SpecificBlogScreen extends StatefulWidget {
 class _SpecificBlogScreenState extends State<SpecificBlogScreen> {
   String pdfPath = "";
   bool showSpinner = false;
+
+  // variable to determine whether the pdf is an online version
+  // since this screen is used for the expand screen of pdf of the report screens
+  // report screen pdf are online, while the blogs are local assets
   bool isNetwork = false;
 
   @override
@@ -56,6 +60,7 @@ class _SpecificBlogScreenState extends State<SpecificBlogScreen> {
                 )
               : Container(
                   height: MediaQuery.of(context).size.height,
+                  // render correct pdf widget
                   child: !isNetwork
                       ? PDF.asset(
                           pdfPath,
