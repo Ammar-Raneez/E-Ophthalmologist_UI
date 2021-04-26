@@ -44,6 +44,7 @@ class _EditReportScreenState extends State<EditReportScreen> {
   bool enableTextFields = false;
 
   var allDocumentsURLS = [];
+  var allDocumentsExtensions = [];
 
   @override
   void initState() {
@@ -109,6 +110,9 @@ class _EditReportScreenState extends State<EditReportScreen> {
     PlatformFile platformFile = selectedDocument.files.first;
     String fileName = platformFile.path.split('/').last;
 
+    // store the file extension
+    allDocumentsExtensions.add(platformFile.extension);
+
     // get the corresponding file from the platform file
     File pickedFile = File(platformFile.path);
 
@@ -171,6 +175,7 @@ class _EditReportScreenState extends State<EditReportScreen> {
       doctor = arguments['doctor'];
       hospital = arguments['hospital'];
       allDocumentsURLS = arguments['all_document_urls'];
+      allDocumentsExtensions = arguments['all_document_extensions'];
       reportID = arguments['currentDocId'];
       viewedDate = arguments['date'];
     });

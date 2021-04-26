@@ -476,10 +476,12 @@ class _ReportScreenState extends State<ReportScreen> {
                 'doctor': whichDocs[index]['doctor'],
                 'hospital': whichDocs[index]['hospital'],
                 'date': whichDocs[index]['date'],
-                // fetch and pass time and image urls, if only its the list of reports
+                // documents are passed to reports, time is passed to appointments
                 'all_document_urls':
                     isReport ? whichDocs[index]['all_document_urls'] : "",
-                'time': isReport ? whichDocs[index]['time'] : "",
+                'all_document_extensions':
+                    isReport ? whichDocs[index]['all_document_extensions'] : "",
+                'time': !isReport ? whichDocs[index]['time'] : "",
                 'currentDocId': whichDocsIds[index]
               };
               Navigator.pushNamed(context, navigate, arguments: argsForResult)

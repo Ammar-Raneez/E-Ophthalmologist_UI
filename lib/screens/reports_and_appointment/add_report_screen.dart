@@ -40,6 +40,7 @@ class _AddReportScreenState extends State<AddReportScreen> {
 
   // hold documents and the respective firebase deployed links
   var allDocuments = [];
+  var allDocumentsExtensions = [];
   var allDocumentsURLS = [];
 
   // reportID - timestamp of creation
@@ -108,6 +109,9 @@ class _AddReportScreenState extends State<AddReportScreen> {
         .pickFiles(allowedExtensions: ['jpg', 'png', 'pdf'], type: FileType.custom);
     PlatformFile platformFile = selectedDocument.files.first;
     String fileName = platformFile.path.split('/').last;
+
+    // store the file extension
+    allDocumentsExtensions.add(platformFile.extension);
 
     // get the corresponding file from the platform file
     File pickedFile = File(platformFile.path);
@@ -274,7 +278,8 @@ class _AddReportScreenState extends State<AddReportScreen> {
                             'doctor': doctor,
                             'hospital': hospital,
                             'date': selectedDate,
-                            'all_document_urls': allDocumentsURLS
+                            'all_document_urls': allDocumentsURLS,
+                            'all_document_extensions': allDocumentsExtensions
                           });
                         }
 
