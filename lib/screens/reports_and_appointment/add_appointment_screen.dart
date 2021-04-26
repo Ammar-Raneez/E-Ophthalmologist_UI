@@ -304,6 +304,8 @@ class _AddAppointmentScreenState extends State<AddAppointmentScreen> {
                                 .set({
                               'doctor': doctor,
                               'hospital': hospital,
+                              'latitude': lat,
+                              'longitude': lng,
                               'date': selectedDate,
                               'time': selectedTime
                             });
@@ -319,6 +321,8 @@ class _AddAppointmentScreenState extends State<AddAppointmentScreen> {
                                 .set({
                               'doctor': doctor,
                               'hospital': hospital,
+                              'latitude': lat,
+                              'longitude': lng,
                               'date': selectedDate,
                               'time': selectedTime
                             });
