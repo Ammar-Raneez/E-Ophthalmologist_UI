@@ -14,6 +14,7 @@ class SpecificBlogScreen extends StatefulWidget {
 class _SpecificBlogScreenState extends State<SpecificBlogScreen> {
   String pdfPath = "";
   bool showSpinner = false;
+  bool isNetwork = false;
 
   @override
   initState() {
@@ -25,6 +26,7 @@ class _SpecificBlogScreenState extends State<SpecificBlogScreen> {
     final Map arguments = ModalRoute.of(context).settings.arguments as Map;
     setState(() {
       pdfPath = arguments['pdf'];
+      isNetwork = arguments['isNetwork'];
     });
 
     return SafeArea(
@@ -54,9 +56,11 @@ class _SpecificBlogScreenState extends State<SpecificBlogScreen> {
                 )
               : Container(
                   height: MediaQuery.of(context).size.height,
-                  child: PDF.asset(
-                    pdfPath,
-                  ),
+                  child: !isNetwork
+                      ? PDF.asset(
+                          pdfPath,
+                        )
+                      : PDF.network(pdfPath),
                 ),
         ),
       ),

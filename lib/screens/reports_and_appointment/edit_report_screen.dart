@@ -13,6 +13,7 @@ import 'package:pdf_flutter/pdf_flutter.dart';
 import 'package:ui/components/custom_alert.dart';
 import 'package:ui/components/custom_rounded_button.dart';
 import 'package:ui/constants.dart';
+import 'package:ui/screens/blog_screen/specific_blog_screen.dart';
 
 final _firestore = FirebaseFirestore.instance;
 
@@ -289,7 +290,7 @@ class _EditReportScreenState extends State<EditReportScreen> {
                           height: 30,
                         ),
                         // view mode
-                        allDocumentsURLS.length != 0 && !enableTextFields
+                        allDocumentsURLS.length != 0
                             ? Column(
                                 children: List.generate(
                                   allDocumentsURLS.length,
@@ -315,11 +316,26 @@ class _EditReportScreenState extends State<EditReportScreen> {
                                               width: width,
                                               height: 300),
                                         )
-                                      : Padding(
-                                          padding: const EdgeInsets.all(8.0),
-                                          child: PDF.network(
-                                            allDocumentsURLS[index],
-                                            height: 400,
+                                      : GestureDetector(
+                                          onTap: () {
+                                            print("hello");
+                                            Navigator.pushNamed(
+                                                context, SpecificBlogScreen.id,
+                                                arguments: {
+                                                  'pdf': allDocumentsURLS[index],
+                                                  'isNetwork': true
+                                                });
+                                          },
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(8.0),
+                                            child: Container(
+                                              height: 500,
+                                              color: Colors.red,
+                                              child: PDF.network(
+                                                allDocumentsURLS[index],
+                                                height: 400,
+                                              ),
+                                            ),
                                           ),
                                         ),
                                 ),
