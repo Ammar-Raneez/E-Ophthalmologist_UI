@@ -1,9 +1,11 @@
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
-//import 'package:file_picker/file_picker.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
+//import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:ui/components/custom_alert.dart';
 import 'package:ui/components/custom_rounded_button.dart';
@@ -36,9 +38,9 @@ class _AddReportScreenState extends State<AddReportScreen> {
   String email;
   bool showSpinner = false;
 
-  // hold images and the respective firebase deployed links
-  var imageDocuments = [];
-  var imageDocumentsURLS = [];
+  // hold documents and the respective firebase deployed links
+  var allDocuments = [];
+  var allDocumentsURLS = [];
 
   // reportID - timestamp of creation
   String reportID = new Timestamp.now().toString();
@@ -99,29 +101,25 @@ class _AddReportScreenState extends State<AddReportScreen> {
     });
   }
 
-  // Open phone gallery and store image path to the image documents and deploy to firebase
-  _openGalleryAndUpload() async {
-    var selectedPicture =
-        await ImagePicker.pickImage(source: ImageSource.gallery);
-//    var selectedDocument = await FilePicker.platform
-//        .pickFiles(allowedExtensions: ['jpg', 'png', 'pdf', 'doc', 'docx']);
-//    PlatformFile platformFile = selectedDocument.files.first;
-
-    // get only fileName from path
-    String fileName = selectedPicture.path.split('/').last;
+  // Open phone and path to the documents and deploy to firebase
+  _openAndUpload() async {
+    var selectedDocument = await FilePicker.platform
+        .pickFiles(allowedExtensions: ['jpg', 'png', 'pdf', 'doc', 'docx'], type: FileType.custom);
+    PlatformFile platformFile = selectedDocument.files.first;
+    String fileName = platformFile.path.split('/').last;
 
     // get the corresponding file from the platform file
-//    File pickedFile = File(platformFile.path);
+    File pickedFile = File(platformFile.path);
 
     setState(() {
-      imageDocuments.add(selectedPicture);
+      allDocuments.add(pickedFile);
     });
 
     setState(() {
       showSpinner = true;
     });
 
-    // save picked image into firebase storage, in the report specific directory
+    // save picked document into firebase storage, in the report specific directory
     Reference ref = FirebaseStorage.instance
         .ref()
         // create a unique directory for a specific report
@@ -132,15 +130,15 @@ class _AddReportScreenState extends State<AddReportScreen> {
             reportID +
             "/")
         .child(fileName);
-    UploadTask task = ref.putFile(selectedPicture);
+    UploadTask task = ref.putFile(pickedFile);
 
     String thisImageUrl = "";
     task.whenComplete(() async {
-      // once uploaded to firebase, get that images link and store into the image urls list
+      // once uploaded to firebase, get that download link and store into the document urls list
       thisImageUrl = await ref.getDownloadURL();
       print(thisImageUrl);
       setState(() {
-        imageDocumentsURLS.add(thisImageUrl);
+        allDocumentsURLS.add(thisImageUrl);
       });
     }).catchError((onError) {
       print(onError);
@@ -213,11 +211,11 @@ class _AddReportScreenState extends State<AddReportScreen> {
                   height: 30,
                 ),
                 Column(
-                  children: imageDocuments.length != 0
+                  children: allDocuments.length != 0
                       // loop and display the picked images
                       ? List.generate(
-                          imageDocuments.length,
-                          (index) => Image.file(imageDocuments[index],
+                          allDocuments.length,
+                          (index) => Image.file(allDocuments[index],
                               width: width, height: 300),
                         )
                       : List.generate(
@@ -260,7 +258,7 @@ class _AddReportScreenState extends State<AddReportScreen> {
                             'doctor': doctor,
                             'hospital': hospital,
                             'date': selectedDate,
-                            'image_document_urls': imageDocumentsURLS
+                            'image_document_urls': allDocumentsURLS
                           });
                         } else {
                           // family member details
@@ -275,7 +273,7 @@ class _AddReportScreenState extends State<AddReportScreen> {
                             'doctor': doctor,
                             'hospital': hospital,
                             'date': selectedDate,
-                            'image_document_urls': imageDocumentsURLS
+                            'image_document_urls': allDocumentsURLS
                           });
                         }
 
@@ -307,7 +305,7 @@ class _AddReportScreenState extends State<AddReportScreen> {
           ),
         ),
         floatingActionButton: FloatingActionButton(
-          onPressed: () => _openGalleryAndUpload(),
+          onPressed: () => _openAndUpload(),
           child: Text(
             "+",
             style: TextStyle(fontSize: 40),
