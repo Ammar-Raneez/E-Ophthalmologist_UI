@@ -451,6 +451,8 @@ class _ReportScreenState extends State<ReportScreen> {
                     isReport ? whichDocs[index]['all_document_urls'] : "",
                 'all_document_extensions':
                     isReport ? whichDocs[index]['all_document_extensions'] : "",
+                'latitude': isReport ? whichDocs[index]['latitude'] : "",
+                'longitude': isReport ? whichDocs[index]['longitude'] : "",
                 'time': !isReport ? whichDocs[index]['time'] : "",
                 'currentDocId': whichDocsIds[index]
               };

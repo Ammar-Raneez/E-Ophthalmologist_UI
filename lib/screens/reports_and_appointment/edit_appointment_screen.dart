@@ -156,6 +156,7 @@ class _EditAppointmentScreenState extends State<EditAppointmentScreen> {
       appointmentId = arguments['currentDocId'];
       viewedDate = arguments['date'];
       viewedTime = arguments['time'];
+      _target = LatLng(arguments['latitude'], arguments['longitude']);
     });
 
     // get lat and lng of hospital
