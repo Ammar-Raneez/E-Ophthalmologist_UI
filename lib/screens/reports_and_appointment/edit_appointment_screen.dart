@@ -31,8 +31,10 @@ class _EditAppointmentScreenState extends State<EditAppointmentScreen> {
   String viewedTime;
   String viewedDate;
 
-  String hospital;
-  String doctor;
+  String hospitalView;
+  String doctorView;
+  String hospitalEdit;
+  String doctorEdit;
   DateTime startDate = DateTime.now();
   TimeOfDay startTime = TimeOfDay.now();
   String selectedTime =
@@ -47,8 +49,10 @@ class _EditAppointmentScreenState extends State<EditAppointmentScreen> {
   List<Placemark> placemark;
   Completer<GoogleMapController> _controller = Completer();
 
-  var _hospitalController = TextEditingController();
-  var _doctorController = TextEditingController();
+  var _hospitalControllerView = TextEditingController();
+  var _hospitalControllerEdit = TextEditingController();
+  var _doctorControllerView = TextEditingController();
+  var _doctorControllerEdit = TextEditingController();
 
   // appointments unique identifier
   String appointmentId;
@@ -147,8 +151,8 @@ class _EditAppointmentScreenState extends State<EditAppointmentScreen> {
 
     // get the specific appointments details passed as arguments
     setState(() {
-      doctor = arguments['doctor'];
-      hospital = arguments['hospital'];
+      doctorView = arguments['doctor'];
+      hospitalView = arguments['hospital'];
       appointmentId = arguments['currentDocId'];
       viewedDate = arguments['date'];
       viewedTime = arguments['time'];
@@ -157,7 +161,7 @@ class _EditAppointmentScreenState extends State<EditAppointmentScreen> {
     // get lat and lng of hospital
     getHospitalCoordinates() async {
       try {
-        placemark = await Geolocator().placemarkFromAddress(hospital);
+        placemark = await Geolocator().placemarkFromAddress(hospitalView);
       } catch (Exception) {
         print("Location could not be found");
       }
@@ -176,17 +180,17 @@ class _EditAppointmentScreenState extends State<EditAppointmentScreen> {
         _markers.add(Marker(
             position: _target,
             infoWindow: InfoWindow(
-                title: "Appointment with, $doctor", snippet: "$hospital"),
-            markerId: MarkerId(hospital.toString())));
+                title: "Appointment with, $doctorView", snippet: "$hospitalView"),
+            markerId: MarkerId(hospitalView.toString())));
       }
     });
 
     setState(() {
       // populate the text field with the already set values
-      _doctorController =
-          TextEditingController.fromValue(TextEditingValue(text: "$doctor"));
-      _hospitalController =
-          TextEditingController.fromValue(TextEditingValue(text: "$hospital"));
+      _doctorControllerView =
+          TextEditingController.fromValue(TextEditingValue(text: "$doctorView"));
+      _hospitalControllerView =
+          TextEditingController.fromValue(TextEditingValue(text: "$hospitalView"));
     });
 
     return SafeArea(
@@ -230,8 +234,8 @@ class _EditAppointmentScreenState extends State<EditAppointmentScreen> {
                         children: [
                           kEditProfileInputLabel("Hospital"),
                           kTextField(
-                              _hospitalController,
-                              (value) => hospital = value,
+                              _hospitalControllerEdit,
+                              (value) => hospitalEdit = value,
                               "Please enter the fullname of the hospital",
                               TextInputType.text,
                               enableTextFields),
@@ -241,7 +245,7 @@ class _EditAppointmentScreenState extends State<EditAppointmentScreen> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           kValueReadMore("Hospital", Colors.black38),
-                          kValueReadMore(hospital, Colors.black),
+                          kValueReadMore(hospitalView, Colors.black),
                         ],
                       ),
                 SizedBox(
@@ -252,8 +256,8 @@ class _EditAppointmentScreenState extends State<EditAppointmentScreen> {
                         children: [
                           kEditProfileInputLabel("Doctor"),
                           kTextField(
-                              _doctorController,
-                              (value) => doctor = value,
+                              _doctorControllerEdit,
+                              (value) => doctorEdit = value,
                               "Doctor",
                               TextInputType.text,
                               enableTextFields),
@@ -263,7 +267,7 @@ class _EditAppointmentScreenState extends State<EditAppointmentScreen> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           kValueReadMore("Doctor", Colors.black38),
-                          kValueReadMore(doctor, Colors.black),
+                          kValueReadMore(doctorView, Colors.black),
                         ],
                       ),
                 SizedBox(
@@ -335,12 +339,12 @@ class _EditAppointmentScreenState extends State<EditAppointmentScreen> {
                     width: MediaQuery.of(context).size.width,
                     child: CustomRoundedButton(
                       onPressed: () async {
-                        if (doctor == null ||
-                            hospital == null ||
+                        if (doctorView == null ||
+                            hospitalView == null ||
                             selectedDate == null ||
                             selectedTime == null ||
-                            doctor == "" ||
-                            hospital == "" ||
+                            doctorView == "" ||
+                            hospitalView == "" ||
                             selectedDate == "" ||
                             selectedTime == "") {
                           createAlertDialog(
@@ -363,8 +367,8 @@ class _EditAppointmentScreenState extends State<EditAppointmentScreen> {
                                   .collection("appointments")
                                   .doc(appointmentId)
                                   .set({
-                                'doctor': doctor,
-                                'hospital': hospital,
+                                'doctor': doctorEdit,
+                                'hospital': hospitalEdit,
                                 'date': selectedDate,
                                 'time': selectedTime
                               });
@@ -378,8 +382,8 @@ class _EditAppointmentScreenState extends State<EditAppointmentScreen> {
                                   .collection("appointments")
                                   .doc(appointmentId)
                                   .set({
-                                'doctor': doctor,
-                                'hospital': hospital,
+                                'doctor': doctorEdit,
+                                'hospital': hospitalEdit,
                                 'date': selectedDate,
                                 'time': selectedTime
                               });
@@ -395,8 +399,8 @@ class _EditAppointmentScreenState extends State<EditAppointmentScreen> {
                               showSpinner = false;
                             });
 
-                            _hospitalController.clear();
-                            _doctorController.clear();
+                            _hospitalControllerView.clear();
+                            _doctorControllerView.clear();
                           } catch (e) {
                             createAlertDialog(context, "Error", e.message, 404);
                             setState(() {

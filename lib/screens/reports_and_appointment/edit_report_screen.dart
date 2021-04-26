@@ -429,8 +429,8 @@ class _EditReportScreenState extends State<EditReportScreen> {
                                         .collection("past-reports")
                                         .doc(reportID)
                                         .set({
-                                      'doctor': doctorView,
-                                      'hospital': hospitalView,
+                                      'doctor': doctorEdit,
+                                      'hospital': hospitalEdit,
                                       'date': selectedDate,
                                       'all_document_urls': allDocumentsURLS
                                     });
