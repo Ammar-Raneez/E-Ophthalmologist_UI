@@ -316,25 +316,42 @@ class _EditReportScreenState extends State<EditReportScreen> {
                                               width: width,
                                               height: 300),
                                         )
-                                      : GestureDetector(
-                                          onTap: () {
-                                            print("hello");
-                                            Navigator.pushNamed(
-                                                context, SpecificBlogScreen.id,
-                                                arguments: {
-                                                  'pdf': allDocumentsURLS[index],
-                                                  'isNetwork': true
-                                                });
-                                          },
-                                          child: Padding(
-                                            padding: const EdgeInsets.all(8.0),
-                                            child: Container(
-                                              height: 500,
-                                              color: Colors.red,
-                                              child: PDF.network(
-                                                allDocumentsURLS[index],
-                                                height: 400,
-                                              ),
+                                      : Padding(
+                                          padding: const EdgeInsets.symmetric(
+                                              vertical: 16, horizontal: 8),
+                                          child: Container(
+                                            child: Column(
+                                              children: [
+                                                PDF.network(
+                                                  allDocumentsURLS[index],
+                                                  height: 200,
+                                                ),
+                                                Align(
+                                                  alignment:
+                                                      Alignment.bottomRight,
+                                                  child: GestureDetector(
+                                                    onTap: () {
+                                                      Navigator.pushNamed(
+                                                          context,
+                                                          SpecificBlogScreen.id,
+                                                          arguments: {
+                                                            'pdf':
+                                                                allDocumentsURLS[
+                                                                    index],
+                                                            'isNetwork': true
+                                                          });
+                                                    },
+                                                    child: Text(
+                                                      "Expand >>>",
+                                                      style:
+                                                          kTextStyle.copyWith(
+                                                              color:
+                                                                  Colors.black),
+                                                      textAlign: TextAlign.end,
+                                                    ),
+                                                  ),
+                                                )
+                                              ],
                                             ),
                                           ),
                                         ),

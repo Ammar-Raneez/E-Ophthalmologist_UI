@@ -238,7 +238,6 @@ class _AddReportScreenState extends State<AddReportScreen> {
                                 )
                               : GestureDetector(
                                   onTap: () {
-                                    print("hello");
                                     Navigator.pushNamed(
                                         context, SpecificBlogScreen.id,
                                         arguments: {
@@ -249,9 +248,11 @@ class _AddReportScreenState extends State<AddReportScreen> {
                                   child: Padding(
                                     padding: const EdgeInsets.all(8.0),
                                     child: Container(
+                                      height: 300,
+                                      color: Colors.red,
                                       child: PDF.network(
                                         allDocumentsURLS[index],
-                                        height: 400,
+                                        height: 200,
                                       ),
                                     ),
                                   ),
