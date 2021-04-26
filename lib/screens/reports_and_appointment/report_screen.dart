@@ -477,8 +477,8 @@ class _ReportScreenState extends State<ReportScreen> {
                 'hospital': whichDocs[index]['hospital'],
                 'date': whichDocs[index]['date'],
                 // fetch and pass time and image urls, if only its the list of reports
-                'image_document_urls':
-                    isReport ? whichDocs[index]['image_document_urls'] : "",
+                'all_document_urls':
+                    isReport ? whichDocs[index]['all_document_urls'] : "",
                 'time': isReport ? whichDocs[index]['time'] : "",
                 'currentDocId': whichDocsIds[index]
               };

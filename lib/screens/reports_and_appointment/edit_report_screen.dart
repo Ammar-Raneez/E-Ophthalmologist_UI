@@ -103,8 +103,9 @@ class _EditReportScreenState extends State<EditReportScreen> {
   }
 
   _openAndUpload() async {
+    // allow only images and pdf
     var selectedDocument = await FilePicker.platform
-        .pickFiles(allowedExtensions: ['jpg', 'png', 'pdf', 'doc', 'docx'], type: FileType.custom);
+        .pickFiles(allowedExtensions: ['jpg', 'png', 'pdf'], type: FileType.custom);
     PlatformFile platformFile = selectedDocument.files.first;
     String fileName = platformFile.path.split('/').last;
 
@@ -127,12 +128,12 @@ class _EditReportScreenState extends State<EditReportScreen> {
         .child(fileName);
     UploadTask task = ref.putFile(pickedFile);
 
-    String thisImageUrl = "";
+    String thisDocumentURL = "";
     task.whenComplete(() async {
-      thisImageUrl = await ref.getDownloadURL();
-      print(thisImageUrl);
+      thisDocumentURL = await ref.getDownloadURL();
+      print(thisDocumentURL);
       setState(() {
-        allDocumentsURLS.add(thisImageUrl);
+        allDocumentsURLS.add(thisDocumentURL);
       });
     }).catchError((onError) {
       print(onError);
@@ -169,7 +170,7 @@ class _EditReportScreenState extends State<EditReportScreen> {
     setState(() {
       doctor = arguments['doctor'];
       hospital = arguments['hospital'];
-      allDocumentsURLS = arguments['image_document_urls'];
+      allDocumentsURLS = arguments['all_document_urls'];
       reportID = arguments['currentDocId'];
       viewedDate = arguments['date'];
     });
@@ -365,7 +366,7 @@ class _EditReportScreenState extends State<EditReportScreen> {
                                       'doctor': doctor,
                                       'hospital': hospital,
                                       'date': selectedDate,
-                                      'image_document_urls': allDocumentsURLS
+                                      'all_document_urls': allDocumentsURLS
                                     });
                                   } else {
                                     // update family member report
@@ -381,7 +382,7 @@ class _EditReportScreenState extends State<EditReportScreen> {
                                       'doctor': doctor,
                                       'hospital': hospital,
                                       'date': selectedDate,
-                                      'image_document_urls': allDocumentsURLS
+                                      'all_document_urls': allDocumentsURLS
                                     });
                                   }
 

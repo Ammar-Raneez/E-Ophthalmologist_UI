@@ -103,8 +103,9 @@ class _AddReportScreenState extends State<AddReportScreen> {
 
   // Open phone and path to the documents and deploy to firebase
   _openAndUpload() async {
+    // allow only images and pdf
     var selectedDocument = await FilePicker.platform
-        .pickFiles(allowedExtensions: ['jpg', 'png', 'pdf', 'doc', 'docx'], type: FileType.custom);
+        .pickFiles(allowedExtensions: ['jpg', 'png', 'pdf'], type: FileType.custom);
     PlatformFile platformFile = selectedDocument.files.first;
     String fileName = platformFile.path.split('/').last;
 
@@ -132,13 +133,13 @@ class _AddReportScreenState extends State<AddReportScreen> {
         .child(fileName);
     UploadTask task = ref.putFile(pickedFile);
 
-    String thisImageUrl = "";
+    String thisDocumentURL = "";
     task.whenComplete(() async {
       // once uploaded to firebase, get that download link and store into the document urls list
-      thisImageUrl = await ref.getDownloadURL();
-      print(thisImageUrl);
+      thisDocumentURL = await ref.getDownloadURL();
+      print(thisDocumentURL);
       setState(() {
-        allDocumentsURLS.add(thisImageUrl);
+        allDocumentsURLS.add(thisDocumentURL);
       });
     }).catchError((onError) {
       print(onError);
@@ -258,7 +259,7 @@ class _AddReportScreenState extends State<AddReportScreen> {
                             'doctor': doctor,
                             'hospital': hospital,
                             'date': selectedDate,
-                            'image_document_urls': allDocumentsURLS
+                            'all_document_urls': allDocumentsURLS
                           });
                         } else {
                           // family member details
@@ -273,7 +274,7 @@ class _AddReportScreenState extends State<AddReportScreen> {
                             'doctor': doctor,
                             'hospital': hospital,
                             'date': selectedDate,
-                            'image_document_urls': allDocumentsURLS
+                            'all_document_urls': allDocumentsURLS
                           });
                         }
 
