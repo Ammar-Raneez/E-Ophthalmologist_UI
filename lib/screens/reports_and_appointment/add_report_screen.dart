@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -104,8 +105,8 @@ class _AddReportScreenState extends State<AddReportScreen> {
   // Open phone and path to the documents and deploy to firebase
   _openAndUpload() async {
     // allow only images and pdf
-    var selectedDocument = await FilePicker.platform
-        .pickFiles(allowedExtensions: ['jpg', 'png', 'pdf'], type: FileType.custom);
+    var selectedDocument = await FilePicker.platform.pickFiles(
+        allowedExtensions: ['jpg', 'png', 'pdf'], type: FileType.custom);
     PlatformFile platformFile = selectedDocument.files.first;
     String fileName = platformFile.path.split('/').last;
 
@@ -214,9 +215,20 @@ class _AddReportScreenState extends State<AddReportScreen> {
                   children: allDocumentsURLS.length != 0
                       // loop and display the picked images
                       ? List.generate(
-                    allDocumentsURLS.length,
-                          (index) => Image.file(allDocumentsURLS[index],
-                              width: width, height: 300),
+                          allDocumentsURLS.length,
+                          (index) => CachedNetworkImage(
+                              progressIndicatorBuilder:
+                                  (context, url, downloadProgress) => SizedBox(
+                                        width: width / 2,
+                                        height: 200,
+                                        child: Center(
+                                          child: CircularProgressIndicator(
+                                              value: downloadProgress.progress),
+                                        ),
+                                      ),
+                              imageUrl: allDocumentsURLS[index],
+                              width: width,
+                              height: 300),
                         )
                       : List.generate(
                           1,
