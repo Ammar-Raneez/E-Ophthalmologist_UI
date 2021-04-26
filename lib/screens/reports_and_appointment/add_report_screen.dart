@@ -218,29 +218,30 @@ class _AddReportScreenState extends State<AddReportScreen> {
                           allDocumentsURLS.length,
                           (index) => allDocumentsExtensions[index] != 'pdf'
                               ? Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: CachedNetworkImage(
-                                    progressIndicatorBuilder: (context, url,
-                                            downloadProgress) =>
-                                        SizedBox(
-                                          width: width / 2,
-                                          height: 200,
-                                          child: Center(
-                                            child: CircularProgressIndicator(
-                                                value: downloadProgress.progress),
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: CachedNetworkImage(
+                                      progressIndicatorBuilder: (context, url,
+                                              downloadProgress) =>
+                                          SizedBox(
+                                            width: width / 2,
+                                            height: 200,
+                                            child: Center(
+                                              child: CircularProgressIndicator(
+                                                  value: downloadProgress
+                                                      .progress),
+                                            ),
                                           ),
-                                        ),
-                                    imageUrl: allDocumentsURLS[index],
-                                    width: width,
-                                    height: 300),
-                              )
+                                      imageUrl: allDocumentsURLS[index],
+                                      width: width,
+                                      height: 300),
+                                )
                               : Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: SizedBox(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: PDF.network(
+                                    allDocumentsURLS[index],
                                     height: 400,
-                                    child: PDF.network(allDocumentsURLS[index]),
                                   ),
-                              ),
+                                ),
                         )
                       : List.generate(
                           1,

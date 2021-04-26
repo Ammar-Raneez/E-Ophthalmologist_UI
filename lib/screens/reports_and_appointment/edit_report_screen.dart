@@ -317,10 +317,9 @@ class _EditReportScreenState extends State<EditReportScreen> {
                                         )
                                       : Padding(
                                           padding: const EdgeInsets.all(8.0),
-                                          child: SizedBox(
+                                          child: PDF.network(
+                                            allDocumentsURLS[index],
                                             height: 400,
-                                            child: PDF.network(
-                                                allDocumentsURLS[index]),
                                           ),
                                         ),
                                 ),
