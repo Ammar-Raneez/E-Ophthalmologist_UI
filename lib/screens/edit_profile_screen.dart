@@ -99,7 +99,6 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
       diagnosis = currentUserDetails['Diagnosis'];
       dm = currentUserDetails['DM Type'];
       gender = currentUserDetails['gender'];
-      email = currentUserDetails['userEmail'];
 
       // populate the text fields with the current values after fetching
       _bmiController =
@@ -357,6 +356,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                   } else {
                                     print("update");
                                     print(username);
+                                    print(currentUserDetails);
                                     // update family member details
                                     _firestore
                                         .collection("users")
