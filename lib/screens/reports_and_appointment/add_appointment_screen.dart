@@ -1,3 +1,4 @@
+import 'package:add_2_calendar/add_2_calendar.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
@@ -19,12 +20,11 @@ class AddAppointmentScreen extends StatefulWidget {
 }
 
 class _AddAppointmentScreenState extends State<AddAppointmentScreen> {
-  User user = FirebaseAuth.instance.currentUser;
-  // variables explained in sidebar
-  var userDocument;
-  var mainUserDetails;
-  var currentUserDetails;
-  String email;
+  User user = FirebaseAuth.instance.currentUser; // main admin user
+  var currentUserDetails; // which user currently
+  var userDocument; // current users document
+  var mainUserDetails; // main user - (linked users will have this as main)
+  String email; // single mail for multiple users
 
   String hospital;
   String doctor;
@@ -39,7 +39,7 @@ class _AddAppointmentScreenState extends State<AddAppointmentScreen> {
 
   bool showSpinner = false;
 
-  // appointmentID - timestamp of creation
+  // appointmentID - timestamp of creation, for a unique identifier
   String appointmentID = new Timestamp.now().toString();
 
   @override
@@ -68,10 +68,12 @@ class _AddAppointmentScreenState extends State<AddAppointmentScreen> {
     var document = await _firestore.collection("users").doc(user.email).get();
     mainUserDetails = document.data();
 
+    // if the current family member is null - the current user is the admin
     if (document.data()['currentFamilyMember'] == '') {
       setState(() {
         userDocument = document;
       });
+      // else it is a family member
     } else {
       var tempUserDocument = await _firestore
           .collection("users")
@@ -100,6 +102,7 @@ class _AddAppointmentScreenState extends State<AddAppointmentScreen> {
     });
   }
 
+  // time picker handler
   selectTime(BuildContext context) async {
     TimeOfDay picked =
         await showTimePicker(context: context, initialTime: startTime);
@@ -126,14 +129,14 @@ class _AddAppointmentScreenState extends State<AddAppointmentScreen> {
       });
 
       // add an event to systems default calendar
-//      final Event event = Event(
-//        title: 'E-Ophthalmologist Appointment',
-//        description: 'Scheduled an appointment with $doctor',
-//        location: '$hospital',
-//        startDate: picked,
-//        endDate: DateTime(picked.year, picked.month, picked.day + 1),
-//      );
-//      Add2Calendar.addEvent2Cal(event);
+      final Event event = Event(
+        title: 'E-Ophthalmologist Appointment',
+        description: 'Scheduled an appointment with $doctor',
+        location: '$hospital',
+        startDate: picked,
+        endDate: DateTime(picked.year, picked.month, picked.day + 1),
+      );
+      Add2Calendar.addEvent2Cal(event);
     }
   }
 
@@ -164,6 +167,7 @@ class _AddAppointmentScreenState extends State<AddAppointmentScreen> {
               children: [
                 _commonLabelText(title: "Add Appointment", fontSize: 20.0),
                 _commonLabelText(title: "Make an Appointment", fontSize: 16.0),
+                // the doctor details
                 SizedBox(
                   height: 300,
                   child: ListView.builder(
