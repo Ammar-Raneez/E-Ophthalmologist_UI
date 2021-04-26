@@ -172,7 +172,6 @@ class _EditReportScreenState extends State<EditReportScreen> {
     var width = screenSize.width;
     // get the arguments passed
     final Map arguments = ModalRoute.of(context).settings.arguments as Map;
-
     setState(() {
       doctor = arguments['doctor'];
       hospital = arguments['hospital'];
@@ -289,55 +288,47 @@ class _EditReportScreenState extends State<EditReportScreen> {
                         SizedBox(
                           height: 30,
                         ),
-                        enableTextFields
+                        // view mode
+                        allDocumentsURLS.length != 0 && !enableTextFields
                             ? Column(
-                                children: allDocumentsURLS.length != 0
-                                    ? List.generate(
-                                        allDocumentsURLS.length,
-                                        (index) => allDocumentsExtensions[
-                                                    index] !=
-                                                'pdf'
-                                            ? Padding(
-                                              padding: const EdgeInsets.all(8.0),
-                                              child: CachedNetworkImage(
-                                                  progressIndicatorBuilder:
-                                                      (context, url,
-                                                              downloadProgress) =>
-                                                          SizedBox(
-                                                            width: width / 2,
-                                                            height: 200,
-                                                            child: Center(
-                                                              child: CircularProgressIndicator(
-                                                                  value: downloadProgress
+                                children: List.generate(
+                                  allDocumentsURLS.length,
+                                  (index) => allDocumentsExtensions[index] !=
+                                          'pdf'
+                                      ? Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: CachedNetworkImage(
+                                              progressIndicatorBuilder:
+                                                  (context, url,
+                                                          downloadProgress) =>
+                                                      SizedBox(
+                                                        width: width / 2,
+                                                        height: 200,
+                                                        child: Center(
+                                                          child: CircularProgressIndicator(
+                                                              value:
+                                                                  downloadProgress
                                                                       .progress),
-                                                            ),
-                                                          ),
-                                                  imageUrl:
-                                                      allDocumentsURLS[index],
-                                                  width: width,
-                                                  height: 300),
-                                            )
-                                            : Padding(
-                                              padding: const EdgeInsets.all(8.0),
-                                              child: SizedBox(
-                                                  height: 400,
-                                                  child: PDF.network(
-                                                      allDocumentsURLS[index]),
-                                                ),
-                                            ),
-                                      )
-                                    // if no documents are picked display a temporary placeholder
-                                    : List.generate(
-                                        1,
-                                        (index) => Image.asset(
-                                          "images/uploadImageGrey1.png",
-                                          width: width,
-                                          height: 300,
+                                                        ),
+                                                      ),
+                                              imageUrl: allDocumentsURLS[index],
+                                              width: width,
+                                              height: 300),
+                                        )
+                                      : Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: SizedBox(
+                                            height: 400,
+                                            child: PDF.network(
+                                                allDocumentsURLS[index]),
+                                          ),
                                         ),
-                                      ),
+                                ),
                               )
                             : Container(
-                                height: MediaQuery.of(context).size.height / 2,
+                                height: !enableTextFields
+                                    ? MediaQuery.of(context).size.height / 2
+                                    : MediaQuery.of(context).size.height / 3,
                                 width: MediaQuery.of(context).size.width,
                                 child: Column(
                                   mainAxisAlignment: MainAxisAlignment.center,
