@@ -33,7 +33,6 @@ class _DiagnosisResultScreenState extends State<DiagnosisResultScreen> {
   Widget build(BuildContext context) {
     var screenSize = MediaQuery.of(context).size;
     var width = screenSize.width;
-    var height = screenSize.height;
     // get values of the arguments passed
     final Map arguments = ModalRoute.of(context).settings.arguments as Map;
     String datetime = DateFormat.yMMMd()
@@ -68,40 +67,47 @@ class _DiagnosisResultScreenState extends State<DiagnosisResultScreen> {
                   height: 15,
                 ),
                 Text(
-                  "Diagnosis",
-                  style: kTextStyle.copyWith(fontSize: 30.0),
+                  "Diagnosis Report",
+                  style: kTextStyle.copyWith(fontSize: 30.0, color: Colors.green),
                   textAlign: TextAlign.center,
                 ),
                 SizedBox(
                   height: 30,
                 ),
-                _commonLabelText(
+                _commonLabelText(label: "Date", textColor: Colors.greenAccent, fontSize: 18.0),
+                _commonResultText(
                     sentence: "$datetime",
                     textColor: Colors.black,
-                    fontSize: 20.0),
-                _commonLabelText(
+                    fontSize: 15.0),
+                _commonLabelText(label: "Result", textColor: Colors.greenAccent, fontSize: 18.0),
+                _commonResultText(
                     sentence:
                         "A ${arguments['result']} condition has been detected in the above retinal fundus",
-                    textColor: Colors.red,
-                    fontSize: 20.0),
-                _commonLabelText(
+                    textColor: Colors.black54,
+                    fontSize: 15.0),
+                _commonLabelText(label: "Insights", textColor: Colors.greenAccent, fontSize: 18.0),
+                _commonResultText(
                     sentence: insights[arguments['result']],
                     textColor: Colors.black54,
                     fontSize: 15.0),
-                Center(
-                  child: CachedNetworkImage(
-                    // display a loading spinner while the image downloads and displays
-                    // from the argument url
-                    progressIndicatorBuilder:
-                        (context, url, downloadProgress) => SizedBox(
-                      width: width / 2,
-                      child: Center(
-                        child: CircularProgressIndicator(
-                            value: downloadProgress.progress),
+                _commonLabelText(label: "Input Provided", textColor: Colors.greenAccent, fontSize: 18.0),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Center(
+                    child: CachedNetworkImage(
+                      // display a loading spinner while the image downloads and displays
+                      // from the argument url
+                      progressIndicatorBuilder:
+                          (context, url, downloadProgress) => SizedBox(
+                        width: width / 2,
+                        child: Center(
+                          child: CircularProgressIndicator(
+                              value: downloadProgress.progress),
+                        ),
                       ),
+                      imageUrl: arguments['image_url'],
+                      width: width,
                     ),
-                    imageUrl: arguments['image_url'],
-                    width: width,
                   ),
                 ),
               ],
@@ -112,7 +118,7 @@ class _DiagnosisResultScreenState extends State<DiagnosisResultScreen> {
     );
   }
 
-  Padding _commonLabelText(
+  Padding _commonResultText(
       {@required String sentence,
       @required Color textColor,
       @required fontSize}) {
@@ -131,6 +137,27 @@ class _DiagnosisResultScreenState extends State<DiagnosisResultScreen> {
           SizedBox(
             height: 20,
           )
+        ],
+      ),
+    );
+  }
+
+  Padding _commonLabelText(
+      {@required String label,
+        @required Color textColor,
+        @required fontSize}) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 8.0),
+      child: Column(
+        children: [
+          Align(
+            alignment: Alignment.topLeft,
+            child: Text(
+              "$label",
+              style: kTextStyle.copyWith(color: textColor, fontSize: fontSize),
+              textAlign: TextAlign.left,
+            ),
+          ),
         ],
       ),
     );
