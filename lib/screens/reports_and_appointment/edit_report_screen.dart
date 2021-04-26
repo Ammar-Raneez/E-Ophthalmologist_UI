@@ -32,13 +32,17 @@ class _EditReportScreenState extends State<EditReportScreen> {
   String email;
 
   String viewedDate;
-  String hospital;
-  String doctor;
+  String hospitalView;
+  String hospitalEdit;
+  String doctorView;
+  String doctorEdit;
   DateTime startDate = DateTime.now();
   String selectedDate = DateFormat("yyyy-MM-dd").format(DateTime.now());
 
-  var _hospitalController = TextEditingController();
-  var _doctorController = TextEditingController();
+  var _hospitalControllerView = TextEditingController();
+  var _hospitalControllerEdit = TextEditingController();
+  var _doctorControllerView = TextEditingController();
+  var _doctorControllerEdit = TextEditingController();
 
   String reportID;
   bool showSpinner = false;
@@ -174,8 +178,8 @@ class _EditReportScreenState extends State<EditReportScreen> {
     // get the arguments passed
     final Map arguments = ModalRoute.of(context).settings.arguments as Map;
     setState(() {
-      doctor = arguments['doctor'];
-      hospital = arguments['hospital'];
+      doctorView = arguments['doctor'];
+      hospitalView = arguments['hospital'];
       allDocumentsURLS = arguments['all_document_urls'];
       allDocumentsExtensions = arguments['all_document_extensions'];
       reportID = arguments['currentDocId'];
@@ -184,10 +188,10 @@ class _EditReportScreenState extends State<EditReportScreen> {
 
     // populate the text fields with the current values
     setState(() {
-      _doctorController =
-          TextEditingController.fromValue(TextEditingValue(text: "$doctor"));
-      _hospitalController =
-          TextEditingController.fromValue(TextEditingValue(text: "$hospital"));
+      _doctorControllerView =
+          TextEditingController.fromValue(TextEditingValue(text: "$doctorView"));
+      _hospitalControllerView =
+          TextEditingController.fromValue(TextEditingValue(text: "$hospitalView"));
     });
 
     return SafeArea(
@@ -210,7 +214,7 @@ class _EditReportScreenState extends State<EditReportScreen> {
         ),
         body: ModalProgressHUD(
           inAsyncCall: showSpinner,
-          child: doctor == ""
+          child: doctorView == ""
               ? Align(
                   child: CircularProgressIndicator(),
                   alignment: Alignment.center,
@@ -235,8 +239,8 @@ class _EditReportScreenState extends State<EditReportScreen> {
                                 children: [
                                   kEditProfileInputLabel("Hospital"),
                                   kTextField(
-                                      _hospitalController,
-                                      (value) => hospital = value,
+                                      _hospitalControllerEdit,
+                                      (value) => hospitalEdit = value,
                                       "Hospital",
                                       TextInputType.text,
                                       enableTextFields),
@@ -247,7 +251,7 @@ class _EditReportScreenState extends State<EditReportScreen> {
                                     MainAxisAlignment.spaceBetween,
                                 children: [
                                   kValueReadMore("Hospital", Colors.black38),
-                                  kValueReadMore(hospital, Colors.black),
+                                  kValueReadMore(hospitalView, Colors.black),
                                 ],
                               ),
                         enableTextFields
@@ -255,8 +259,8 @@ class _EditReportScreenState extends State<EditReportScreen> {
                                 children: [
                                   kEditProfileInputLabel("Doctor"),
                                   kTextField(
-                                      _doctorController,
-                                      (value) => doctor = value,
+                                      _doctorControllerEdit,
+                                      (value) => doctorEdit = value,
                                       "Doctor",
                                       TextInputType.text,
                                       enableTextFields),
@@ -267,7 +271,7 @@ class _EditReportScreenState extends State<EditReportScreen> {
                                     MainAxisAlignment.spaceBetween,
                                 children: [
                                   kValueReadMore("Doctor", Colors.black38),
-                                  kValueReadMore(doctor, Colors.black),
+                                  kValueReadMore(doctorView, Colors.black),
                                 ],
                               ),
                         enableTextFields
@@ -383,11 +387,11 @@ class _EditReportScreenState extends State<EditReportScreen> {
                         if (enableTextFields)
                           CustomRoundedButton(
                             onPressed: () async {
-                              if (doctor == null ||
-                                  hospital == null ||
+                              if (doctorView == null ||
+                                  hospitalView == null ||
                                   selectedDate == null ||
-                                  doctor == "" ||
-                                  hospital == "" ||
+                                  doctorView == "" ||
+                                  hospitalView == "" ||
                                   selectedDate == "") {
                                 createAlertDialog(
                                     context,
@@ -400,6 +404,7 @@ class _EditReportScreenState extends State<EditReportScreen> {
                                 });
 
                                 try {
+                                  print(doctorEdit);
                                   // update main user reports
                                   if (!currentUserDetails['isFamilyMember']) {
                                     await _firestore
@@ -408,8 +413,8 @@ class _EditReportScreenState extends State<EditReportScreen> {
                                         .collection("past-reports")
                                         .doc(reportID)
                                         .set({
-                                      'doctor': doctor,
-                                      'hospital': hospital,
+                                      'doctor': doctorEdit,
+                                      'hospital': hospitalEdit,
                                       'date': selectedDate,
                                       'all_document_urls': allDocumentsURLS
                                     });
@@ -424,8 +429,8 @@ class _EditReportScreenState extends State<EditReportScreen> {
                                         .collection("past-reports")
                                         .doc(reportID)
                                         .set({
-                                      'doctor': doctor,
-                                      'hospital': hospital,
+                                      'doctor': doctorView,
+                                      'hospital': hospitalView,
                                       'date': selectedDate,
                                       'all_document_urls': allDocumentsURLS
                                     });
@@ -441,8 +446,8 @@ class _EditReportScreenState extends State<EditReportScreen> {
                                     showSpinner = false;
                                   });
 
-                                  _hospitalController.clear();
-                                  _doctorController.clear();
+                                  _hospitalControllerView.clear();
+                                  _doctorControllerView.clear();
                                 } catch (e) {
                                   createAlertDialog(
                                       context, "Error", e.message, 404);
