@@ -38,8 +38,7 @@ class _AddReportScreenState extends State<AddReportScreen> {
   String email;
   bool showSpinner = false;
 
-  // hold documents and the respective firebase deployed links
-  var allDocuments = [];
+  // hold documents firebase deployed links and their respective extensions
   var allDocumentsExtensions = [];
   var allDocumentsURLS = [];
 
@@ -115,10 +114,6 @@ class _AddReportScreenState extends State<AddReportScreen> {
 
     // get the corresponding file from the platform file
     File pickedFile = File(platformFile.path);
-
-    setState(() {
-      allDocuments.add(pickedFile);
-    });
 
     setState(() {
       showSpinner = true;
@@ -216,11 +211,11 @@ class _AddReportScreenState extends State<AddReportScreen> {
                   height: 30,
                 ),
                 Column(
-                  children: allDocuments.length != 0
+                  children: allDocumentsURLS.length != 0
                       // loop and display the picked images
                       ? List.generate(
-                          allDocuments.length,
-                          (index) => Image.file(allDocuments[index],
+                    allDocumentsURLS.length,
+                          (index) => Image.file(allDocumentsURLS[index],
                               width: width, height: 300),
                         )
                       : List.generate(

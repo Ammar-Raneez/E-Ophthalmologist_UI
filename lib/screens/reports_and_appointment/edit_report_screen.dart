@@ -43,6 +43,7 @@ class _EditReportScreenState extends State<EditReportScreen> {
 
   bool enableTextFields = false;
 
+  // hold documents firebase deployed links and their respective extensions
   var allDocumentsURLS = [];
   var allDocumentsExtensions = [];
 
