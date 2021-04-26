@@ -10,6 +10,7 @@ import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:ui/components/home_page_icon_content.dart';
 import 'package:ui/components/home_page_reusable_card.dart';
 import 'package:ui/constants.dart';
+import 'package:intl/intl.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 import 'package:ui/screens/diagnosis_result_screen.dart';
@@ -402,33 +403,13 @@ class _HomeScreenState extends State<HomeScreen> {
                                                       MainAxisAlignment.center,
                                                   children: [
                                                     Text(
-                                                      "Date: " +
-                                                          DateTime.fromMillisecondsSinceEpoch(
-                                                                  eyeScans[index]
-                                                                              [
-                                                                              'timestamp']
-                                                                          .seconds *
-                                                                      1000)
-                                                              .day
-                                                              .toString() +
-                                                          "-" +
-                                                          DateTime.fromMillisecondsSinceEpoch(
-                                                                  eyeScans[index]
-                                                                              [
-                                                                              'timestamp']
-                                                                          .seconds *
-                                                                      1000)
-                                                              .month
-                                                              .toString() +
-                                                          "-" +
-                                                          DateTime.fromMillisecondsSinceEpoch(
-                                                                  eyeScans[index]
-                                                                              [
-                                                                              'timestamp']
-                                                                          .seconds *
-                                                                      1000)
-                                                              .year
-                                                              .toString(),
+                                                      DateFormat.yMMMd()
+                                                          .add_jm()
+                                                          .format(eyeScans[
+                                                                      index]
+                                                                  ['timestamp']
+                                                              .toDate())
+                                                          .toString(),
                                                       style:
                                                           kTextStyle.copyWith(
                                                               fontSize: 16),

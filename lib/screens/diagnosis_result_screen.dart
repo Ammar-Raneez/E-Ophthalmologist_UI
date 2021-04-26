@@ -1,6 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:ui/components/custom_rounded_button.dart';
+import 'package:intl/intl.dart';
 import 'package:ui/constants.dart';
 
 class DiagnosisResultScreen extends StatefulWidget {
@@ -54,30 +54,28 @@ class _DiagnosisResultScreenState extends State<DiagnosisResultScreen> {
     var height = screenSize.height;
     // get values of the arguments passed
     final Map arguments = ModalRoute.of(context).settings.arguments as Map;
-    String datetime = DateTime.fromMillisecondsSinceEpoch(
-                arguments['time'].seconds * 1000)
-            .day
-            .toString() +
-        "-" +
-        DateTime.fromMillisecondsSinceEpoch(arguments['time'].seconds * 1000)
-            .month
-            .toString() +
-        "-" +
-        DateTime.fromMillisecondsSinceEpoch(arguments['time'].seconds * 1000)
-            .year
-            .toString();
+    String datetime = DateFormat.yMMMd()
+        .add_jm()
+        .format(arguments['time'].toDate())
+        .toString();
 
     return Container(
       child: SafeArea(
         child: Scaffold(
           appBar: AppBar(
             automaticallyImplyLeading: false,
-            title: Center(
-              child: Text(
-                "E-Ophthalmologist",
-                style: kTextStyle.copyWith(fontSize: 20.0, color: Colors.white),
-              ),
+            centerTitle: true,
+            title: Text(
+              "E-Ophthalmologist",
+              style: kTextStyle.copyWith(fontSize: 20.0, color: Colors.white),
             ),
+            leading: IconButton(
+                icon: Icon(
+                  Icons.arrow_back,
+                ),
+                onPressed: () {
+                  Navigator.pop(context);
+                }),
             backgroundColor: Color(0xff62B47F),
           ),
           body: Padding(
@@ -92,26 +90,11 @@ class _DiagnosisResultScreenState extends State<DiagnosisResultScreen> {
                   style: kTextStyle.copyWith(fontSize: 30.0),
                   textAlign: TextAlign.center,
                 ),
-                Center(
-                  child: CachedNetworkImage(
-                    // display a loading spinner while the image downloads and displays
-                    // from the argument url
-                    progressIndicatorBuilder:
-                        (context, url, downloadProgress) => SizedBox(
-                      width: width / 2,
-                      height: 200,
-                      child: Center(
-                        child: CircularProgressIndicator(
-                            value: downloadProgress.progress),
-                      ),
-                    ),
-                    imageUrl: arguments['image_url'],
-                    width: width,
-                    height: height / 2.2,
-                  ),
+                SizedBox(
+                  height: 30,
                 ),
                 _commonLabelText(
-                    sentence: "Scan on: $datetime",
+                    sentence: "$datetime",
                     textColor: Colors.black,
                     fontSize: 20.0),
                 _commonLabelText(
@@ -123,14 +106,20 @@ class _DiagnosisResultScreenState extends State<DiagnosisResultScreen> {
                     sentence: insights[arguments['result']],
                     textColor: Colors.black54,
                     fontSize: 15.0),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: CustomRoundedButton(
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
-                    colour: Color(0xff62B47F),
-                    title: "<-  Back to Home",
+                Center(
+                  child: CachedNetworkImage(
+                    // display a loading spinner while the image downloads and displays
+                    // from the argument url
+                    progressIndicatorBuilder:
+                        (context, url, downloadProgress) => SizedBox(
+                      width: width / 2,
+                      child: Center(
+                        child: CircularProgressIndicator(
+                            value: downloadProgress.progress),
+                      ),
+                    ),
+                    imageUrl: arguments['image_url'],
+                    width: width,
                   ),
                 ),
               ],
@@ -141,24 +130,27 @@ class _DiagnosisResultScreenState extends State<DiagnosisResultScreen> {
     );
   }
 
-  Column _commonLabelText(
+  Padding _commonLabelText(
       {@required String sentence,
       @required Color textColor,
       @required fontSize}) {
-    return Column(
-      children: [
-        Align(
-          alignment: Alignment.center,
-          child: Text(
-            "$sentence",
-            style: kTextStyle.copyWith(color: textColor, fontSize: fontSize),
-            textAlign: TextAlign.center,
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Column(
+        children: [
+          Align(
+            alignment: Alignment.topLeft,
+            child: Text(
+              "$sentence",
+              style: kTextStyle.copyWith(color: textColor, fontSize: fontSize),
+              textAlign: TextAlign.left,
+            ),
           ),
-        ),
-        SizedBox(
-          height: 50,
-        )
-      ],
+          SizedBox(
+            height: 20,
+          )
+        ],
+      ),
     );
   }
 }
