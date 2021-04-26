@@ -3,14 +3,19 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_google_places/flutter_google_places.dart';
 import 'package:intl/intl.dart';
 import 'package:ui/components/custom_alert.dart';
 import 'package:ui/components/custom_rounded_button.dart';
 import 'package:ui/constants.dart';
-//import 'package:add_2_calendar/add_2_calendar.dart';
+import 'package:google_maps_webservice/places.dart';
+//import 'package:geocoder/geocoder.dart';
+import 'package:google_api_headers/google_api_headers.dart';
 import 'package:ui/screens/reports_and_appointment/models/appointments.dart';
 
 final _firestore = FirebaseFirestore.instance;
+final kGoogleApiKey = "AIzaSyA6ntfzBqz7Et-JBirqWHo0dv7Ky3C3wvM";
+//GoogleMapsPlaces _places = GoogleMapsPlaces(apiKey: kGoogleApiKey);
 
 class AddAppointmentScreen extends StatefulWidget {
   static String id = "addAppointmentScreen";
@@ -38,6 +43,9 @@ class _AddAppointmentScreenState extends State<AddAppointmentScreen> {
   var _doctorController = TextEditingController();
 
   bool showSpinner = false;
+
+  var lat;
+  var lng;
 
   // appointmentID - timestamp of creation, for a unique identifier
   String appointmentID = new Timestamp.now().toString();
@@ -140,6 +148,20 @@ class _AddAppointmentScreenState extends State<AddAppointmentScreen> {
     }
   }
 
+  Future<Null> displayPrediction(Prediction p) async {
+    if (p != null) {
+      GoogleMapsPlaces _places = GoogleMapsPlaces(
+        apiKey: kGoogleApiKey,
+        apiHeaders: await GoogleApiHeaders().getHeaders(),
+      );
+      PlacesDetailsResponse detail =
+          await _places.getDetailsByPlaceId(p.placeId);
+      lat = detail.result.geometry.location.lat;
+      lng = detail.result.geometry.location.lng;
+//      print(lat);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -223,6 +245,31 @@ class _AddAppointmentScreenState extends State<AddAppointmentScreen> {
                     press: () async {
                       await selectTime(context);
                     }),
+                SizedBox(
+                  height: 20,
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Container(
+                    width: MediaQuery.of(context).size.width,
+                    height: 30,
+                    child: GestureDetector(
+                      onTap: () async {
+                        Prediction p = await PlacesAutocomplete.show(
+                            context: context,
+                            apiKey: kGoogleApiKey,
+                            mode: Mode.overlay);
+                        displayPrediction(p);
+                      },
+                      child: Text(
+                        'Find Location >>>',
+                        style: kTextStyle.copyWith(
+                            color: Colors.black, fontSize: 16.0),
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
+                  ),
+                ),
                 SizedBox(
                   height: 30,
                 ),
