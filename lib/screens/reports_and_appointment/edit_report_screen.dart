@@ -188,10 +188,10 @@ class _EditReportScreenState extends State<EditReportScreen> {
 
     // populate the text fields with the current values
     setState(() {
-      _doctorControllerView =
-          TextEditingController.fromValue(TextEditingValue(text: "$doctorView"));
-      _hospitalControllerView =
-          TextEditingController.fromValue(TextEditingValue(text: "$hospitalView"));
+      _doctorControllerView = TextEditingController.fromValue(
+          TextEditingValue(text: "$doctorView"));
+      _hospitalControllerView = TextEditingController.fromValue(
+          TextEditingValue(text: "$hospitalView"));
     });
 
     return SafeArea(
@@ -417,7 +417,8 @@ class _EditReportScreenState extends State<EditReportScreen> {
                                       'hospital': hospitalEdit,
                                       'date': selectedDate,
                                       'all_document_urls': allDocumentsURLS,
-				      'all_document_extensions': allDocumentsExtensions
+                                      'all_document_extensions':
+                                          allDocumentsExtensions
                                     });
                                   } else {
                                     // update family member report
@@ -434,7 +435,8 @@ class _EditReportScreenState extends State<EditReportScreen> {
                                       'hospital': hospitalEdit,
                                       'date': selectedDate,
                                       'all_document_urls': allDocumentsURLS,
-				      'all_document_extensions': allDocumentsExtensions
+                                      'all_document_extensions':
+                                          allDocumentsExtensions
                                     });
                                   }
 

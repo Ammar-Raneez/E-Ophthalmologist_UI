@@ -14,7 +14,7 @@ import 'package:google_api_headers/google_api_headers.dart';
 import 'package:ui/screens/reports_and_appointment/models/appointments.dart';
 
 final _firestore = FirebaseFirestore.instance;
-final kGoogleApiKey = "AIzaSyA6ntfzBqz7Et-JBirqWHo0dv7Ky3C3wvM";
+final kGoogleApiKey = "AIzaSyA0JWatTBWml5K73myYhnK-IFGKMrNgIH8";
 //GoogleMapsPlaces _places = GoogleMapsPlaces(apiKey: kGoogleApiKey);
 
 class AddAppointmentScreen extends StatefulWidget {
@@ -149,16 +149,18 @@ class _AddAppointmentScreenState extends State<AddAppointmentScreen> {
   }
 
   Future<Null> displayPrediction(Prediction p) async {
+    print(p);
     if (p != null) {
       GoogleMapsPlaces _places = GoogleMapsPlaces(
         apiKey: kGoogleApiKey,
         apiHeaders: await GoogleApiHeaders().getHeaders(),
       );
+      print(_places);
       PlacesDetailsResponse detail =
           await _places.getDetailsByPlaceId(p.placeId);
       lat = detail.result.geometry.location.lat;
       lng = detail.result.geometry.location.lng;
-//      print(lat);
+      print(lat);
     }
   }
 
@@ -256,9 +258,14 @@ class _AddAppointmentScreenState extends State<AddAppointmentScreen> {
                     child: GestureDetector(
                       onTap: () async {
                         Prediction p = await PlacesAutocomplete.show(
-                            context: context,
-                            apiKey: kGoogleApiKey,
-                            mode: Mode.overlay);
+                          context: context,
+                          radius: 100000000,
+                          types: [],
+                          strictbounds: false,
+                          apiKey: "AIzaSyA0JWatTBWml5K73myYhnK-IFGKMrNgIH8",
+                          mode: Mode.overlay,
+                          language: "en",
+                        );
                         displayPrediction(p);
                       },
                       child: Text(

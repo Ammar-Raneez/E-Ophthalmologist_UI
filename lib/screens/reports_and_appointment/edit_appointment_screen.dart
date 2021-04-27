@@ -181,17 +181,18 @@ class _EditAppointmentScreenState extends State<EditAppointmentScreen> {
         _markers.add(Marker(
             position: _target,
             infoWindow: InfoWindow(
-                title: "Appointment with, $doctorView", snippet: "$hospitalView"),
+                title: "Appointment with, $doctorView",
+                snippet: "$hospitalView"),
             markerId: MarkerId(hospitalView.toString())));
       }
     });
 
     setState(() {
       // populate the text field with the already set values
-      _doctorControllerView =
-          TextEditingController.fromValue(TextEditingValue(text: "$doctorView"));
-      _hospitalControllerView =
-          TextEditingController.fromValue(TextEditingValue(text: "$hospitalView"));
+      _doctorControllerView = TextEditingController.fromValue(
+          TextEditingValue(text: "$doctorView"));
+      _hospitalControllerView = TextEditingController.fromValue(
+          TextEditingValue(text: "$hospitalView"));
     });
 
     return SafeArea(
