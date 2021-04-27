@@ -416,7 +416,8 @@ class _EditReportScreenState extends State<EditReportScreen> {
                                       'doctor': doctorEdit,
                                       'hospital': hospitalEdit,
                                       'date': selectedDate,
-                                      'all_document_urls': allDocumentsURLS
+                                      'all_document_urls': allDocumentsURLS,
+				      'all_document_extensions': allDocumentsExtensions
                                     });
                                   } else {
                                     // update family member report
@@ -432,7 +433,8 @@ class _EditReportScreenState extends State<EditReportScreen> {
                                       'doctor': doctorEdit,
                                       'hospital': hospitalEdit,
                                       'date': selectedDate,
-                                      'all_document_urls': allDocumentsURLS
+                                      'all_document_urls': allDocumentsURLS,
+				      'all_document_extensions': allDocumentsExtensions
                                     });
                                   }
 

@@ -314,7 +314,8 @@ class _AddReportScreenState extends State<AddReportScreen> {
                             'doctor': doctor,
                             'hospital': hospital,
                             'date': selectedDate,
-                            'all_document_urls': allDocumentsURLS
+                            'all_document_urls': allDocumentsURLS,
+			    'all_document_extensions': allDocumentsExtensions
                           });
                         } else {
                           // family member details
