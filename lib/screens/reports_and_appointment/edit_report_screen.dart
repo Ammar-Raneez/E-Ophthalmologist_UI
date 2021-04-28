@@ -413,8 +413,12 @@ class _EditReportScreenState extends State<EditReportScreen> {
                                         .collection("past-reports")
                                         .doc(reportID)
                                         .set({
-                                      'doctor': doctorEdit,
-                                      'hospital': hospitalEdit,
+                                      'doctor': doctorEdit != null
+                                          ? doctorEdit
+                                          : doctorView,
+                                      'hospital': hospitalEdit != null
+                                          ? hospitalEdit
+                                          : hospitalView,
                                       'date': selectedDate,
                                       'all_document_urls': allDocumentsURLS,
                                       'all_document_extensions':
@@ -431,8 +435,12 @@ class _EditReportScreenState extends State<EditReportScreen> {
                                         .collection("past-reports")
                                         .doc(reportID)
                                         .set({
-                                      'doctor': doctorEdit,
-                                      'hospital': hospitalEdit,
+                                      'doctor': doctorEdit != null
+                                          ? doctorEdit
+                                          : doctorView,
+                                      'hospital': hospitalEdit != null
+                                          ? hospitalEdit
+                                          : hospitalView,
                                       'date': selectedDate,
                                       'all_document_urls': allDocumentsURLS,
                                       'all_document_extensions':
