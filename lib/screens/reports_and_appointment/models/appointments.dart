@@ -3,11 +3,11 @@ class Appointment {
     {
       "doctor": "Dr. Ajith Abeygunasekera",
       "hospitals": [
-        "Healan Hospitals (Private) Limited",
+        "Healan Hospitals",
         "Medihelp - Mathugama",
         "Santa Dora Hospital Battaramulla",
         "Pannipitiya Nursing Home",
-        "Kottawa Nursing Home (Pvt) Ltd"
+        "Kottawa Nursing Home"
       ],
       "telNums": [
         "011 2 855083",
@@ -43,11 +43,11 @@ class Appointment {
     {
       "doctor": "Dr. Ajith Abeygunasekera",
       "hospitals": [
-        "Healan Hospitals (Private) Limited",
+        "Healan Hospitals",
         "Medihelp - Mathugama",
         "Santa Dora Hospital Battaramulla",
         "Pannipitiya Nursing Home",
-        "Kottawa Nursing Home (Pvt) Ltd"
+        "Kottawa Nursing Home"
       ],
       "telNums": [
         "011 2 855083",
@@ -80,42 +80,42 @@ class Appointment {
     },
     {
       "doctor": "Dr. Saliya Pathirana",
-      "hospitals": ["GOLDEN KEY HOSPITALS LIMITED - RAJAGIRIYA"],
+      "hospitals": ["Golden Key Hospitals"],
       "channeling": "https://www.doc.lk/channel/3186"
     },
     {
       "doctor": "Dr. Shamintha Amaratunga",
-      "hospitals": ["GOLDEN KEY HOSPITALS LIMITED - RAJAGIRIYA"], // replace
+      "hospitals": ["Golden Key Hospitals"], // replace
       "channeling": "https://www.doc.lk/channel/6584?"
     },
     {
       "doctor": "Dr. Hiranya Abeysekera",
-      "hospitals": ["GOLDEN KEY HOSPITALS LIMITED - RAJAGIRIYA"], // replace
+      "hospitals": ["Golden Key Hospitals"], // replace
       "channeling": "https://www.doc.lk/channel/5426?"
     },
     {
       "doctor": "Dr. Imalka Fonseka",
-      "hospitals": ["GOLDEN KEY HOSPITALS LIMITED - RAJAGIRIYA"], // replace
+      "hospitals": ["Golden Key Hospitals"], // replace
       "channeling": "https://www.doc.lk/channel/11957?"
     },
     {
       "doctor": "Dr. Charith Fonseka",
-      "hospitals": ["GOLDEN KEY HOSPITALS LIMITED - RAJAGIRIYA"], // replace
+      "hospitals": ["Golden Key Hospitals"], // replace
       "channeling": "https://www.doc.lk/channel/12277?"
     },
     {
       "doctor": "Dr. P. Sriharanathan",
-      "hospitals": ["GOLDEN KEY HOSPITALS LIMITED - RAJAGIRIYA"], // replace
+      "hospitals": ["Golden Key Hospitals"], // replace
       "channeling": "https://www.doc.lk/channel/2561?"
     },
     {
       "doctor": "Dr. Sujatha Pathirage",
-      "hospitals": ["GOLDEN KEY HOSPITALS LIMITED - RAJAGIRIYA"], // replace
+      "hospitals": ["Golden Key Hospitals"], // replace
       "channeling": "https://www.doc.lk/channel/416?"
     },
     {
       "doctor": "Dr. Sujatha Pathirage",
-      "hospitals": ["GOLDEN KEY HOSPITALS LIMITED - RAJAGIRIYA"], // replace
+      "hospitals": ["Golden Key Hospitals"], // replace
       "channeling": "https://www.doc.lk/channel/11969?"
     }
   ];

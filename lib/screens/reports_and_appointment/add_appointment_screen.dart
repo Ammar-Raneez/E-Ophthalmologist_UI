@@ -220,6 +220,11 @@ class _AddAppointmentScreenState extends State<AddAppointmentScreen> {
                           "All Doctors",
                           style: kTextStyle.copyWith(fontSize: 20.0),
                         ),
+                        shape: new RoundedRectangleBorder(
+                          borderRadius: new BorderRadius.circular(
+                            10.0,
+                          ),
+                        ),
                         content: Container(
                           height: 300,
                           width: MediaQuery.of(context).size.width / 1,
@@ -275,7 +280,7 @@ class _AddAppointmentScreenState extends State<AddAppointmentScreen> {
                 kTextField(_hospitalController, (value) => hospital = value,
                     "hospital", TextInputType.text, true),
                 Padding(
-                  padding: const EdgeInsets.all(8.0),
+                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
                   child: Container(
                     width: MediaQuery.of(context).size.width,
                     height: 30,
@@ -293,7 +298,7 @@ class _AddAppointmentScreenState extends State<AddAppointmentScreen> {
                         displayPrediction(p);
                       },
                       child: Text(
-                        'Add Location >>>',
+                        'Add Location',
                         style: kTextStyle.copyWith(
                             color: Colors.black, fontSize: 16.0),
                         textAlign: TextAlign.center,

@@ -109,7 +109,7 @@ ListTile kRegistrationRadioButton(
   );
 }
 
-// Appointment hospital links report page for edit and add appointments
+// Appointment hospital links report page for add appointments
 Column kBuildHospitalLink(
     {@required String doctor,
     @required var hospitals,
@@ -186,14 +186,8 @@ Padding kBuildDateTime(
         ),
         onPressed: press,
         style: ButtonStyle(
-          shadowColor: MaterialStateProperty.all<Color>(
-            Color(0xff01CDFA),
-          ),
-          foregroundColor: MaterialStateProperty.all<Color>(
-            Color(0xff01CDFA),
-          ),
-          overlayColor: MaterialStateProperty.all<Color>(
-            Color(0xff01CDFA),
+          backgroundColor: MaterialStateProperty.all<Color>(
+            Colors.greenAccent,
           ),
         ),
       ),
