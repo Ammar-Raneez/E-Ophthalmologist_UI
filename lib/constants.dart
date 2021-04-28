@@ -114,6 +114,7 @@ Column kBuildHospitalLink(
     {@required String doctor,
     @required var hospitals,
     @required var telNums,
+    @required bool isRow,
     @required String url}) {
   return Column(
     children: [
@@ -127,21 +128,40 @@ Column kBuildHospitalLink(
               }),
       ),
       Container(
-        height: telNums[0] != null ? 100 : 30,
         child: ListView.builder(
           shrinkWrap: true,
+          physics: NeverScrollableScrollPhysics(),
           itemCount: hospitals.length,
-          itemBuilder: (BuildContext context, int index) => Row(
-            children: [
-              Text(hospitals[index], style: kTextStyle,),
-              Text(telNums[index] != null ? telNums[index] : "", style: kTextStyle)
-            ],
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          ),
+          itemBuilder: (BuildContext context, int index) => isRow
+              ? Row(
+                  children: [
+                    Text(
+                      hospitals[index],
+                      style: kTextStyle,
+                    ),
+                    Text(telNums[index] != null ? telNums[index] : "",
+                        style: kTextStyle)
+                  ],
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                )
+              : Column(
+                  children: [
+                    Text(
+                      hospitals[index],
+                      style: kTextStyle,
+                    ),
+                    Text(telNums[index] != null ? telNums[index] : "",
+                        style: kTextStyle),
+                    SizedBox(
+                      height: 10,
+                    ),
+                  ],
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                ),
         ),
       ),
       SizedBox(
-        height: 20,
+        height: isRow ? 20 : 30,
       ),
     ],
   );

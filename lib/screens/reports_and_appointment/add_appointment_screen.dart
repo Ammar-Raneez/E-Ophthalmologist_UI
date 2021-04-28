@@ -192,22 +192,79 @@ class _AddAppointmentScreenState extends State<AddAppointmentScreen> {
                 _commonLabelText(title: "Add Appointment", fontSize: 20.0),
                 _commonLabelText(title: "Make an Appointment", fontSize: 16.0),
                 // the doctor details
-                SizedBox(
-                  height: 300,
-                  child: ListView.builder(
-                    physics: ClampingScrollPhysics(),
-                    itemCount: Appointment.allDetails.length,
-                    shrinkWrap: true,
-                    itemBuilder: (BuildContext context, int index) =>
-                        kBuildHospitalLink(
-                            doctor: Appointment.allDetails[index]['doctor'],
-                            hospitals: Appointment.allDetails[index]
-                                ['hospitals'],
-                            telNums:
-                                Appointment.allDetails[index]['telNums'] != null
-                                    ? Appointment.allDetails[index]['telNums']
-                                    : [null],
-                            url: Appointment.allDetails[index]['channeling']),
+                ListView.builder(
+                  physics: ClampingScrollPhysics(),
+                  itemCount: Appointment.initialDisplay.length,
+                  shrinkWrap: true,
+                  itemBuilder: (BuildContext context, int index) =>
+                      kBuildHospitalLink(
+                          isRow: true,
+                          doctor: Appointment.initialDisplay[index]['doctor'],
+                          hospitals: Appointment.initialDisplay[index]
+                              ['hospitals'],
+                          telNums: Appointment.initialDisplay[index]
+                                      ['telNums'] !=
+                                  null
+                              ? Appointment.initialDisplay[index]['telNums']
+                              : [null],
+                          url: Appointment.initialDisplay[index]
+                              ['channeling']),
+                ),
+                GestureDetector(
+                  onTap: () {
+                    showDialog(
+                      context: context,
+                      builder: (ctx) => AlertDialog(
+                        scrollable: true,
+                        title: Text(
+                          "All Doctors",
+                          style: kTextStyle.copyWith(fontSize: 20.0),
+                        ),
+                        content: Container(
+                          height: 300,
+                          width: MediaQuery.of(context).size.width / 1,
+                          child: ListView.builder(
+                            shrinkWrap: true,
+                            physics: ClampingScrollPhysics(),
+                            itemCount: Appointment.allDetails.length,
+                            itemBuilder: (BuildContext context, int index) =>
+                                kBuildHospitalLink(
+                                  isRow: false,
+                                    doctor: Appointment.allDetails[index]
+                                        ['doctor'],
+                                    hospitals: Appointment.allDetails[index]
+                                        ['hospitals'],
+                                    telNums: Appointment.allDetails[index]
+                                                ['telNums'] !=
+                                            null
+                                        ? Appointment.allDetails[index]
+                                            ['telNums']
+                                        : [null],
+                                    url: Appointment.allDetails[index]
+                                        ['channeling']),
+                          ),
+                        ),
+                        actions: [
+                          ElevatedButton(
+                            onPressed: () {
+                              Navigator.of(ctx).pop();
+                            },
+                            style: ButtonStyle(
+                              backgroundColor: MaterialStateProperty.all<Color>(
+                                Colors.green,
+                              ),
+                            ),
+                            child: Text("Back"),
+                          ),
+                        ],
+                      ),
+                    );
+                  },
+                  child: Text(
+                    'Read More',
+                    style: kTextStyle.copyWith(
+                        color: Colors.black, fontSize: 16.0),
+                    textAlign: TextAlign.end,
                   ),
                 ),
                 SizedBox(
@@ -215,41 +272,8 @@ class _AddAppointmentScreenState extends State<AddAppointmentScreen> {
                 ),
                 _commonLabelText(title: "Register Details", fontSize: 16.0),
                 kEditProfileInputLabel("Hospital"),
-                kTextField(
-                    _hospitalController,
-                    (value) => hospital = value,
-                    "Please enter the fullname of the hospital",
-                    TextInputType.text,
-                    true),
-                SizedBox(
-                  height: 20,
-                ),
-                kEditProfileInputLabel("Doctor"),
-                kTextField(_doctorController, (value) => doctor = value,
-                    "Doctor", TextInputType.text, true),
-                SizedBox(
-                  height: 30,
-                ),
-                kBuildDateTime(
-                    context: context,
-                    which: 'Date',
-                    value: selectedDate,
-                    press: () async {
-                      await selectDate(context);
-                    }),
-                SizedBox(
-                  height: 20,
-                ),
-                kBuildDateTime(
-                    context: context,
-                    which: 'Time',
-                    value: selectedTime,
-                    press: () async {
-                      await selectTime(context);
-                    }),
-                SizedBox(
-                  height: 20,
-                ),
+                kTextField(_hospitalController, (value) => hospital = value,
+                    "hospital", TextInputType.text, true),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Container(
@@ -262,14 +286,14 @@ class _AddAppointmentScreenState extends State<AddAppointmentScreen> {
                           radius: 100000000,
                           types: [],
                           strictbounds: false,
-                          apiKey: "AIzaSyA0JWatTBWml5K73myYhnK-IFGKMrNgIH8",
+                          apiKey: kGoogleApiKey,
                           mode: Mode.overlay,
                           language: "en",
                         );
                         displayPrediction(p);
                       },
                       child: Text(
-                        'Find Location >>>',
+                        'Add Location >>>',
                         style: kTextStyle.copyWith(
                             color: Colors.black, fontSize: 16.0),
                         textAlign: TextAlign.center,
@@ -277,6 +301,32 @@ class _AddAppointmentScreenState extends State<AddAppointmentScreen> {
                     ),
                   ),
                 ),
+                SizedBox(
+                  height: 20,
+                ),
+                kEditProfileInputLabel("Doctor"),
+                kTextField(_doctorController, (value) => doctor = value,
+                    "Doctor", TextInputType.text, true),
+                SizedBox(
+                  height: 10,
+                ),
+                kBuildDateTime(
+                    context: context,
+                    which: 'Date',
+                    value: selectedDate,
+                    press: () async {
+                      await selectDate(context);
+                    }),
+                SizedBox(
+                  height: 10,
+                ),
+                kBuildDateTime(
+                    context: context,
+                    which: 'Time',
+                    value: selectedTime,
+                    press: () async {
+                      await selectTime(context);
+                    }),
                 SizedBox(
                   height: 30,
                 ),
