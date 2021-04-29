@@ -1,7 +1,9 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:ui/components/custom_rounded_button.dart';
 import 'package:ui/constants.dart';
+import 'package:ui/screens/current_screen.dart';
 
 class DiagnosisResultScreen extends StatefulWidget {
   static String id = 'diagnosisResultScreen';
@@ -50,14 +52,7 @@ class _DiagnosisResultScreenState extends State<DiagnosisResultScreen> {
               "E-Ophthalmologist",
               style: kTextStyle.copyWith(fontSize: 20.0, color: Colors.white),
             ),
-            leading: IconButton(
-                icon: Icon(
-                  Icons.arrow_back,
-                ),
-                onPressed: () {
-                  Navigator.pop(context);
-                }),
-            backgroundColor: Color(0xff62B47F),
+            backgroundColor: Colors.green,
           ),
           body: Padding(
             padding: const EdgeInsets.all(8.0),
@@ -68,29 +63,42 @@ class _DiagnosisResultScreenState extends State<DiagnosisResultScreen> {
                 ),
                 Text(
                   "Diagnosis Report",
-                  style: kTextStyle.copyWith(fontSize: 30.0, color: Colors.green),
+                  style:
+                      kTextStyle.copyWith(fontSize: 30.0, color: Colors.green),
                   textAlign: TextAlign.center,
                 ),
                 SizedBox(
                   height: 30,
                 ),
-                _commonLabelText(label: "Date", textColor: Colors.greenAccent, fontSize: 18.0),
+                _commonLabelText(
+                    label: "Date",
+                    textColor: Colors.greenAccent,
+                    fontSize: 18.0),
                 _commonResultText(
                     sentence: "$datetime",
                     textColor: Colors.black,
                     fontSize: 15.0),
-                _commonLabelText(label: "Result", textColor: Colors.greenAccent, fontSize: 18.0),
+                _commonLabelText(
+                    label: "Result",
+                    textColor: Colors.greenAccent,
+                    fontSize: 18.0),
                 _commonResultText(
                     sentence:
                         "A ${arguments['result']} condition has been detected in the above retinal fundus",
                     textColor: Colors.black54,
                     fontSize: 15.0),
-                _commonLabelText(label: "Insights", textColor: Colors.greenAccent, fontSize: 18.0),
+                _commonLabelText(
+                    label: "Insights",
+                    textColor: Colors.greenAccent,
+                    fontSize: 18.0),
                 _commonResultText(
                     sentence: insights[arguments['result']],
                     textColor: Colors.black54,
                     fontSize: 15.0),
-                _commonLabelText(label: "Input Provided", textColor: Colors.greenAccent, fontSize: 18.0),
+                _commonLabelText(
+                    label: "Input Provided",
+                    textColor: Colors.greenAccent,
+                    fontSize: 18.0),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Center(
@@ -109,6 +117,18 @@ class _DiagnosisResultScreenState extends State<DiagnosisResultScreen> {
                       width: width,
                     ),
                   ),
+                ),
+                SizedBox(
+                  height: 30,
+                ),
+                CustomRoundedButton(
+                  title: "Back to Home",
+                  colour: Colors.greenAccent,
+                  onPressed: () =>
+                      Navigator.pushNamed(context, CurrentScreen.id),
+                ),
+                SizedBox(
+                  height: 10,
                 ),
               ],
             ),
@@ -143,9 +163,7 @@ class _DiagnosisResultScreenState extends State<DiagnosisResultScreen> {
   }
 
   Padding _commonLabelText(
-      {@required String label,
-        @required Color textColor,
-        @required fontSize}) {
+      {@required String label, @required Color textColor, @required fontSize}) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 8.0),
       child: Column(

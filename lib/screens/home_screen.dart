@@ -38,13 +38,13 @@ class _HomeScreenState extends State<HomeScreen> {
   static String duration = "";
 
   // uncomment when needed
-  static String riskDescription = "";
-  static String riskValue = "";
+//  static String riskDescription = "";
+//  static String riskValue = "";
 
   // comment this when main needed
-//  static String riskDescription =
-//      "You have a low risk of developing sight threatening retinopathy";
-//  static String riskValue = "20";
+  static String riskDescription =
+      "You have a low risk of developing sight threatening retinopathy";
+  static String riskValue = "20";
 
   var diagnosis;
   var gender;
@@ -69,7 +69,7 @@ class _HomeScreenState extends State<HomeScreen> {
     getUserDetails();
 
     // uncomment when needed
-    getRisk();
+//    getRisk();
   }
 
   // get the actual users document (family members document or main user)
@@ -334,10 +334,9 @@ class _HomeScreenState extends State<HomeScreen> {
                           )
                         : Padding(
                             padding: const EdgeInsets.only(bottom: 20.0),
-                            child: SizedBox(
-                              height: 100.0,
+                            child: Container(
                               child: ListView.builder(
-                                physics: ClampingScrollPhysics(),
+                                physics: NeverScrollableScrollPhysics(),
                                 shrinkWrap: true,
                                 itemCount: eyeScans.length,
                                 itemBuilder:
@@ -355,7 +354,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                         arguments: argsForResult);
                                   },
                                   child: Padding(
-                                    padding: const EdgeInsets.all(8.0),
+                                    padding: const EdgeInsets.symmetric(horizontal: 8.0),
                                     child: Card(
                                       shape: RoundedRectangleBorder(
                                         borderRadius: BorderRadius.all(
@@ -368,7 +367,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                             Radius.circular(15.0),
                                           ),
                                         ),
-                                        height: 100,
+                                        height: 90,
                                         child: Row(
                                           children: [
                                             Container(
@@ -379,7 +378,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                               height: 100,
                                               child: Padding(
                                                 padding:
-                                                    const EdgeInsets.all(8.0),
+                                                    const EdgeInsets.all(10.0),
                                                 child: FittedBox(
                                                   child: Image.asset(
                                                     getRandomEyeScanImage(),

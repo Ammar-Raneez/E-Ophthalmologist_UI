@@ -30,7 +30,7 @@ class _SpecificBlogScreenState extends State<SpecificBlogScreen> {
     final Map arguments = ModalRoute.of(context).settings.arguments as Map;
     setState(() {
       pdfPath = arguments['pdf'];
-      isNetwork = arguments['isNetwork'];
+      isNetwork = arguments['isNetwork'] != null ? arguments['isNetwork'] : false;
     });
 
     return SafeArea(
