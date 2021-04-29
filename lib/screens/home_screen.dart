@@ -38,13 +38,13 @@ class _HomeScreenState extends State<HomeScreen> {
   static String duration = "";
 
   // uncomment when needed
-//  static String riskDescription = "";
-//  static String riskValue = "";
+  static String riskDescription = "";
+  static String riskValue = "";
 
   // comment this when main needed
-  static String riskDescription =
-      "You have a low risk of developing sight threatening retinopathy";
-  static String riskValue = "20";
+//  static String riskDescription =
+//      "You have a low risk of developing sight threatening retinopathy";
+//  static String riskValue = "20";
 
   var diagnosis;
   var gender;
@@ -69,7 +69,7 @@ class _HomeScreenState extends State<HomeScreen> {
     getUserDetails();
 
     // uncomment when needed
-//    getRisk();
+    getRisk();
   }
 
   // get the actual users document (family members document or main user)
@@ -137,7 +137,7 @@ class _HomeScreenState extends State<HomeScreen> {
     // must login and get authorization string beforehand
     Response loginResponse = await dio.post(
         "https://api.retinarisk.com/api/auth/sign-in",
-        data: {"email": "ammarraneez@gmail.com", "password": "Ammarraneez12"});
+        data: {"email": "softwaretrial8@gmail.com", "password": "07frcptQT!7L"});
 
     // send all required data to API endpoint to get the required risk
     Response riskResponse = await dio.post(
