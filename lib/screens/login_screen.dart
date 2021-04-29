@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+//import 'package:shared_preferences/shared_preferences.dart';
 import 'package:ui/components/custom_alert.dart';
 import 'package:ui/components/custom_rounded_button.dart';
 import 'package:ui/constants.dart';
@@ -55,6 +56,10 @@ class _LoginScreenState extends State<LoginScreen> {
         setState(() {
           showSpinner = false;
         });
+
+//        SharedPreferences spr = await SharedPreferences.getInstance();
+//        await spr.setString("user-email", email);
+//        await spr.setString("user-password", password);
       } catch (e) {
         createAlertDialog(context, "Error", e.message, 404);
         setState(() {

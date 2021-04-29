@@ -44,8 +44,8 @@ class _AddAppointmentScreenState extends State<AddAppointmentScreen> {
 
   bool showSpinner = false;
 
-  var lat;
-  var lng;
+  var lat = 0.0;
+  var lng = 0.0;
 
   // appointmentID - timestamp of creation, for a unique identifier
   String appointmentID = new Timestamp.now().toString();

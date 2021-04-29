@@ -1,8 +1,11 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:ui/constants.dart';
-// import 'package:ui/screens/diagnosis/lungDiagnosis_screen.dart';
+//import 'package:shared_preferences/shared_preferences.dart';
+import 'package:ui/screens/home_screen.dart';
 import 'package:ui/screens/login_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
+
+final FirebaseAuth _auth = FirebaseAuth.instance;
 
 class WelcomeScreen extends StatefulWidget {
   // static 'id' variable for the naming convention for the routes
@@ -14,6 +17,8 @@ class WelcomeScreen extends StatefulWidget {
 
 class _WelcomeScreenState extends State<WelcomeScreen>
     with SingleTickerProviderStateMixin {
+  User user = FirebaseAuth.instance.currentUser; // main admin user
+
   // We are creating Animation Controller in order to create our own custom Animations
   AnimationController controller;
   Animation animation;
@@ -47,14 +52,21 @@ class _WelcomeScreenState extends State<WelcomeScreen>
     goToLoginScreen();
   }
 
-  void goToLoginScreen() {
+  void goToLoginScreen() async {
+//    SharedPreferences spr = await SharedPreferences.getInstance();
+//    String currentEmail = spr.getString("user-email");
+//    String currentPassword = spr.getString("user-password");
+//
+//    final user = await _auth.signInWithEmailAndPassword(
+//        email: currentEmail, password: currentPassword);
+
     // Go to Login Screen after a given time duration
     Future.delayed(const Duration(milliseconds: 4500), () {
       Navigator.push(
         context,
         PageRouteBuilder(
           transitionDuration: Duration(seconds: 5),
-          pageBuilder: (_, __, ___) => LoginScreen(),
+          pageBuilder: (_, __, ___) => /*user != null ? HomeScreen() :*/ LoginScreen(),
         ),
       );
     });
