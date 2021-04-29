@@ -446,13 +446,13 @@ class _ReportScreenState extends State<ReportScreen> {
                 'doctor': whichDocs[index]['doctor'],
                 'hospital': whichDocs[index]['hospital'],
                 'date': whichDocs[index]['date'],
-                // documents are passed to reports, time is passed to appointments
+                // documents are passed to reports, time and location is passed to appointments
                 'all_document_urls':
                     isReport ? whichDocs[index]['all_document_urls'] : "",
                 'all_document_extensions':
                     isReport ? whichDocs[index]['all_document_extensions'] : "",
-                'latitude': isReport ? whichDocs[index]['latitude'] : "",
-                'longitude': isReport ? whichDocs[index]['longitude'] : "",
+                'latitude': !isReport ? whichDocs[index]['latitude'] : "",
+                'longitude': !isReport ? whichDocs[index]['longitude'] : "",
                 'time': !isReport ? whichDocs[index]['time'] : "",
                 'currentDocId': whichDocsIds[index]
               };

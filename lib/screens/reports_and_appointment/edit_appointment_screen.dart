@@ -5,7 +5,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:geolocator/geolocator.dart';
 import 'package:intl/intl.dart';
 import 'package:ui/components/custom_alert.dart';
 import 'package:ui/components/custom_rounded_button.dart';
@@ -46,7 +45,6 @@ class _EditAppointmentScreenState extends State<EditAppointmentScreen> {
   // hospital location
   LatLng _target;
   // get location based on address
-//  List<Placemark> placemark;
   Completer<GoogleMapController> _controller = Completer();
 
   var _hospitalControllerView = TextEditingController();
@@ -159,33 +157,15 @@ class _EditAppointmentScreenState extends State<EditAppointmentScreen> {
       _target = LatLng(arguments['latitude'], arguments['longitude']);
     });
 
-    // get lat and lng of hospital
-    getHospitalCoordinates() async {
-      try {
-//        placemark = await Geolocator().placemarkFromAddress(hospitalView);
-      } catch (Exception) {
-        print("Location could not be found");
-      }
-    }
-
     setState(() {
-      getHospitalCoordinates();
+      // add marker at the obtained placemark lat and lng
+      _markers.add(Marker(
+          position: _target,
+          infoWindow: InfoWindow(
+              title: "Appointment with, $doctorView",
+              snippet: "$hospitalView"),
+          markerId: MarkerId(hospitalView.toString())));
     });
-
-//    setState(() {
-//      // add marker at the obtained placemark lat and lng
-//      if (placemark != null) {
-//        double lat = placemark[0].position.latitude;
-//        double lng = placemark[0].position.longitude;
-//        _target = LatLng(lat, lng);
-//        _markers.add(Marker(
-//            position: _target,
-//            infoWindow: InfoWindow(
-//                title: "Appointment with, $doctorView",
-//                snippet: "$hospitalView"),
-//            markerId: MarkerId(hospitalView.toString())));
-//      }
-//    });
 
     setState(() {
       // populate the text field with the already set values
@@ -305,7 +285,7 @@ class _EditAppointmentScreenState extends State<EditAppointmentScreen> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           kValueReadMore("Time", Colors.black38),
-                          kValueReadMore(viewedDate, Colors.black),
+                          kValueReadMore(viewedTime, Colors.black),
                         ],
                       ),
                 SizedBox(
