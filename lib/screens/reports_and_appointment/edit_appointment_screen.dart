@@ -5,12 +5,14 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:google_maps_place_picker/google_maps_place_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:ui/components/custom_alert.dart';
 import 'package:ui/components/custom_rounded_button.dart';
 import 'package:ui/constants.dart';
 
 final _firestore = FirebaseFirestore.instance;
+final kGoogleApiKey = "AIzaSyA0JWatTBWml5K73myYhnK-IFGKMrNgIH8";
 
 class EditAppointmentScreen extends StatefulWidget {
   static String id = "editAppointmentScreen";
@@ -40,6 +42,12 @@ class _EditAppointmentScreenState extends State<EditAppointmentScreen> {
       TimeOfDay.now().hour.toString() + ":" + TimeOfDay.now().minute.toString();
   String selectedDate = DateFormat("yyyy-MM-dd").format(DateTime.now());
 
+  // old hospital location
+  var latView = 0.0;
+  var lngView = 0.0;
+  // new hospital location
+  var latEdit = 0.0;
+  var lngEdit = 0.0;
   // hospital marker
   Set<Marker> _markers = {};
   // hospital location
@@ -154,7 +162,9 @@ class _EditAppointmentScreenState extends State<EditAppointmentScreen> {
       appointmentId = arguments['currentDocId'];
       viewedDate = arguments['date'];
       viewedTime = arguments['time'];
-      _target = LatLng(arguments['latitude'], arguments['longitude']);
+      latView = arguments['latitude'];
+      lngView = arguments['longitude'];
+      _target = LatLng(latView, lngView);
     });
 
     setState(() {
@@ -230,6 +240,35 @@ class _EditAppointmentScreenState extends State<EditAppointmentScreen> {
                           kValueReadMore(hospitalView, Colors.black),
                         ],
                       ),
+                if (enableTextFields)
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                    child: Container(
+                      width: MediaQuery.of(context).size.width,
+                      height: 30,
+                      child: GestureDetector(
+                        onTap: () async {
+                          PickResult selectedPlace = await Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => PlacePicker(
+                                apiKey: kGoogleApiKey,
+                                useCurrentLocation: true,
+                              ),
+                            ),
+                          );
+                          latEdit = selectedPlace.geometry.location.lat;
+                          lngEdit = selectedPlace.geometry.location.lng;
+                        },
+                        child: Text(
+                          'Add Location',
+                          style: kTextStyle.copyWith(
+                              color: Colors.black, fontSize: 16.0),
+                          textAlign: TextAlign.center,
+                        ),
+                      ),
+                    ),
+                  ),
                 SizedBox(
                   height: 20,
                 ),
@@ -291,30 +330,22 @@ class _EditAppointmentScreenState extends State<EditAppointmentScreen> {
                 SizedBox(
                   height: 30,
                 ),
-                !enableTextFields && _target != null
-                    // display a google map snippet of the hospital location
-                    ? SizedBox(
-                        width: MediaQuery.of(context).size.width,
-                        height: 300,
-                        child: GoogleMap(
-                          initialCameraPosition: CameraPosition(
-                            target: _target,
-                            zoom: 16.0,
-                          ),
-                          markers: _markers,
-                          onMapCreated: (GoogleMapController controller) {
-                            _controller.complete(controller);
-                          },
-                        ),
-                      )
-                    // display a message if the location was not rendered
-                    : Container(
-                        child: Text(
-                          "The specified Hospital could not be rendered, refreshing might help",
-                          style: kTextStyle.copyWith(fontSize: 26),
-                          textAlign: TextAlign.center,
-                        ),
+                if (!enableTextFields)
+                  SizedBox(
+                    width: MediaQuery.of(context).size.width,
+                    height: 300,
+                    child: GoogleMap(
+                      initialCameraPosition: CameraPosition(
+                        target: _target,
+                        zoom: 16.0,
                       ),
+                      markers: _markers,
+                      onMapCreated: (GoogleMapController controller) {
+                        _controller.complete(controller);
+                      },
+                    ),
+                  ),
+
                 // only if edit mode
                 if (enableTextFields)
                   Container(
@@ -349,8 +380,10 @@ class _EditAppointmentScreenState extends State<EditAppointmentScreen> {
                                   .collection("appointments")
                                   .doc(appointmentId)
                                   .set({
-                                'doctor': doctorEdit,
-                                'hospital': hospitalEdit,
+                                'doctor': doctorEdit != null ? doctorEdit : doctorView,
+                                'hospital': hospitalEdit != null ? hospitalEdit : hospitalView,
+                                'latitude': latEdit != 0.0 ? latEdit : latView,
+                                'longitude': lngEdit != 0.0 ? lngEdit : lngView,
                                 'date': selectedDate,
                                 'time': selectedTime
                               });
@@ -364,8 +397,10 @@ class _EditAppointmentScreenState extends State<EditAppointmentScreen> {
                                   .collection("appointments")
                                   .doc(appointmentId)
                                   .set({
-                                'doctor': doctorEdit,
-                                'hospital': hospitalEdit,
+                                'doctor': doctorEdit != null ? doctorEdit : doctorView,
+                                'hospital': hospitalEdit != null ? hospitalEdit : hospitalView,
+                                'latitude': latEdit != 0.0 ? latEdit : latView,
+                                'longitude': lngEdit != 0.0 ? lngEdit : lngView,
                                 'date': selectedDate,
                                 'time': selectedTime
                               });
