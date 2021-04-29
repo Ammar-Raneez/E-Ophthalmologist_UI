@@ -3,19 +3,15 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_google_places/flutter_google_places.dart';
+import 'package:google_maps_place_picker/google_maps_place_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:ui/components/custom_alert.dart';
 import 'package:ui/components/custom_rounded_button.dart';
 import 'package:ui/constants.dart';
-import 'package:google_maps_webservice/places.dart';
-//import 'package:geocoder/geocoder.dart';
-import 'package:google_api_headers/google_api_headers.dart';
 import 'package:ui/screens/reports_and_appointment/models/appointments.dart';
 
 final _firestore = FirebaseFirestore.instance;
 final kGoogleApiKey = "AIzaSyA0JWatTBWml5K73myYhnK-IFGKMrNgIH8";
-//GoogleMapsPlaces _places = GoogleMapsPlaces(apiKey: kGoogleApiKey);
 
 class AddAppointmentScreen extends StatefulWidget {
   static String id = "addAppointmentScreen";
@@ -148,22 +144,6 @@ class _AddAppointmentScreenState extends State<AddAppointmentScreen> {
     }
   }
 
-  Future<Null> displayPrediction(Prediction p) async {
-    print(p);
-    if (p != null) {
-      GoogleMapsPlaces _places = GoogleMapsPlaces(
-        apiKey: kGoogleApiKey,
-        apiHeaders: await GoogleApiHeaders().getHeaders(),
-      );
-      print(_places);
-      PlacesDetailsResponse detail =
-          await _places.getDetailsByPlaceId(p.placeId);
-      lat = detail.result.geometry.location.lat;
-      lng = detail.result.geometry.location.lng;
-      print(lat);
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -286,16 +266,17 @@ class _AddAppointmentScreenState extends State<AddAppointmentScreen> {
                     height: 30,
                     child: GestureDetector(
                       onTap: () async {
-                        Prediction p = await PlacesAutocomplete.show(
-                          context: context,
-                          radius: 100000000,
-                          types: [],
-                          strictbounds: false,
-                          apiKey: kGoogleApiKey,
-                          mode: Mode.overlay,
-                          language: "en",
+                        PickResult selectedPlace = await Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => PlacePicker(
+                              apiKey: kGoogleApiKey,
+                              useCurrentLocation: true,
+                            ),
+                          ),
                         );
-                        displayPrediction(p);
+                        lat = selectedPlace.geometry.location.lat;
+                        lng = selectedPlace.geometry.location.lng;
                       },
                       child: Text(
                         'Add Location',
@@ -344,6 +325,8 @@ class _AddAppointmentScreenState extends State<AddAppointmentScreen> {
                           hospital == null ||
                           selectedDate == null ||
                           selectedTime == null ||
+                          lat == 0.0 ||
+                          lng == 0.0 ||
                           doctor == "" ||
                           hospital == "" ||
                           selectedDate == "" ||

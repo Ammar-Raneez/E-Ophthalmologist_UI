@@ -46,7 +46,7 @@ class _EditAppointmentScreenState extends State<EditAppointmentScreen> {
   // hospital location
   LatLng _target;
   // get location based on address
-  List<Placemark> placemark;
+//  List<Placemark> placemark;
   Completer<GoogleMapController> _controller = Completer();
 
   var _hospitalControllerView = TextEditingController();
@@ -162,7 +162,7 @@ class _EditAppointmentScreenState extends State<EditAppointmentScreen> {
     // get lat and lng of hospital
     getHospitalCoordinates() async {
       try {
-        placemark = await Geolocator().placemarkFromAddress(hospitalView);
+//        placemark = await Geolocator().placemarkFromAddress(hospitalView);
       } catch (Exception) {
         print("Location could not be found");
       }
@@ -172,20 +172,20 @@ class _EditAppointmentScreenState extends State<EditAppointmentScreen> {
       getHospitalCoordinates();
     });
 
-    setState(() {
-      // add marker at the obtained placemark lat and lng
-      if (placemark != null) {
-        double lat = placemark[0].position.latitude;
-        double lng = placemark[0].position.longitude;
-        _target = LatLng(lat, lng);
-        _markers.add(Marker(
-            position: _target,
-            infoWindow: InfoWindow(
-                title: "Appointment with, $doctorView",
-                snippet: "$hospitalView"),
-            markerId: MarkerId(hospitalView.toString())));
-      }
-    });
+//    setState(() {
+//      // add marker at the obtained placemark lat and lng
+//      if (placemark != null) {
+//        double lat = placemark[0].position.latitude;
+//        double lng = placemark[0].position.longitude;
+//        _target = LatLng(lat, lng);
+//        _markers.add(Marker(
+//            position: _target,
+//            infoWindow: InfoWindow(
+//                title: "Appointment with, $doctorView",
+//                snippet: "$hospitalView"),
+//            markerId: MarkerId(hospitalView.toString())));
+//      }
+//    });
 
     setState(() {
       // populate the text field with the already set values
