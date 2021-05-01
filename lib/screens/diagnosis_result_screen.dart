@@ -82,11 +82,46 @@ class _DiagnosisResultScreenState extends State<DiagnosisResultScreen> {
                     label: "Result",
                     textColor: Colors.greenAccent,
                     fontSize: 18.0),
-                _commonResultText(
-                    sentence:
-                        "A ${arguments['result']} condition has been detected in the above retinal fundus",
-                    textColor: Colors.black54,
-                    fontSize: 15.0),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Column(
+                    children: [
+                      Align(
+                        alignment: Alignment.topLeft,
+                        child: RichText(
+                          text: TextSpan(
+                            text: 'A ',
+                            style: kTextStyle.copyWith(
+                                color: Colors.black54, fontSize: 15.0),
+                            children: <TextSpan>[
+                              TextSpan(
+                                text: '${arguments['result']}',
+                                style: kTextStyle.copyWith(
+                                    color: Colors.red,
+                                    fontSize: 15.0,
+                                    fontWeight: FontWeight.w900),
+                              ),
+                              TextSpan(
+                                text:
+                                    ' condition has been detected in the above retinal fundus',
+                                style: kTextStyle.copyWith(
+                                    color: Colors.black54, fontSize: 15.0),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        height: 20,
+                      )
+                    ],
+                  ),
+                ),
+//                _commonResultText(
+//                    sentence:
+//                        "A ${arguments['result']} condition has been detected in the above retinal fundus",
+//                    textColor: Colors.black54,
+//                    fontSize: 15.0),
                 _commonLabelText(
                     label: "Insights",
                     textColor: Colors.greenAccent,
@@ -120,6 +155,14 @@ class _DiagnosisResultScreenState extends State<DiagnosisResultScreen> {
                 ),
                 SizedBox(
                   height: 30,
+                ),
+                CustomRoundedButton(
+                  title: "Share",
+                  colour: Color(0xff264c59),
+                  onPressed: null,
+                ),
+                SizedBox(
+                  height: 20,
                 ),
                 CustomRoundedButton(
                   title: "Back to Home",
