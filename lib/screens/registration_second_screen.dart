@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:ui/components/custom_alert.dart';
 import 'package:ui/components/custom_rounded_button.dart';
 import 'package:ui/constants.dart';
@@ -20,6 +21,11 @@ class RegistrationSecondScreen extends StatefulWidget {
 }
 
 class RegistrationSecondScreenState extends State<RegistrationSecondScreen> {
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  final GlobalKey<FormState> _formKey1 = GlobalKey<FormState>();
+  final GlobalKey<FormState> _formKey2 = GlobalKey<FormState>();
+
   // registration details
   String username;
   String email;
@@ -96,6 +102,7 @@ class RegistrationSecondScreenState extends State<RegistrationSecondScreen> {
 
     return SafeArea(
       child: Scaffold(
+        key: _scaffoldKey,
         backgroundColor: Colors.white,
         body: ModalProgressHUD(
           inAsyncCall: showSpinner,
@@ -150,14 +157,83 @@ class RegistrationSecondScreenState extends State<RegistrationSecondScreen> {
                   kTextField(_bmiController, (value) => bmi = value,
                       "Enter BMI", TextInputType.number, true),
                   kRegistrationInputLabel("Diastolic Pressure"),
-                  kTextField(_diastolicController, (value) => diastolic = value,
-                      "Enter Diastolic Pressure", TextInputType.number, true),
+                  Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: Form(
+                      key: _formKey,
+                      child: TextFormField(
+                        validator: (value) {
+                          if ((int.parse(value) > 200 ||
+                              int.parse(value) < 40)) {
+                            return 'Please enter a value between 40 and 200';
+                          }
+                          return null;
+                        },
+                        inputFormatters: [
+                          FilteringTextInputFormatter.digitsOnly
+                        ],
+                        controller: _diastolicController,
+                        onChanged: (value) => diastolic = value,
+                        decoration: kTextFieldDecoration.copyWith(
+                          hintText: "Enter Diastolic Pressure",
+                        ),
+                        enabled: true,
+                        keyboardType: TextInputType.number,
+                      ),
+                    ),
+                  ),
                   kRegistrationInputLabel("A1C"),
-                  kTextField(_a1cController, (value) => a1c = value,
-                      "Enter A1C", TextInputType.number, true),
+                  Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: Form(
+                      key: _formKey1,
+                      child: TextFormField(
+                        validator: (value) {
+                          print(value);
+                          if ((int.parse(value) > 12 || int.parse(value) < 0)) {
+                            return 'Please enter a value between 0 and 12';
+                          }
+                          return null;
+                        },
+                        controller: _a1cController,
+                        inputFormatters: [
+                          FilteringTextInputFormatter.digitsOnly
+                        ],
+                        onChanged: (value) => a1c = value,
+                        decoration: kTextFieldDecoration.copyWith(
+                          hintText: "Enter A1C",
+                        ),
+                        enabled: true,
+                        keyboardType: TextInputType.number,
+                      ),
+                    ),
+                  ),
                   kRegistrationInputLabel("Systolic Pressure"),
-                  kTextField(_systolicController, (value) => systolic = value,
-                      "Enter Systolic Pressure", TextInputType.number, true),
+                  Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: Form(
+                      key: _formKey2,
+                      child: TextFormField(
+                        validator: (value) {
+                          if ((int.parse(value) > 200 ||
+                              int.parse(value) < 60)) {
+                            return 'Please enter a value between 60 and 200';
+                          }
+                          return null;
+                        },
+                        controller: _systolicController,
+                        inputFormatters: [
+                          FilteringTextInputFormatter.digitsOnly
+                        ],
+                        onChanged: (value) => systolic = value,
+                        decoration: kTextFieldDecoration.copyWith(
+                          hintText: "Enter Systolic Pressure",
+                        ),
+                        enabled: true,
+                        keyboardType: TextInputType.number,
+                      ),
+                    ),
+                  ),
                   kRegistrationInputLabel("Duration of Diabetes"),
                   kTextField(_durationController, (value) => duration = value,
                       "Duration of Diabetes", TextInputType.number, true),
@@ -206,97 +282,110 @@ class RegistrationSecondScreenState extends State<RegistrationSecondScreen> {
                     height: 20,
                   ),
                   CustomRoundedButton(
-                    onPressed: () async {
-                      // Only allow registration if all details are filled
-                      if (username == null ||
-                          email == null ||
-                          password == null ||
-                          bmi == null ||
-                          a1c == null ||
-                          systolic == null ||
-                          diastolic == null ||
-                          duration == null ||
-                          selectedDate == null ||
-                          gender == null ||
-                          dm == null ||
-                          diagnosis == null ||
-                          smoker == null ||
-                          username == "" ||
-                          email == "" ||
-                          password == "" ||
-                          bmi == "" ||
-                          a1c == "" ||
-                          systolic == "" ||
-                          diastolic == "" ||
-                          duration == "" ||
-                          dm == "" ||
-                          gender == "" ||
-                          diagnosis == "" ||
-                          smoker == "") {
-                        createAlertDialog(context, "Error",
-                            "Please fill all the given fields to proceed", 404);
-                      } else {
-                        setState(() {
-                          showSpinner = true;
-                        });
-
-                        try {
-                          // create the user, add all details to firestore and returns a user once created
-                          final newUser =
-                              await _auth.createUserWithEmailAndPassword(
-                                  email: email, password: password);
-
-                          _firestore.collection("users").doc(email).set({
-                            "userEmail": email,
-                            "username": username,
-                            "DOB": selectedDate,
-                            "BMI": bmi,
-                            "A1C": a1c,
-                            "systolic": systolic,
-                            "diastolic": diastolic,
-                            "Duration": duration,
-                            "gender": gender.toString(),
-                            "DM Type": dm.toString(),
-                            "Diagnosis": diagnosis.toString(),
-                            "smoker": smoker.toString(),
-                            'timestamp': Timestamp.now(),
-                            "isFamilyMember": false,
-                            "currentFamilyMember": ""
-                          });
-
-                          // Status based alerts - successful registration / not
-                          if (newUser != null) {
-                            createAlertDialog(context, "Success",
-                                "Account Registered Successfully!", 200);
+                      colour: Colors.greenAccent,
+                      title: 'REGISTER ACCOUNT',
+                      onPressed: () async {
+                        if (_formKey.currentState.validate() &&
+                            _formKey1.currentState.validate() &&
+                            _formKey2.currentState.validate()) {
+                          // Only allow registration if all details are filled
+                          if (username == null ||
+                              email == null ||
+                              password == null ||
+                              bmi == null ||
+                              a1c == null ||
+                              systolic == null ||
+                              diastolic == null ||
+                              duration == null ||
+                              selectedDate == null ||
+                              gender == null ||
+                              dm == null ||
+                              diagnosis == null ||
+                              smoker == null ||
+                              username == "" ||
+                              email == "" ||
+                              password == "" ||
+                              bmi == "" ||
+                              a1c == "" ||
+                              systolic == "" ||
+                              diastolic == "" ||
+                              duration == "" ||
+                              dm == "" ||
+                              gender == "" ||
+                              diagnosis == "" ||
+                              smoker == "") {
+                            createAlertDialog(
+                                context,
+                                "Error",
+                                "Please fill all the given fields to proceed",
+                                404);
                           } else {
-                            createAlertDialog(context, "Error",
-                                "Something went wrong, try again later!", 404);
+                            setState(() {
+                              showSpinner = true;
+                            });
+
+                            try {
+                              // create the user, add all details to firestore and returns a user once created
+                              final newUser =
+                                  await _auth.createUserWithEmailAndPassword(
+                                      email: email, password: password);
+
+                              _firestore.collection("users").doc(email).set({
+                                "userEmail": email,
+                                "username": username,
+                                "DOB": selectedDate,
+                                "BMI": bmi,
+                                "A1C": a1c,
+                                "systolic": systolic,
+                                "diastolic": diastolic,
+                                "Duration": duration,
+                                "gender": gender.toString(),
+                                "DM Type": dm.toString(),
+                                "Diagnosis": diagnosis.toString(),
+                                "smoker": smoker.toString(),
+                                'timestamp': Timestamp.now(),
+                                "isFamilyMember": false,
+                                "currentFamilyMember": ""
+                              });
+
+                              // Status based alerts - successful registration / not
+                              if (newUser != null) {
+                                createAlertDialog(context, "Success",
+                                    "Account Registered Successfully!", 200);
+                              } else {
+                                createAlertDialog(
+                                    context,
+                                    "Error",
+                                    "Something went wrong, try again later!",
+                                    404);
+                              }
+
+                              setState(() {
+                                showSpinner = false;
+                              });
+
+                              // clear all fields
+                              _emailAddressController.clear();
+                              _usernameController.clear();
+                              _passwordTextFieldController.clear();
+                              _bmiController.clear();
+                              _diastolicController.clear();
+                              _systolicController.clear();
+                              _durationController.clear();
+                              _a1cController.clear();
+                            } catch (e) {
+                              createAlertDialog(
+                                  context, "Error", e.message, 404);
+                              setState(() {
+                                showSpinner = false;
+                              });
+                            }
                           }
-
-                          setState(() {
-                            showSpinner = false;
-                          });
-
-                          // clear all fields
-                          _emailAddressController.clear();
-                          _usernameController.clear();
-                          _passwordTextFieldController.clear();
-                          _bmiController.clear();
-                          _diastolicController.clear();
-                          _systolicController.clear();
-                          _durationController.clear();
-                          _a1cController.clear();
-                        } catch (e) {
-                          createAlertDialog(context, "Error", e.message, 404);
-                          setState(() {
-                            showSpinner = false;
-                          });
+                        } else {
+                          createAlertDialog(context, "Error",
+                              "Oops something went wrong!", 404);
                         }
-                      }
-                    },
-                    colour: Colors.greenAccent,
-                    title: 'REGISTER ACCOUNT',
-                  ),
+                      }),
                   SizedBox(
                     height: 20.0,
                   ),
