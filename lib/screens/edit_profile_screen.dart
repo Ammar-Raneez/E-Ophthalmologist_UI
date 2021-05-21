@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:ui/components/custom_alert.dart';
@@ -17,6 +18,11 @@ class EditProfileScreen extends StatefulWidget {
 }
 
 class _EditProfileScreenState extends State<EditProfileScreen> {
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  final GlobalKey<FormState> _formKey1 = GlobalKey<FormState>();
+  final GlobalKey<FormState> _formKey2 = GlobalKey<FormState>();
+
   User user = FirebaseAuth.instance.currentUser;
   var userDocument;
   var mainUserDetails;
@@ -153,6 +159,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+        key: _scaffoldKey,
         appBar: AppBar(
           automaticallyImplyLeading: false,
           centerTitle: true,
@@ -231,26 +238,95 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                             TextInputType.number,
                             enableTextFields),
                         kEditProfileInputLabel("Diastolic Pressure"),
-                        kTextField(
-                            _diastolicController,
-                            (value) => diastolic = value,
-                            "Enter diastolic pressure",
-                            TextInputType.number,
-                            enableTextFields),
+                        Padding(
+                          padding: const EdgeInsets.all(10.0),
+                          child: Form(
+                            key: _formKey,
+                            child: TextFormField(
+                              validator: (value) {
+                                try {
+                                  if ((int.parse(value) > 200 ||
+                                      int.parse(value) < 40)) {
+                                    return 'Please enter a value between 40 and 200';
+                                  }
+                                } catch (e) {}
+                                return null;
+                              },
+                              inputFormatters: [
+                                FilteringTextInputFormatter.digitsOnly
+                              ],
+                              controller: _diastolicController,
+                              onChanged: (value) => diastolic = value,
+                              decoration: kTextFieldDecoration.copyWith(
+                                hintText: "Enter Diastolic Pressure",
+                                errorStyle: TextStyle(
+                                  color: Color(0xffffaa00),
+                                ),
+                              ),
+                              enabled: true,
+                              keyboardType: TextInputType.number,
+                            ),
+                          ),
+                        ),
                         kEditProfileInputLabel("A1C"),
-                        kTextField(
-                            _a1cController,
-                            (value) => a1c = value,
-                            "Enter A1C",
-                            TextInputType.number,
-                            enableTextFields),
+                        Padding(
+                          padding: const EdgeInsets.all(10.0),
+                          child: Form(
+                            key: _formKey1,
+                            child: TextFormField(
+                              validator: (value) {
+                                try {
+                                  if ((double.parse(value) > 12.0 ||
+                                      double.parse(value) < 0.0)) {
+                                    return 'Please enter a value between 0.0 and 12.0';
+                                  }
+                                } catch (e) {}
+                                return null;
+                              },
+                              controller: _a1cController,
+                              onChanged: (value) => a1c = value,
+                              decoration: kTextFieldDecoration.copyWith(
+                                hintText: "Enter Diastolic Pressure",
+                                errorStyle: TextStyle(
+                                  color: Color(0xffffaa00),
+                                ),
+                              ),
+                              enabled: true,
+                              keyboardType: TextInputType.number,
+                            ),
+                          ),
+                        ),
                         kEditProfileInputLabel("Systolic Pressure"),
-                        kTextField(
-                            _systolicController,
-                            (value) => systolic = value,
-                            "Enter systolic pressure",
-                            TextInputType.number,
-                            enableTextFields),
+                        Padding(
+                          padding: const EdgeInsets.all(10.0),
+                          child: Form(
+                            key: _formKey2,
+                            child: TextFormField(
+                              validator: (value) {
+                                try {
+                                  if ((int.parse(value) > 200 ||
+                                      int.parse(value) < 60)) {
+                                    return 'Please enter a value between 60 and 200';
+                                  }
+                                } catch (e) {}
+                                return null;
+                              },
+                              controller: _systolicController,
+                              inputFormatters: [
+                                FilteringTextInputFormatter.digitsOnly
+                              ],
+                              onChanged: (value) => systolic = value,
+                              decoration: kTextFieldDecoration.copyWith(
+                                hintText: "Enter Systolic Pressure",
+                                errorStyle: TextStyle(
+                                  color: Color(0xffffaa00),
+                                ),
+                              ),
+                              enabled: true,
+                              keyboardType: TextInputType.number,
+                            ),
+                          ),
+                        ),
                         kEditProfileInputLabel("Duration of Diabetes"),
                         kTextField(
                             _durationController,
@@ -300,107 +376,114 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                         if (enableTextFields)
                           CustomRoundedButton(
                             onPressed: () async {
-                              // only allow if all details are filled
-                              if (username == null ||
-                                  bmi == null ||
-                                  a1c == null ||
-                                  systolic == null ||
-                                  diastolic == null ||
-                                  duration == null ||
-                                  selectedDate == null ||
-                                  gender == null ||
-                                  dm == null ||
-                                  diagnosis == null ||
-                                  smoker == null ||
-                                  username == "" ||
-                                  bmi == "" ||
-                                  a1c == "" ||
-                                  systolic == "" ||
-                                  diastolic == "" ||
-                                  dm == "" ||
-                                  gender == "" ||
-                                  diagnosis == "" ||
-                                  smoker == "") {
-                                createAlertDialog(
-                                    context,
-                                    "Error",
-                                    "Please fill all the given fields to proceed",
-                                    404);
-                              } else {
-                                setState(() {
-                                  showSpinner = true;
-                                });
+                              if (_formKey.currentState.validate() &&
+                                  _formKey1.currentState.validate() &&
+                                  _formKey2.currentState.validate()) {
+                                // only allow if all details are filled
+                                if (username == null ||
+                                    bmi == null ||
+                                    a1c == null ||
+                                    systolic == null ||
+                                    diastolic == null ||
+                                    duration == null ||
+                                    selectedDate == null ||
+                                    gender == null ||
+                                    dm == null ||
+                                    diagnosis == null ||
+                                    smoker == null ||
+                                    username == "" ||
+                                    bmi == "" ||
+                                    a1c == "" ||
+                                    systolic == "" ||
+                                    diastolic == "" ||
+                                    dm == "" ||
+                                    gender == "" ||
+                                    diagnosis == "" ||
+                                    smoker == "") {
+                                  createAlertDialog(
+                                      context,
+                                      "Error",
+                                      "Please fill all the given fields to proceed",
+                                      404);
+                                } else {
+                                  setState(() {
+                                    showSpinner = true;
+                                  });
 
-                                try {
-                                  // update main users details
-                                  if (!currentUserDetails['isFamilyMember']) {
-                                    _firestore
-                                        .collection("users")
-                                        .doc(email)
-                                        .set({
-                                      "userEmail": email,
-                                      "username": username,
-                                      "DOB": selectedDate,
-                                      "BMI": bmi,
-                                      "A1C": a1c,
-                                      "systolic": systolic,
-                                      "diastolic": diastolic,
-                                      "Duration": duration,
-                                      "isFamilyMember": false,
-                                      "gender": gender.toString(),
-                                      "DM Type": dm.toString(),
-                                      "Diagnosis": diagnosis.toString(),
-                                      "smoker": smoker.toString(),
-                                      'timestamp': Timestamp.now(),
+                                  try {
+                                    // update main users details
+                                    if (!currentUserDetails['isFamilyMember']) {
+                                      _firestore
+                                          .collection("users")
+                                          .doc(email)
+                                          .set({
+                                        "userEmail": email,
+                                        "username": username,
+                                        "DOB": selectedDate,
+                                        "BMI": bmi,
+                                        "A1C": a1c,
+                                        "systolic": systolic,
+                                        "diastolic": diastolic,
+                                        "Duration": duration,
+                                        "isFamilyMember": false,
+                                        "gender": gender.toString(),
+                                        "DM Type": dm.toString(),
+                                        "Diagnosis": diagnosis.toString(),
+                                        "smoker": smoker.toString(),
+                                        'timestamp': Timestamp.now(),
+                                      });
+                                    } else {
+                                      print("update");
+                                      print(username);
+                                      print(currentUserDetails);
+                                      // update family member details
+                                      _firestore
+                                          .collection("users")
+                                          .doc(email)
+                                          .collection("family")
+                                          .doc(mainUserDetails[
+                                              'currentFamilyMember'])
+                                          .set({
+                                        "username": username,
+                                        "DOB": selectedDate,
+                                        "BMI": bmi,
+                                        "A1C": a1c,
+                                        "systolic": systolic,
+                                        "diastolic": diastolic,
+                                        "Duration": duration,
+                                        "gender": gender.toString(),
+                                        "DM Type": dm.toString(),
+                                        "Diagnosis": diagnosis.toString(),
+                                        "smoker": smoker.toString(),
+                                        'timestamp': Timestamp.now(),
+                                        "isFamilyMember": true,
+                                      });
+                                    }
+
+                                    createAlertDialog(context, "Success",
+                                        "Details Updated Successfully!", 200);
+
+                                    setState(() {
+                                      showSpinner = false;
                                     });
-                                  } else {
-                                    print("update");
-                                    print(username);
-                                    print(currentUserDetails);
-                                    // update family member details
-                                    _firestore
-                                        .collection("users")
-                                        .doc(email)
-                                        .collection("family")
-                                        .doc(mainUserDetails[
-                                            'currentFamilyMember'])
-                                        .set({
-                                      "username": username,
-                                      "DOB": selectedDate,
-                                      "BMI": bmi,
-                                      "A1C": a1c,
-                                      "systolic": systolic,
-                                      "diastolic": diastolic,
-                                      "Duration": duration,
-                                      "gender": gender.toString(),
-                                      "DM Type": dm.toString(),
-                                      "Diagnosis": diagnosis.toString(),
-                                      "smoker": smoker.toString(),
-                                      'timestamp': Timestamp.now(),
-                                      "isFamilyMember": true,
+
+                                    // clear all fields
+                                    _usernameController.clear();
+                                    _bmiController.clear();
+                                    _diastolicController.clear();
+                                    _systolicController.clear();
+                                    _a1cController.clear();
+                                  } catch (e) {
+                                    createAlertDialog(
+                                        context, "Error", e.message, 404);
+                                    setState(() {
+                                      showSpinner = false;
                                     });
                                   }
-
-                                  createAlertDialog(context, "Success",
-                                      "Details Updated Successfully!", 200);
-
-                                  setState(() {
-                                    showSpinner = false;
-                                  });
-
-                                  // clear all fields
-                                  _usernameController.clear();
-                                  _bmiController.clear();
-                                  _diastolicController.clear();
-                                  _systolicController.clear();
-                                  _a1cController.clear();
-                                } catch (e) {
-                                  createAlertDialog(
-                                      context, "Error", e.message, 404);
-                                  setState(() {
-                                    showSpinner = false;
-                                  });
                                 }
+                              } else {
+                                createAlertDialog(context, "Error",
+                                    "Please provide valid values", 404);
                               }
                             },
                             colour: Color(0xff62B47F),
