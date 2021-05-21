@@ -137,7 +137,7 @@ class _HomeScreenState extends State<HomeScreen> {
     // must login and get authorization string beforehand
     Response loginResponse = await dio.post(
         "https://api.retinarisk.com/api/auth/sign-in",
-        data: {"email": "softwaretrial8@gmail.com", "password": "07frcptQT!7L"});
+        data: {"email": "harrish.2017070@iit.ac.lk", "password": "5PBzOUnf3c%G"});
 
     // send all required data to API endpoint to get the required risk
     Response riskResponse = await dio.post(
