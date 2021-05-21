@@ -176,8 +176,8 @@ class _AddFamilyMemberScreenState extends State<AddFamilyMemberScreen> {
                       key: _formKey,
                       child: TextFormField(
                         validator: (value) {
-                          if ((int.parse(value) > 200 ||
-                              int.parse(value) < 40)) {
+                          if ((double.parse(value) > 200 ||
+                              double.parse(value) < 40)) {
                             return 'Please enter a value between 40 and 200';
                           }
                           return null;
@@ -203,7 +203,7 @@ class _AddFamilyMemberScreenState extends State<AddFamilyMemberScreen> {
                       child: TextFormField(
                         validator: (value) {
                           print(value);
-                          if ((int.parse(value) > 12 || int.parse(value) < 0)) {
+                          if ((double.parse(value) > 12 || double.parse(value) < 0)) {
                             return 'Please enter a value between 0 and 12';
                           }
                           return null;
@@ -228,8 +228,8 @@ class _AddFamilyMemberScreenState extends State<AddFamilyMemberScreen> {
                       key: _formKey2,
                       child: TextFormField(
                         validator: (value) {
-                          if ((int.parse(value) > 200 ||
-                              int.parse(value) < 60)) {
+                          if ((double.parse(value) > 200 ||
+                              double.parse(value) < 60)) {
                             return 'Please enter a value between 60 and 200';
                           }
                           return null;
