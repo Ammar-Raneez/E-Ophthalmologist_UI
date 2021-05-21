@@ -163,8 +163,8 @@ class RegistrationSecondScreenState extends State<RegistrationSecondScreen> {
                       key: _formKey,
                       child: TextFormField(
                         validator: (value) {
-                          if ((double.parse(value) > 200 ||
-                              double.parse(value) < 40)) {
+                          if ((int.parse(value) > 200 ||
+                              int.parse(value) < 40)) {
                             return 'Please enter a value between 40 and 200';
                           }
                           return null;
@@ -176,6 +176,9 @@ class RegistrationSecondScreenState extends State<RegistrationSecondScreen> {
                         onChanged: (value) => diastolic = value,
                         decoration: kTextFieldDecoration.copyWith(
                           hintText: "Enter Diastolic Pressure",
+                          errorStyle: TextStyle(
+                            color: Color(0xffffaa00),
+                          ),
                         ),
                         enabled: true,
                         keyboardType: TextInputType.number,
@@ -190,18 +193,19 @@ class RegistrationSecondScreenState extends State<RegistrationSecondScreen> {
                       child: TextFormField(
                         validator: (value) {
                           print(value);
-                          if ((double.parse(value) > 12 || double.parse(value) < 0)) {
-                            return 'Please enter a value between 0 and 12';
+                          if ((double.parse(value) > 12.0 ||
+                              double.parse(value) < 0.0)) {
+                            return 'Please enter a value between 0.0 and 12.0';
                           }
                           return null;
                         },
                         controller: _a1cController,
-                        inputFormatters: [
-                          FilteringTextInputFormatter.digitsOnly
-                        ],
                         onChanged: (value) => a1c = value,
                         decoration: kTextFieldDecoration.copyWith(
                           hintText: "Enter A1C",
+                          errorStyle: TextStyle(
+                            color: Color(0xffffaa00),
+                          ),
                         ),
                         enabled: true,
                         keyboardType: TextInputType.number,
@@ -215,8 +219,8 @@ class RegistrationSecondScreenState extends State<RegistrationSecondScreen> {
                       key: _formKey2,
                       child: TextFormField(
                         validator: (value) {
-                          if ((double.parse(value) > 200 ||
-                              double.parse(value) < 60)) {
+                          if ((int.parse(value) > 200 ||
+                              int.parse(value) < 60)) {
                             return 'Please enter a value between 60 and 200';
                           }
                           return null;
@@ -228,6 +232,9 @@ class RegistrationSecondScreenState extends State<RegistrationSecondScreen> {
                         onChanged: (value) => systolic = value,
                         decoration: kTextFieldDecoration.copyWith(
                           hintText: "Enter Systolic Pressure",
+                          errorStyle: TextStyle(
+                            color: Color(0xffffaa00),
+                          ),
                         ),
                         enabled: true,
                         keyboardType: TextInputType.number,
@@ -383,7 +390,7 @@ class RegistrationSecondScreenState extends State<RegistrationSecondScreen> {
                           }
                         } else {
                           createAlertDialog(context, "Error",
-                              "Oops something went wrong!", 404);
+                              "Please provide valid values", 404);
                         }
                       }),
                   SizedBox(

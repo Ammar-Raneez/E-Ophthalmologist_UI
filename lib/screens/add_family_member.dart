@@ -176,8 +176,8 @@ class _AddFamilyMemberScreenState extends State<AddFamilyMemberScreen> {
                       key: _formKey,
                       child: TextFormField(
                         validator: (value) {
-                          if ((double.parse(value) > 200 ||
-                              double.parse(value) < 40)) {
+                          if ((int.parse(value) > 200 ||
+                              int.parse(value) < 40)) {
                             return 'Please enter a value between 40 and 200';
                           }
                           return null;
@@ -189,6 +189,9 @@ class _AddFamilyMemberScreenState extends State<AddFamilyMemberScreen> {
                         onChanged: (value) => diastolic = value,
                         decoration: kTextFieldDecoration.copyWith(
                           hintText: "Enter Diastolic Pressure",
+                          errorStyle: TextStyle(
+                            color: Color(0xffffaa00),
+                          ),
                         ),
                         enabled: true,
                         keyboardType: TextInputType.number,
@@ -204,17 +207,17 @@ class _AddFamilyMemberScreenState extends State<AddFamilyMemberScreen> {
                         validator: (value) {
                           print(value);
                           if ((double.parse(value) > 12 || double.parse(value) < 0)) {
-                            return 'Please enter a value between 0 and 12';
+                            return 'Please enter a value between 0.0 and 12.0';
                           }
                           return null;
                         },
                         controller: _a1cController,
-                        inputFormatters: [
-                          FilteringTextInputFormatter.digitsOnly
-                        ],
                         onChanged: (value) => a1c = value,
                         decoration: kTextFieldDecoration.copyWith(
-                          hintText: "Enter A1C",
+                          hintText: "Enter Diastolic Pressure",
+                          errorStyle: TextStyle(
+                            color: Color(0xffffaa00),
+                          ),
                         ),
                         enabled: true,
                         keyboardType: TextInputType.number,
@@ -228,8 +231,8 @@ class _AddFamilyMemberScreenState extends State<AddFamilyMemberScreen> {
                       key: _formKey2,
                       child: TextFormField(
                         validator: (value) {
-                          if ((double.parse(value) > 200 ||
-                              double.parse(value) < 60)) {
+                          if ((int.parse(value) > 200 ||
+                              int.parse(value) < 60)) {
                             return 'Please enter a value between 60 and 200';
                           }
                           return null;
@@ -240,7 +243,10 @@ class _AddFamilyMemberScreenState extends State<AddFamilyMemberScreen> {
                         ],
                         onChanged: (value) => systolic = value,
                         decoration: kTextFieldDecoration.copyWith(
-                          hintText: "Enter Systolic Pressure",
+                          hintText: "Enter Diastolic Pressure",
+                          errorStyle: TextStyle(
+                            color: Color(0xffffaa00),
+                          ),
                         ),
                         enabled: true,
                         keyboardType: TextInputType.number,
