@@ -169,17 +169,19 @@ class _AddFamilyMemberScreenState extends State<AddFamilyMemberScreen> {
                   kEditProfileInputLabel("BMI"),
                   kTextField(_bmiController, (value) => bmi = value,
                       "Enter BMI", TextInputType.number, true),
-                  kRegistrationInputLabel("Diastolic Pressure"),
+                  kEditProfileInputLabel("Diastolic Pressure"),
                   Padding(
                     padding: const EdgeInsets.all(10.0),
                     child: Form(
                       key: _formKey,
                       child: TextFormField(
                         validator: (value) {
-                          if ((int.parse(value) > 200 ||
-                              int.parse(value) < 40)) {
-                            return 'Please enter a value between 40 and 200';
-                          }
+                          try {
+                            if ((int.parse(value) > 200 ||
+                                int.parse(value) < 40)) {
+                              return 'Please enter a value between 40 and 200';
+                            }
+                          } catch (e) {}
                           return null;
                         },
                         inputFormatters: [
@@ -198,17 +200,19 @@ class _AddFamilyMemberScreenState extends State<AddFamilyMemberScreen> {
                       ),
                     ),
                   ),
-                  kRegistrationInputLabel("A1C"),
+                  kEditProfileInputLabel("A1C"),
                   Padding(
                     padding: const EdgeInsets.all(10.0),
                     child: Form(
                       key: _formKey1,
                       child: TextFormField(
                         validator: (value) {
-                          print(value);
-                          if ((double.parse(value) > 12 || double.parse(value) < 0)) {
-                            return 'Please enter a value between 0.0 and 12.0';
-                          }
+                          try {
+                            if ((double.parse(value) > 12.0 ||
+                                double.parse(value) < 0.0)) {
+                              return 'Please enter a value between 0.0 and 12.0';
+                            }
+                          } catch (e) {}
                           return null;
                         },
                         controller: _a1cController,
@@ -224,17 +228,19 @@ class _AddFamilyMemberScreenState extends State<AddFamilyMemberScreen> {
                       ),
                     ),
                   ),
-                  kRegistrationInputLabel("Systolic Pressure"),
+                  kEditProfileInputLabel("Systolic Pressure"),
                   Padding(
                     padding: const EdgeInsets.all(10.0),
                     child: Form(
                       key: _formKey2,
                       child: TextFormField(
                         validator: (value) {
-                          if ((int.parse(value) > 200 ||
-                              int.parse(value) < 60)) {
-                            return 'Please enter a value between 60 and 200';
-                          }
+                          try {
+                            if ((int.parse(value) > 200 ||
+                                int.parse(value) < 60)) {
+                              return 'Please enter a value between 60 and 200';
+                            }
+                          } catch (e) {}
                           return null;
                         },
                         controller: _systolicController,
@@ -243,7 +249,7 @@ class _AddFamilyMemberScreenState extends State<AddFamilyMemberScreen> {
                         ],
                         onChanged: (value) => systolic = value,
                         decoration: kTextFieldDecoration.copyWith(
-                          hintText: "Enter Diastolic Pressure",
+                          hintText: "Enter Systolic Pressure",
                           errorStyle: TextStyle(
                             color: Color(0xffffaa00),
                           ),
@@ -253,8 +259,6 @@ class _AddFamilyMemberScreenState extends State<AddFamilyMemberScreen> {
                       ),
                     ),
                   ),
-                  kTextField(_systolicController, (value) => systolic = value,
-                      "Enter Systolic Pressure", TextInputType.number, true),
                   kEditProfileInputLabel("Duration of Diabetes"),
                   kTextField(_durationController, (value) => duration = value,
                       "Duration of Diabetes", TextInputType.number, true),
@@ -295,78 +299,88 @@ class _AddFamilyMemberScreenState extends State<AddFamilyMemberScreen> {
                   }),
                   CustomRoundedButton(
                     onPressed: () async {
-                      // Only allow registration if all details are filled
-                      if (username == null ||
-                          bmi == null ||
-                          a1c == null ||
-                          systolic == null ||
-                          diastolic == null ||
-                          duration == null ||
-                          selectedDate == null ||
-                          gender == null ||
-                          dm == null ||
-                          diagnosis == null ||
-                          smoker == null ||
-                          username == "" ||
-                          bmi == "" ||
-                          a1c == "" ||
-                          systolic == "" ||
-                          diastolic == "" ||
-                          duration == "" ||
-                          dm == "" ||
-                          gender == "" ||
-                          diagnosis == "" ||
-                          smoker == "") {
-                        createAlertDialog(context, "Error",
-                            "Please fill all the given fields to proceed", 404);
-                      } else {
-                        setState(() {
-                          showSpinner = true;
-                        });
-
-                        try {
-                          // create the family member, wont have an email, since its shared
-                          _firestore
-                              .collection("users")
-                              .doc(email)
-                              .collection("family")
-                              .doc(memberID)
-                              .set({
-                            "username": username,
-                            "DOB": selectedDate,
-                            "BMI": bmi,
-                            "A1C": a1c,
-                            "systolic": systolic,
-                            "diastolic": diastolic,
-                            "Duration": duration,
-                            "gender": gender.toString(),
-                            "DM Type": dm.toString(),
-                            "Diagnosis": diagnosis.toString(),
-                            "smoker": smoker.toString(),
-                            'timestamp': Timestamp.now(),
-                            "isFamilyMember": true
-                          });
-
-                          createAlertDialog(context, "Success",
-                              "Account Added Successfully!", 200);
-
+                      if (_formKey.currentState.validate() &&
+                          _formKey1.currentState.validate() &&
+                          _formKey2.currentState.validate()) {
+                        // Only allow registration if all details are filled
+                        if (username == null ||
+                            bmi == null ||
+                            a1c == null ||
+                            systolic == null ||
+                            diastolic == null ||
+                            duration == null ||
+                            selectedDate == null ||
+                            gender == null ||
+                            dm == null ||
+                            diagnosis == null ||
+                            smoker == null ||
+                            username == "" ||
+                            bmi == "" ||
+                            a1c == "" ||
+                            systolic == "" ||
+                            diastolic == "" ||
+                            duration == "" ||
+                            dm == "" ||
+                            gender == "" ||
+                            diagnosis == "" ||
+                            smoker == "") {
+                          createAlertDialog(
+                              context,
+                              "Error",
+                              "Please fill all the given fields to proceed",
+                              404);
+                        } else {
                           setState(() {
-                            showSpinner = false;
+                            showSpinner = true;
                           });
 
-                          // clear all fields
-                          _usernameController.clear();
-                          _bmiController.clear();
-                          _diastolicController.clear();
-                          _systolicController.clear();
-                          _durationController.clear();
-                          _a1cController.clear();
-                        } catch (e) {
-                          createAlertDialog(context, "Error", e.message, 404);
-                          setState(() {
-                            showSpinner = false;
-                          });
+                          try {
+                            // create the family member, wont have an email, since its shared
+                            _firestore
+                                .collection("users")
+                                .doc(email)
+                                .collection("family")
+                                .doc(memberID)
+                                .set({
+                              "username": username,
+                              "DOB": selectedDate,
+                              "BMI": bmi,
+                              "A1C": a1c,
+                              "systolic": systolic,
+                              "diastolic": diastolic,
+                              "Duration": duration,
+                              "gender": gender.toString(),
+                              "DM Type": dm.toString(),
+                              "Diagnosis": diagnosis.toString(),
+                              "smoker": smoker.toString(),
+                              'timestamp': Timestamp.now(),
+                              "isFamilyMember": true
+                            });
+
+                            createAlertDialog(context, "Success",
+                                "Account Added Successfully!", 200);
+
+                            setState(() {
+                              showSpinner = false;
+                            });
+
+                            // clear all fields
+                            _usernameController.clear();
+                            _bmiController.clear();
+                            _diastolicController.clear();
+                            _systolicController.clear();
+                            _durationController.clear();
+                            _a1cController.clear();
+                          } catch (e) {
+                            createAlertDialog(context, "Error", e.message, 404);
+                            setState(() {
+                              showSpinner = false;
+                            });
+                          }
                         }
+                      } else {
+                        createAlertDialog(context, "Error",
+                            "Please provide valid values", 404);
                       }
                     },
                     colour: Color(0xff62B47F),

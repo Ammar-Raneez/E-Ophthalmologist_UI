@@ -163,10 +163,12 @@ class RegistrationSecondScreenState extends State<RegistrationSecondScreen> {
                       key: _formKey,
                       child: TextFormField(
                         validator: (value) {
-                          if ((int.parse(value) > 200 ||
-                              int.parse(value) < 40)) {
-                            return 'Please enter a value between 40 and 200';
-                          }
+                          try {
+                            if ((int.parse(value) > 200 ||
+                                int.parse(value) < 40)) {
+                              return 'Please enter a value between 40 and 200';
+                            }
+                          } catch (e) {}
                           return null;
                         },
                         inputFormatters: [
@@ -192,11 +194,12 @@ class RegistrationSecondScreenState extends State<RegistrationSecondScreen> {
                       key: _formKey1,
                       child: TextFormField(
                         validator: (value) {
-                          print(value);
-                          if ((double.parse(value) > 12.0 ||
-                              double.parse(value) < 0.0)) {
-                            return 'Please enter a value between 0.0 and 12.0';
-                          }
+                          try {
+                            if ((double.parse(value) > 12.0 ||
+                                double.parse(value) < 0.0)) {
+                              return 'Please enter a value between 0.0 and 12.0';
+                            }
+                          } catch (e) {}
                           return null;
                         },
                         controller: _a1cController,
@@ -219,10 +222,12 @@ class RegistrationSecondScreenState extends State<RegistrationSecondScreen> {
                       key: _formKey2,
                       child: TextFormField(
                         validator: (value) {
-                          if ((int.parse(value) > 200 ||
-                              int.parse(value) < 60)) {
-                            return 'Please enter a value between 60 and 200';
-                          }
+                          try {
+                            if ((int.parse(value) > 200 ||
+                                int.parse(value) < 60)) {
+                              return 'Please enter a value between 60 and 200';
+                            }
+                          } catch (e) {}
                           return null;
                         },
                         controller: _systolicController,
